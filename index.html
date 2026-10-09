@@ -118,7 +118,7 @@
       <div class="hidden md:flex items-center space-x-4 text-xs font-semibold text-gray-400">
         <div class="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-darkbg-800 border border-gray-800">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span id="gameCountText" class="text-gray-200">25 Games Online</span>
+          <span id="gameCountText" class="text-gray-200">28 Games Online</span>
         </div>
       </div>
 
@@ -534,6 +534,40 @@
         color: 'from-fuchsia-600 to-indigo-950',
         description: 'Curated arcade collection of indie retro titles compiled for browser play.',
         featured: false
+      },
+      {
+        id: 'krunker',
+        title: 'Krunker.io',
+        category: 'FPS',
+        url: 'https://krunker.io/',
+        icon: 'fa-cubes',
+        badge: 'Multiplayer',
+        color: 'from-sky-600 to-slate-900',
+        description: 'Fast-paced free-to-play multiplayer FPS with voxel-style maps. WASD to move, mouse to aim and shoot.',
+        featured: false
+      },
+      {
+        id: 'silent-space-marine',
+        title: 'Silent Space Marine (Doom WASM)',
+        category: 'Classic Shooter',
+        url: 'https://silentspacemarine.com/',
+        icon: 'fa-skull-crossbones',
+        badge: 'Doom',
+        color: 'from-red-700 to-stone-950',
+        description: 'Cloudflare open-source WebAssembly Doom port (shareware episode) with solo and online multiplayer.',
+        featured: false
+      },
+      {
+        id: 'roblox',
+        title: 'Roblox',
+        category: 'Sandbox',
+        url: 'https://www.roblox.com/',
+        icon: 'fa-shapes',
+        badge: 'New Tab',
+        color: 'from-gray-600 to-zinc-900',
+        description: 'Opens Roblox in a new tab — requires the Roblox app (no in-browser player).',
+        featured: false,
+        external: true
       }
     ];
 
@@ -695,7 +729,7 @@
                 onclick="launchGame('${game.id}')"
                 class="flex-1 py-2 px-3 bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-brand-500/20"
               >
-                <i class="fa-solid fa-play text-[10px]"></i> Play Now
+                <i class="fa-solid ${game.external ? 'fa-arrow-up-right-from-square' : 'fa-play'} text-[10px]"></i> ${game.external ? 'Open in New Tab' : 'Play Now'}
               </button>
               <a 
                 href="${game.url}" 
@@ -716,6 +750,12 @@
     function launchGame(gameId) {
       const game = GAMES.find(g => g.id === gameId);
       if (!game) return;
+
+      // External-only games (no browser player / cannot be embedded) open in a new tab
+      if (game.external) {
+        window.open(game.url, '_blank', 'noopener');
+        return;
+      }
 
       const modal = document.getElementById('gameModal');
       const modalTitle = document.getElementById('modalTitle');
