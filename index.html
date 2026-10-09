@@ -227,7 +227,21 @@
         </div>
 
         <!-- The embedded Game Frame -->
-        <iframe id="gameIframe" class="w-full h-full border-0 relative z-20" allow="autoplay; keyboard; fullscreen; microphone; camera; focus-without-user-activation; clipboard-read; clipboard-write;" allowfullscreen></iframe>
+        <iframe id="gameIframe" class="w-full h-full border-0 relative z-20" tabindex="0" allow="autoplay *; fullscreen *; gamepad *; pointer-lock *; keyboard-map *; clipboard-read *; clipboard-write *; microphone *; camera *; accelerometer *; gyroscope *; screen-wake-lock *; web-share *; cross-origin-isolated *; focus-without-user-activation *" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+        <!-- Fallback panel (shown when the host blocks embedding or the game never loads) -->
+        <div id="iframeFallback" class="absolute inset-0 hidden flex-col items-center justify-center bg-darkbg-900 text-center px-6 z-30">
+          <i class="fa-solid fa-shield-halved text-4xl text-brand-400 mb-4"></i>
+          <h3 class="font-orbitron font-bold text-white text-lg mb-2">This game can't run inside GhostGames</h3>
+          <p id="fallbackText" class="text-sm text-gray-400 max-w-md mb-6">The host blocks embedding or took too long to respond. Open it directly in a new tab to play.</p>
+          <div class="flex flex-wrap items-center justify-center gap-3">
+            <a id="fallbackOpenLink" href="#" target="_blank" rel="noopener" class="px-5 py-2.5 rounded-lg bg-brand-500 hover:bg-brand-400 text-white text-sm font-bold transition-all">
+              <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> Open in New Tab
+            </a>
+            <button onclick="hideFallback()" class="px-4 py-2.5 rounded-lg border border-gray-700 text-gray-300 hover:text-white text-sm transition-all">Keep Waiting</button>
+            <button onclick="closeGameModal()" class="px-4 py-2.5 rounded-lg border border-gray-700 text-gray-300 hover:text-red-400 text-sm transition-all">Close</button>
+          </div>
+        </div>
       </div>
 
       <!-- Modal Footer (Game Controls & Direct Info) -->
@@ -342,6 +356,7 @@
         title: 'Skate Rust Engine',
         category: 'Sports',
         url: 'https://global-terror.net',
+        external: true, // host sends X-Frame-Options: DENY
         icon: 'fa-bolt-lightning',
         badge: 'Rust/WASM',
         color: 'from-teal-600 to-emerald-950',
@@ -529,6 +544,7 @@
         title: 'WASM Arcade Fan',
         category: 'Arcade',
         url: 'https://wasmarcade.com/Fan',
+        external: true, // host sends X-Frame-Options: SAMEORIGIN
         icon: 'fa-gamepad',
         badge: 'Hub',
         color: 'from-fuchsia-600 to-indigo-950',
@@ -770,14 +786,40 @@
       modalExternalLink.href = game.url;
       modalDesc.textContent = game.description;
 
-      // Show loader
+      // Reset state from any previous game
+      resetPlayerState();
+      document.getElementById('fallbackOpenLink').href = game.url;
       loader.style.display = 'flex';
 
-      // Load Iframe
-      iframe.src = game.url;
+      const token = ++launchToken;
       iframe.onload = () => {
+        if (token !== launchToken) return;
         loader.style.display = 'none';
+        clearTimeout(loadTimer);
+        // Detect common blank/blocked-frame cases. A cross-origin document that
+        // loaded fine throws on access; a readable about:blank / chrome-error
+        // page usually means the host refused framing.
+        let blocked = false;
+        try {
+          const doc = iframe.contentDocument;
+          const href = iframe.contentWindow.location.href;
+          if (doc && (href === 'about:blank' || href.startsWith('chrome-error') || !doc.body || doc.body.childElementCount === 0)) {
+            blocked = true;
+          }
+        } catch (e) { /* cross-origin => real content loaded */ }
+        if (blocked) {
+          showFallback('The host refused to be embedded (X-Frame-Options / CSP). Open it directly in a new tab to play.');
+          return;
+        }
+        focusIframe();
       };
+      loadTimer = setTimeout(() => {
+        if (token !== launchToken) return;
+        if (loader.style.display !== 'none') {
+          showFallback('The game is taking too long to load. The host may block embedding or be offline. Try opening it in a new tab.');
+        }
+      }, 10000);
+      iframe.src = game.url;
 
       // Show Modal
       modal.classList.remove('hidden');
@@ -789,11 +831,50 @@
       const iframe = document.getElementById('gameIframe');
       
       // Stop iframe process / audio
+      launchToken++;
+      resetPlayerState();
+      iframe.onload = null;
       iframe.src = 'about:blank';
       
       modal.classList.add('hidden');
       document.body.style.overflow = 'auto';
     }
+
+    let launchToken = 0;
+    let loadTimer = null;
+
+    function resetPlayerState() {
+      clearTimeout(loadTimer);
+      loadTimer = null;
+      hideFallback();
+    }
+
+    function showFallback(msg) {
+      const fb = document.getElementById('iframeFallback');
+      if (msg) document.getElementById('fallbackText').textContent = msg;
+      document.getElementById('iframeLoader').style.display = 'none';
+      fb.classList.remove('hidden');
+      fb.classList.add('flex');
+    }
+
+    function hideFallback() {
+      const fb = document.getElementById('iframeFallback');
+      fb.classList.add('hidden');
+      fb.classList.remove('flex');
+    }
+
+    function focusIframe() {
+      const iframe = document.getElementById('gameIframe');
+      try { iframe.focus(); iframe.contentWindow && iframe.contentWindow.focus(); } catch (e) {}
+    }
+
+    // Clicking into the game area re-focuses the frame so keyboard input works
+    document.addEventListener('DOMContentLoaded', () => {
+      const iframe = document.getElementById('gameIframe');
+      if (iframe) iframe.addEventListener('mouseenter', () => {
+        if (!document.getElementById('gameModal').classList.contains('hidden')) focusIframe();
+      });
+    });
 
     function toggleIframeFullscreen() {
       const iframe = document.getElementById('gameIframe');
