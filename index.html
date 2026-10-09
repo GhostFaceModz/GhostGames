@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GhostGames - Browser & WebAssembly Portal</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f3ff',
+              100: '#e0e7ff',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              900: '#312e81',
+              accent: '#00f2fe',
+              neon: '#a855f7'
+            },
+            darkbg: {
+              900: '#0a0d14',
+              800: '#121723',
+              700: '#1a202c',
+              600: '#2d3748'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0a0d14;
+      color: #f3f4f6;
+    }
+    .font-orbitron {
+      font-family: 'Orbitron', sans-serif;
+    }
+    .glow-effect {
+      box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.4);
+    }
+    .glow-effect-hover:hover {
+      box-shadow: 0 0 30px 2px rgba(168, 85, 247, 0.5);
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0a0d14;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2d3748;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #4f46e5;
+    }
+    .game-card-gradient {
+      background: linear-gradient(180deg, rgba(26, 32, 44, 0.6) 0%, rgba(18, 23, 35, 0.95) 100%);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
+
+  <!-- Header / Navigation -->
+  <header class="sticky top-0 z-40 backdrop-blur-md bg-darkbg-900/80 border-b border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="resetFilters()">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 via-brand-neon to-brand-accent p-[2px] flex items-center justify-center shadow-lg">
+          <div class="w-full h-full bg-darkbg-900 rounded-[10px] flex items-center justify-center">
+            <i class="fa-solid font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-brand-neon text-xl fa-ghost"></i>
+          </div>
+        </div>
+        <div>
+          <span class="font-orbitron text-2xl font-black tracking-wider text-white">GHOST<span class="text-brand-500">GAMES</span></span>
+          <span class="hidden sm:inline-block text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded bg-brand-500/20 text-brand-400 border border-brand-500/30 ml-2">WASM Portal</span>
+        </div>
+      </div>
+
+      <!-- Live Search Bar -->
+      <div class="flex-1 max-w-md relative">
+        <div class="relative">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+          <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="Search games, FPS, Zombies, Sports..." 
+            class="w-full bg-darkbg-800 text-sm text-gray-200 pl-10 pr-10 py-2.5 rounded-xl border border-gray-700/60 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all placeholder-gray-500"
+            oninput="handleSearch()"
+          >
+          <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Quick Stats / Link -->
+      <div class="hidden md:flex items-center space-x-4 text-xs font-semibold text-gray-400">
+        <div class="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-darkbg-800 border border-gray-800">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span id="gameCountText" class="text-gray-200">25 Games Online</span>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8">
+
+    <!-- Hero Announcement Banner -->
+    <section class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-brand-900/60 via-darkbg-800 to-purple-950/40 border border-brand-500/20 p-6 md:p-8">
+      <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="relative z-10 max-w-2xl">
+        <span class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-accent tracking-wider uppercase bg-brand-accent/10 px-3 py-1 rounded-full border border-brand-accent/20 mb-3">
+          <i class="fa-solid fa-bolt text-xs"></i> Zero Install Required
+        </span>
+        <h1 class="font-orbitron text-2xl md:text-4xl font-extrabold text-white tracking-wide mb-2">
+          Play AAA & Classic WebAssembly Games Right in Your Browser
+        </h1>
+        <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-4">
+          Curated collection from Radiant Optimizer's catalog featuring Call of Duty Zombies, Skate 3, GTA Vice City, Half-Life, Quake classics, Halo, and more.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <button onclick="filterCategory('Zombies')" class="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white font-medium text-xs rounded-xl shadow-lg transition-all flex items-center gap-2">
+            <i class="fa-solid fa-biohazard"></i> COD Zombies Hub
+          </button>
+          <button onclick="filterCategory('FPS')" class="px-4 py-2 bg-darkbg-700 hover:bg-gray-700 text-gray-200 font-medium text-xs rounded-xl border border-gray-600 transition-all flex items-center gap-2">
+            <i class="fa-solid fa-crosshair"></i> Classic FPS
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Category Filter Bar -->
+    <section class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-gray-800/80 pb-4">
+      <!-- Filter Tabs -->
+      <div id="categoryTabs" class="flex items-center gap-2 overflow-x-auto w-full pb-2 sm:pb-0 scrollbar-none">
+        <!-- Dynamic Category Buttons populated by JS -->
+      </div>
+
+      <!-- Quick Sorting / Controls -->
+      <div class="flex items-center space-x-2 text-xs font-medium shrink-0">
+        <label class="text-gray-400">Sort by:</label>
+        <select id="sortSelect" onchange="renderGames()" class="bg-darkbg-800 text-gray-300 border border-gray-700 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-brand-500">
+          <option value="featured">Featured First</option>
+          <option value="name">Name (A-Z)</option>
+          <option value="category">Category</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Games Grid -->
+    <section id="gamesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <!-- Game Cards dynamically injected here -->
+    </section>
+
+    <!-- No Results Placeholder -->
+    <div id="noResults" class="hidden py-16 text-center flex flex-col items-center justify-center text-gray-400">
+      <div class="w-16 h-16 rounded-full bg-darkbg-800 flex items-center justify-center text-2xl mb-4 border border-gray-700">
+        <i class="fa-solid fa-ghost text-brand-400"></i>
+      </div>
+      <h3 class="text-lg font-bold text-gray-200 mb-1">No Games Found</h3>
+      <p class="text-xs text-gray-500 max-w-sm mb-4">We couldn't find any games matching your current search or filter criteria.</p>
+      <button onclick="resetFilters()" class="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold rounded-xl transition-all">
+        Reset All Filters
+      </button>
+    </div>
+
+  </main>
+
+  <!-- Game Modal Launcher -->
+  <div id="gameModal" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-md flex flex-col items-center justify-center p-2 sm:p-4">
+    <div class="w-full h-full max-w-7xl bg-darkbg-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col shadow-2xl">
+      
+      <!-- Modal Header -->
+      <div class="h-14 px-4 bg-darkbg-800 border-b border-gray-800 flex items-center justify-between shrink-0">
+        <div class="flex items-center space-x-3 overflow-hidden">
+          <span id="modalCategoryBadge" class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-brand-500/20 text-brand-400 border border-brand-500/30 shrink-0">
+            FPS
+          </span>
+          <h2 id="modalTitle" class="font-orbitron font-bold text-white text-base sm:text-lg truncate">Game Title</h2>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <!-- Fullscreen Toggle Button -->
+          <button onclick="toggleIframeFullscreen()" class="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-darkbg-700 transition-all" title="Toggle Fullscreen">
+            <i class="fa-solid fa-expand"></i>
+          </button>
+          <!-- Open in New Tab Button -->
+          <a id="modalExternalLink" href="#" target="_blank" class="p-2 text-gray-400 hover:text-brand-400 rounded-lg hover:bg-darkbg-700 transition-all" title="Open directly in new tab">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+          <!-- Close Modal -->
+          <button onclick="closeGameModal()" class="p-2 text-gray-400 hover:text-red-400 rounded-lg hover:bg-darkbg-700 transition-all text-lg" title="Close Game">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Body (Iframe Container) -->
+      <div class="relative flex-1 bg-black w-full h-full flex items-center justify-center overflow-hidden">
+        <!-- Loader Spinner -->
+        <div id="iframeLoader" class="absolute inset-0 flex flex-col items-center justify-center bg-darkbg-900 text-gray-400 z-10">
+          <div class="w-12 h-12 border-4 border-brand-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+          <p id="loaderText" class="text-sm font-medium tracking-wide">Booting WASM Environment...</p>
+          <span class="text-xs text-gray-500 mt-2">Large WebAssembly assets may take a few seconds to load</span>
+        </div>
+
+        <!-- The embedded Game Frame -->
+        <iframe id="gameIframe" class="w-full h-full border-0 relative z-20" allow="autoplay; keyboard; fullscreen; microphone; camera; focus-without-user-activation; clipboard-read; clipboard-write;" allowfullscreen></iframe>
+      </div>
+
+      <!-- Modal Footer (Game Controls & Direct Info) -->
+      <div id="modalFooter" class="px-4 py-2.5 bg-darkbg-800 border-t border-gray-800 text-xs text-gray-400 flex flex-wrap items-center justify-between gap-2 shrink-0">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-circle-info text-brand-400"></i>
+          <span id="modalDesc">Standard WASM Game Controls: WASD to Move, Mouse to Look, Click to Lock Cursor.</span>
+        </div>
+        <div class="flex items-center space-x-3 text-gray-500">
+          <span>Click canvas to enable audio/controls</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="border-t border-gray-800/80 bg-darkbg-900/50 py-6 mt-12">
+    <div class="max-w-7xl mx-auto px-4 text-center text-xs text-gray-500 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-2">
+        <i class="fa-solid fa-ghost text-brand-500"></i>
+        <span class="font-bold text-gray-400">GhostGames Engine</span>
+        <span>— Radiant Optimizer WebAssembly Index</span>
+      </div>
+      <p>All game trademarks belong to their respective original publishers and developers.</p>
+    </div>
+  </footer>
+
+  <script>
+    /* ==========================================================================
+       GAMES DATABASE DEFINITION
+       ========================================================================== */
+    const GAMES = [
+      {
+        id: 'bo1-zombies',
+        title: 'BO1 Zombies Hub',
+        category: 'Zombies',
+        url: 'https://vel.gg/bo1z',
+        icon: 'fa-biohazard',
+        badge: 'Popular',
+        color: 'from-red-600 to-red-900',
+        description: 'Black Ops 1 Zombies ported to browser. WASD to move, LMB to shoot, R to reload.',
+        featured: true
+      },
+      {
+        id: 'moon-zombies',
+        title: 'Call of Duty: Moon',
+        category: 'Zombies',
+        url: 'https://moon-zombies.pages.dev',
+        icon: 'fa-moon',
+        badge: 'Classic',
+        color: 'from-indigo-600 to-slate-900',
+        description: 'CoD Zombies Moon map WASM build. Defend the lunar base against endless hordes.',
+        featured: true
+      },
+      {
+        id: 'kino-der-toten',
+        title: 'Kino der Toten',
+        category: 'Zombies',
+        url: 'https://kino-der-toten.pages.dev',
+        icon: 'fa-film',
+        badge: 'Must Play',
+        color: 'from-amber-700 to-stone-900',
+        description: 'Experience the iconic theater of the dead in pure WebAssembly browser format.',
+        featured: true
+      },
+      {
+        id: 'bo3-cheese-cube',
+        title: 'BO3 Cheese Cube Unlimited',
+        category: 'Zombies',
+        url: 'https://cheese-cube.pages.dev',
+        icon: 'fa-cube',
+        badge: 'Mod',
+        color: 'from-yellow-600 to-amber-900',
+        description: 'Fan favorite custom zombies map Cheese Cube Unlimited running directly in browser.',
+        featured: false
+      },
+      {
+        id: 'black-ops-2',
+        title: 'Black Ops 2 Web',
+        category: 'FPS',
+        url: 'https://vibeslops.luckeysystems.com',
+        icon: 'fa-crosshair',
+        badge: 'Hot',
+        color: 'from-orange-600 to-neutral-900',
+        description: 'Black Ops 2 web assembly test client featuring FPS multiplayer gameplay mechanics.',
+        featured: true
+      },
+      {
+        id: 'modern-warfare-2',
+        title: 'Modern Warfare 2 Web',
+        category: 'FPS',
+        url: 'https://ovz-game-production.up.railway.app',
+        icon: 'fa-person-military-rifle',
+        badge: 'WASM',
+        color: 'from-emerald-700 to-gray-900',
+        description: 'Modern Warfare 2 browser web engine build. Tactical shooter action.',
+        featured: true
+      },
+      {
+        id: 'skate-3',
+        title: 'Skate 3 Browser',
+        category: 'Sports',
+        url: 'https://skate.aaddpp.lol',
+        icon: 'fa-person-skating',
+        badge: '3D',
+        color: 'from-blue-600 to-cyan-950',
+        description: 'Skateboarding simulator in browser. Pull off flips, grinds and tricks.',
+        featured: true
+      },
+      {
+        id: 'skate-rust',
+        title: 'Skate Rust Engine',
+        category: 'Sports',
+        url: 'https://global-terror.net',
+        icon: 'fa-bolt-lightning',
+        badge: 'Rust/WASM',
+        color: 'from-teal-600 to-emerald-950',
+        description: 'High performance physics-based skating engine compiled with Rust & WebAssembly.',
+        featured: false
+      },
+      {
+        id: 'cs-surf',
+        title: 'CS Surf Browser',
+        category: 'Skill',
+        url: 'https://surfd.net',
+        icon: 'fa-water',
+        badge: 'Multiplayer',
+        color: 'from-cyan-600 to-blue-950',
+        description: 'Counter-Strike surfing mechanics ported to web. Glide through ramps with precise movement.',
+        featured: true
+      },
+      {
+        id: 'halo-ce',
+        title: 'Halo: Combat Evolved',
+        category: 'FPS',
+        url: 'https://mitchellhynes.com/halo',
+        icon: 'fa-ring',
+        badge: 'Retro',
+        color: 'from-green-600 to-emerald-950',
+        description: 'Master Chief returns on web! Halo CE engine port running in browser.',
+        featured: true
+      },
+      {
+        id: 'halo-ce-mobile',
+        title: 'Halo CE Web Mobile',
+        category: 'FPS',
+        url: 'https://hcemobile.com',
+        icon: 'fa-mobile-screen',
+        badge: 'Mobile',
+        color: 'from-emerald-600 to-teal-950',
+        description: 'Halo Combat Evolved optimized for touch controls and mobile browser playback.',
+        featured: false
+      },
+      {
+        id: 'pes-6',
+        title: 'Pro Evolution Soccer 6',
+        category: 'Sports',
+        url: 'https://pes6.optijuegos.net',
+        icon: 'fa-football',
+        badge: 'Classic',
+        color: 'from-blue-700 to-indigo-950',
+        description: 'Legendary PES 6 soccer game. Play matches with WASD/Arrows and key bindings.',
+        featured: false
+      },
+      {
+        id: 'gta-5',
+        title: 'GTA 5 Web Concept',
+        category: 'Open World',
+        url: 'https://playgta5.com',
+        icon: 'fa-car',
+        badge: 'Concept',
+        color: 'from-violet-600 to-purple-950',
+        description: 'Grand Theft Auto V web project archive and sandbox client.',
+        featured: false
+      },
+      {
+        id: 'gta-vice-city',
+        title: 'GTA: Vice City WASM',
+        category: 'Open World',
+        url: 'https://joncodeofficial.github.io/gta-vice-city-wasm',
+        icon: 'fa-sun',
+        badge: 're3 Engine',
+        color: 'from-pink-600 to-rose-950',
+        description: 'Full GTA Vice City reverse engineered engine compiled into WebAssembly.',
+        featured: true
+      },
+      {
+        id: 'simpsons-hit-and-run',
+        title: 'The Simpsons: Hit & Run',
+        category: 'Open World',
+        url: 'https://shar-wasm.cjoseph.workers.dev/?skipmovie',
+        icon: 'fa-car-side',
+        badge: 'Fan Favorite',
+        color: 'from-yellow-500 to-amber-800',
+        description: 'Explore Springfield in this full WASM port of The Simpsons Hit & Run.',
+        featured: true
+      },
+      {
+        id: 'quake-1',
+        title: 'Quake 1 WASM',
+        category: 'Classic Shooter',
+        url: 'https://q1.pieter.com',
+        icon: 'fa-skull',
+        badge: '1996',
+        color: 'from-stone-700 to-neutral-900',
+        description: 'id Software iconic Quake 1 running seamlessly in browser via WebGL/WASM.',
+        featured: false
+      },
+      {
+        id: 'quake-2',
+        title: 'Quake II WASM',
+        category: 'Classic Shooter',
+        url: 'https://q2.pieter.com',
+        icon: 'fa-robot',
+        badge: '1997',
+        color: 'from-amber-800 to-stone-950',
+        description: 'Battle the Strogg in Quake II, rendered directly inside HTML5 canvas.',
+        featured: false
+      },
+      {
+        id: 'quake-3',
+        title: 'Quake III Arena',
+        category: 'Classic Shooter',
+        url: 'https://q3.pieter.com',
+        icon: 'fa-fire',
+        badge: 'Arena',
+        color: 'from-red-700 to-zinc-900',
+        description: 'Fast-paced multiplayer arena combat. Fast movement and rocket jumps.',
+        featured: true
+      },
+      {
+        id: 'rtcw',
+        title: 'Return to Castle Wolfenstein',
+        category: 'Classic Shooter',
+        url: 'https://rtcw.pieter.com',
+        icon: 'fa-shield-halved',
+        badge: 'WW2',
+        color: 'from-neutral-700 to-stone-900',
+        description: 'RTCW WebAssembly port. Infiltrate secret occult sites in World War II.',
+        featured: false
+      },
+      {
+        id: 'unreal-tournament',
+        title: 'Unreal Tournament',
+        category: 'Classic Shooter',
+        url: 'https://ut.pieter.com',
+        icon: 'fa-trophy',
+        badge: 'UT99',
+        color: 'from-blue-600 to-slate-900',
+        description: 'Unreal Tournament 99 web port. Facing Worlds, Redeemer, and intense fragging.',
+        featured: false
+      },
+      {
+        id: 'half-life',
+        title: 'Half-Life (GoldSrc)',
+        category: 'FPS',
+        url: 'https://pixelsuft.github.io/hl/',
+        icon: 'fa-radiation',
+        badge: 'GoldSrc',
+        color: 'from-amber-600 to-orange-950',
+        description: 'Gordon Freeman Black Mesa incident in full web-executable GoldSrc engine.',
+        featured: true
+      },
+      {
+        id: 'web-xash-cs',
+        title: 'CS 1.6 / Xash3D',
+        category: 'FPS',
+        url: 'https://x8bitrain.github.io/webXash/',
+        icon: 'fa-gun',
+        badge: 'CS 1.6',
+        color: 'from-emerald-600 to-gray-900',
+        description: 'Play Counter-Strike 1.6 and Half-Life mods using the WebXash Engine.',
+        featured: true
+      },
+      {
+        id: 'diablo-1',
+        title: 'Diablo I Web',
+        category: 'RPG',
+        url: 'https://johnimril.github.io/diablo_web/',
+        icon: 'fa-dungeon',
+        badge: 'RPG',
+        color: 'from-red-900 to-black',
+        description: 'Descend into the labyrinth beneath Tristram in Diablo 1 web port.',
+        featured: true
+      },
+      {
+        id: 'hedgewars',
+        title: 'Hedgewars (WASM)',
+        category: 'Strategy',
+        url: 'https://webwars.link',
+        icon: 'fa-bomb',
+        badge: 'Turn-Based',
+        color: 'from-pink-600 to-purple-950',
+        description: 'Turn-based artillery strategy game similar to Worms. Crazy weapons and fun action.',
+        featured: false
+      },
+      {
+        id: 'wasm-arcade',
+        title: 'WASM Arcade Fan',
+        category: 'Arcade',
+        url: 'https://wasmarcade.com/Fan',
+        icon: 'fa-gamepad',
+        badge: 'Hub',
+        color: 'from-fuchsia-600 to-indigo-950',
+        description: 'Curated arcade collection of indie retro titles compiled for browser play.',
+        featured: false
+      }
+    ];
+
+    /* ==========================================================================
+       STATE & UI MANAGEMENT
+       ========================================================================== */
+    let currentCategory = 'All';
+    let searchQuery = '';
+
+    // Extract unique categories
+    const categories = ['All', ...new Set(GAMES.map(g => g.category))];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCategoryTabs();
+      renderGames();
+    });
+
+    // Render filter tabs
+    function renderCategoryTabs() {
+      const tabsContainer = document.getElementById('categoryTabs');
+      tabsContainer.innerHTML = categories.map(cat => `
+        <button 
+          onclick="filterCategory('${cat}')"
+          class="px-3.5 py-1.5 text-xs font-semibold rounded-xl whitespace-nowrap transition-all flex items-center gap-1.5 ${
+            currentCategory === cat 
+              ? 'bg-brand-600 text-white shadow-lg shadow-brand-600/30 ring-1 ring-brand-400' 
+              : 'bg-darkbg-800 text-gray-400 hover:text-gray-200 hover:bg-darkbg-700 border border-gray-800'
+          }"
+        >
+          ${getCategoryIcon(cat)}
+          ${cat}
+        </button>
+      `).join('');
+    }
+
+    function getCategoryIcon(cat) {
+      switch(cat) {
+        case 'Zombies': return '<i class="fa-solid fa-biohazard text-red-400"></i>';
+        case 'FPS': return '<i class="fa-solid fa-crosshair text-brand-400"></i>';
+        case 'Sports': return '<i class="fa-solid fa-trophy text-blue-400"></i>';
+        case 'Open World': return '<i class="fa-solid fa-earth-americas text-emerald-400"></i>';
+        case 'Classic Shooter': return '<i class="fa-solid fa-skull text-amber-400"></i>';
+        case 'RPG': return '<i class="fa-solid fa-hat-wizard text-purple-400"></i>';
+        case 'Skill': return '<i class="fa-solid fa-person-running text-cyan-400"></i>';
+        default: return '<i class="fa-solid fa-border-all"></i>';
+      }
+    }
+
+    function filterCategory(cat) {
+      currentCategory = cat;
+      renderCategoryTabs();
+      renderGames();
+    }
+
+    function handleSearch() {
+      const input = document.getElementById('searchInput');
+      searchQuery = input.value.trim().toLowerCase();
+      
+      const clearBtn = document.getElementById('clearSearchBtn');
+      if (searchQuery.length > 0) {
+        clearBtn.classList.remove('hidden');
+      } else {
+        clearBtn.classList.add('hidden');
+      }
+
+      renderGames();
+    }
+
+    function clearSearch() {
+      document.getElementById('searchInput').value = '';
+      searchQuery = '';
+      document.getElementById('clearSearchBtn').classList.add('hidden');
+      renderGames();
+    }
+
+    function resetFilters() {
+      currentCategory = 'All';
+      clearSearch();
+      renderCategoryTabs();
+      renderGames();
+    }
+
+    function renderGames() {
+      const grid = document.getElementById('gamesGrid');
+      const noResults = document.getElementById('noResults');
+      const sortValue = document.getElementById('sortSelect').value;
+
+      // Filter games
+      let filtered = GAMES.filter(game => {
+        const matchesCategory = currentCategory === 'All' || game.category === currentCategory;
+        const matchesSearch = game.title.toLowerCase().includes(searchQuery) || 
+                              game.description.toLowerCase().includes(searchQuery) ||
+                              game.category.toLowerCase().includes(searchQuery);
+        return matchesCategory && matchesSearch;
+      });
+
+      // Sort games
+      filtered.sort((a, b) => {
+        if (sortValue === 'name') {
+          return a.title.localeCompare(b.title);
+        } else if (sortValue === 'category') {
+          return a.category.localeCompare(b.category);
+        } else {
+          // Featured sort default
+          return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
+        }
+      });
+
+      // Update counter text
+      document.getElementById('gameCountText').textContent = `${filtered.length} Game${filtered.length === 1 ? '' : 's'} Ready`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        noResults.classList.remove('hidden');
+        return;
+      }
+
+      noResults.classList.add('hidden');
+
+      grid.innerHTML = filtered.map(game => `
+        <div class="group relative rounded-2xl border border-gray-800 bg-darkbg-800 hover:border-brand-500/50 transition-all duration-300 overflow-hidden flex flex-col justify-between glow-effect-hover">
+          
+          <!-- Card Header Decorative Banner -->
+          <div class="h-28 w-full bg-gradient-to-br ${game.color} p-4 flex flex-col justify-between relative overflow-hidden">
+            <div class="absolute -right-4 -bottom-4 opacity-20 text-6xl text-white pointer-events-none transform -rotate-12 group-hover:scale-110 transition-transform">
+              <i class="fa-solid ${game.icon}"></i>
+            </div>
+            
+            <div class="flex justify-between items-center z-10">
+              <span class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-black/40 text-white backdrop-blur-sm border border-white/10">
+                ${game.category}
+              </span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-brand-500 text-white shadow">
+                ${game.badge}
+              </span>
+            </div>
+
+            <div class="z-10 flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-black/40 backdrop-blur-md flex items-center justify-center text-white text-sm border border-white/10">
+                <i class="fa-solid ${game.icon}"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Content -->
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="font-orbitron font-bold text-gray-100 text-base mb-1.5 group-hover:text-brand-400 transition-colors">
+                ${game.title}
+              </h3>
+              <p class="text-xs text-gray-400 leading-relaxed mb-4 line-clamp-2">
+                ${game.description}
+              </p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="pt-3 border-t border-gray-700/50 flex items-center gap-2">
+              <button 
+                onclick="launchGame('${game.id}')"
+                class="flex-1 py-2 px-3 bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-brand-500/20"
+              >
+                <i class="fa-solid fa-play text-[10px]"></i> Play Now
+              </button>
+              <a 
+                href="${game.url}" 
+                target="_blank" 
+                rel="noopener"
+                title="Open in new tab directly"
+                class="p-2 bg-darkbg-700 hover:bg-gray-700 text-gray-300 hover:text-white rounded-xl text-xs border border-gray-600 transition-all"
+              >
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      `).join('');
+    }
+
+    function launchGame(gameId) {
+      const game = GAMES.find(g => g.id === gameId);
+      if (!game) return;
+
+      const modal = document.getElementById('gameModal');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalCategoryBadge = document.getElementById('modalCategoryBadge');
+      const modalExternalLink = document.getElementById('modalExternalLink');
+      const modalDesc = document.getElementById('modalDesc');
+      const iframe = document.getElementById('gameIframe');
+      const loader = document.getElementById('iframeLoader');
+
+      // Populate Modal Fields
+      modalTitle.textContent = game.title;
+      modalCategoryBadge.textContent = game.category;
+      modalExternalLink.href = game.url;
+      modalDesc.textContent = game.description;
+
+      // Show loader
+      loader.style.display = 'flex';
+
+      // Load Iframe
+      iframe.src = game.url;
+      iframe.onload = () => {
+        loader.style.display = 'none';
+      };
+
+      // Show Modal
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeGameModal() {
+      const modal = document.getElementById('gameModal');
+      const iframe = document.getElementById('gameIframe');
+      
+      // Stop iframe process / audio
+      iframe.src = 'about:blank';
+      
+      modal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+
+    function toggleIframeFullscreen() {
+      const iframe = document.getElementById('gameIframe');
+      if (!document.fullscreenElement) {
+        if (iframe.requestFullscreen) {
+          iframe.requestFullscreen();
+        } else if (iframe.webkitRequestFullscreen) {
+          iframe.webkitRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    // Close Modal on Escape key press
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const modal = document.getElementById('gameModal');
+        if (!modal.classList.contains('hidden')) {
+          closeGameModal();
+        }
+      }
+    });
+  </script>
+</body>
+</html>
