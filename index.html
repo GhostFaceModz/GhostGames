@@ -193,7 +193,7 @@
     <div class="w-full h-full max-w-7xl bg-darkbg-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col shadow-2xl">
       
       <!-- Modal Header -->
-      <div class="h-14 px-4 bg-darkbg-800 border-b border-gray-800 flex items-center justify-between shrink-0">
+      <div class="relative z-50 h-14 px-4 bg-darkbg-800 border-b border-gray-800 flex items-center justify-between shrink-0">
         <div class="flex items-center space-x-3 overflow-hidden">
           <span id="modalCategoryBadge" class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-brand-500/20 text-brand-400 border border-brand-500/30 shrink-0">
             FPS
@@ -218,7 +218,7 @@
       </div>
 
       <!-- Modal Body (Iframe Container) -->
-      <div class="relative flex-1 bg-black w-full h-full flex items-center justify-center overflow-hidden">
+      <div class="relative z-0 isolate flex-1 min-h-0 bg-black w-full flex items-center justify-center overflow-hidden">
         <!-- Loader Spinner -->
         <div id="iframeLoader" class="absolute inset-0 flex flex-col items-center justify-center bg-darkbg-900 text-gray-400 z-10">
           <div class="w-12 h-12 border-4 border-brand-500 border-t-transparent rounded-full animate-spin mb-4"></div>
@@ -227,7 +227,12 @@
         </div>
 
         <!-- The embedded Game Frame -->
-        <iframe id="gameIframe" class="w-full h-full border-0 relative z-20" tabindex="0" allow="autoplay *; fullscreen *; gamepad *; pointer-lock *; keyboard-map *; clipboard-read *; clipboard-write *; microphone *; camera *; accelerometer *; gyroscope *; screen-wake-lock *; web-share *; cross-origin-isolated *; focus-without-user-activation *" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe id="gameIframe" class="absolute inset-0 w-full h-full border-0 z-20" tabindex="0" allow="autoplay *; fullscreen *; gamepad *; pointer-lock *; keyboard-map *; clipboard-read *; clipboard-write *; microphone *; camera *; accelerometer *; gyroscope *; screen-wake-lock *; web-share *; cross-origin-isolated *; focus-without-user-activation *" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+        <!-- Always-clickable close control (Escape can't reach us once the iframe has focus) -->
+        <button onclick="closeGameModal()" class="absolute top-2 right-2 z-40 w-9 h-9 flex items-center justify-center rounded-full bg-black/70 border border-gray-700 text-gray-200 hover:text-red-400 hover:bg-black/90 transition-all" title="Close Game (click here if Esc doesn't work)">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
 
         <!-- Fallback panel (shown when the host blocks embedding or the game never loads) -->
         <div id="iframeFallback" class="absolute inset-0 hidden flex-col items-center justify-center bg-darkbg-900 text-center px-6 z-30">
@@ -323,6 +328,7 @@
         title: 'Black Ops 2 Web',
         category: 'FPS',
         url: 'https://vibeslops.luckeysystems.com',
+        external: true, // host currently drops connections (offline); open directly
         icon: 'fa-crosshair',
         badge: 'Hot',
         color: 'from-orange-600 to-neutral-900',
@@ -578,10 +584,11 @@
         title: 'Tweetcraft',
         category: 'Open World',
         url: 'https://tweetcraft.jai.vin/r/ti9bwes4ryguhkra',
+        external: true, // CSP frame-ancestors allows only self + x.com/twitter.com
         icon: 'fa-cube',
-        badge: 'Multiplayer',
+        badge: 'Opens in New Tab',
         color: 'from-emerald-600 to-stone-900',
-        description: 'Minecraft-style voxel world you can join in the browser. Everyone who opens the link plays in the same shared server.',
+        description: 'Minecraft-style voxel world you can join in the browser. Everyone who opens the link plays in the same shared server. Opens in a new tab: the host only allows embedding on X/Twitter.',
         featured: true
       },
     ];
@@ -816,9 +823,9 @@
       loadTimer = setTimeout(() => {
         if (token !== launchToken) return;
         if (loader.style.display !== 'none') {
-          showFallback('The game is taking too long to load. The host may block embedding or be offline. Try opening it in a new tab.');
+          showFallback('Still nothing? If you see "refused to connect" or a blank frame, the host blocks embedding or is offline. Open it in a new tab to play (or press Keep Waiting for big WASM games).');
         }
-      }, 10000);
+      }, 8000);
       iframe.src = game.url;
 
       // Show Modal
