@@ -2,7 +2,9 @@
 
 GhostGames is a single-page website where you can play classic and WebAssembly game ports right in your browser – no downloads, no install. Pick a game, hit **Play Now**, and it opens in a built-in player window (or in a new tab if you prefer). The collection includes CoD Zombies maps, Half-Life, Quake, Halo, GTA Vice City, Skate 3, Diablo and more.
 
-## ▶️ [Play now: ghostfacemodz.github.io/GhostGames](https://ghostfacemodz.github.io/GhostGames/)
+## ▶️ [Play the new GhostGames library](https://ghostfacezen-portfolio.onrender.com/ghostgames/)
+
+## ▶️ [Classic version: ghostfacemodz.github.io/GhostGames](https://ghostfacemodz.github.io/GhostGames/)
 
 **Just click the link above.** It works on any modern browser and you don't need an account.
 
