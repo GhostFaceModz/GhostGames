@@ -49,7 +49,6 @@ Play classic and WebAssembly game ports right in your browser. There are no down
 | Game | About | Status |
 |---|---|---|
 | [Skate 3 Browser](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=skate-3) | Flip, grind and bail your way through a fan-made Skate 3. | 🟢 Online |
-| [Skate Rust Engine](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=skate-rust) | Physics-driven skating engine built with Rust and WebAssembly. | 🔴 Down |
 | [Pro Evolution Soccer 6](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=pes-6) | The legendary PES 6 football, recompiled to play in-browser. | 🟢 Online |
 
 ### Skill
