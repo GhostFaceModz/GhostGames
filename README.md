@@ -1,96 +1,97 @@
-# 👻 GhostGames – Browser & WebAssembly Portal
+# 👻 GhostGames: Browser Games Library
 
-GhostGames is a single-page website where you can play classic and WebAssembly game ports right in your browser – no downloads, no install. Pick a game, hit **Play Now**, and it opens in a built-in player window (or in a new tab if you prefer). The collection includes CoD Zombies maps, Half-Life, Quake, Halo, GTA Vice City, Skate 3, Diablo and more.
+Play classic and WebAssembly game ports right in your browser. There are no downloads, no installs and no account. Pick a game from the spinning 3D library, hit **Play**, and it opens in the built-in player.
 
-## ▶️ [Play the new GhostGames library](https://ghostfacezen-portfolio.onrender.com/ghostgames/)
+## ▶️ [Play now: GhostGames Library](https://ghostfacezen-portfolio.onrender.com/ghostgames/)
 
-## ▶️ [Classic version: ghostfacemodz.github.io/GhostGames](https://ghostfacemodz.github.io/GhostGames/)
-
-**Just click the link above.** It works on any modern browser and you don't need an account.
-
----
-
-## 🎮 Games on the site (25)
-
-### 🧟 Zombies
-| Game | Description |
-|---|---|
-| BO1 Zombies Hub | Black Ops 1 Zombies ported to browser. WASD to move, LMB to shoot, R to reload. |
-| Call of Duty: Moon | CoD Zombies Moon map WASM build. Defend the lunar base against endless hordes. |
-| Kino der Toten | Experience the iconic theater of the dead in pure WebAssembly browser format. |
-| BO3 Cheese Cube Unlimited | Fan favorite custom zombies map Cheese Cube Unlimited running directly in browser. |
-
-### 🎯 FPS
-| Game | Description |
-|---|---|
-| Black Ops 2 Web | Black Ops 2 web assembly test client featuring FPS multiplayer gameplay mechanics. |
-| Modern Warfare 2 Web | Modern Warfare 2 browser web engine build. Tactical shooter action. |
-| Halo: Combat Evolved | Master Chief returns on web! Halo CE engine port running in browser. |
-| Halo CE Web Mobile | Halo Combat Evolved optimized for touch controls and mobile browser playback. |
-| Half-Life (GoldSrc) | Gordon Freeman Black Mesa incident in full web-executable GoldSrc engine. |
-| CS 1.6 / Xash3D | Play Counter-Strike 1.6 and Half-Life mods using the WebXash Engine. |
-
-### 💀 Classic Shooter
-| Game | Description |
-|---|---|
-| Quake 1 WASM | id Software iconic Quake 1 running seamlessly in browser via WebGL/WASM. |
-| Quake II WASM | Battle the Strogg in Quake II, rendered directly inside HTML5 canvas. |
-| Quake III Arena | Fast-paced multiplayer arena combat. Fast movement and rocket jumps. |
-| Return to Castle Wolfenstein | RTCW WebAssembly port. Infiltrate secret occult sites in World War II. |
-| Unreal Tournament | Unreal Tournament 99 web port. Facing Worlds, Redeemer, and intense fragging. |
-
-### 🏆 Sports
-| Game | Description |
-|---|---|
-| Skate 3 Browser | Skateboarding simulator in browser. Pull off flips, grinds and tricks. |
-| Skate Rust Engine | High performance physics-based skating engine compiled with Rust & WebAssembly. |
-| Pro Evolution Soccer 6 | Legendary PES 6 soccer game. Play matches with WASD/Arrows and key bindings. |
-
-### 🌎 Open World
-| Game | Description |
-|---|---|
-| GTA 5 Web Concept | Grand Theft Auto V web project archive and sandbox client. |
-| GTA: Vice City WASM | Full GTA Vice City reverse engineered engine compiled into WebAssembly. |
-| The Simpsons: Hit & Run | Explore Springfield in this full WASM port of The Simpsons Hit & Run. |
-
-### 🏃 Skill
-| Game | Description |
-|---|---|
-| CS Surf Browser | Counter-Strike surfing mechanics ported to web. Glide through ramps with precise movement. |
-
-### 🧙 RPG
-| Game | Description |
-|---|---|
-| Diablo I Web | Descend into the labyrinth beneath Tristram in Diablo 1 web port. |
-
-### 💣 Strategy
-| Game | Description |
-|---|---|
-| Hedgewars (WASM) | Turn-based artillery strategy game similar to Worms. Crazy weapons and fun action. |
-
-### 🕹️ Arcade
-| Game | Description |
-|---|---|
-| WASM Arcade Fan | Curated arcade collection of indie retro titles compiled for browser play. |
-
-> The games themselves are hosted by third-party websites and loaded into the portal. GhostGames doesn't host any game files, so if one of those sites is down or doesn't allow embedding, use the **open in new tab** button on that game's card.
+[![GhostGames home](screenshots/home.png)](https://ghostfacezen-portfolio.onrender.com/ghostgames/)
 
 ## ✨ Features
+- **3D spinning game library** with an original cover for every game
+- **In-page player** with fullscreen, open in a new tab, and a fallback for games that block embedding
+- **Browse all games** with category tabs, search, sorting (Featured, A–Z, Newest, Category) and tag filters (Multiplayer, Mobile friendly, Retro and more)
+- **Continue playing and favourites**, saved on your device
+- **A page for every game** with controls, tips, tags and similar games
+- **Live status dots**: online, opens in a new tab, or offline
+- **Hover previews** on desktop
+- **Community**: a [Discord](https://discord.gg/zenclipsdaily-arc-raiders-store-bloodstrike-1408818003591827539) button and a Suggest-a-game form
+- Works on desktop, tablet and phone
 
-- **Live search**: type to filter by game name, description or category.
-- **Category tabs**: All, Zombies, FPS, Sports, Skill, Open World, Classic Shooter, RPG, Strategy, Arcade.
-- **Sorting**: Featured first, Name (A–Z), or Category.
-- **Built-in game player**: games open in a full-size window with a **fullscreen** button, an **open in new tab** button, and a close button (or press **Esc**).
-- **Dark, responsive design** that works on desktop and mobile screens.
-- **One file**: the whole site is a single `index.html`, styled with Tailwind CSS, Font Awesome and Google Fonts loaded from CDNs.
+## 📸 Screenshots
+| Library | Game page |
+|---|---|
+| ![All games](screenshots/library.png) | ![Game page](screenshots/game-page.png) |
 
-## 💻 Run it locally
+<img src="screenshots/mobile.png" alt="GhostGames on mobile" width="300">
 
-1. Download or clone this repo.
-2. Open `index.html` in your web browser.
+## 🎮 Games (25 playable)
 
-That's it. There's no build step and nothing to install (you do need an internet connection, since the games and styles load from the web).
+### Zombies
+| Game | About | Status |
+|---|---|---|
+| [BO1 Zombies Hub](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=bo1-zombies) | Every Black Ops 1 Zombies map, ported straight to your browser. | 🟢 Plays on site |
+| [Call of Duty: Moon](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=moon-zombies) | Hold the lunar base against endless hordes in low gravity. | 🟢 Plays on site |
+| [Kino der Toten](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=kino-der-toten) | Survive the iconic theater of the dead, solo or with friends. | 🟢 Plays on site |
+| [BO3 Cheese Cube Unlimited](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=bo3-cheese-cube) | The cult-favorite custom Zombies map, running right in your tab. | 🟢 Plays on site |
 
-## ⚖️ Disclaimer
+### FPS
+| Game | About | Status |
+|---|---|---|
+| [Black Ops 2 Web](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=black-ops-2) | Black Ops 2 style multiplayer rebuilt for the browser. | ⚪ Offline |
+| [Modern Warfare 2 Web](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=modern-warfare-2) | Classic MW2 multiplayer with matchmaking, bots and killstreaks. | 🟠 Opens in new tab |
+| [Halo: Combat Evolved](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=halo-ce) | Master Chief returns: the original Halo campaign in your browser. | 🟢 Plays on site |
+| [Halo CE Web Mobile](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=halo-ce-mobile) | Halo: Combat Evolved tuned for touch controls on your phone. | 🟢 Plays on site |
+| [Half-Life (GoldSrc)](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=half-life) | Relive the Black Mesa incident on a web-built GoldSrc engine. | 🟢 Plays on site |
+| [CS 1.6 / Xash3D](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=web-xash-cs) | Counter-Strike 1.6 and Half-Life mods, running on WebXash. | 🟢 Plays on site |
+| [Krunker.io](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=krunker) | Fast voxel multiplayer FPS: jump in, aim, and frag instantly. | 🟢 Plays on site |
 
-All game trademarks belong to their respective original publishers and developers.
+### Sports
+| Game | About | Status |
+|---|---|---|
+| [Skate 3 Browser](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=skate-3) | Flip, grind and bail your way through a fan-made Skate 3. | 🟢 Plays on site |
+| [Skate Rust Engine](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=skate-rust) | Physics-driven skating engine built with Rust and WebAssembly. | ⚪ Offline |
+| [Pro Evolution Soccer 6](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=pes-6) | The legendary PES 6 football, recompiled to play in-browser. | 🟢 Plays on site |
+
+### Skill
+| Game | About | Status |
+|---|---|---|
+| [CS Surf Browser](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=cs-surf) | Glide down impossible ramps with pure Counter-Strike surf movement. | 🟢 Plays on site |
+
+### Open World
+| Game | About | Status |
+|---|---|---|
+| [GTA 5 Web Concept](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=gta-5) | An archived Grand Theft Auto V web sandbox concept. | ⚪ Offline |
+| [GTA: Vice City WASM](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=gta-vice-city) | Cruise neon Vice City in a full reverse-engineered WASM port. | 🟢 Plays on site |
+| [The Simpsons: Hit & Run](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=simpsons-hit-and-run) | Drive, smash and explore Springfield in the full classic game. | 🟢 Plays on site |
+| [Tweetcraft](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=tweetcraft) | A shared Minecraft-style voxel world anyone can join and build in. | 🟠 Opens in new tab |
+
+### Classic Shooter
+| Game | About | Status |
+|---|---|---|
+| [Quake 1 WASM](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=quake-1) | id Software's 1996 shooter, fast and brutal in your browser. | 🟢 Plays on site |
+| [Quake II WASM](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=quake-2) | Battle the Strogg online in real Quake II multiplayer. | 🟢 Plays on site |
+| [Quake III Arena](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=quake-3) | Rocket jumps and railguns: pure arena frag fest, no install. | 🟢 Plays on site |
+| [Return to Castle Wolfenstein](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=rtcw) | Storm occult Nazi strongholds in classic WW2 team multiplayer. | 🟢 Plays on site |
+| [Unreal Tournament](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=unreal-tournament) | Facing Worlds, the Redeemer and UT99 frags with online multiplayer. | 🟠 Opens in new tab |
+| [Silent Space Marine (Doom WASM)](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=silent-space-marine) | Cloudflare's WebAssembly Doom port with solo and online play. | 🟢 Plays on site |
+
+### RPG
+| Game | About | Status |
+|---|---|---|
+| [Diablo I Web](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=diablo-1) | Descend the cursed labyrinth beneath Tristram in original Diablo. | 🟢 Plays on site |
+
+### Strategy
+| Game | About | Status |
+|---|---|---|
+| [Hedgewars (WASM)](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=hedgewars) | Worms-style artillery chaos with hedgehogs and absurd weapons. | 🟢 Plays on site |
+
+### Arcade
+| Game | About | Status |
+|---|---|---|
+| [WASM Arcade](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=wasm-arcade) | A huge hub of PC and arcade classics compiled for browsers. | 🟠 Opens in new tab |
+
+## 💬 Community
+Join the [Discord](https://discord.gg/zenclipsdaily-arc-raiders-store-bloodstrike-1408818003591827539), or use **Suggest a game** on the site to request new titles.
+
+---
+All game trademarks belong to their respective owners. GhostGames links to and embeds fan-made browser ports hosted by third parties.
