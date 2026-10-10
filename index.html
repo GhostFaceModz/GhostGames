@@ -333,7 +333,8 @@
         badge: 'Hot',
         color: 'from-orange-600 to-neutral-900',
         description: 'Black Ops 2 web assembly test client featuring FPS multiplayer gameplay mechanics.',
-        featured: true
+        featured: true,
+        status: 'offline' // host unreachable (connection dropped, Oct 2026)
       },
       {
         id: 'modern-warfare-2',
@@ -344,7 +345,8 @@
         badge: 'WASM',
         color: 'from-emerald-700 to-gray-900',
         description: 'Modern Warfare 2 browser web engine build. Tactical shooter action.',
-        featured: true
+        featured: true,
+        external: true // host shows a traffic check page; open directly
       },
       {
         id: 'skate-3',
@@ -367,7 +369,8 @@
         badge: 'Rust/WASM',
         color: 'from-teal-600 to-emerald-950',
         description: 'High performance physics-based skating engine compiled with Rust & WebAssembly.',
-        featured: false
+        featured: false,
+        status: 'offline' // global-terror.net is an unrelated merch/video site, not the game
       },
       {
         id: 'cs-surf',
@@ -384,7 +387,7 @@
         id: 'halo-ce',
         title: 'Halo: Combat Evolved',
         category: 'FPS',
-        url: 'https://mitchellhynes.com/halo',
+        url: 'https://mitchellhynes.com/halo/',
         icon: 'fa-ring',
         badge: 'Retro',
         color: 'from-green-600 to-emerald-950',
@@ -422,7 +425,8 @@
         badge: 'Concept',
         color: 'from-violet-600 to-purple-950',
         description: 'Grand Theft Auto V web project archive and sandbox client.',
-        featured: false
+        featured: false,
+        status: 'offline' // playgta5.com is down (Cloudflare 522)
       },
       {
         id: 'gta-vice-city',
@@ -494,12 +498,13 @@
         id: 'unreal-tournament',
         title: 'Unreal Tournament',
         category: 'Classic Shooter',
-        url: 'https://ut.pieter.com',
+        url: 'https://dos.zone/mp/?lobby=ut',
         icon: 'fa-trophy',
         badge: 'UT99',
         color: 'from-blue-600 to-slate-900',
-        description: 'Unreal Tournament 99 web port. Facing Worlds, Redeemer, and intense fragging.',
-        featured: false
+        description: 'Unreal Tournament 99 web build with online multiplayer via DOS.Zone. Facing Worlds, Redeemer, and intense fragging.',
+        featured: false,
+        external: true // dos.zone only allows embedding on its own domains
       },
       {
         id: 'half-life',
@@ -538,7 +543,7 @@
         id: 'hedgewars',
         title: 'Hedgewars (WASM)',
         category: 'Strategy',
-        url: 'https://webwars.link',
+        url: 'https://webwars.link/',
         icon: 'fa-bomb',
         badge: 'Turn-Based',
         color: 'from-pink-600 to-purple-950',
@@ -547,9 +552,9 @@
       },
       {
         id: 'wasm-arcade',
-        title: 'WASM Arcade Fan',
+        title: 'WASM Arcade',
         category: 'Arcade',
-        url: 'https://wasmarcade.com/Fan',
+        url: 'https://wasmarcade.com/',
         external: true, // host sends X-Frame-Options: SAMEORIGIN
         icon: 'fa-gamepad',
         badge: 'Hub',
@@ -747,7 +752,7 @@
 
             <!-- Action Buttons -->
             <div class="pt-3 border-t border-gray-700/50 flex items-center gap-2">
-              <button 
+              ${game.status === 'offline' ? `<button disabled aria-disabled="true" class="flex-1 py-2 px-3 bg-darkbg-700 text-gray-400 text-xs font-bold rounded-xl flex items-center justify-center gap-2 cursor-not-allowed"><i class="fa-solid fa-power-off text-[10px]"></i> Offline</button>` : `<button 
                 onclick="launchGame('${game.id}')"
                 class="flex-1 py-2 px-3 bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-brand-500/20"
               >
@@ -761,7 +766,7 @@
                 class="p-2 bg-darkbg-700 hover:bg-gray-700 text-gray-300 hover:text-white rounded-xl text-xs border border-gray-600 transition-all"
               >
                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
-              </a>
+              </a>`}
             </div>
           </div>
 
@@ -771,7 +776,7 @@
 
     function launchGame(gameId) {
       const game = GAMES.find(g => g.id === gameId);
-      if (!game) return;
+      if (!game || game.status === 'offline') return;
 
       // External-only games (no browser player / cannot be embedded) open in a new tab
       if (game.external) {
