@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>All games — GhostGames</title>
+<meta name="description" content="Every GhostGames browser game in one place. Filter by category, search, and play instantly.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gg-site.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+<meta name="description" content="Browse every game in the GhostGames library. Search, filter by category and play instantly in your browser.">
+<meta property="og:type" content="website"><meta property="og:site_name" content="GhostGames">
+<meta property="og:title" content="All Games | GhostGames"><meta property="og:description" content="Browse every game in the GhostGames library. Search, filter by category and play instantly in your browser.">
+<meta property="og:url" content="https://ghostfacemodz.github.io/GhostGames/new/games/"><meta property="og:image" content="https://ghostfacemodz.github.io/GhostGames/new/og-image.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://ghostfacemodz.github.io/GhostGames/new/og-image.png">
+<meta name="theme-color" content="#7c3aed">
+</head>
+<body>
+<a class="skip" href="#grid">Skip to games</a>
+<div class="bg"></div><div class="stars" id="stA"></div><div class="stars" id="stB"></div>
+<div class="wrap">
+  <div class="topcover" aria-hidden="true"></div>
+  <nav class="nav" id="nav" aria-label="Main">
+    <a class="logo" href="../" aria-label="GhostGames home">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="sw" x1="8" y1="8" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#8ef4ff"/><stop offset=".5" stop-color="#35d8ff"/><stop offset="1" stop-color="#0a86d8"/></linearGradient><linearGradient id="sw2" x1="40" y1="10" x2="10" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#a6f7ff"/><stop offset="1" stop-color="#0f9ae0" stop-opacity=".25"/></linearGradient></defs><g transform="rotate(-32 24 24)"><ellipse cx="24" cy="24" rx="19.5" ry="9.6" fill="none" stroke="url(#sw2)" stroke-width="3.1" stroke-linecap="round" stroke-dasharray="58 30" stroke-dashoffset="14"/><circle cx="42.4" cy="20.6" r="3.1" fill="#bff6ff"/></g><path d="M24 14.2c-5.4 0-8.6 4-8.6 9v10.6l2.9-2.2 2.85 2.2 2.85-2.2 2.85 2.2 2.85-2.2 2.9 2.2V23.2c0-5-3.2-9-8.6-9Z" fill="url(#sw)"/><circle cx="21" cy="23" r="1.7" fill="#04202c"/><circle cx="27" cy="23" r="1.7" fill="#04202c"/></svg>
+      <span class="wm"><span class="kick">GHOST</span><span class="name">GAMES</span></span>
+    </a>
+    <div class="navmenu" id="navmenu">
+      <div class="links" id="links"></div>
+      <a class="btn" href="#grid" id="navPlay"><span>Play now</span></a>
+    </div>
+    <button type="button" class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="navmenu"><span></span><span></span><span></span></button>
+  </nav>
+
+  <header class="head">
+    <a class="back" href="../"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to GhostGames</a><br>
+    <span class="badge"><i><svg viewBox="5 1 14 22" preserveAspectRatio="none" aria-hidden="true"><path d="M13.9 1.6 5.5 13.6a.7.7 0 0 0 .6 1.1h4.2l-1 7.7a.7.7 0 0 0 1.25.55l8.3-12.1a.7.7 0 0 0-.6-1.1h-4.2l1-7.7a.7.7 0 0 0-1.25-.55Z" fill="rgba(16,112,152,.72)" stroke="rgba(190,236,255,.6)" stroke-width="1.6" stroke-linejoin="round"/></svg></i><span id="badgeTxt">Full library</span></span>
+    <h1>All games</h1>
+    <p class="lead"><b>Every game in one place.</b> Filter by category, search by name, and play right here in your browser.</p>
+  </header>
+
+  <section class="sec" id="contSec" hidden aria-labelledby="contH">
+    <div class="sech"><h2 id="contH"><i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>Continue playing</h2><button type="button" id="contClear">Clear history</button></div>
+    <div class="cont" id="cont"></div>
+  </section>
+
+  <div class="tools">
+    <div class="row1">
+      <label class="search"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search games</span><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><input type="search" id="q" placeholder="Search games…" autocomplete="off"></label>
+      <div class="row2">
+        <label class="sort">Sort <select id="sort"><option value="featured">Featured</option><option value="az">A–Z</option><option value="new">Newest added</option><option value="cat">Category</option></select></label>
+        <label class="sort">Device <select id="device"><option value="all">All devices</option><option value="mobile">Mobile</option><option value="pc">PC</option></select></label>
+        <div class="count" id="count" aria-live="polite"></div>
+      </div>
+    </div>
+    <div class="tabs" id="tabs" role="tablist" aria-label="Categories"></div>
+    <div class="chips" id="chips" role="group" aria-label="Tags"></div>
+  </div>
+
+  <main id="grid" class="grid" tabindex="-1" aria-label="Games"></main>
+  <div class="empty" id="empty"><p>No games match these filters.</p><button type="button" class="btn" id="reset"><span>Show all games</span></button></div>
+
+  <div class="footcta"><div><b>Missing a game?</b><p>Tell us about a browser port and we'll look at adding it.</p></div><button type="button" class="btn" data-suggest><span>Suggest a game</span></button></div>
+  <p class="foot"><a href="../">← Back to GhostGames</a> · <a href="https://github.com/GhostFaceModz/GhostGames" target="_blank" rel="noopener">Source on GitHub</a> · <a href="https://discord.gg/zenclipsdaily-arc-raiders-store-bloodstrike-1408818003591827539" target="_blank" rel="noopener">Discord</a></p>
+</div>
+
+<a class="wa" href="https://github.com/GhostFaceModz/GhostGames" target="_blank" rel="noopener" aria-label="GhostGames on GitHub"><svg viewBox="0 0 16 16" fill="#fff" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.290 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.130-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.070-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.420-3.58-8-8-8Z"/></svg></a>
+
+<script src="../gg-data.js"></script>
+<script src="../gg-common.js"></script>
+<script>
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id)},GAMES=GG.GAMES,BY=GG.BY,esc=GG.esc;
+GG.stars($('stA'),$('stB'));
+var LABEL={'Classic Shooter':'Classics'},TAGS=['Multiplayer','Single player','Mobile friendly','Zombies','Retro','3D'];
+var CATS=['All'];GAMES.forEach(function(g){if(CATS.indexOf(g.category)<0)CATS.push(g.category)});
+var st={cat:'All',q:'',sort:'featured',tags:[],fav:false,device:'all'};
+function hasTag(g,t){return t==='Zombies'?(g.category==='Zombies'||g.tags.indexOf('Zombies')>=0):g.tags.indexOf(t)>=0}
+
+$('links').innerHTML=CATS.map(function(c,i){return '<a href="'+(c==='All'?'./':'?cat='+encodeURIComponent(c))+'" data-cat="'+esc(c)+'"'+(i>4?' class="xc"':'')+'>'+esc(LABEL[c]||c)+'</a>'}).join('')+'<button type="button" class="suggest" data-suggest><i class="fa-regular fa-lightbulb" aria-hidden="true"></i>Suggest a game</button><a class="suggest" href="../retro/"><i class="fa-solid fa-gamepad" aria-hidden="true"></i>Load your own ROM</a>';
+$('tabs').innerHTML='<button type="button" class="tab fav" id="favTab" aria-pressed="false" hidden><i class="fa-solid fa-heart" aria-hidden="true"></i>Favourites<em id="favN"></em></button>'+CATS.map(function(c){var n=c==='All'?GAMES.length:GAMES.filter(function(g){return g.category===c}).length;return '<button type="button" class="tab" role="tab" data-cat="'+esc(c)+'" aria-selected="false">'+esc(LABEL[c]||c)+'<em>'+n+'</em></button>'}).join('');
+$('chips').innerHTML=TAGS.map(function(t){return '<button type="button" class="tchip" data-tag="'+t+'" aria-pressed="false">'+t+'</button>'}).join('');
+
+function readURL(){var p=new URLSearchParams(location.search);st.device=['mobile','pc'].indexOf(p.get('device'))>=0?p.get('device'):'all';if($('device'))$('device').value=st.device;st.cat=CATS.indexOf(p.get('cat'))>=0?p.get('cat'):'All';st.q=p.get('q')||'';st.sort=['featured','az','new','cat'].indexOf(p.get('sort'))>=0?p.get('sort'):'featured';st.tags=(p.get('tags')||'').split(',').filter(function(t){return TAGS.indexOf(t)>=0});st.fav=p.get('fav')==='1';$('q').value=st.q;$('sort').value=st.sort}
+function writeURL(push){var p=new URLSearchParams();if(st.cat!=='All')p.set('cat',st.cat);if(st.q)p.set('q',st.q);if(st.sort!=='featured')p.set('sort',st.sort);if(st.tags.length)p.set('tags',st.tags.join(','));if(st.fav)p.set('fav','1');if(st.device!=='all')p.set('device',st.device);var u=location.pathname+(p.toString()?'?'+p.toString():'');history[push?'pushState':'replaceState'](null,'',u)}
+
+function render(){
+ var q=st.q.trim().toLowerCase(),F=GG.favs();
+ if(st.fav&&!F.length)st.fav=false;
+ var l=GAMES.filter(function(g){return (st.device==='all'||(g.devices||['pc']).indexOf(st.device)>=0)&&(st.cat==='All'||g.category===st.cat)&&(!st.fav||F.indexOf(g.id)>=0)&&st.tags.every(function(t){return hasTag(g,t)})&&(!q||(g.title+' '+g.category+' '+g.description+' '+g.tags.join(' ')).toLowerCase().indexOf(q)>=0)});
+ var S={featured:function(a,b){return (b.featured?1:0)-(a.featured?1:0)||a.order-b.order},az:function(a,b){return a.title.localeCompare(b.title)},new:function(a,b){return b.order-a.order},cat:function(a,b){return a.category.localeCompare(b.category)||a.title.localeCompare(b.title)}}[st.sort];
+ l.sort(function(a,b){return (a.off?1:0)-(b.off?1:0)||S(a,b)});
+ $('grid').innerHTML=l.map(GG.card).join('');GG.applyStatus($('grid'));
+ $('empty').classList.toggle('show',!l.length);
+ var off=l.filter(function(g){return g.off}).length;
+ $('count').innerHTML='<b>'+l.length+'</b> '+(l.length===1?'game':'games')+(st.cat!=='All'?' in '+esc(LABEL[st.cat]||st.cat):'')+(off?' · '+off+' down':'');
+ [].forEach.call(document.querySelectorAll('.tab[data-cat]'),function(t){t.setAttribute('aria-selected',t.getAttribute('data-cat')===st.cat?'true':'false')});
+ [].forEach.call(document.querySelectorAll('.tchip'),function(t){t.setAttribute('aria-pressed',st.tags.indexOf(t.getAttribute('data-tag'))>=0?'true':'false')});
+ [].forEach.call($('links').querySelectorAll('a[data-cat]'),function(a){var on=a.getAttribute('data-cat')===st.cat;a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+ $('favTab').hidden=!F.length;$('favTab').setAttribute('aria-pressed',st.fav?'true':'false');$('favN').textContent=F.length;
+ $('badgeTxt').textContent=st.fav?'Your favourites':st.cat==='All'?'Full library':(LABEL[st.cat]||st.cat)+' games';
+}
+function renderCont(){
+ var r=GG.recent().slice(0,6);$('contSec').hidden=!r.length;
+ $('cont').innerHTML=r.map(function(x){var g=BY[x.id];var ago=Math.round((Date.now()-x.t)/60000),t=ago<1?'just now':ago<60?ago+' min ago':ago<1440?Math.round(ago/60)+' h ago':Math.round(ago/1440)+' d ago';
+  return '<button type="button" class="mini" data-id="'+g.id+'" style="--c1:'+g.c1+';--c2:'+g.c2+'" aria-label="Continue '+esc(g.title)+'"><img src="'+g.cover+'" alt="" loading="lazy" onerror="this.className=\'mph\';this.removeAttribute(\'src\')"><span style="margin:0;color:inherit;min-width:0"><b>'+esc(g.title)+'</b><span>'+esc(g.category)+' · '+t+'</span></span><span class="mp"><i class="fa-solid '+(g.external?'fa-arrow-up-right-from-square':'fa-play')+'" aria-hidden="true"></i></span></button>'}).join('');
+}
+function update(push){render();writeURL(push)}
+$('tabs').addEventListener('click',function(e){var t=e.target.closest('.tab');if(!t)return;if(t.id==='favTab')st.fav=!st.fav;else st.cat=t.getAttribute('data-cat');update(true)});
+$('tabs').addEventListener('keydown',function(e){if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;var ts=[].slice.call($('tabs').querySelectorAll('.tab:not([hidden])')),i=ts.indexOf(document.activeElement);if(i<0)return;e.preventDefault();ts[(i+(e.key==='ArrowRight'?1:ts.length-1))%ts.length].focus()});
+$('chips').addEventListener('click',function(e){var t=e.target.closest('.tchip');if(!t)return;var g=t.getAttribute('data-tag'),i=st.tags.indexOf(g);if(i>=0)st.tags.splice(i,1);else st.tags.push(g);update(true)});
+$('sort').addEventListener('change',function(){st.sort=this.value;update(true)});
+$('device').addEventListener('change',function(){st.device=this.value;update(true)});
+$('links').addEventListener('click',function(e){var a=e.target.closest('a[data-cat]');if(!a)return;e.preventDefault();closeMenu();st.cat=a.getAttribute('data-cat');update(true)});
+window.addEventListener('popstate',function(){readURL();render()});
+var qT;$('q').addEventListener('input',function(){st.q=this.value;render();clearTimeout(qT);qT=setTimeout(function(){writeURL(false)},300)});
+$('reset').addEventListener('click',function(){st={cat:'All',q:'',sort:'featured',tags:[],fav:false,device:'all'};$('q').value='';$('sort').value='featured';$('device').value='all';update(true)});
+GG.bindCards($('grid'));
+$('cont').addEventListener('click',function(e){var b=e.target.closest('.mini');if(b)GG.openGame(b.getAttribute('data-id'))});
+$('contClear').addEventListener('click',function(){try{localStorage.removeItem('gg:recent')}catch(x){}renderCont()});
+document.addEventListener('gg:recent',renderCont);document.addEventListener('gg:fav',function(){render()});
+$('navPlay').addEventListener('click',function(e){var l=GAMES.filter(function(g){return !g.off&&!g.external&&(st.cat==='All'||g.category===st.cat)});if(!l.length)l=GAMES.filter(function(g){return !g.off&&!g.external});if(!l.length)return;e.preventDefault();closeMenu();GG.openGame(l[Math.floor(Math.random()*l.length)])});
+var closeMenu=GG.burger($('nav'),$('burger'));
+function onScroll(){document.body.classList.toggle('scrolled',scrollY>40)}window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+readURL();render();renderCont();
+})();
+</script>
+</body>
+</html>

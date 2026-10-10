@@ -4,6 +4,8 @@ Play classic and WebAssembly game ports right in your browser. There are no down
 
 ## ▶️ [Play now: GhostGames Library](https://ghostfacezen-portfolio.onrender.com/ghostgames/)
 
+Alternate (GitHub Pages): **[ghostfacemodz.github.io/GhostGames/new/](https://ghostfacemodz.github.io/GhostGames/new/)** · Classic version: [ghostfacemodz.github.io/GhostGames/](https://ghostfacemodz.github.io/GhostGames/)
+
 [![GhostGames home](screenshots/home.png)](https://ghostfacezen-portfolio.onrender.com/ghostgames/)
 
 ## ✨ Features

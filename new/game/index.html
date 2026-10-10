@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Game — GhostGames</title>
+<meta name="description" id="mDesc" content="Play this browser game instantly on GhostGames. No installs.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="GhostGames">
+<meta property="og:title" id="ogT" content="GhostGames">
+<meta property="og:description" id="ogD" content="Free browser games library.">
+<meta property="og:image" id="ogI" content="https://ghostfacemodz.github.io/GhostGames/new/covers/bo1-zombies.webp">
+<meta property="og:url" id="ogU" content="https://ghostfacemodz.github.io/GhostGames/new/game/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gg-site.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+<style>
+.crumb{display:flex;align-items:center;gap:8px;font-size:13px;color:#7e8796;padding:34px 0 22px;flex-wrap:wrap}
+.crumb a{color:#a9aeb5;border-radius:8px;padding:2px 4px}.crumb a:hover{color:#fff}
+.dh{display:grid;grid-template-columns:minmax(260px,380px) 1fr;gap:48px;align-items:start}
+.dcover{position:relative;aspect-ratio:3/4.2;border-radius:22px;overflow:hidden;background:linear-gradient(160deg,var(--c1),var(--c2));box-shadow:0 30px 70px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.12);cursor:pointer;border:0;padding:0;width:100%;color:#fff;font:inherit;display:block}
+.dcover.off{cursor:not-allowed;filter:grayscale(.85) brightness(.6)}
+.dcover .fi{position:absolute;left:50%;top:45%;transform:translate(-50%,-50%);font-size:110px;color:rgba(255,255,255,.16)}
+.dcover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.dcover .vig{position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 38%,rgba(0,0,0,0) 50%,rgba(0,0,0,.5) 100%),linear-gradient(180deg,rgba(0,0,0,0) 60%,rgba(0,0,0,.55))}
+.dcover .scan,.dcover .shine,.dcover .ctp{position:absolute;pointer-events:none;opacity:0;transition:opacity .3s}
+.dcover .scan{inset:0;background:repeating-linear-gradient(180deg,rgba(255,255,255,.05) 0 1px,transparent 1px 3px);mix-blend-mode:overlay}
+.dcover .shine{top:-20%;bottom:-20%;left:-60%;width:45%;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(170,240,255,.22),rgba(255,255,255,0));transform:skewX(-14deg)}
+.dcover .ctp{left:50%;top:50%;transform:translate(-50%,-50%) scale(.94);display:inline-flex;align-items:center;gap:9px;padding:11px 18px;border-radius:22px;background:rgba(4,6,12,.62);border:1px solid rgba(95,227,255,.45);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font-size:13px;font-weight:600;letter-spacing:.06em;box-shadow:0 0 18px rgba(60,190,235,.3)}
+.dcover .edge{position:absolute;inset:0;border-radius:22px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.15),inset 0 16px 30px rgba(255,255,255,.05);pointer-events:none}
+.dcover:focus-visible{outline:2px solid rgba(120,225,255,.85);outline-offset:4px}
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+.dcover:not(.off):hover img{animation:kb 7s ease-in-out infinite alternate}
+.dcover:not(.off):hover .scan{opacity:1;animation:scan 1.2s linear infinite}
+.dcover:not(.off):hover .shine{opacity:1;animation:shine 1.6s ease-in-out infinite}
+.dcover:not(.off):hover .ctp{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.dcover:not(.off):hover .eq b{animation:eq .9s ease-in-out infinite}}
+.dinfo .kick{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.dinfo .pill{display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#7fdcf2}
+.dinfo .pill.w{color:#0c0f16;background:rgba(255,255,255,.92);border-color:transparent;letter-spacing:.08em}
+.dinfo h1{margin-top:16px;text-align:left;font-size:clamp(34px,5vw,58px)}
+.dinfo .ggst{font-size:12px;padding:5px 12px 5px 10px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)}
+.dinfo .desc{margin-top:16px;color:#c3c8d0;font-size:15.5px;line-height:1.7;max-width:620px}
+.acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;align-items:center}
+.acts .btn{white-space:nowrap;height:52px;padding:0 28px;border-radius:14px;font-size:16px;font-weight:500}
+.acts .btn[disabled]{filter:grayscale(1) brightness(.7);cursor:not-allowed;transform:none}
+.acts .mb,.acts .ggfav{height:52px;border-radius:14px}.acts .ggfav{width:52px;font-size:18px}.acts .mb{padding:0 18px;font-size:14px}
+.plays{margin-top:14px;font-size:12px;color:#7e8796}.plays b{color:#dfe5ee;font-weight:600}
+.dtags{display:flex;gap:6px;flex-wrap:wrap;margin-top:20px}
+.dtags a{height:30px;display:inline-flex;align-items:center;padding:0 12px;border-radius:16px;border:1px dashed rgba(255,255,255,.18);color:rgba(255,255,255,.82);font-size:12px;font-weight:500}.dtags a:hover{border-style:solid;border-color:rgba(95,227,255,.6);color:#fff}
+.panels{display:grid;grid-template-columns:1.1fr 1fr;gap:22px;margin-top:52px}
+.panel{padding:24px;border-radius:22px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01))}
+.panel h2{font-size:15px;font-weight:700;margin-bottom:14px}.panel h2 i{color:#5fe3ff;margin-right:8px}
+.ctl{display:grid;grid-template-columns:auto 1fr;gap:10px 16px;align-items:center;font-size:13.5px;color:#c3c8d0}
+kbd{display:inline-block;padding:5px 10px;border-radius:9px;border:1px solid rgba(255,255,255,.16);border-bottom-width:2px;background:rgba(255,255,255,.05);font:600 12px Poppins,sans-serif;color:#fff;white-space:nowrap}
+.tips{list-style:none;display:grid;gap:12px}.tips li{position:relative;padding-left:24px;font-size:13.5px;line-height:1.6;color:#c3c8d0}.tips li::before{content:"\f0eb";font-family:"Font Awesome 6 Free";font-weight:900;position:absolute;left:0;top:1px;color:#5fe3ff;font-size:12px}
+.simh{display:flex;align-items:baseline;justify-content:space-between;margin:56px 0 16px}.simh h2{font-size:20px;font-weight:800;text-transform:uppercase}.simh a{font-size:13px;color:#a9aeb5}.simh a:hover{color:#fff}
+.nf{text-align:center;padding:80px 0}.nf h1{text-align:center}.nf p{color:#a9aeb5;margin:12px 0 24px}.nf .btn{display:inline-grid;height:48px;padding:0 24px;border-radius:13px}
+@media (max-width:900px){.dh{grid-template-columns:1fr;gap:28px}.dcover{max-width:340px;margin:0 auto}.panels{grid-template-columns:1fr}}
+@media (max-width:700px){.crumb{padding:24px 0 16px}.dinfo h1{font-size:34px}.dcover{max-width:none;aspect-ratio:4/3.4}.acts .btn{flex:1 1 100%}.acts .mb{flex:1}.panel{padding:18px}.simh{margin-top:40px}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="bg"></div><div class="stars" id="stA"></div><div class="stars" id="stB"></div>
+<div class="wrap">
+  <div class="topcover" aria-hidden="true"></div>
+  <nav class="nav" id="nav" aria-label="Main">
+    <a class="logo" href="../" aria-label="GhostGames home">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="sw" x1="8" y1="8" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#8ef4ff"/><stop offset=".5" stop-color="#35d8ff"/><stop offset="1" stop-color="#0a86d8"/></linearGradient><linearGradient id="sw2" x1="40" y1="10" x2="10" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#a6f7ff"/><stop offset="1" stop-color="#0f9ae0" stop-opacity=".25"/></linearGradient></defs><g transform="rotate(-32 24 24)"><ellipse cx="24" cy="24" rx="19.5" ry="9.6" fill="none" stroke="url(#sw2)" stroke-width="3.1" stroke-linecap="round" stroke-dasharray="58 30" stroke-dashoffset="14"/><circle cx="42.4" cy="20.6" r="3.1" fill="#bff6ff"/></g><path d="M24 14.2c-5.4 0-8.6 4-8.6 9v10.6l2.9-2.2 2.85 2.2 2.85-2.2 2.85 2.2 2.85-2.2 2.9 2.2V23.2c0-5-3.2-9-8.6-9Z" fill="url(#sw)"/><circle cx="21" cy="23" r="1.7" fill="#04202c"/><circle cx="27" cy="23" r="1.7" fill="#04202c"/></svg>
+      <span class="wm"><span class="kick">GHOST</span><span class="name">GAMES</span></span>
+    </a>
+    <div class="navmenu" id="navmenu">
+      <div class="links" id="links"></div>
+      <a class="btn" href="#grid" id="navPlay"><span>Play now</span></a>
+    </div>
+    <button type="button" class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="navmenu"><span></span><span></span><span></span></button>
+  </nav>
+  <main id="main" tabindex="-1"></main>
+  <div class="footcta"><div><b>Missing a game?</b><p>Tell us about a browser port and we'll look at adding it.</p></div><button type="button" class="btn" data-suggest><span>Suggest a game</span></button></div>
+  <p class="foot"><a href="../">GhostGames home</a> · <a href="../games/">All games</a> · <a href="https://github.com/GhostFaceModz/GhostGames" target="_blank" rel="noopener">Source on GitHub</a></p>
+</div>
+<a class="wa" href="https://github.com/GhostFaceModz/GhostGames" target="_blank" rel="noopener" aria-label="GhostGames on GitHub"><svg viewBox="0 0 16 16" fill="#fff" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.290 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.130-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.070-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.420-3.58-8-8-8Z"/></svg></a>
+<script src="../gg-data.js"></script>
+<script src="../gg-common.js"></script>
+<script>
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id)},GAMES=GG.GAMES,BY=GG.BY,esc=GG.esc;
+GG.stars($('stA'),$('stB'));
+var LABEL={'Classic Shooter':'Classics'},CATS=['All'];GAMES.forEach(function(g){if(CATS.indexOf(g.category)<0)CATS.push(g.category)});
+$('links').innerHTML=CATS.map(function(c,i){return '<a href="../games/'+(c==='All'?'':'?cat='+encodeURIComponent(c))+'" data-cat="'+esc(c)+'"'+(i>4?' class="xc"':'')+'>'+esc(LABEL[c]||c)+'</a>'}).join('')+'<button type="button" class="suggest" data-suggest><i class="fa-regular fa-lightbulb" aria-hidden="true"></i>Suggest a game</button><a class="suggest" href="../retro/"><i class="fa-solid fa-gamepad" aria-hidden="true"></i>Load your own ROM</a>';
+var closeMenu=GG.burger($('nav'),$('burger'));
+function onScroll(){document.body.classList.toggle('scrolled',scrollY>40)}window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+var id=new URLSearchParams(location.search).get('id'),g=BY[id],SITE='https://ghostfacemodz.github.io/GhostGames/new/';
+function meta(t,d,img,u){document.title=t;$('mDesc').setAttribute('content',d);$('ogT').setAttribute('content',t);$('ogD').setAttribute('content',d);if(img)$('ogI').setAttribute('content',img);$('ogU').setAttribute('content',u)}
+if(!g){
+ meta('Game not found — GhostGames','That game is not in the GhostGames library.',null,SITE+'game/');
+ $('main').innerHTML='<div class="nf"><h1>Game not found</h1><p>We couldn\'t find that game. It may have been renamed or removed.</p><a class="btn" href="../games/"><span>Browse all games</span></a></div>';
+ $('navPlay').setAttribute('href','../games/');return;
+}
+var playLbl=g.off?'Down':g.external?'Play in new tab':'Play now';
+meta(g.title+(g.off?' — Currently down | GhostGames':' — Play free in your browser | GhostGames'),(g.blurb||'')+' '+g.description.split('. ')[0].replace(/\.$/,'')+'. Free, no installs.',SITE+'covers/'+g.id+'.webp',SITE+'game/?id='+g.id);
+var sim=GAMES.filter(function(x){return x!==g&&x.category===g.category&&!x.off}).concat(GAMES.filter(function(x){return x!==g&&x.category!==g.category&&!x.off&&x.tags.some(function(t){return g.tags.indexOf(t)>=0})})).slice(0,4);
+var n=GG.plays(g.id);
+$('main').innerHTML=
+ '<nav class="crumb" aria-label="Breadcrumb"><a href="../games/"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> All games</a><span aria-hidden="true">/</span><a href="../games/?cat='+encodeURIComponent(g.category)+'">'+esc(LABEL[g.category]||g.category)+'</a><span aria-hidden="true">/</span><span aria-current="page">'+esc(g.title)+'</span></nav>'+
+ '<section class="dh"><button type="button" class="dcover'+(g.off?' off':'')+'" id="dCover" style="--c1:'+g.c1+';--c2:'+g.c2+'" aria-label="'+esc(g.off?g.title+' is down':playLbl+': '+g.title)+'"'+(g.off?' aria-disabled="true"':'')+'><i class="fa-solid '+g.icon+' fi" aria-hidden="true"></i><img src="'+g.cover+'" alt="" onerror="this.remove()"><span class="vig"></span><span class="scan"></span><span class="shine"></span>'+(g.off?'':'<span class="ctp" aria-hidden="true"><span class="eq"><b></b><b></b><b></b><b></b></span>Click to play</span>')+'<span class="edge"></span></button>'+
+ '<div class="dinfo"><div class="kick"><span class="pill">'+esc(g.category)+'</span>'+(g.badge?'<span class="pill w">'+esc(g.badge)+'</span>':'')+GG.stHtml(g)+'</div>'+
+ '<h1>'+esc(g.title)+'</h1><p class="desc">'+esc(g.description)+(g.off?' <br><b style="color:#fff">Currently down:</b> '+esc(g.note||'the host is unavailable')+'. We\'ll bring it back when a working link exists.':'')+'</p>'+
+ '<div class="acts"><button type="button" class="btn" id="dPlay"'+(g.off?' disabled aria-disabled="true"':'')+'><span>'+(g.off?'<i class="fa-solid fa-power-off"></i>&nbsp; Down':'<i class="fa-solid '+(g.external?'fa-arrow-up-right-from-square':'fa-play')+'"></i>&nbsp; '+playLbl)+'</span></button>'+GG.heart(g.id)+(g.off||g.external?'':'<a class="mb" href="'+esc(g.url)+'" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>Open in new tab</a>')+'</div>'+
+ '<p class="plays" id="plays"></p>'+
+ '<div class="dtags">'+g.tags.map(function(t){return '<a href="../games/?tags='+encodeURIComponent(t)+'">#'+esc(t)+'</a>'}).join('')+'</div></div></section>'+
+ '<section class="panels"><div class="panel"><h2><i class="fa-solid fa-keyboard" aria-hidden="true"></i>Controls</h2><div class="ctl">'+g.controls.map(function(c){return '<kbd>'+esc(c[0])+'</kbd><span>'+esc(c[1])+'</span>'}).join('')+'</div></div>'+
+ '<div class="panel"><h2><i class="fa-solid fa-lightbulb" aria-hidden="true"></i>Tips</h2><ul class="tips">'+g.tips.map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul></div></section>'+
+ '<div class="simh"><h2>Similar games</h2><a href="../games/?cat='+encodeURIComponent(g.category)+'">More '+esc(LABEL[g.category]||g.category)+' →</a></div><div class="grid" id="sim">'+sim.map(GG.card).join('')+'</div>';
+function plays(){var n=GG.plays(g.id);$('plays').innerHTML=n?'Played <b>'+n+'</b> '+(n===1?'time':'times')+' on this device':'Not played on this device yet'}
+plays();document.addEventListener('gg:recent',plays);
+GG.applyStatus($('main'));GG.bindCards($('sim'));
+function play(){if(!g.off)GG.openGame(g)}
+$('dPlay').addEventListener('click',play);$('dCover').addEventListener('click',play);
+$('navPlay').addEventListener('click',function(e){e.preventDefault();closeMenu();if(g.off){location.href='../games/';return}play()});
+})();
+</script>
+</body>
+</html>

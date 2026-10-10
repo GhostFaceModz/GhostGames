@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Retro player — GhostGames</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<style>html,body{margin:0;height:100%;background:#000;overflow:hidden}#game{width:100%;height:100%}</style>
+</head>
+<body>
+<div id="game"></div>
+<script>
+/* Inner EmulatorJS frame. Params (hash or query): core, rom (relative path or blob: URL from the parent page), name.
+   Loaded inside retro/index.html so a new ROM = a fresh frame (EmulatorJS only initialises once per page). */
+(function(){
+var p=new URLSearchParams((location.hash||'').slice(1)||location.search.slice(1));
+var CORES=['nes','snes','n64','gb','gba','segaMD','psx'];
+var core=p.get('core'),rom=p.get('rom');
+if(CORES.indexOf(core)<0||!rom)return;
+if(!/^blob:/.test(rom)&&!/^roms\/[\w.-]+$/.test(rom))return; /* only bundled ROMs or local blobs */
+window.EJS_player='#game';
+window.EJS_core=core;
+window.EJS_gameUrl=rom;
+window.EJS_gameName=(p.get('name')||'game').replace(/[^\w .-]/g,'');
+window.EJS_pathtodata='https://cdn.emulatorjs.org/stable/data/';
+window.EJS_startOnLoaded=true;
+window.EJS_color='#7c3aed';
+window.EJS_backgroundColor='#000000';
+window.EJS_ready=function(){parent.postMessage({gg:'ejs-ready'},location.origin)};
+window.EJS_onGameStart=function(){parent.postMessage({gg:'ejs-start'},location.origin);focusGame()};
+function focusGame(){var c=document.querySelector('#game canvas');if(c){c.setAttribute('tabindex','0');c.focus()}else window.focus()}
+document.addEventListener('pointerdown',function(){setTimeout(focusGame,0)});
+window.addEventListener('focus',function(){setTimeout(focusGame,0)});
+var s=document.createElement('script');s.src=window.EJS_pathtodata+'loader.js';document.body.appendChild(s);
+})();
+</script>
+</body>
+</html>

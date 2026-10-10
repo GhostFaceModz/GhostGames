@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Retro — GhostGames</title>
+<meta name="description" content="Play open-source homebrew retro games, or load a ROM you own (NES, SNES, N64, Game Boy, GBA, Genesis, PS1) in the browser. Files stay on your device.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gg-site.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+<meta property="og:type" content="website"><meta property="og:site_name" content="GhostGames">
+<meta property="og:title" content="Retro | GhostGames"><meta property="og:description" content="Open-source homebrew retro games and a bring-your-own-ROM emulator, right in your browser.">
+<meta property="og:url" content="https://ghostfacemodz.github.io/GhostGames/new/retro/"><meta property="og:image" content="https://ghostfacemodz.github.io/GhostGames/new/og-image.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://ghostfacemodz.github.io/GhostGames/new/og-image.png">
+<meta name="theme-color" content="#7c3aed">
+<style>
+.rp{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:18px;margin:6px 0 30px}
+.stage{position:relative;aspect-ratio:4/3;border-radius:18px;overflow:hidden;background:#000;box-shadow:0 0 0 1px rgba(255,255,255,.08),0 30px 80px rgba(0,0,0,.55)}
+.stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.stage .idle{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;color:rgba(255,255,255,.7);background:radial-gradient(circle at 50% 40%,rgba(124,58,237,.22),transparent 60%)}
+.stage .idle i{font-size:42px;display:block;margin-bottom:12px;color:#a78bfa}
+.panel{border-radius:18px;padding:18px;background:rgba(255,255,255,.04);box-shadow:0 0 0 1px rgba(255,255,255,.08) inset;display:flex;flex-direction:column;gap:14px}
+.panel h2{margin:0;font-size:15px;letter-spacing:.04em;text-transform:uppercase;color:#fff}
+.panel label{display:flex;flex-direction:column;gap:6px;font-size:13px;color:rgba(255,255,255,.7)}
+.panel select,.panel input[type=file]{font:inherit;font-size:14px;color:#fff;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:10px 12px}
+.panel select:focus-visible,.panel input:focus-visible,.hb:focus-visible{outline:2px solid #a78bfa;outline-offset:2px}
+.note{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.5;color:#d8ccff;background:rgba(124,58,237,.14);border:1px solid rgba(167,139,250,.3);border-radius:12px;padding:10px 12px}
+.note i{margin-top:3px}
+.hbl{display:flex;flex-direction:column;gap:8px}
+.hb{display:flex;align-items:center;gap:12px;width:100%;text-align:left;font:inherit;color:#fff;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:8px;cursor:pointer;transition:background .2s,border-color .2s}
+.hb:hover,.hb[aria-current=true]{background:rgba(124,58,237,.18);border-color:rgba(167,139,250,.5)}
+.hb img{width:38px;height:63px;object-fit:cover;border-radius:8px;flex:none;background:#111}
+.hb b{display:block;font-size:14px}.hb span span{display:block;font-size:12px;color:rgba(255,255,255,.55)}
+.keys{font-size:12px;color:rgba(255,255,255,.6);line-height:1.7}.keys kbd{font:inherit;font-weight:600;color:#fff;background:rgba(255,255,255,.08);border-radius:6px;padding:1px 6px}
+.st{font-size:12px;color:rgba(255,255,255,.55);min-height:1.2em}
+body.embed .nav,body.embed .head,body.embed .foot,body.embed .wa,body.embed .topcover{display:none}body.embed .wrap{padding-top:14px}
+@media (max-width:900px){.rp{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a class="skip" href="#stage">Skip to player</a>
+<div class="bg"></div><div class="stars" id="stA"></div><div class="stars" id="stB"></div>
+<div class="wrap">
+  <div class="topcover" aria-hidden="true"></div>
+  <nav class="nav" id="nav" aria-label="Main">
+    <a class="logo" href="../" aria-label="GhostGames home">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="sw" x1="8" y1="8" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#8ef4ff"/><stop offset=".5" stop-color="#35d8ff"/><stop offset="1" stop-color="#0a86d8"/></linearGradient><linearGradient id="sw2" x1="40" y1="10" x2="10" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#a6f7ff"/><stop offset="1" stop-color="#0f9ae0" stop-opacity=".25"/></linearGradient></defs><g transform="rotate(-32 24 24)"><ellipse cx="24" cy="24" rx="19.5" ry="9.6" fill="none" stroke="url(#sw2)" stroke-width="3.1" stroke-linecap="round" stroke-dasharray="58 30" stroke-dashoffset="14"/><circle cx="42.4" cy="20.6" r="3.1" fill="#bff6ff"/></g><path d="M24 14.2c-5.4 0-8.6 4-8.6 9v10.6l2.9-2.2 2.85 2.2 2.85-2.2 2.85 2.2 2.85-2.2 2.9 2.2V23.2c0-5-3.2-9-8.6-9Z" fill="url(#sw)"/><circle cx="21" cy="23" r="1.7" fill="#04202c"/><circle cx="27" cy="23" r="1.7" fill="#04202c"/></svg>
+      <span class="wm"><span class="kick">GHOST</span><span class="name">GAMES</span></span>
+    </a>
+    <div class="navmenu" id="navmenu">
+    <div class="navmenu" id="navmenu">
+      <div class="links" id="links"><a href="../games/">All</a><a href="../games/?cat=Retro" class="on" aria-current="page">Retro</a></div>
+      <a class="btn" href="#stage" id="navPlay"><span>Play now</span></a>
+    </div>
+    <button type="button" class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="navmenu"><span></span><span></span><span></span></button>
+  </nav>
+
+  <header class="head">
+    <a class="back" href="../games/?cat=Retro"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Retro games</a><br>
+    <span class="badge"><i><svg viewBox="5 1 14 22" preserveAspectRatio="none" aria-hidden="true"><path d="M13.9 1.6 5.5 13.6a.7.7 0 0 0 .6 1.1h4.2l-1 7.7a.7.7 0 0 0 1.25.55l8.3-12.1a.7.7 0 0 0-.6-1.1h-4.2l1-7.7a.7.7 0 0 0-1.25-.55Z" fill="rgba(16,112,152,.72)" stroke="rgba(190,236,255,.6)" stroke-width="1.6" stroke-linejoin="round"/></svg></i><span>EmulatorJS</span></span>
+    <h1>Retro</h1>
+    <p class="lead"><b>Open-source homebrew, ready to play.</b> Or load a game you own from your device and play it right here.</p>
+  </header>
+
+  <main class="rp">
+    <div class="stage" id="stage" tabindex="-1" aria-label="Emulator">
+      <div class="idle" id="idle"><div><i class="fa-solid fa-gamepad" aria-hidden="true"></i><b>Pick a homebrew game or load your own ROM</b></div></div>
+    </div>
+    <aside class="panel" aria-label="Games and ROM loader">
+      <h2>Homebrew games</h2>
+      <div class="hbl" id="hbl"></div>
+      <h2>Load your own ROM</h2>
+      <label>System <select id="sys">
+        <option value="nes">NES / Famicom</option><option value="snes">SNES</option><option value="n64">Nintendo 64</option>
+        <option value="gb">Game Boy</option><option value="gbc">Game Boy Color</option><option value="gba">Game Boy Advance</option>
+        <option value="segaMD">Sega Genesis / Mega Drive</option><option value="psx">PlayStation (PS1)</option></select></label>
+      <label>ROM file <input type="file" id="rom" accept=".nes,.unf,.sfc,.smc,.n64,.z64,.v64,.gb,.gbc,.gba,.md,.gen,.bin,.smd,.cue,.iso,.chd,.pbp,.img,.zip,.7z"></label>
+      <p class="note" id="note"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i><span><b>Use games you own. Files stay on your device.</b> The ROM is opened locally in your browser; nothing is uploaded.</span></p>
+      <p class="note"><i class="fa-brands fa-discord" aria-hidden="true"></i><span><b>Need help finding ROMs?</b> <a href="https://discord.gg/zenclipsdaily-arc-raiders-store-bloodstrike-1408818003591827539" target="_blank" rel="noopener" style="color:#7dd3fc;text-decoration:underline">Join our Discord</a> for guidance and setup help.</span></p>
+      <div class="st" id="st" aria-live="polite"></div>
+      <div class="keys"><kbd>Arrows</kbd> D-pad · <kbd>Z</kbd> B · <kbd>X</kbd> A · <kbd>Enter</kbd> Start · <kbd>Shift</kbd> Select. Click the game once to give it the keyboard. Remap in the player's settings.</div>
+      <a class="foot" href="roms/LICENSES.md" style="margin:0;text-align:left;font-size:12px">Homebrew licences &amp; credits</a>
+    </aside>
+  </main>
+  <p class="foot"><a href="../">← Back to GhostGames</a> · Emulation by <a href="https://emulatorjs.org" target="_blank" rel="noopener">EmulatorJS</a> · <a href="roms/LICENSES.md">ROM licences</a></p>
+</div>
+<a class="wa" href="https://github.com/GhostFaceModz/GhostGames" target="_blank" rel="noopener" aria-label="GhostGames on GitHub"><svg viewBox="0 0 16 16" fill="#fff" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.290 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.130-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.070-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.420-3.58-8-8-8Z"/></svg></a>
+
+<script src="../gg-data.js"></script>
+<script src="../gg-common.js"></script>
+<script>
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id)},esc=GG.esc;
+var ROMS={'tobu-tobu-girl':{core:'gb',rom:'roms/tobu-tobu-girl.gb'},'ucity':{core:'gb',rom:'roms/ucity.gbc'},'nova-the-squirrel':{core:'nes',rom:'roms/nova-the-squirrel.nes'}};
+var embed=window.top!==window;if(embed)document.body.classList.add('embed');
+GG.stars($('stA'),$('stB'));
+var frame=null,blobUrl=null,curId=null;
+$('hbl').innerHTML=Object.keys(ROMS).map(function(id){var g=GG.BY[id];return '<button type="button" class="hb" data-game="'+id+'"><img src="'+g.cover+'" alt="" loading="lazy"><span><b>'+esc(g.title)+'</b><span>'+esc(g.badge)+' · homebrew</span></span></button>'}).join('');
+function play(core,rom,name,id){
+ if(frame)frame.remove();$('idle').hidden=true;
+ frame=document.createElement('iframe');frame.id='emu';frame.title=name+' (emulator)';
+ frame.setAttribute('allow','autoplay; fullscreen; gamepad; keyboard-map');frame.setAttribute('allowfullscreen','');
+ frame.src='player.html#'+new URLSearchParams({core:core,rom:rom,name:name}).toString();
+ frame.addEventListener('load',function(){try{frame.focus()}catch(e){}});
+ $('stage').appendChild(frame);curId=id||null;
+ [].forEach.call(document.querySelectorAll('.hb'),function(b){b.setAttribute('aria-current',b.getAttribute('data-game')===curId?'true':'false')});
+ $('st').textContent='Loading '+name+'…';
+}
+function playId(id,push){var r=ROMS[id],g=GG.BY[id];if(!r)return;play(r.core,r.rom,g.title,id);
+ if(push!==false)history.replaceState(null,'','?game='+encodeURIComponent(id));if(!embed)GG.record(id)}
+$('hbl').addEventListener('click',function(e){var b=e.target.closest('.hb');if(b)playId(b.getAttribute('data-game'))});
+$('rom').addEventListener('change',function(){
+ var f=this.files&&this.files[0];if(!f)return;
+ if(blobUrl)URL.revokeObjectURL(blobUrl);blobUrl=URL.createObjectURL(f);
+ var sys=$('sys').value,core=sys==='gbc'?'gb':sys;
+ play(core,blobUrl,f.name.replace(/\.[^.]+$/,''),null);history.replaceState(null,'',location.pathname);
+});
+window.addEventListener('message',function(e){if(e.origin!==location.origin||!e.data||!e.data.gg)return;
+ if(e.data.gg==='ejs-start'){$('st').textContent='Running. Click the game if keys do nothing.';if(frame)frame.focus()}});
+$('stage').addEventListener('pointerdown',function(){if(frame)frame.focus()});
+$('navPlay').addEventListener('click',function(e){if(!frame){e.preventDefault();playId('tobu-tobu-girl')}});
+GG.burger($('nav'),$('burger'));
+function onScroll(){document.body.classList.toggle('scrolled',scrollY>40)}window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+var q=new URLSearchParams(location.search).get('game');if(q&&ROMS[q])playId(q,false);
+})();
+</script>
+</body>
+</html>
