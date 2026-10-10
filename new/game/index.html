@@ -116,6 +116,7 @@ $('main').innerHTML=
  '<div class="dtags">'+g.tags.map(function(t){return '<a href="../games/?tags='+encodeURIComponent(t)+'">#'+esc(t)+'</a>'}).join('')+'</div></div></section>'+
  '<section class="panels"><div class="panel"><h2><i class="fa-solid fa-keyboard" aria-hidden="true"></i>Controls</h2><div class="ctl">'+g.controls.map(function(c){return '<kbd>'+esc(c[0])+'</kbd><span>'+esc(c[1])+'</span>'}).join('')+'</div></div>'+
  '<div class="panel"><h2><i class="fa-solid fa-lightbulb" aria-hidden="true"></i>Tips</h2><ul class="tips">'+g.tips.map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul></div></section>'+
+ '<section class="panels" style="margin-top:22px"><div class="panel" id="trouble" style="grid-column:1/-1"><h2><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>Game not loading?</h2>'+GG.helpHtml(g,false)+'</div></section>'+
  '<div class="simh"><h2>Similar games</h2><a href="../games/?cat='+encodeURIComponent(g.category)+'">More '+esc(LABEL[g.category]||g.category)+' →</a></div><div class="grid" id="sim">'+sim.map(GG.card).join('')+'</div>';
 function plays(){var n=GG.plays(g.id);$('plays').innerHTML=n?'Played <b>'+n+'</b> '+(n===1?'time':'times')+' on this device':'Not played on this device yet'}
 plays();document.addEventListener('gg:recent',plays);

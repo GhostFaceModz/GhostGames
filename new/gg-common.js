@@ -63,6 +63,9 @@ var css='.modal{position:fixed;inset:0;z-index:2000;display:none;background:rgba
 '.sg input,.sg textarea{width:100%;padding:11px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.035);color:#fff;font:400 14px Poppins,sans-serif}.sg textarea{min-height:84px;resize:vertical}.sg input:focus-visible,.sg textarea:focus-visible{outline:2px solid rgba(120,225,255,.85);outline-offset:1px}'+
 '.sg .err{display:none;color:#ff8a9e;font-size:11.5px;margin-top:5px}.sg .bad .err{display:block}.sg .bad input{border-color:rgba(255,120,140,.6)}.sg .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}'+
 '.sg .acts{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}.sg .msg{margin-top:14px;font-size:13px;line-height:1.5;color:#a9aeb5}.sg .msg a{color:#5fe3ff}.sg .msg.ok{color:#7ff0c0}.sg .sgx{position:absolute;right:14px;top:14px}'+
+'.mhelp{position:absolute;inset:0;z-index:4;display:none;align-items:center;justify-content:center;background:rgba(2,3,6,.72);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);padding:14px;font-family:Poppins,sans-serif;color:#fff}.mhelp.open{display:flex}.mhbox{position:relative;width:min(440px,100%);max-height:100%;overflow:auto;padding:22px 20px 18px;border-radius:20px;border:1px solid rgba(255,255,255,.10);background:linear-gradient(180deg,rgba(11,15,22,.985),rgba(7,10,16,.99));box-shadow:0 26px 60px rgba(0,0,0,.6)}.mhbox h3{font-size:17px;font-weight:800;text-transform:uppercase;margin-bottom:4px;padding-right:44px}.mhbox .mhx{position:absolute;right:12px;top:12px}'+
+'.ggtr{list-style:none;display:grid;gap:11px;margin:12px 0 0;padding:0}.ggtr li{position:relative;padding-left:26px;font-size:13px;line-height:1.55;color:#c3c8d0}.ggtr li>i{position:absolute;left:0;top:3px;width:16px;text-align:center;color:#5fe3ff;font-size:12px}.ggtr li b{color:#fff;font-weight:600}.ggtr li.warn>i{color:#f59e0b}.ggtr li.bad>i{color:#ef4444}.ggtr .mb{height:32px;padding:0 12px;font-size:12px;margin:7px 8px 0 0;border-radius:10px}.ggtr .mb.dcb{border-color:rgba(88,101,242,.55);background:rgba(88,101,242,.16)}.ggtr .mb.dcb:hover{background:rgba(88,101,242,.28)}'+
+'.mchip{position:absolute;left:50%;bottom:16px;z-index:3;transform:translateX(-50%);display:none;align-items:center;gap:4px;padding:4px 4px 4px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(9,12,19,.92);box-shadow:0 10px 30px rgba(0,0,0,.45);font:500 12px Poppins,sans-serif;color:#dfe5ee;white-space:nowrap}.mchip.show{display:inline-flex}.mchip button{background:none;border:0;color:inherit;font:inherit;cursor:pointer;padding:5px 6px;border-radius:999px}.mchip .mcgo{color:#5fe3ff}.mchip button:hover{background:rgba(255,255,255,.08)}.mchip button:focus-visible{outline:2px solid #5fe3ff}'+
 '@media (max-width:700px){.mbar{height:56px;padding:0 10px 0 12px;gap:8px}.mbar .mi{display:none}.mnt{width:38px;padding:0}.mnt em{display:none}.mstage{margin:0;border-radius:0}}'+
 '@media (prefers-reduced-motion:reduce){.ggfav{transition:none}}';
 var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
@@ -75,23 +78,47 @@ function ensureModal(){
  if(modal)return;var d=document.createElement('div');d.className='modal';d.id='modal';d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');d.setAttribute('aria-labelledby','mTitle');
  d.innerHTML='<div class="mbar"><div class="mi" id="mIcon"></div><div class="mt"><b id="mTitle">Game</b><span id="mCat"></span></div><span id="mFavWrap"></span>'+
  '<button type="button" class="mb mnt" id="mNew" aria-label="Open in new tab"><i class="fa-solid fa-arrow-up-right-from-square"></i><em style="font-style:normal">Open in new tab</em></button>'+
+ '<button type="button" class="mb mnt" id="mHelp" aria-label="Game not loading? Help" aria-haspopup="dialog"><i class="fa-solid fa-circle-question"></i><em style="font-style:normal">Help</em></button>'+
  '<button type="button" class="mb mnt" id="mRestart" aria-label="Restart" style="display:none"><i class="fa-solid fa-rotate-right"></i><em style="font-style:normal">Restart</em></button><button type="button" id="mFocusTrap" tabindex="-1" aria-hidden="true" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none"></button>'+
  '<button type="button" class="mb mclose" id="mClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button></div>'+
  '<div class="mstage" id="mStage"><div class="mload"><span><i class="fa-solid fa-circle-notch fa-spin"></i>&nbsp; Loading game…</span></div>'+
- '<div class="mfb" id="mFb"><div><h3>This game blocks embedding</h3><p>The host won\'t let it run inside this page. It plays fine in its own tab.</p><div class="row"><button type="button" class="btn" id="mFbNew"><span>Open in new tab</span></button><button type="button" class="mb" id="mFbWait">Keep waiting</button></div></div></div></div>';
+ '<div class="mfb" id="mFb"><div><h3>This game blocks embedding</h3><p>The host won\'t let it run inside this page. It plays fine in its own tab.</p><div class="row"><button type="button" class="btn" id="mFbNew"><span>Open in new tab</span></button><button type="button" class="mb" id="mFbWait">Keep waiting</button></div></div></div>'+
+ '<div class="mchip" id="mChip" role="status"><button type="button" class="mcgo" id="mChipGo"><i class="fa-solid fa-circle-question"></i>&nbsp; Game not loading?</button><button type="button" id="mChipX" aria-label="Dismiss"><i class="fa-solid fa-xmark"></i></button></div>'+
+ '<div class="mhelp" id="mHelpP" role="dialog" aria-modal="true" aria-labelledby="mHelpT"><div class="mhbox"><button type="button" class="mb mclose mhx" id="mHelpX" aria-label="Close help"><i class="fa-solid fa-xmark"></i></button><h3 id="mHelpT">Game not loading?</h3><div id="mHelpB"></div></div></div></div>';
  document.body.appendChild(d);modal=d;mStage=$('mStage');mFb=$('mFb');
  $('mClose').addEventListener('click',closeGame);$('mRestart').addEventListener('click',function(){if(cur)openGame(cur)});
  window.addEventListener('blur',function(){if(!cropS)return;setTimeout(function(){if(!cropS||document.activeElement!==frame)return;if(cropS.i<cropS.c.steps.length-1){cropS.i++;cropLayout();if(cropS.i<cropS.c.steps.length-1)$('mFocusTrap').focus();else{try{frame.focus()}catch(e){}}}},350)});
  window.addEventListener('resize',function(){if(cropS)cropLayout()});$('mNew').addEventListener('click',newTab);$('mFbNew').addEventListener('click',newTab);
  $('mFbWait').addEventListener('click',function(){mFb.classList.remove('show')});
- document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('open')){e.stopImmediatePropagation();closeGame()}},true);
- modal.addEventListener('keydown',function(e){if(e.key!=='Tab')return;var f=[].slice.call(modal.querySelectorAll('.mbar button')).concat(frame?[frame]:[]);var i=f.indexOf(document.activeElement);if(e.shiftKey&&i<=0){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&i===f.length-1){e.preventDefault();f[0].focus()}});
+ $('mHelp').addEventListener('click',openHelp);$('mChipGo').addEventListener('click',openHelp);$('mHelpX').addEventListener('click',closeHelp);
+ $('mChipX').addEventListener('click',function(){hideChip();try{sessionStorage.setItem('gg:nochip','1')}catch(e){}});
+ $('mHelpP').addEventListener('click',function(e){if(e.target===$('mHelpP'))closeHelp();var a=e.target.closest('[data-h]');if(!a)return;var k=a.getAttribute('data-h');if(k==='reload'){closeHelp();if(cur)openGame(cur)}else if(k==='new'){newTab()}});
+ window.addEventListener('blur',function(){setTimeout(function(){if(frame&&document.activeElement===frame){touched=true;hideChip()}},0)});
+ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('open')){e.stopImmediatePropagation();if($('mHelpP').classList.contains('open'))closeHelp();else closeGame()}},true);
+ modal.addEventListener('keydown',function(e){if(e.key!=='Tab')return;var hp=$('mHelpP').classList.contains('open');var f=[].slice.call(modal.querySelectorAll(hp?'#mHelpP button,#mHelpP a':'.mbar button')).concat(frame&&!hp?[frame]:[]);var i=f.indexOf(document.activeElement);if(e.shiftKey&&i<=0){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&i===f.length-1){e.preventDefault();f[0].focus()}});
 }
 var cropS=null;
 function cropLayout(){var c=cropS.c,r=c.steps[cropS.i],W=mStage.clientWidth,H=mStage.clientHeight,k=Math.min(W/r[2],H/r[3]),w=r[2]*k,h=r[3]*k,cl=cropS.clip;
  cl.style.cssText='position:absolute;overflow:hidden;background:#000;z-index:1;left:'+((W-w)/2)+'px;top:'+((H-h)/2)+'px;width:'+w+'px;height:'+h+'px';
  frame.style.cssText='position:absolute;left:0;top:0;right:auto;bottom:auto;border:0;width:'+c.vw+'px;height:'+c.vh+'px;transform-origin:0 0;transform:translate('+(-r[0]*k)+'px,'+(-r[1]*k)+'px) scale('+k+')'}
 function newTab(){if(cur)window.open(cur.url,'_blank','noopener')}
+
+/* ---- troubleshooting help ---- */
+var chipT=0,touched=false;
+function isMob(){return window.matchMedia('(pointer:coarse)').matches||/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)}
+function helpHtml(g,live){var pcOnly=(g.devices||[]).indexOf('mobile')<0,st=g.status,L=[];
+ function li(ic,t,c){L.push('<li'+(c?' class="'+c+'"':'')+'><i class="fa-solid '+ic+'" aria-hidden="true"></i>'+t+'</li>')}
+ if(st==='offline'||st==='issues')li('fa-triangle-exclamation','<b>'+(st==='offline'?'This game\'s host is down right now.':'This game\'s host is having problems right now.')+'</b> It\'s not your device. Try again later.',st==='offline'?'bad':'warn');
+ if(pcOnly)li('fa-desktop','<b>PC only.</b> '+esc(g.title)+' needs a keyboard and mouse'+(live&&isMob()?'. You\'re on a phone or tablet, so it may not load or play here. Try it on a PC.':'. It won\'t play properly on phones or tablets.'),live&&isMob()?'warn':'');
+ li('fa-rotate-right','<b>Reload the game.</b> A fresh start fixes most stuck loading screens.'+(live?'<br><button type="button" class="mb" data-h="reload"><i class="fa-solid fa-rotate-right" aria-hidden="true"></i>'+(g.crop?'Restart':'Reload game')+'</button>':''));
+ li('fa-globe','<b>Try a different browser.</b> Chrome or Edge on PC work best. Safari and iOS can struggle with WebAssembly games. Turn off ad blockers and privacy shields for this site.');
+ if(!g.crop&&!g.external)li('fa-arrow-up-right-from-square','<b>Open it in a new tab.</b> Some games run better outside the player.<br>'+(live?'<button type="button" class="mb" data-h="new">':'<a class="mb" href="'+esc(g.url)+'" target="_blank" rel="noopener">')+'<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>Open in new tab'+(live?'</button>':'</a>'));
+ li('fa-computer-mouse','<b>Click inside the game</b> to give it keyboard and mouse focus. Press <b>Esc</b> to release the mouse.');
+ li('fa-brands fa-discord','<b>Still stuck?</b> Ask in our Discord and we\'ll help.<br><a class="mb dcb" href="'+DISCORD+'" target="_blank" rel="noopener"><i class="fa-brands fa-discord" aria-hidden="true"></i>Join our Discord for help</a>');
+ return '<ul class="ggtr">'+L.join('').replace('fa-solid fa-brands','fa-brands')+'</ul>'}
+function hideChip(){clearTimeout(chipT);var c=$('mChip');if(c)c.classList.remove('show')}
+function openHelp(){if(!cur)return;hideChip();$('mHelpB').innerHTML=helpHtml(cur,true);$('mHelpP').classList.add('open');$('mHelpX').focus()}
+function closeHelp(){$('mHelpP').classList.remove('open');$('mHelp').focus()}
 function openGame(g){
  if(typeof g==='string')g=BY[g];if(!g||g.off)return;record(g.id);
  if(g.external){window.open(g.url,'_blank','noopener');return}
@@ -104,9 +131,11 @@ function openGame(g){
  var loaded=false;frame.addEventListener('load',function(){loaded=true;if(/^\/(?!\/)/.test(g.url)&&modal.classList.contains('open')){try{frame.focus()}catch(e){}}});frame.src=g.url;
  if(g.crop){frame.setAttribute('sandbox','allow-scripts allow-same-origin allow-forms allow-pointer-lock');frame.setAttribute('scrolling','no');var cl=document.createElement('div');cl.className='mcrop';cl.appendChild(frame);mStage.appendChild(cl);cropS={c:g.crop,i:0,clip:cl};cropLayout()}else mStage.appendChild(frame);
  clearTimeout(fbT);fbT=setTimeout(function(){if(!loaded)mFb.classList.add('show')},9000);
+ hideChip();$('mHelpP').classList.remove('open');touched=false;var nc=false;try{nc=sessionStorage.getItem('gg:nochip')==='1'}catch(e){}
+ if(!nc)chipT=setTimeout(function(){if(cur===g&&!touched&&!$('mHelpP').classList.contains('open')&&!mFb.classList.contains('show'))$('mChip').classList.add('show')},15000);
  modal.classList.add('open');document.documentElement.style.overflow='hidden';$('mClose').focus();if(cropS){cropLayout();requestAnimationFrame(function(){if(cropS)cropLayout()})}
 }
-function closeGame(){if(!modal||!modal.classList.contains('open'))return;clearTimeout(fbT);if(frame){frame.remove();frame=null}if(cropS){cropS.clip.remove();cropS=null}modal.classList.remove('open');document.documentElement.style.overflow='';cur=null;if(lastFocus&&lastFocus.focus)lastFocus.focus()}
+function closeGame(){if(!modal||!modal.classList.contains('open'))return;clearTimeout(fbT);hideChip();$('mHelpP').classList.remove('open');if(frame){frame.remove();frame=null}if(cropS){cropS.clip.remove();cropS=null}modal.classList.remove('open');document.documentElement.style.overflow='';cur=null;if(lastFocus&&lastFocus.focus)lastFocus.focus()}
 
 /* ---- Discord floating button (stacked above the GitHub one) ---- */
 var DISCORD='https://discord.gg/zenclipsdaily-arc-raiders-store-bloodstrike-1408818003591827539';
@@ -158,5 +187,5 @@ function burger(nav,btn){function close(){nav.classList.remove('open');btn.setAt
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){discord();syncPulse()});else discord();
 (window.requestAnimationFrame||setTimeout)(syncPulse);
 window.GG={BASE:BASE,GAMES:GAMES,BY:BY,esc:esc,RM:RM,recent:recent,record:record,plays:plays,favs:favs,isFav:isFav,toggleFav:toggleFav,heart:heart,
- probe:probe,stHtml:stHtml,applyStatus:applyStatus,card:card,bindCards:bindCards,openGame:openGame,closeGame:closeGame,openSuggest:openSuggest,stars:stars,burger:burger,DISCORD:DISCORD};
+ probe:probe,stHtml:stHtml,applyStatus:applyStatus,card:card,bindCards:bindCards,openGame:openGame,closeGame:closeGame,openSuggest:openSuggest,stars:stars,burger:burger,DISCORD:DISCORD,helpHtml:helpHtml};
 })();
