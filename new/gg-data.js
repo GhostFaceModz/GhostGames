@@ -1,4 +1,4 @@
-/* GhostGames catalogue: single source of truth for /ghostgames/ pages */
+/* GhostGames catalogue: single source of truth for /GhostGames/new/ pages */
 window.GG_GAMES=[
 {
 "id": "bo1-zombies",
@@ -1477,24 +1477,28 @@ window.GG_GAMES=[
 "controls": [
 [
 "Arrow keys",
-"Analog stick"
-],
-[
-"X",
-"A button"
-],
-[
-"Z",
-"B button"
+"D-pad"
 ],
 [
 "Enter",
 "Start"
+],
+[
+"Z",
+"A button"
+],
+[
+"X",
+"B button"
+],
+[
+"V",
+"Select"
 ]
 ],
 "id": "zelda-oot-embed",
 "devices": ["pc", "mobile"],
-"crop": {"vw": 1280, "vh": 900, "steps": [[276, 315, 935, 68], [156, 246, 958, 539]]},
+"crop": {"vw": 1280, "vh": 900, "steps": [[276, 315, 935, 68], [156, 246, 958, 539]], "hint": "Click the game, then press Enter to start · Z = A, X = B", "hintTouch": "Tap START on the on-screen pad to begin"},
 "title": "The Legend of Zelda: Ocarina of Time",
 "url": "https://play.emulatorgamesx.net/n64-games/legend-of-zelda-the-ocarina-of-time-v1-2/",
 "icon": "fa-shield-halved",
@@ -1508,8 +1512,8 @@ window.GG_GAMES=[
 "Embedded"
 ],
 "tips": [
-"Hosted by emulatorgamesx.net: press 'Play Now' on their page, then click the game screen to give it keyboard focus.",
-"If it stays black, give the emulator a few seconds to load the game."
+"Hosted by emulatorgamesx.net: press 'Play Now', then click the game screen so it gets your keyboard.",
+"If it looks like a video, that's the game's demo: press Enter (Start) to begin. On mobile use the on-screen buttons."
 ],
 "order": 32
 },
@@ -1522,23 +1526,31 @@ window.GG_GAMES=[
 "D-pad"
 ],
 [
-"X / Z",
-"Jump"
-],
-[
 "Enter",
 "Start"
+],
+[
+"Z",
+"A button"
+],
+[
+"X",
+"B button"
+],
+[
+"V",
+"Select"
 ]
 ],
 "id": "sonic-1-embed",
-"devices": ["pc", "mobile"],
-"crop": {"vw": 1280, "vh": 900, "steps": [[276, 315, 935, 68], [156, 246, 958, 539]]},
+"devices": ["pc"],
+"crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
 "title": "Sonic the Hedgehog",
-"url": "https://play.emulatorgamesx.net/genesis-games/sonic-the-hedgehog/",
+"url": "https://classicgamezone.com/games/sonic-the-hedgehog",
 "icon": "fa-bolt",
 "badge": "Genesis",
 "color": "from-blue-600 to-indigo-950",
-"description": "Sega's original high-speed platformer: race through Green Hill Zone, grab rings and stop Dr. Robotnik. Embedded from emulatorgamesx.net.",
+"description": "Sega's original high-speed platformer: race through Green Hill Zone, grab rings and stop Dr. Robotnik. Embedded from classicgamezone.com.",
 "blurb": "Sega's original high-speed platformer.",
 "tags": [
 "Single player",
@@ -1546,8 +1558,8 @@ window.GG_GAMES=[
 "Embedded"
 ],
 "tips": [
-"Hosted by emulatorgamesx.net: press 'Play Now' on their page, then click the game screen to give it keyboard focus.",
-"If it stays black, give the emulator a few seconds to load the game."
+"Hosted by classicgamezone.com: press 'Play Game', then 'Start Game' (pick a ROM version if asked), then click the game screen.",
+"If it looks like a video, that's the demo: press Enter (Start) to begin. PC only: the site's mobile layout covers the game with ads."
 ],
 "order": 33
 },
@@ -1560,27 +1572,31 @@ window.GG_GAMES=[
 "D-pad"
 ],
 [
-"X / Z",
-"Jump"
-],
-[
-"Down + Jump",
-"Spin dash"
-],
-[
 "Enter",
 "Start"
+],
+[
+"Z",
+"A button"
+],
+[
+"X",
+"B button"
+],
+[
+"V",
+"Select"
 ]
 ],
 "id": "sonic-2-embed",
-"devices": ["pc", "mobile"],
-"crop": {"vw": 1280, "vh": 900, "steps": [[276, 315, 935, 68], [156, 246, 958, 539]]},
+"devices": ["pc"],
+"crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
 "title": "Sonic the Hedgehog 2",
-"url": "https://play.emulatorgamesx.net/genesis-games/sonic-the-hedgehog-2/",
+"url": "https://classicgamezone.com/games/sonic-the-hedgehog-2",
 "icon": "fa-wind",
 "badge": "Genesis",
 "color": "from-sky-600 to-blue-950",
-"description": "Sonic and Tails team up for faster zones, the spin dash and Super Sonic. Embedded from emulatorgamesx.net.",
+"description": "Sonic and Tails team up for faster zones, the spin dash and Super Sonic. Embedded from classicgamezone.com.",
 "blurb": "Sonic and Tails' faster, bigger sequel.",
 "tags": [
 "Single player",
@@ -1588,8 +1604,8 @@ window.GG_GAMES=[
 "Embedded"
 ],
 "tips": [
-"Hosted by emulatorgamesx.net: press 'Play Now' on their page, then click the game screen to give it keyboard focus.",
-"If it stays black, give the emulator a few seconds to load the game."
+"Hosted by classicgamezone.com: press 'Play Game', then 'Start Game' (pick a ROM version if asked), then click the game screen.",
+"If it looks like a video, that's the demo: press Enter (Start) to begin. PC only: the site's mobile layout covers the game with ads."
 ],
 "order": 34
 },
@@ -1602,21 +1618,25 @@ window.GG_GAMES=[
 "D-pad"
 ],
 [
-"X",
-"A (jump)"
+"Enter",
+"Start"
 ],
 [
 "Z",
-"B (pick up / throw)"
+"A button"
 ],
 [
-"Enter",
-"Start"
+"X",
+"B button"
+],
+[
+"V",
+"Select"
 ]
 ],
 "id": "super-mario-advance-embed",
 "devices": ["pc", "mobile"],
-"crop": {"vw": 1280, "vh": 900, "steps": [[276, 315, 935, 68], [156, 246, 958, 539]]},
+"crop": {"vw": 1280, "vh": 900, "steps": [[276, 315, 935, 68], [156, 246, 958, 539]], "hint": "Click the game, then press Enter to start · Z = A, X = B", "hintTouch": "Tap START on the on-screen pad to begin"},
 "title": "Super Mario Advance",
 "url": "https://play.emulatorgamesx.net/gba-games/super-mario-advance/",
 "icon": "fa-carrot",
@@ -1630,8 +1650,8 @@ window.GG_GAMES=[
 "Embedded"
 ],
 "tips": [
-"Hosted by emulatorgamesx.net: press 'Play Now' on their page, then click the game screen to give it keyboard focus.",
-"If it stays black, give the emulator a few seconds to load the game."
+"Hosted by emulatorgamesx.net: press 'Play Now', then click the game screen so it gets your keyboard.",
+"If it looks like a video, that's the game's demo: press Enter (Start) to begin. On mobile use the on-screen buttons."
 ],
 "order": 35
 },
@@ -1644,25 +1664,25 @@ window.GG_GAMES=[
 "D-pad"
 ],
 [
-"X",
-"A (jump)"
+"Enter",
+"Start"
 ],
 [
 "Z",
-"B (shoot)"
+"A button"
 ],
 [
-"Shift",
-"Select (missiles)"
+"X",
+"B button"
 ],
 [
-"Enter",
-"Start"
+"V",
+"Select"
 ]
 ],
 "id": "metroid-2-embed",
 "devices": ["pc", "mobile"],
-"crop": {"vw": 1280, "vh": 900, "steps": [[276, 315, 935, 68], [156, 246, 958, 539]]},
+"crop": {"vw": 1280, "vh": 900, "steps": [[276, 315, 935, 68], [156, 246, 958, 539]], "hint": "Click the game, then press Enter to start · Z = A, X = B", "hintTouch": "Tap START on the on-screen pad to begin"},
 "title": "Metroid II: Return of Samus",
 "url": "https://play.emulatorgamesx.net/gb-games/metroid-ii-return-of-samus/",
 "icon": "fa-user-astronaut",
@@ -1676,8 +1696,8 @@ window.GG_GAMES=[
 "Embedded"
 ],
 "tips": [
-"Hosted by emulatorgamesx.net: press 'Play Now' on their page, then click the game screen to give it keyboard focus.",
-"If it stays black, give the emulator a few seconds to load the game."
+"Hosted by emulatorgamesx.net: press 'Play Now', then click the game screen so it gets your keyboard.",
+"If it looks like a video, that's the game's demo: press Enter (Start) to begin. On mobile use the on-screen buttons."
 ],
 "order": 36
 },
@@ -1690,21 +1710,25 @@ window.GG_GAMES=[
 "D-pad"
 ],
 [
-"X",
-"A"
+"Enter",
+"Start"
 ],
 [
 "Z",
-"B"
+"A button"
 ],
 [
-"Enter",
-"Start"
+"X",
+"B button"
+],
+[
+"V",
+"Select"
 ]
 ],
 "id": "pokemon-emerald-embed",
 "devices": ["pc"],
-"crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [436, 154, 408, 592], [64, 116, 836, 498]]},
+"crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [436, 154, 408, 592], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
 "title": "Pokémon Emerald",
 "url": "https://classicgamezone.com/games/pokemon-emerald",
 "icon": "fa-dragon",
@@ -1718,8 +1742,8 @@ window.GG_GAMES=[
 "Embedded"
 ],
 "tips": [
-"Hosted by classicgamezone.com: press 'Play Game', then 'Start Game', then pick a ROM version (English) if asked. Their page shows ads.",
-"If it stays black, give the emulator a few seconds to load the game."
+"Hosted by classicgamezone.com: press 'Play Game', then 'Start Game' (pick a ROM version if asked), then click the game screen.",
+"If it looks like a video, that's the demo: press Enter (Start) to begin. PC only: the site's mobile layout covers the game with ads."
 ],
 "order": 37
 },
@@ -1729,24 +1753,28 @@ window.GG_GAMES=[
 "controls": [
 [
 "Arrow keys",
-"Move"
-],
-[
-"X",
-"Jump (A)"
-],
-[
-"Z",
-"Run / fireball (B)"
+"D-pad"
 ],
 [
 "Enter",
 "Start"
+],
+[
+"Z",
+"A button"
+],
+[
+"X",
+"B button"
+],
+[
+"V",
+"Select"
 ]
 ],
 "id": "super-mario-bros-embed",
 "devices": ["pc"],
-"crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]]},
+"crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
 "title": "Super Mario Bros.",
 "url": "https://classicgamezone.com/games/super-mario-bros",
 "icon": "fa-crown",
@@ -1760,8 +1788,8 @@ window.GG_GAMES=[
 "Embedded"
 ],
 "tips": [
-"Hosted by classicgamezone.com: press 'Play Game', then 'Start Game', then pick a ROM version (English) if asked. Their page shows ads.",
-"If it stays black, give the emulator a few seconds to load the game."
+"Hosted by classicgamezone.com: press 'Play Game', then 'Start Game' (pick a ROM version if asked), then click the game screen.",
+"If it looks like a video, that's the demo: press Enter (Start) to begin. PC only: the site's mobile layout covers the game with ads."
 ],
 "order": 38
 },
@@ -1771,24 +1799,28 @@ window.GG_GAMES=[
 "controls": [
 [
 "Arrow keys",
-"Move / aim"
-],
-[
-"X",
-"Jump"
-],
-[
-"Z",
-"Fire"
+"D-pad"
 ],
 [
 "Enter",
 "Start"
+],
+[
+"Z",
+"A button"
+],
+[
+"X",
+"B button"
+],
+[
+"V",
+"Select"
 ]
 ],
 "id": "contra-embed",
 "devices": ["pc"],
-"crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]]},
+"crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
 "title": "Contra",
 "url": "https://classicgamezone.com/games/contra",
 "icon": "fa-person-rifle",
@@ -1802,8 +1834,8 @@ window.GG_GAMES=[
 "Embedded"
 ],
 "tips": [
-"Hosted by classicgamezone.com: press 'Play Game', then 'Start Game', then pick a ROM version (English) if asked. Their page shows ads.",
-"If it stays black, give the emulator a few seconds to load the game."
+"Hosted by classicgamezone.com: press 'Play Game', then 'Start Game' (pick a ROM version if asked), then click the game screen.",
+"If it looks like a video, that's the demo: press Enter (Start) to begin. PC only: the site's mobile layout covers the game with ads."
 ],
 "order": 39
 },
@@ -1813,32 +1845,28 @@ window.GG_GAMES=[
 "controls": [
 [
 "Arrow keys",
-"Move"
-],
-[
-"Z",
-"Fire"
-],
-[
-"X",
-"Jump"
-],
-[
-"C",
-"Grenade"
-],
-[
-"Shift",
-"Insert coin"
+"D-pad"
 ],
 [
 "Enter",
 "Start"
+],
+[
+"Z",
+"A button"
+],
+[
+"X",
+"B button"
+],
+[
+"V",
+"Insert coin (then Enter to start)"
 ]
 ],
 "id": "metal-slug-embed",
 "devices": ["pc"],
-"crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]]},
+"crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]], "hint": "Click the game, press V for a coin, then Enter to start"},
 "title": "Metal Slug",
 "url": "https://classicgamezone.com/games/mslug",
 "icon": "fa-truck-monster",
@@ -1852,8 +1880,8 @@ window.GG_GAMES=[
 "Embedded"
 ],
 "tips": [
-"Hosted by classicgamezone.com: press 'Play Game', then 'Start Game', then pick a ROM version (English) if asked. Their page shows ads.",
-"If it stays black, give the emulator a few seconds to load the game."
+"Hosted by classicgamezone.com: press 'Play Game', then 'Start Game' (pick a ROM version if asked), then click the game screen.",
+"If it looks like a video, that's the demo: press Enter (Start) to begin. PC only: the site's mobile layout covers the game with ads."
 ],
 "order": 40
 },
@@ -1863,28 +1891,28 @@ window.GG_GAMES=[
 "controls": [
 [
 "Arrow keys",
-"Move"
-],
-[
-"Z / X",
-"Punches"
-],
-[
-"C / V",
-"Kicks"
-],
-[
-"Shift",
-"Insert coin"
+"D-pad"
 ],
 [
 "Enter",
 "Start"
+],
+[
+"Z",
+"A button"
+],
+[
+"X",
+"B button"
+],
+[
+"V",
+"Insert coin (then Enter to start)"
 ]
 ],
 "id": "kof98-embed",
 "devices": ["pc"],
-"crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]]},
+"crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]], "hint": "Click the game, press V for a coin, then Enter to start"},
 "title": "The King of Fighters '98",
 "url": "https://classicgamezone.com/games/kof98",
 "icon": "fa-hand-fist",
@@ -1898,8 +1926,8 @@ window.GG_GAMES=[
 "Embedded"
 ],
 "tips": [
-"Hosted by classicgamezone.com: press 'Play Game', then 'Start Game', then pick a ROM version (English) if asked. Their page shows ads.",
-"If it stays black, give the emulator a few seconds to load the game."
+"Hosted by classicgamezone.com: press 'Play Game', then 'Start Game' (pick a ROM version if asked), then click the game screen.",
+"If it looks like a video, that's the demo: press Enter (Start) to begin. PC only: the site's mobile layout covers the game with ads."
 ],
 "order": 41
 },
@@ -1912,27 +1940,31 @@ window.GG_GAMES=[
 "D-pad"
 ],
 [
-"X / Z",
-"Jump"
-],
-[
-"Down + Jump",
-"Spin dash"
-],
-[
 "Enter",
 "Start"
+],
+[
+"Z",
+"A button"
+],
+[
+"X",
+"B button"
+],
+[
+"V",
+"Select"
 ]
 ],
 "id": "sonic-3-embed",
-"devices": ["pc", "mobile"],
-"crop": {"vw": 1280, "vh": 900, "steps": [[276, 315, 935, 68], [156, 246, 958, 539]]},
+"devices": ["pc"],
+"crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
 "title": "Sonic the Hedgehog 3",
-"url": "https://play.emulatorgamesx.net/genesis-games/sonic-the-hedgehog-3/",
+"url": "https://classicgamezone.com/games/sonic-the-hedgehog-3",
 "icon": "fa-gem",
 "badge": "Genesis",
 "color": "from-cyan-600 to-blue-950",
-"description": "Sonic and Tails crash-land on Angel Island and face Knuckles while chasing the Chaos Emeralds. Embedded from emulatorgamesx.net.",
+"description": "Sonic and Tails crash-land on Angel Island and face Knuckles while chasing the Chaos Emeralds. Embedded from classicgamezone.com.",
 "blurb": "Sonic and Tails versus Knuckles on Angel Island.",
 "tags": [
 "Single player",
@@ -1940,8 +1972,8 @@ window.GG_GAMES=[
 "Embedded"
 ],
 "tips": [
-"Hosted by emulatorgamesx.net: press 'Play Now' on their page, then click the game screen to give it keyboard focus.",
-"If it stays black, give the emulator a few seconds to load the game."
+"Hosted by classicgamezone.com: press 'Play Game', then 'Start Game' (pick a ROM version if asked), then click the game screen.",
+"If it looks like a video, that's the demo: press Enter (Start) to begin. PC only: the site's mobile layout covers the game with ads."
 ],
 "order": 42
 },
@@ -1954,21 +1986,25 @@ window.GG_GAMES=[
 "D-pad"
 ],
 [
-"X",
-"A (jump)"
+"Enter",
+"Start"
 ],
 [
 "Z",
-"B (inhale / ability)"
+"A button"
 ],
 [
-"Enter",
-"Start"
+"X",
+"B button"
+],
+[
+"V",
+"Select"
 ]
 ],
 "id": "kirby-amazing-mirror-embed",
 "devices": ["pc"],
-"crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [436, 274, 408, 352], [64, 116, 836, 498]]},
+"crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [436, 274, 408, 352], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
 "title": "Kirby & The Amazing Mirror",
 "url": "https://classicgamezone.com/games/kirby-amazing-mirror",
 "icon": "fa-star",
@@ -1982,8 +2018,8 @@ window.GG_GAMES=[
 "Embedded"
 ],
 "tips": [
-"Hosted by classicgamezone.com: press 'Play Game', then 'Start Game', then pick a ROM version (English) if asked. Their page shows ads.",
-"If it stays black, give the emulator a few seconds to load the game."
+"Hosted by classicgamezone.com: press 'Play Game', then 'Start Game' (pick a ROM version if asked), then click the game screen.",
+"If it looks like a video, that's the demo: press Enter (Start) to begin. PC only: the site's mobile layout covers the game with ads."
 ],
 "order": 43
 },
@@ -1996,21 +2032,25 @@ window.GG_GAMES=[
 "D-pad"
 ],
 [
-"X",
-"Jump"
+"Enter",
+"Start"
 ],
 [
 "Z",
-"Attack"
+"A button"
 ],
 [
-"Enter",
-"Start / menu"
+"X",
+"B button"
+],
+[
+"V",
+"Select"
 ]
 ],
 "id": "castlevania-sotn-embed",
 "devices": ["pc"],
-"crop": {"vw": 1280, "vh": 900, "steps": [[451, 188, 130, 56], [390, 392, 180, 72], [436, 274, 408, 352], [64, 116, 836, 498]]},
+"crop": {"vw": 1280, "vh": 900, "steps": [[451, 188, 130, 56], [390, 392, 180, 72], [436, 274, 408, 352], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
 "title": "Castlevania: Symphony of the Night",
 "url": "https://classicgamezone.com/games/castlevania-symphony-of-the-night",
 "icon": "fa-moon",
@@ -2024,8 +2064,8 @@ window.GG_GAMES=[
 "Embedded"
 ],
 "tips": [
-"Hosted by classicgamezone.com: press 'Play Game', then 'Start Game', then pick a ROM version (English) if asked. Their page shows ads.",
-"If it stays black, give the emulator a few seconds to load the game."
+"Hosted by classicgamezone.com: press 'Play Game', then 'Start Game' (pick a ROM version if asked), then click the game screen.",
+"If it looks like a video, that's the demo: press Enter (Start) to begin. PC only: the site's mobile layout covers the game with ads."
 ],
 "order": 44
 },
@@ -2038,21 +2078,25 @@ window.GG_GAMES=[
 "D-pad"
 ],
 [
-"X",
-"A (use / talk)"
+"Enter",
+"Start"
 ],
 [
 "Z",
-"B (tool)"
+"A button"
 ],
 [
-"Enter",
-"Start"
+"X",
+"B button"
+],
+[
+"V",
+"Select"
 ]
 ],
 "id": "harvest-moon-mfomt-embed",
 "devices": ["pc"],
-"crop": {"vw": 1280, "vh": 900, "steps": [[451, 188, 130, 56], [390, 392, 180, 72], [436, 244, 408, 412], [64, 116, 836, 498]]},
+"crop": {"vw": 1280, "vh": 900, "steps": [[451, 188, 130, 56], [390, 392, 180, 72], [436, 244, 408, 412], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
 "title": "Harvest Moon: Friends of Mineral Town",
 "url": "https://classicgamezone.com/games/harvest-moon-friends-of-mineral-town",
 "icon": "fa-seedling",
@@ -2066,8 +2110,8 @@ window.GG_GAMES=[
 "Embedded"
 ],
 "tips": [
-"Hosted by classicgamezone.com: press 'Play Game', then 'Start Game', then pick a ROM version (English) if asked. Their page shows ads.",
-"If it stays black, give the emulator a few seconds to load the game."
+"Hosted by classicgamezone.com: press 'Play Game', then 'Start Game' (pick a ROM version if asked), then click the game screen.",
+"If it looks like a video, that's the demo: press Enter (Start) to begin. PC only: the site's mobile layout covers the game with ads."
 ],
 "order": 45
 }

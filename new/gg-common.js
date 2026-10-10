@@ -87,7 +87,7 @@ function ensureModal(){
  '<div class="mhelp" id="mHelpP" role="dialog" aria-modal="true" aria-labelledby="mHelpT"><div class="mhbox"><button type="button" class="mb mclose mhx" id="mHelpX" aria-label="Close help"><i class="fa-solid fa-xmark"></i></button><h3 id="mHelpT">Game not loading?</h3><div id="mHelpB"></div></div></div></div>';
  document.body.appendChild(d);modal=d;mStage=$('mStage');mFb=$('mFb');
  $('mClose').addEventListener('click',closeGame);$('mRestart').addEventListener('click',function(){if(cur)openGame(cur)});
- window.addEventListener('blur',function(){if(!cropS)return;setTimeout(function(){if(!cropS||document.activeElement!==frame)return;if(cropS.i<cropS.c.steps.length-1){cropS.i++;cropLayout();if(cropS.i<cropS.c.steps.length-1)$('mFocusTrap').focus();else{try{frame.focus()}catch(e){}}}},350)});
+ window.addEventListener('blur',function(){if(!cropS)return;setTimeout(function(){if(!cropS||document.activeElement!==frame)return;if(cropS.i<cropS.c.steps.length-1){cropS.i++;cropLayout();if(cropS.i<cropS.c.steps.length-1)$('mFocusTrap').focus();else{try{frame.focus()}catch(e){}}cropHint()}},350)});
  window.addEventListener('resize',function(){if(cropS)cropLayout()});$('mNew').addEventListener('click',newTab);$('mFbNew').addEventListener('click',newTab);
  $('mFbWait').addEventListener('click',function(){mFb.classList.remove('show')});
  $('mHelp').addEventListener('click',openHelp);$('mChipGo').addEventListener('click',openHelp);$('mHelpX').addEventListener('click',closeHelp);
@@ -97,7 +97,10 @@ function ensureModal(){
  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('open')){e.stopImmediatePropagation();if($('mHelpP').classList.contains('open'))closeHelp();else closeGame()}},true);
  modal.addEventListener('keydown',function(e){if(e.key!=='Tab')return;var hp=$('mHelpP').classList.contains('open');var f=[].slice.call(modal.querySelectorAll(hp?'#mHelpP button,#mHelpP a':'.mbar button')).concat(frame&&!hp?[frame]:[]);var i=f.indexOf(document.activeElement);if(e.shiftKey&&i<=0){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&i===f.length-1){e.preventDefault();f[0].focus()}});
 }
-var cropS=null;
+var cropS=null,hintT=0;
+function cropHint(){var h=$('mHint');if(!h){h=document.createElement('div');h.id='mHint';h.setAttribute('role','status');h.style.cssText='position:absolute;left:50%;top:12px;transform:translateX(-50%);z-index:4;pointer-events:none;max-width:calc(100% - 24px);padding:8px 14px;border-radius:999px;background:rgba(5,8,14,.86);border:1px solid rgba(120,225,255,.35);color:#e9f6ff;font:600 12.5px Poppins,sans-serif;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.5);transition:opacity .4s'}mStage.appendChild(h);
+ if(!cropS){h.style.opacity=0;return}var last=cropS.i===cropS.c.steps.length-1,touch=matchMedia('(pointer:coarse)').matches;
+ h.textContent=last?(touch?(cropS.c.hintTouch||cropS.c.hint):cropS.c.hint)||'Click the game, then press Start':'Tap the highlighted button to continue';h.style.opacity=1;clearTimeout(hintT);if(last)hintT=setTimeout(function(){h.style.opacity=0},12000)}
 function cropLayout(){var c=cropS.c,r=c.steps[cropS.i],W=mStage.clientWidth,H=mStage.clientHeight,k=Math.min(W/r[2],H/r[3]),w=r[2]*k,h=r[3]*k,cl=cropS.clip;
  cl.style.cssText='position:absolute;overflow:hidden;background:#000;z-index:1;left:'+((W-w)/2)+'px;top:'+((H-h)/2)+'px;width:'+w+'px;height:'+h+'px';
  frame.style.cssText='position:absolute;left:0;top:0;right:auto;bottom:auto;border:0;width:'+c.vw+'px;height:'+c.vh+'px;transform-origin:0 0;transform:translate('+(-r[0]*k)+'px,'+(-r[1]*k)+'px) scale('+k+')'}
@@ -129,13 +132,13 @@ function openGame(g){
  $('mNew').style.display=g.crop?'none':'';$('mRestart').style.display=g.crop?'':'none';
  frame=document.createElement('iframe');frame.id='gameIframe';frame.title=g.title;frame.setAttribute('allow',ALLOW);frame.setAttribute('allowfullscreen','');frame.setAttribute('referrerpolicy','no-referrer-when-downgrade');
  var loaded=false;frame.addEventListener('load',function(){loaded=true;if(/^\/(?!\/)/.test(g.url)&&modal.classList.contains('open')){try{frame.focus()}catch(e){}}});frame.src=g.url;
- if(g.crop){frame.setAttribute('sandbox','allow-scripts allow-same-origin allow-forms allow-pointer-lock');frame.setAttribute('scrolling','no');var cl=document.createElement('div');cl.className='mcrop';cl.appendChild(frame);mStage.appendChild(cl);cropS={c:g.crop,i:0,clip:cl};cropLayout()}else mStage.appendChild(frame);
+ if(g.crop){frame.setAttribute('sandbox','allow-scripts allow-same-origin allow-forms allow-pointer-lock');frame.setAttribute('scrolling','no');var cl=document.createElement('div');cl.className='mcrop';cl.appendChild(frame);mStage.appendChild(cl);cropS={c:g.crop,i:0,clip:cl};cropLayout();cropHint()}else mStage.appendChild(frame);
  clearTimeout(fbT);fbT=setTimeout(function(){if(!loaded)mFb.classList.add('show')},9000);
  hideChip();$('mHelpP').classList.remove('open');touched=false;var nc=false;try{nc=sessionStorage.getItem('gg:nochip')==='1'}catch(e){}
  if(!nc)chipT=setTimeout(function(){if(cur===g&&!touched&&!$('mHelpP').classList.contains('open')&&!mFb.classList.contains('show'))$('mChip').classList.add('show')},15000);
  modal.classList.add('open');document.documentElement.style.overflow='hidden';$('mClose').focus();if(cropS){cropLayout();requestAnimationFrame(function(){if(cropS)cropLayout()})}
 }
-function closeGame(){if(!modal||!modal.classList.contains('open'))return;clearTimeout(fbT);hideChip();$('mHelpP').classList.remove('open');if(frame){frame.remove();frame=null}if(cropS){cropS.clip.remove();cropS=null}modal.classList.remove('open');document.documentElement.style.overflow='';cur=null;if(lastFocus&&lastFocus.focus)lastFocus.focus()}
+function closeGame(){if(!modal||!modal.classList.contains('open'))return;clearTimeout(fbT);hideChip();$('mHelpP').classList.remove('open');if(frame){frame.remove();frame=null}if(cropS){cropS.clip.remove();cropS=null}if($('mHint'))$('mHint').style.opacity=0;modal.classList.remove('open');document.documentElement.style.overflow='';cur=null;if(lastFocus&&lastFocus.focus)lastFocus.focus()}
 
 /* ---- Discord floating button (stacked above the GitHub one) ---- */
 var DISCORD='https://discord.gg/zenclipsdaily-arc-raiders-store-bloodstrike-1408818003591827539';
