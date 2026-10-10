@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>GTA V (browser port) — GhostGames</title>
+<meta name="description" content="Play the GTA V browser port on GhostGames: Story Mode, Sandbox free roam, and a low-graphics mode for weaker PCs.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+<meta property="og:type" content="website"><meta property="og:site_name" content="GhostGames">
+<meta property="og:title" content="GTA V (browser port) | GhostGames"><meta property="og:description" content="Story Mode, Sandbox free roam and a low-graphics mode, right in your browser.">
+<meta property="og:url" content="https://ghostfacemodz.github.io/GhostGames/new/play/gta-v/"><meta property="og:image" content="https://ghostfacemodz.github.io/GhostGames/new/covers/gta-v-web.webp">
+<meta name="theme-color" content="#0b0f16">
+<script>
+/* Cross-origin isolation: the game needs it; install a folder-scoped service worker that adds COOP/COEP, then reload once. */
+(function(){if(window.crossOriginIsolated||!('serviceWorker' in navigator)||!window.isSecureContext)return;
+ navigator.serviceWorker.register('coi-sw.js',{scope:'./'}).then(function(reg){
+  if(sessionStorage.getItem('ggCoiReload'))return;function go(){sessionStorage.setItem('ggCoiReload','1');location.reload()}
+  if(navigator.serviceWorker.controller)go();else navigator.serviceWorker.addEventListener('controllerchange',go);
+ }).catch(function(){})})();
+</script>
+<style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:#05070c;color:#e9eef6;font-family:Poppins,sans-serif}
+.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 14px;background:linear-gradient(180deg,#0d121b,#080b12);border-bottom:1px solid rgba(255,255,255,.08)}
+.bar a.back{color:#9fb0c8;text-decoration:none;font-size:13px;display:inline-flex;gap:7px;align-items:center}
+.bar h1{font-size:16px;font-weight:800;margin:0 8px 0 4px;text-transform:uppercase;letter-spacing:.01em}
+.modes{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+.mbtn{font:600 12.5px Poppins,sans-serif;color:#fff;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:8px 14px;cursor:pointer;display:inline-flex;gap:8px;align-items:center;text-decoration:none}
+.mbtn[aria-pressed=true]{background:linear-gradient(180deg,#22d3ee,#0e7490);border-color:transparent;color:#001218}
+.mbtn:focus-visible{outline:2px solid #5fe3ff;outline-offset:2px}
+.wrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;height:calc(100% - 58px)}
+.stage{position:relative;background:#000}.stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.msg{position:absolute;inset:0;display:none;place-items:center;text-align:center;padding:24px;color:#cbd5e1;font-size:14px;line-height:1.6}.msg.show{display:grid}
+.help{overflow:auto;padding:16px 16px 24px;border-left:1px solid rgba(255,255,255,.08);background:#090d14;font-size:13px;line-height:1.55}
+.help h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;margin:14px 0 8px;color:#fff}.help h2:first-child{margin-top:0}
+.help table{width:100%;border-collapse:collapse}.help td{padding:5px 0;border-bottom:1px solid rgba(255,255,255,.06);vertical-align:top}.help td:first-child{white-space:nowrap;padding-right:10px}
+kbd{display:inline-block;background:#fff;color:#000;border-radius:3px;padding:0 5px;font:600 10.5px Poppins,sans-serif;text-transform:uppercase}
+.warn{background:rgba(250,204,21,.08);border:1px solid rgba(250,204,21,.25);border-radius:10px;padding:9px 11px;color:#fde68a}
+@media (max-width:900px){.wrap{grid-template-columns:1fr;grid-template-rows:62vh auto;height:auto}.help{border-left:0;border-top:1px solid rgba(255,255,255,.08)}}
+</style>
+</head>
+<body>
+<div class="bar">
+ <a class="back" href="../../"><i class="fa-solid fa-arrow-left"></i>GhostGames</a>
+ <h1>GTA V <span style="font-weight:500;color:#8a96a8;text-transform:none">browser port</span></h1>
+ <div class="modes" role="group" aria-label="Game mode">
+  <button type="button" class="mbtn" data-mode="normal"><i class="fa-solid fa-play"></i>Normal</button>
+  <button type="button" class="mbtn" data-mode="low"><i class="fa-solid fa-gauge-simple"></i>WEAK PC? Low-graphics mode</button>
+  <button type="button" class="mbtn" data-mode="sandbox"><i class="fa-solid fa-road"></i>FREE ROAM? Sandbox mode</button>
+ </div>
+</div>
+<div class="wrap">
+ <div class="stage"><iframe id="game" title="GTA V browser port" allow="cross-origin-isolated; autoplay; fullscreen; gamepad; pointer-lock; keyboard-map; screen-wake-lock" allowfullscreen></iframe>
+  <div class="msg" id="msg"></div></div>
+ <aside class="help" aria-label="How to play">
+  <h2>From the game's own screen</h2>
+  <table>
+   <tr><td><kbd>Enter</kbd></td><td>Story Mode</td></tr>
+   <tr><td><kbd>Space</kbd></td><td>Sandbox Mode (then pick a map)</td></tr>
+   <tr><td><kbd>5</kbd> / <kbd>6</kbd></td><td>Sandbox map: GTA V map / "GTA VI map" (test level)</td></tr>
+   <tr><td><kbd>Backspace</kbd></td><td>Back on the title screen</td></tr>
+   <tr><td>Click</td><td>Capture the mouse (<kbd>Esc</kbd> releases it)</td></tr>
+   <tr><td><kbd>Shift</kbd>+<kbd>P</kbd></td><td>Switch keyboard mode</td></tr>
+   <tr><td><kbd>=</kbd></td><td>Show FPS</td></tr>
+   <tr><td><kbd>I</kbd><kbd>K</kbd> / <kbd>J</kbd><kbd>L</kbd></td><td>Aircraft pitch / roll (numpad stand-ins); <kbd>U</kbd>/<kbd>O</kbd> target select</td></tr>
+  </table>
+  <h2>In game (standard GTA V PC keys)</h2>
+  <table>
+   <tr><td><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></td><td>Move / drive</td></tr>
+   <tr><td>Mouse</td><td>Look / aim, left click shoots</td></tr>
+   <tr><td><kbd>Shift</kbd> · <kbd>Space</kbd></td><td>Sprint · jump (handbrake in cars)</td></tr>
+   <tr><td><kbd>F</kbd></td><td>Enter / exit vehicle</td></tr>
+   <tr><td><kbd>Tab</kbd> · <kbd>R</kbd></td><td>Weapon wheel · reload</td></tr>
+  </table>
+  <h2>Good to know</h2>
+  <p class="warn">First load downloads several hundred MB of game data (cached afterwards). Needs a recent desktop Chrome/Edge with a decent GPU; it isn't playable on phones. On a weaker PC use the low-graphics mode.</p>
+  <p>Hosted by <a style="color:#5fe3ff" href="https://gta2.deloskiyt.pl/" target="_blank" rel="noopener">gta2.deloskiyt.pl</a>; GhostGames only embeds the page.</p>
+ </aside>
+</div>
+<script>
+var SRC='https://gta2.deloskiyt.pl/',Q={normal:'',low:'?low=1',sandbox:'?mode=sandbox'};
+var p=new URLSearchParams(location.search),mode=Q.hasOwnProperty(p.get('mode'))?p.get('mode'):'normal';
+var fr=document.getElementById('game'),msg=document.getElementById('msg');
+function set(m,push){mode=m;[].forEach.call(document.querySelectorAll('.mbtn'),function(b){b.setAttribute('aria-pressed',b.dataset.mode===m?'true':'false')});
+ if(push){var u=location.pathname+(m==='normal'?'':'?mode='+m);history.replaceState(null,'',u)}
+ if(!window.crossOriginIsolated){msg.innerHTML='<div><b style="color:#fff">Getting the player ready…</b><br>This game needs an isolated page. If it doesn\'t start in a few seconds, <a style="color:#5fe3ff" href="'+SRC+Q[m]+'" target="_blank" rel="noopener">open it in a new tab</a>.</div>';msg.classList.add('show');setTimeout(function(){if(!window.crossOriginIsolated)fr.src=SRC+Q[m]},4000);return}
+ msg.classList.remove('show');fr.src=SRC+Q[m];setTimeout(function(){try{fr.focus()}catch(e){}},800)}
+document.querySelector('.modes').addEventListener('click',function(e){var b=e.target.closest('.mbtn');if(b)set(b.dataset.mode,true)});
+fr.addEventListener('load',function(){try{fr.focus()}catch(e){}});
+set(mode,false);
+</script>
+</body>
+</html>

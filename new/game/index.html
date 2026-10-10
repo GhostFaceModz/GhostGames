@@ -61,6 +61,7 @@ kbd{display:inline-block;padding:5px 10px;border-radius:9px;border:1px solid rgb
 .nf{text-align:center;padding:80px 0}.nf h1{text-align:center}.nf p{color:#a9aeb5;margin:12px 0 24px}.nf .btn{display:inline-grid;height:48px;padding:0 24px;border-radius:13px}
 @media (max-width:900px){.dh{grid-template-columns:1fr;gap:28px}.dcover{max-width:340px;margin:0 auto}.panels{grid-template-columns:1fr}}
 @media (max-width:700px){.crumb{padding:24px 0 16px}.dinfo h1{font-size:34px}.dcover{max-width:none;aspect-ratio:4/3.4}.acts .btn{flex:1 1 100%}.acts .mb{flex:1}.panel{padding:18px}.simh{margin-top:40px}}
+.gmodes{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 14px}.gmode{padding:10px 16px;border-radius:999px;font-size:13px}.gmode b{color:#5fe3ff}
 </style>
 </head>
 <body>
@@ -110,7 +111,7 @@ $('main').innerHTML=
  '<nav class="crumb" aria-label="Breadcrumb"><a href="../games/"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> All games</a><span aria-hidden="true">/</span><a href="../games/?cat='+encodeURIComponent(g.category)+'">'+esc(LABEL[g.category]||g.category)+'</a><span aria-hidden="true">/</span><span aria-current="page">'+esc(g.title)+'</span></nav>'+
  '<section class="dh"><button type="button" class="dcover'+(g.off?' off':'')+'" id="dCover" style="--c1:'+g.c1+';--c2:'+g.c2+'" aria-label="'+esc(g.off?g.title+' is down':playLbl+': '+g.title)+'"'+(g.off?' aria-disabled="true"':'')+'><i class="fa-solid '+g.icon+' fi" aria-hidden="true"></i><img src="'+g.cover+'" alt="" onerror="this.remove()"><span class="vig"></span><span class="scan"></span><span class="shine"></span>'+(g.off?'':'<span class="ctp" aria-hidden="true"><span class="eq"><b></b><b></b><b></b><b></b></span>Click to play</span>')+'<span class="edge"></span></button>'+
  '<div class="dinfo"><div class="kick"><span class="pill">'+esc(g.category)+'</span>'+(g.badge?'<span class="pill w">'+esc(g.badge)+'</span>':'')+GG.stHtml(g)+'</div>'+
- '<h1>'+esc(g.title)+'</h1><p class="desc">'+esc(g.description)+(g.off?' <br><b style="color:#fff">Currently down:</b> '+esc(g.note||'the host is unavailable')+'. We\'ll bring it back when a working link exists.':'')+'</p>'+
+ '<h1>'+esc(g.title)+'</h1>+(g.modes&&!g.off?'<div class="gmodes" role="group" aria-label="Play options">'+g.modes.map(function(m){return '<button type="button" class="mb gmode" data-url="'+esc(m.url)+'"><i class="fa-solid '+esc(m.icon||'fa-play')+'" aria-hidden="true"></i>&nbsp; <b>'+esc(m.kick)+'</b>&nbsp;'+esc(m.label)+'</button>'}).join('')+'</div>':'')+'<p class="desc">'+esc(g.description)+(g.off?' <br><b style="color:#fff">Currently down:</b> '+esc(g.note||'the host is unavailable')+'. We\'ll bring it back when a working link exists.':'')+'</p>'+
  '<div class="acts"><button type="button" class="btn" id="dPlay"'+(g.off?' disabled aria-disabled="true"':'')+'><span>'+(g.off?'<i class="fa-solid fa-power-off"></i>&nbsp; Down':'<i class="fa-solid '+(g.external?'fa-arrow-up-right-from-square':'fa-play')+'"></i>&nbsp; '+playLbl)+'</span></button>'+GG.heart(g.id)+(g.off||g.external?'':'<a class="mb" href="'+esc(g.url)+'" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>Open in new tab</a>')+'</div>'+
  '<p class="plays" id="plays"></p>'+
  '<div class="dtags">'+g.tags.map(function(t){return '<a href="../games/?tags='+encodeURIComponent(t)+'">#'+esc(t)+'</a>'}).join('')+'</div></div></section>'+
@@ -122,7 +123,8 @@ function plays(){var n=GG.plays(g.id);$('plays').innerHTML=n?'Played <b>'+n+'</b
 plays();document.addEventListener('gg:recent',plays);
 GG.applyStatus($('main'));GG.bindCards($('sim'));
 function play(){if(!g.off)GG.openGame(g)}
-$('dPlay').addEventListener('click',play);$('dCover').addEventListener('click',play);
+$('dPlay').addEventListener('click',play);
+[].forEach.call(document.querySelectorAll('.gmode'),function(b){b.addEventListener('click',function(){GG.openGame(Object.assign({},g,{url:b.getAttribute('data-url')}))})});$('dCover').addEventListener('click',play);
 $('navPlay').addEventListener('click',function(e){e.preventDefault();closeMenu();if(g.off){location.href='../games/';return}play()});
 })();
 </script>

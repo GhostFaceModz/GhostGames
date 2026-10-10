@@ -2114,5 +2114,85 @@ window.GG_GAMES=[
 "If it looks like a video, that's the demo: press Enter (Start) to begin. PC only: the site's mobile layout covers the game with ads."
 ],
 "order": 45
+},
+{
+"id": "gta-v-web",
+"devices": [
+"pc"
+],
+"status": "online",
+"note": "Needs WebGPU (recent desktop Chrome/Edge) and a strong PC",
+"title": "GTA V (browser port)",
+"category": "Open World",
+"url": "/GhostGames/new/play/gta-v/",
+"page": true,
+"icon": "fa-city",
+"badge": "Port",
+"color": "from-amber-600 to-stone-950",
+"description": "A WebAssembly port of Grand Theft Auto V running in the browser: Story Mode, or Sandbox free roam on the GTA V map with every weapon. Opens in GhostGames' own full-page player (the game needs a cross-origin-isolated page), with the site's own controls shown alongside.",
+"featured": true,
+"blurb": "GTA V in your browser. Weak PC? Low-graphics mode. Free roam? Sandbox mode.",
+"tags": [
+"Single player",
+"3D"
+],
+"modes": [
+{
+"kick": "WEAK PC?",
+"label": "Play low-graphics mode",
+"url": "/GhostGames/new/play/gta-v/?mode=low",
+"icon": "fa-gauge-simple"
+},
+{
+"kick": "FREE ROAM?",
+"label": "Play sandbox mode",
+"url": "/GhostGames/new/play/gta-v/?mode=sandbox",
+"icon": "fa-road"
+}
+],
+"controls": [
+[
+"Enter",
+"Story Mode (title screen)"
+],
+[
+"Space",
+"Sandbox Mode, then 5 = GTA V map / 6 = GTA VI test map"
+],
+[
+"Backspace",
+"Back (title screen)"
+],
+[
+"Click",
+"Capture the mouse (Esc releases it)"
+],
+[
+"W A S D",
+"Move / drive"
+],
+[
+"Mouse",
+"Look / aim, left click shoots"
+],
+[
+"Shift+P",
+"Switch keyboard mode"
+],
+[
+"=",
+"Show FPS"
+],
+[
+"I K / J L",
+"Aircraft pitch / roll (numpad stand-ins)"
+]
+],
+"tips": [
+"First load downloads several hundred MB of game data; it's cached afterwards.",
+"Weak PC or 'Aw, Snap!' crashes? Use the low-graphics mode (?low=1) and close other tabs.",
+"Desktop Chrome/Edge with a decent GPU recommended; not playable on phones."
+],
+"order": 46
 }
 ];

@@ -125,6 +125,7 @@ function closeHelp(){$('mHelpP').classList.remove('open');$('mHelp').focus()}
 function openGame(g){
  if(typeof g==='string')g=BY[g];if(!g||g.off)return;record(g.id);
  if(g.external){window.open(g.url,'_blank','noopener');return}
+ if(g.page){location.href=g.url;return}
  ensureModal();cur=g;lastFocus=document.activeElement;
  $('mTitle').textContent=g.title;$('mCat').textContent=g.category;$('mFavWrap').innerHTML=heart(g.id,'mfav');
  $('mIcon').innerHTML='<i class="fa-solid '+g.icon+'"></i>';$('mIcon').style.setProperty('--c1',g.c1);$('mIcon').style.setProperty('--c2',g.c2);

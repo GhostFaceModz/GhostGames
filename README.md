@@ -26,7 +26,7 @@ Alternate (GitHub Pages): **[ghostfacemodz.github.io/GhostGames/new/](https://gh
 
 <img src="screenshots/mobile.png" alt="GhostGames on mobile" width="300">
 
-## 🎮 Games (25 playable)
+## 🎮 Games (26 playable)
 
 ### Zombies
 | Game | About | Status |
@@ -63,6 +63,7 @@ Alternate (GitHub Pages): **[ghostfacemodz.github.io/GhostGames/new/](https://gh
 |---|---|---|
 | [GTA 5 Web Concept](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=gta-5) | An archived Grand Theft Auto V web sandbox concept. | 🔴 Down |
 | [GTA: Vice City WASM](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=gta-vice-city) | Cruise neon Vice City in a full reverse-engineered WASM port. | 🟢 Online |
+| [GTA V (browser port)](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=gta-v-web) | GTA V in your browser: Story Mode, Sandbox free roam, and a low-graphics mode for weak PCs. | 🟢 Online |
 | [The Simpsons: Hit & Run](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=simpsons-hit-and-run) | Drive, smash and explore Springfield in the full classic game. | 🟢 Online |
 | [Tweetcraft](https://ghostfacezen-portfolio.onrender.com/ghostgames/game/?id=tweetcraft) | A shared Minecraft-style voxel world anyone can join and build in. | 🟢 Online |
 
