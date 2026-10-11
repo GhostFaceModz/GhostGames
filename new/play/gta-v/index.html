@@ -22,40 +22,49 @@
  }).catch(function(){})})();
 </script>
 <style>
-*{box-sizing:border-box}html,body{margin:0;height:100%;background:#05070c;color:#e9eef6;font-family:Poppins,sans-serif}
-.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 14px;background:linear-gradient(180deg,#0d121b,#080b12);border-bottom:1px solid rgba(255,255,255,.08)}
-.bar a.back{color:#9fb0c8;text-decoration:none;font-size:13px;display:inline-flex;gap:7px;align-items:center}
-.bar h1{font-size:16px;font-weight:800;margin:0 8px 0 4px;text-transform:uppercase;letter-spacing:.01em}
-.modes{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:#000;color:#e9eef6;font-family:Poppins,sans-serif}
+#game{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;border:0;display:block;background:#000}
+.msg{position:fixed;inset:0;display:none;place-items:center;text-align:center;padding:24px;color:#cbd5e1;font-size:14px;line-height:1.6;z-index:5}.msg.show{display:grid}
+.tb{position:fixed;top:calc(8px + env(safe-area-inset-top));right:calc(8px + env(safe-area-inset-right));z-index:20;display:flex;gap:6px;opacity:.45;transition:opacity .2s}
+.tb:hover,.tb:focus-within{opacity:1}
+.rb{width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.55);color:#fff;font:700 14px Poppins,sans-serif;display:grid;place-items:center;cursor:pointer;padding:0;text-decoration:none}
+.rb:hover{background:rgba(14,116,144,.85)}.rb:focus-visible{outline:2px solid #5fe3ff;outline-offset:2px}.rb i{font-size:12px}
+.ov{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .2s}.ov.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(340px,92vw);z-index:31;overflow:auto;padding:16px 16px 24px;background:#090d14;border-left:1px solid rgba(255,255,255,.1);font-size:13px;line-height:1.55;transform:translateX(100%);transition:transform .22s;visibility:hidden}
+.drawer.open{transform:none;visibility:visible}
+.dh{display:flex;align-items:center;gap:8px;margin-bottom:12px}.dh h1{font-size:15px;font-weight:800;margin:0;text-transform:uppercase;flex:1}
+.dh .x{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff;cursor:pointer;font-size:15px}
+a.back{color:#9fb0c8;text-decoration:none;font-size:13px;display:inline-flex;gap:7px;align-items:center;margin-bottom:12px}
+.modes{display:flex;flex-direction:column;gap:8px;margin-bottom:6px}
 .mbtn{font:600 12.5px Poppins,sans-serif;color:#fff;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:8px 14px;cursor:pointer;display:inline-flex;gap:8px;align-items:center;text-decoration:none}
 .mbtn[aria-pressed=true]{background:linear-gradient(180deg,#22d3ee,#0e7490);border-color:transparent;color:#001218}
 .mbtn:focus-visible{outline:2px solid #5fe3ff;outline-offset:2px}
-.wrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;height:calc(100% - 58px)}
-.stage{position:relative;background:#000}.stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.msg{position:absolute;inset:0;display:none;place-items:center;text-align:center;padding:24px;color:#cbd5e1;font-size:14px;line-height:1.6}.msg.show{display:grid}
-.help{overflow:auto;padding:16px 16px 24px;border-left:1px solid rgba(255,255,255,.08);background:#090d14;font-size:13px;line-height:1.55}
-.help h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;margin:14px 0 8px;color:#fff}.help h2:first-child{margin-top:0}
-.help table{width:100%;border-collapse:collapse}.help td{padding:5px 0;border-bottom:1px solid rgba(255,255,255,.06);vertical-align:top}.help td:first-child{white-space:nowrap;padding-right:10px}
+.drawer h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;margin:16px 0 8px;color:#fff}
+.drawer table{width:100%;border-collapse:collapse}.drawer td{padding:5px 0;border-bottom:1px solid rgba(255,255,255,.06);vertical-align:top}.drawer td:first-child{white-space:nowrap;padding-right:10px}
 kbd{display:inline-block;background:#fff;color:#000;border-radius:3px;padding:0 5px;font:600 10.5px Poppins,sans-serif;text-transform:uppercase}
 .warn{background:rgba(250,204,21,.08);border:1px solid rgba(250,204,21,.25);border-radius:10px;padding:9px 11px;color:#fde68a}
-@media (max-width:900px){.wrap{grid-template-columns:1fr;grid-template-rows:62vh auto;height:auto}.help{border-left:0;border-top:1px solid rgba(255,255,255,.08)}}
 </style>
 </head>
 <body>
-<div class="bar">
- <a class="back" href="../../"><i class="fa-solid fa-arrow-left"></i>GhostGames</a>
- <h1>GTA V <span style="font-weight:500;color:#8a96a8;text-transform:none">browser port</span></h1>
+<iframe id="game" title="GTA V browser port" allow="cross-origin-isolated; autoplay; fullscreen; gamepad; pointer-lock; keyboard-map; screen-wake-lock" allowfullscreen></iframe>
+<div class="msg" id="msg"></div>
+<div class="tb" id="tb">
+ <a class="rb" id="newTab" href="https://gta2.deloskiyt.pl/" target="_blank" rel="noopener" tabindex="-1" aria-label="Open the game in a new tab" title="Open in new tab"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+ <button type="button" class="rb" id="fsBtn" tabindex="-1" aria-label="Fullscreen" title="Fullscreen"><i class="fa-solid fa-expand" aria-hidden="true"></i></button>
+ <button type="button" class="rb" id="helpBtn" tabindex="-1" aria-label="Modes and controls" title="Modes and controls" aria-expanded="false" aria-controls="drawer">?</button>
+</div>
+<div class="ov" id="ov"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Modes and controls" aria-hidden="true">
+ <div class="dh"><h1>GTA V <span style="font-weight:500;color:#8a96a8;text-transform:none">browser port</span></h1><button type="button" class="x" id="xBtn" aria-label="Close"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></div>
+ <a class="back" href="../../"><i class="fa-solid fa-arrow-left"></i>Back to GhostGames</a>
+ <div style="margin:0 0 12px"><span id="ggOnline"></span></div>
+ <h2 style="margin-top:4px">Mode</h2>
  <div class="modes" role="group" aria-label="Game mode">
   <button type="button" class="mbtn" data-mode="normal"><i class="fa-solid fa-play"></i>Normal</button>
   <button type="button" class="mbtn" data-mode="low"><i class="fa-solid fa-gauge-simple"></i>WEAK PC? Low-graphics mode</button>
   <button type="button" class="mbtn" data-mode="sandbox"><i class="fa-solid fa-road"></i>FREE ROAM? Sandbox mode</button>
  </div>
-</div>
-<div class="wrap">
- <div class="stage"><iframe id="game" title="GTA V browser port" allow="cross-origin-isolated; autoplay; fullscreen; gamepad; pointer-lock; keyboard-map; screen-wake-lock" allowfullscreen></iframe>
-  <div class="msg" id="msg"></div></div>
- <aside class="help" aria-label="How to play">
-  <h2>From the game's own screen</h2>
+ <h2>From the game's own screen</h2>
   <table>
    <tr><td><kbd>Enter</kbd></td><td>Story Mode</td></tr>
    <tr><td><kbd>Space</kbd></td><td>Sandbox Mode (then pick a map)</td></tr>
@@ -78,7 +87,6 @@ kbd{display:inline-block;background:#fff;color:#000;border-radius:3px;padding:0 
   <p class="warn">First load downloads several hundred MB of game data (cached afterwards). Needs a recent desktop Chrome/Edge with a decent GPU; it isn't playable on phones. On a weaker PC use the low-graphics mode.</p>
   <p>Hosted by <a style="color:#5fe3ff" href="https://gta2.deloskiyt.pl/" target="_blank" rel="noopener">gta2.deloskiyt.pl</a>; GhostGames only embeds the page.</p>
  </aside>
-</div>
 <script>
 var SRC='https://gta2.deloskiyt.pl/',Q={normal:'',low:'?low=1',sandbox:'?mode=sandbox'};
 var p=new URLSearchParams(location.search),mode=Q.hasOwnProperty(p.get('mode'))?p.get('mode'):'normal';
@@ -89,7 +97,25 @@ function set(m,push){mode=m;[].forEach.call(document.querySelectorAll('.mbtn'),f
  msg.classList.remove('show');fr.src=SRC+Q[m];setTimeout(function(){try{fr.focus()}catch(e){}},800)}
 document.querySelector('.modes').addEventListener('click',function(e){var b=e.target.closest('.mbtn');if(b)set(b.dataset.mode,true)});
 fr.addEventListener('load',function(){try{fr.focus()}catch(e){}});
+var dr=document.getElementById('drawer'),ov=document.getElementById('ov'),hb=document.getElementById('helpBtn'),nt=document.getElementById('newTab');
+function upd(){nt.href=SRC+Q[mode]}
+var _set=set;set=function(m,push){_set(m,push);upd()};
+function refocus(){setTimeout(function(){try{fr.focus()}catch(e){}},50)}
+function openD(){dr.classList.add('open');ov.classList.add('open');dr.setAttribute('aria-hidden','false');hb.setAttribute('aria-expanded','true');if(document.pointerLockElement)document.exitPointerLock();setTimeout(function(){document.getElementById('xBtn').focus()},30)}
+function closeD(){dr.classList.remove('open');ov.classList.remove('open');dr.setAttribute('aria-hidden','true');hb.setAttribute('aria-expanded','false');refocus()}
+/* toolbar buttons never keep focus, so game keys keep going to the iframe */
+[].forEach.call(document.querySelectorAll('.tb .rb'),function(b){b.addEventListener('mousedown',function(e){e.preventDefault()})});
+hb.addEventListener('click',function(){dr.classList.contains('open')?closeD():openD()});
+document.getElementById('xBtn').addEventListener('click',closeD);ov.addEventListener('click',closeD);
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&dr.classList.contains('open')){e.preventDefault();closeD()}});
+document.querySelector('.modes').addEventListener('click',function(e){if(e.target.closest('.mbtn'))closeD()});
+var fsb=document.getElementById('fsBtn');
+function fsOn(){return document.fullscreenElement||document.webkitFullscreenElement}
+fsb.addEventListener('click',function(){if(fsOn()){(document.exitFullscreen||document.webkitExitFullscreen).call(document)}else{var r=document.documentElement;var p=(r.requestFullscreen||r.webkitRequestFullscreen);if(p){var x=p.call(r);if(x&&x.catch)x.catch(function(){})}}refocus()});
+document.addEventListener('fullscreenchange',function(){fsb.querySelector('i').className='fa-solid '+(fsOn()?'fa-compress':'fa-expand');refocus()});
+nt.addEventListener('click',refocus);
 set(mode,false);
 </script>
+<script src="../../gg-online.js" defer></script>
 </body>
 </html>

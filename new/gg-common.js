@@ -13,7 +13,7 @@ var RM=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function get(k,d){try{var v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}}
 function set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 function recent(){return get('gg:recent',[]).filter(function(r){return BY[r.id]})}
-function record(id){var r=recent().filter(function(x){return x.id!==id});r.unshift({id:id,t:Date.now()});set('gg:recent',r.slice(0,20));var p=get('gg:plays',{});p[id]=(p[id]||0)+1;set('gg:plays',p);hitPlay(id);document.dispatchEvent(new CustomEvent('gg:recent'))}
+function record(id){var r=recent().filter(function(x){return x.id!==id});r.unshift({id:id,t:Date.now()});set('gg:recent',r.slice(0,20));var p=get('gg:plays',{});p[id]=(p[id]||0)+1;set('gg:plays',p);document.dispatchEvent(new CustomEvent('gg:recent'))}
 function plays(id){return get('gg:plays',{})[id]||0}
 function favs(){return get('gg:favs',[]).filter(function(id){return BY[id]})}
 function isFav(id){return favs().indexOf(id)>=0}
@@ -221,13 +221,13 @@ function cPump(){
  cPump()}
 function cReq(op,k,cb,front){if(cPend[op+k]&&op==='get')return;cPend[op+k]=1;var j={op:op,k:k,cb:cb};if(front)cq.unshift(j);else cq.push(j);cPump()}
 /* request plays/up/down for a list of games (skips fresh cache and offline games). Plays first, then ratings. */
-function need(list,what){var a=cAll(),now=Date.now();(what||['p','u','d']).forEach(function(w){(list||GAMES).forEach(function(g){if(!g||g.off)return;var k=w+'-'+g.id,c=a[k];if(!c||now-c.t>CTTL)cReq('get',k)})})}
+function need(list,what){var a=cAll(),now=Date.now();(what||['u','d']).forEach(function(w){(list||GAMES).forEach(function(g){if(!g||g.off)return;var k=w+'-'+g.id,c=a[k];if(!c||now-c.t>CTTL)cReq('get',k)})})}
 function fmt(n){return n>=1e6?(n/1e6).toFixed(1).replace(/\.0$/,'')+'M':n>=1e4?Math.round(n/1e3)+'k':n>=1e3?(n/1e3).toFixed(1).replace(/\.0$/,'')+'k':String(n)}
 function pcount(id){return cnt('p-'+id)}
 function score(id){var u=cnt('u-'+id)||0,d=cnt('d-'+id)||0;return (u+1)/(u+d+2)+u*1e-6}
-function psHtml(id){var p=cnt('p-'+id),u=cnt('u-'+id);if(p==null&&u==null)return '';
- return (p!=null?'<span title="Plays on GhostGames (all visitors)"><i class="fa-solid fa-play" aria-hidden="true"></i>'+fmt(p)+' '+(p===1?'play':'plays')+'</span>':'')+(u?'<span title="Thumbs up"><i class="fa-solid fa-thumbs-up" aria-hidden="true"></i>'+fmt(u)+'</span>':'')}
-function hitPlay(id){var h=get('gg:hitT',{});if(h[id]&&Date.now()-h[id]<30*60000)return;h[id]=Date.now();set('gg:hitT',h);cReq('hit','p-'+id,null,true)}
+function psHtml(id){var u=cnt('u-'+id);if(u==null)return '';
+ return (u?'<span title="Thumbs up"><i class="fa-solid fa-thumbs-up" aria-hidden="true"></i>'+fmt(u)+'</span>':'')}
+function hitPlay(id){return;/* play counter removed */var h=get('gg:hitT',{});if(h[id]&&Date.now()-h[id]<30*60000)return;h[id]=Date.now();set('gg:hitT',h);cReq('hit','p-'+id,null,true)}
 /* ratings: one vote per game per device (localStorage); counters are shared */
 function myVote(id){return get('gg:votes',{})[id]||null}
 function vote(id,dir){if(!BY[id]||myVote(id)||(dir!=='u'&&dir!=='d'))return false;var v=get('gg:votes',{});v[id]=dir;set('gg:votes',v);

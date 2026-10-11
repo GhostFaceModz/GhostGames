@@ -89,7 +89,7 @@ kbd{display:inline-block;padding:5px 10px;border-radius:9px;border:1px solid rgb
 </div>
 <a class="wa" href="https://github.com/GhostFaceModz/GhostGames" target="_blank" rel="noopener" aria-label="GhostGames on GitHub"><svg viewBox="0 0 16 16" fill="#fff" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.290 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.130-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.070-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.420-3.58-8-8-8Z"/></svg></a>
 <script src="../gg-data.js"></script>
-<script src="../gg-common.js"></script>
+<script src="../gg-common.js"></script><script src="../gg-online.js" defer></script>
 <script>
 (function(){
 'use strict';
@@ -117,14 +117,14 @@ $('main').innerHTML=
  '<h1>'+esc(g.title)+'</h1>'+(g.modes&&!g.off?'<div class="gmodes" role="group" aria-label="Play options">'+g.modes.map(function(m){return '<button type="button" class="mb gmode" data-url="'+esc(m.url)+'"><i class="fa-solid '+esc(m.icon||'fa-play')+'" aria-hidden="true"></i>&nbsp; <b>'+esc(m.kick)+'</b>&nbsp;'+esc(m.label)+'</button>'}).join('')+'</div>':'')+'<p class="desc">'+esc(g.description)+(g.off?' <br><b style="color:#fff">Currently down:</b> '+esc(g.note||'the host is unavailable')+'. We\'ll bring it back when a working link exists.':'')+'</p>'+
  '<div class="acts"><button type="button" class="btn" id="dPlay"'+(g.off?' disabled aria-disabled="true"':'')+'><span>'+(g.off?'<i class="fa-solid fa-power-off"></i>&nbsp; Down':'<i class="fa-solid '+(g.external?'fa-arrow-up-right-from-square':'fa-play')+'"></i>&nbsp; '+playLbl)+'</span></button>'+GG.heart(g.id)+(g.off||g.external?'':'<a class="mb" href="'+esc(g.url)+'" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>Open in new tab</a>')+'</div>'+
  (g.off?'':'<div class="drate"><span class="drl">Rate it</span>'+GG.rateHtml(g.id)+'<button type="button" class="mb" data-report="'+g.id+'"><i class="fa-solid fa-flag" aria-hidden="true"></i>Report broken game</button></div>')+
- '<p class="plays" id="plays"></p>'+
+ ''+
  '<div class="dtags">'+g.tags.map(function(t){return '<a href="../games/?tags='+encodeURIComponent(t)+'">#'+esc(t)+'</a>'}).join('')+'</div></div></section>'+
  (g.screenshot?'<figure class="dshot"><img src="'+GG.BASE+esc(g.screenshot.src)+'" width="'+g.screenshot.w+'" height="'+g.screenshot.h+'" loading="lazy" decoding="async" alt="'+esc(g.title)+' screenshot"><figcaption>'+esc(g.title)+' running in the browser</figcaption></figure>':'')+
  '<section class="panels"><div class="panel"><h2><i class="fa-solid fa-keyboard" aria-hidden="true"></i>Controls</h2><div class="ctl">'+g.controls.map(function(c){return '<kbd>'+esc(c[0])+'</kbd><span>'+esc(c[1])+'</span>'}).join('')+'</div></div>'+
  '<div class="panel"><h2><i class="fa-solid fa-lightbulb" aria-hidden="true"></i>Tips</h2><ul class="tips">'+g.tips.map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul></div></section>'+
  '<section class="panels" style="margin-top:22px"><div class="panel" id="trouble" style="grid-column:1/-1"><h2><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>Game not loading?</h2>'+GG.helpHtml(g,false)+'</div></section>'+
  '<div class="simh"><h2>Similar games</h2><a href="../games/?cat='+encodeURIComponent(g.category)+'">More '+esc(LABEL[g.category]||g.category)+' →</a></div><div class="grid" id="sim">'+sim.map(GG.card).join('')+'</div>';
-function plays(){var n=GG.plays(g.id),s=GG.pcount(g.id);$('plays').innerHTML=(s!=null&&!g.off?'<b>'+GG.fmt(s)+'</b> '+(s===1?'play':'plays')+' on GhostGames · ':'')+(n?'Played <b>'+n+'</b> '+(n===1?'time':'times')+' on this device':'Not played on this device yet')}
+function plays(){return;var n=GG.plays(g.id),s=GG.pcount(g.id);$('plays').innerHTML=(s!=null&&!g.off?'<b>'+GG.fmt(s)+'</b> '+(s===1?'play':'plays')+' on GhostGames · ':'')+(n?'Played <b>'+n+'</b> '+(n===1?'time':'times')+' on this device':'Not played on this device yet')}
 plays();document.addEventListener('gg:recent',plays);document.addEventListener('gg:cnt',function(e){if(e.detail.k==='p-'+g.id)plays()});GG.need([g].concat(sim));
 GG.applyStatus($('main'));GG.bindCards($('sim'));
 function play(){if(!g.off)GG.openGame(g)}

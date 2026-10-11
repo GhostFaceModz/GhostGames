@@ -52,7 +52,7 @@
     <div class="row1">
       <label class="search"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search games</span><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><input type="search" id="q" placeholder="Search games…" autocomplete="off"></label>
       <div class="row2">
-        <label class="sort">Sort <select id="sort"><option value="featured">Featured</option><option value="popular">Most played</option><option value="top">Top rated</option><option value="az">A–Z</option><option value="new">Newest added</option><option value="cat">Category</option></select></label>
+        <label class="sort">Sort <select id="sort"><option value="featured">Featured</option><option value="top">Top rated</option><option value="az">A–Z</option><option value="new">Newest added</option><option value="cat">Category</option></select></label>
         <label class="sort">Device <select id="device"><option value="all">All devices</option><option value="mobile">Mobile</option><option value="pc">PC</option></select></label>
         <div class="count" id="count" aria-live="polite"></div>
       </div>
@@ -71,7 +71,7 @@
 <a class="wa" href="https://github.com/GhostFaceModz/GhostGames" target="_blank" rel="noopener" aria-label="GhostGames on GitHub"><svg viewBox="0 0 16 16" fill="#fff" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.290 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.130-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.070-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.420-3.58-8-8-8Z"/></svg></a>
 
 <script src="../gg-data.js"></script>
-<script src="../gg-common.js"></script>
+<script src="../gg-common.js"></script><script src="../gg-online.js" defer></script>
 <script>
 (function(){
 'use strict';
@@ -86,14 +86,14 @@ $('links').innerHTML=CATS.map(function(c,i){return '<a href="'+(c==='All'?'./':'
 $('tabs').innerHTML='<button type="button" class="tab fav" id="favTab" aria-pressed="false" hidden><i class="fa-solid fa-heart" aria-hidden="true"></i>Favourites<em id="favN"></em></button>'+CATS.map(function(c){var n=c==='All'?GAMES.length:GAMES.filter(function(g){return g.category===c}).length;return '<button type="button" class="tab" role="tab" data-cat="'+esc(c)+'" aria-selected="false">'+esc(LABEL[c]||c)+'<em>'+n+'</em></button>'}).join('');
 $('chips').innerHTML=TAGS.map(function(t){return '<button type="button" class="tchip" data-tag="'+t+'" aria-pressed="false">'+t+'</button>'}).join('');
 
-function readURL(){var p=new URLSearchParams(location.search);st.device=['mobile','pc'].indexOf(p.get('device'))>=0?p.get('device'):'all';if($('device'))$('device').value=st.device;st.cat=CATS.indexOf(p.get('cat'))>=0?p.get('cat'):'All';st.q=p.get('q')||'';st.sort=['featured','popular','top','az','new','cat'].indexOf(p.get('sort'))>=0?p.get('sort'):'featured';st.tags=(p.get('tags')||'').split(',').filter(function(t){return TAGS.indexOf(t)>=0});st.fav=p.get('fav')==='1';$('q').value=st.q;$('sort').value=st.sort}
+function readURL(){var p=new URLSearchParams(location.search);st.device=['mobile','pc'].indexOf(p.get('device'))>=0?p.get('device'):'all';if($('device'))$('device').value=st.device;st.cat=CATS.indexOf(p.get('cat'))>=0?p.get('cat'):'All';st.q=p.get('q')||'';st.sort=['featured','top','az','new','cat'].indexOf(p.get('sort'))>=0?p.get('sort'):'featured';st.tags=(p.get('tags')||'').split(',').filter(function(t){return TAGS.indexOf(t)>=0});st.fav=p.get('fav')==='1';$('q').value=st.q;$('sort').value=st.sort}
 function writeURL(push){var p=new URLSearchParams();if(st.cat!=='All')p.set('cat',st.cat);if(st.q)p.set('q',st.q);if(st.sort!=='featured')p.set('sort',st.sort);if(st.tags.length)p.set('tags',st.tags.join(','));if(st.fav)p.set('fav','1');if(st.device!=='all')p.set('device',st.device);var u=location.pathname+(p.toString()?'?'+p.toString():'');history[push?'pushState':'replaceState'](null,'',u)}
 
 function render(){
  var q=st.q.trim().toLowerCase(),F=GG.favs();
  if(st.fav&&!F.length)st.fav=false;
  var l=GAMES.filter(function(g){return (st.device==='all'||(g.devices||['pc']).indexOf(st.device)>=0)&&(st.cat==='All'||g.category===st.cat)&&(!st.fav||F.indexOf(g.id)>=0)&&st.tags.every(function(t){return hasTag(g,t)})&&(!q||(g.title+' '+g.category+' '+g.description+' '+g.tags.join(' ')).toLowerCase().indexOf(q)>=0)});
- var S={featured:function(a,b){return (b.featured?1:0)-(a.featured?1:0)||a.order-b.order},az:function(a,b){return a.title.localeCompare(b.title)},new:function(a,b){return b.order-a.order},cat:function(a,b){return a.category.localeCompare(b.category)||a.title.localeCompare(b.title)},popular:function(a,b){return (GG.pcount(b.id)||0)-(GG.pcount(a.id)||0)||a.order-b.order},top:function(a,b){return GG.score(b.id)-GG.score(a.id)||(GG.pcount(b.id)||0)-(GG.pcount(a.id)||0)||a.order-b.order}}[st.sort];
+ var S={featured:function(a,b){return (b.featured?1:0)-(a.featured?1:0)||a.order-b.order},az:function(a,b){return a.title.localeCompare(b.title)},new:function(a,b){return b.order-a.order},cat:function(a,b){return a.category.localeCompare(b.category)||a.title.localeCompare(b.title)},popular:function(a,b){return (GG.pcount(b.id)||0)-(GG.pcount(a.id)||0)||a.order-b.order},top:function(a,b){return GG.score(b.id)-GG.score(a.id)||a.order-b.order}}[st.sort];
  l.sort(function(a,b){return (a.off?1:0)-(b.off?1:0)||S(a,b)});
  $('grid').innerHTML=l.map(GG.card).join('');GG.applyStatus($('grid'));
  $('empty').classList.toggle('show',!l.length);
@@ -128,7 +128,7 @@ $('navPlay').addEventListener('click',function(e){var l=GAMES.filter(function(g)
 var closeMenu=GG.burger($('nav'),$('burger'));
 function onScroll(){document.body.classList.toggle('scrolled',scrollY>40)}window.addEventListener('scroll',onScroll,{passive:true});onScroll();
 readURL();render();renderCont();GG.need(GAMES,st.sort==='top'?['u','d','p']:['p','u']);
-var rsT;document.addEventListener('gg:cnt',function(){if(st.sort!=='popular'&&st.sort!=='top')return;clearTimeout(rsT);rsT=setTimeout(render,700)});
+var rsT;document.addEventListener('gg:cnt',function(){if(st.sort!=='top')return;clearTimeout(rsT);rsT=setTimeout(render,700)});
 })();
 </script>
 </body>
