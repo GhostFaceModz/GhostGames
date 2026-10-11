@@ -207,13 +207,14 @@ var CNT='https://abacus.jasoncameron.dev',NS='ghostgames-gfz',CTTL=20*60000,cq=[
 function cAll(){return get('gg:cnt',{})}
 function cnt(k){var c=cAll()[k];return c?c.v:null}
 function cSet(k,v){var a=cAll();a[k]={v:v,t:Date.now()};set('gg:cnt',a);document.dispatchEvent(new CustomEvent('gg:cnt',{detail:{k:k,v:v}}))}
-/* rate window shared across tabs via localStorage (limit is per visitor IP): max 20 requests per 10.5 s */
-function cWinGet(){var now=Date.now();return get('gg:cwin',[]).filter(function(t){return now-t<10500})}
+/* Abacus' limiter only resets after ~10 s with NO requests from this IP (measured), so send bursts of <=24
+   then stay fully idle 11 s. Burst state is shared across tabs via localStorage. */
 function cPump(){
- if(!cq.length||cBusy>=3)return;var now=Date.now(),w=cWinGet(),hold=get('gg:chold',0);
- if(hold>now||w.length>=20){clearTimeout(cPump.t);cPump.t=setTimeout(cPump,Math.max(hold-now,w.length>=20?10600-(now-w[0]):0)+50);return}
- var j=cq.shift();w.push(now);set('gg:cwin',w);cBusy++;
- fetch(CNT+'/'+j.op+'/'+NS+'/'+j.k,{cache:'no-store',credentials:'omit'}).then(function(r){if(r.status===404)return{value:0};if(r.status===429){var ra=+r.headers.get('Retry-After')||3000;set('gg:chold',Date.now()+Math.min(Math.max(ra,1000),15000));throw 'rl'}if(!r.ok)throw 0;return r.json()})
+ if(!cq.length||cBusy>=3)return;var now=Date.now(),w=get('gg:cwin',{n:0,t:0}),hold=get('gg:chold',0);
+ if(now-w.t>11000)w={n:0,t:0};
+ if(hold>now||w.n>=24){clearTimeout(cPump.t);cPump.t=setTimeout(cPump,Math.max(hold-now,w.n>=24?11100-(now-w.t):0)+50);return}
+ var j=cq.shift();w.n++;w.t=now;set('gg:cwin',w);cBusy++;
+ fetch(CNT+'/'+j.op+'/'+NS+'/'+j.k,{cache:'no-store',credentials:'omit'}).then(function(r){if(r.status===404)return{value:0};if(r.status===429){var ra=+r.headers.get('Retry-After')||3000;set('gg:chold',Date.now()+11500);throw 'rl'}if(!r.ok)throw 0;return r.json()})
  .then(function(d){var v=+d.value||0;cSet(j.k,v);if(j.cb)j.cb(v)})
  .catch(function(e){if(e==='rl'&&(j.r||0)<2){j.r=(j.r||0)+1;cq.unshift(j)}else if(j.cb)j.cb(null)})
  .then(function(){cBusy--;if(cq[0]!==j)delete cPend[j.op+j.k];cPump()});
