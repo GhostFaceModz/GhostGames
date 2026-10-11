@@ -231,7 +231,7 @@ function hitPlay(id){return;/* play counter removed */var h=get('gg:hitT',{});if
 /* ratings: one vote per game per device (localStorage); counters are shared */
 function myVote(id){return get('gg:votes',{})[id]||null}
 function vote(id,dir){if(!BY[id]||myVote(id)||(dir!=='u'&&dir!=='d'))return false;var v=get('gg:votes',{});v[id]=dir;set('gg:votes',v);
- var k=dir+'-'+id;cSet(k,(cnt(k)||0)+1);cReq('hit',k,null,true);toast(dir==='u'?'Thanks! Thumbs up recorded.':'Thanks for the feedback.');return true}
+ var k=dir+'-'+id;cSet(k,(cnt(k)||0)+1);cReq('hit',k,null,true);document.dispatchEvent(new CustomEvent('gg:vote',{detail:{id:id,dir:dir}}));toast(dir==='u'?'Thanks! Thumbs up recorded.':'Thanks for the feedback.');return true}
 function rateHtml(id,cls){var m=myVote(id),u=cnt('u-'+id),d=cnt('d-'+id);
  function b(dir,ic,lbl,n){var on=m===dir;return '<button type="button" class="mb ggv'+(on?' on':'')+'" data-vote="'+dir+'" data-vid="'+id+'" aria-pressed="'+on+'"'+(m?' disabled':'')+' aria-label="'+lbl+(n!=null?' ('+n+')':'')+'" title="'+(m?(on?'You rated this':'You already rated this'):lbl)+'"><i class="fa-'+(on?'solid':'regular')+' '+ic+'" aria-hidden="true"></i><span>'+(n!=null?fmt(n):'')+'</span></button>'}
  return '<span class="ggrate '+(cls||'')+'" data-rate="'+id+'">'+b('u','fa-thumbs-up','Thumbs up',u)+b('d','fa-thumbs-down','Thumbs down',d)+'</span>'}
@@ -292,7 +292,7 @@ window.addEventListener('appinstalled',function(){var w=document.getElementById(
 
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){discord();syncPulse()});else discord();
 (window.requestAnimationFrame||setTimeout)(syncPulse);
-window.GG={BASE:BASE,GAMES:GAMES,BY:BY,esc:esc,RM:RM,recent:recent,record:record,plays:plays,favs:favs,isFav:isFav,toggleFav:toggleFav,heart:heart,
+window.GG={syncHearts:syncHearts,get:get,set:set,BASE:BASE,GAMES:GAMES,BY:BY,esc:esc,RM:RM,recent:recent,record:record,plays:plays,favs:favs,isFav:isFav,toggleFav:toggleFav,heart:heart,
  probe:probe,stHtml:stHtml,applyStatus:applyStatus,card:card,bindCards:bindCards,openGame:openGame,closeGame:closeGame,openSuggest:openSuggest,stars:stars,burger:burger,DISCORD:DISCORD,helpHtml:helpHtml,
  need:need,cnt:cnt,pcount:pcount,score:score,psHtml:psHtml,rateHtml:rateHtml,vote:vote,myVote:myVote,fmt:fmt,toast:toast,gotd:gotd,gotdPool:gotdPool,openReport:openReport,getDock:getDock,imgAttrs:imgAttrs,padHtml:padHtml,sm:sm};
 })();
