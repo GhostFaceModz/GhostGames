@@ -94,13 +94,13 @@ var fr=document.getElementById('game'),msg=document.getElementById('msg');
 function set(m,push){mode=m;[].forEach.call(document.querySelectorAll('.mbtn'),function(b){b.setAttribute('aria-pressed',b.dataset.mode===m?'true':'false')});
  if(push){var u=location.pathname+(m==='normal'?'':'?mode='+m);history.replaceState(null,'',u)}
  if(!window.crossOriginIsolated){msg.innerHTML='<div><b style="color:#fff">Getting the player ready…</b><br>This game needs an isolated page. If it doesn\'t start in a few seconds, <a style="color:#5fe3ff" href="'+SRC+Q[m]+'" target="_blank" rel="noopener">open it in a new tab</a>.</div>';msg.classList.add('show');setTimeout(function(){if(!window.crossOriginIsolated)fr.src=SRC+Q[m]},4000);return}
- msg.classList.remove('show');fr.src=SRC+Q[m];setTimeout(function(){try{fr.focus()}catch(e){}},800)}
+ msg.classList.remove('show');fr.src=SRC+Q[m];setTimeout(function(){try{if(!document.getElementById('drawer').classList.contains('open'))fr.focus()}catch(e){}},800)}
 document.querySelector('.modes').addEventListener('click',function(e){var b=e.target.closest('.mbtn');if(b)set(b.dataset.mode,true)});
-fr.addEventListener('load',function(){try{fr.focus()}catch(e){}});
+fr.addEventListener('load',function(){try{if(!document.getElementById('drawer').classList.contains('open'))fr.focus()}catch(e){}});
 var dr=document.getElementById('drawer'),ov=document.getElementById('ov'),hb=document.getElementById('helpBtn'),nt=document.getElementById('newTab');
 function upd(){nt.href=SRC+Q[mode]}
 var _set=set;set=function(m,push){_set(m,push);upd()};
-function refocus(){setTimeout(function(){try{fr.focus()}catch(e){}},50)}
+function refocus(){setTimeout(function(){try{if(!document.getElementById('drawer').classList.contains('open'))fr.focus()}catch(e){}},50)}
 function openD(){dr.classList.add('open');ov.classList.add('open');dr.setAttribute('aria-hidden','false');hb.setAttribute('aria-expanded','true');if(document.pointerLockElement)document.exitPointerLock();setTimeout(function(){document.getElementById('xBtn').focus()},30)}
 function closeD(){dr.classList.remove('open');ov.classList.remove('open');dr.setAttribute('aria-hidden','true');hb.setAttribute('aria-expanded','false');refocus()}
 /* toolbar buttons never keep focus, so game keys keep going to the iframe */
