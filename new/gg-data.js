@@ -2404,4 +2404,37 @@ window.GG_GAMES=[
 ],
 "order": 49
 }
+  ,{
+"id": "among-us",
+"devices": ["pc", "mobile"],
+"title": "Among Us Web",
+"category": "Co-op",
+"url": "https://wasm.rip/files/amongus/latest/",
+"external": true,
+"icon": "fa-users",
+"badge": "New",
+"color": "from-red-600 to-cyan-900",
+"description": "Among Us in the browser. Complete tasks, find the impostor, or sabotage as the impostor.",
+"featured": true,
+"blurb": "Complete tasks or sabotage as the impostor — Among Us in your browser.",
+"tags": [
+"Multiplayer",
+"3D",
+"Mobile friendly"
+],
+"controls": [
+["W A S D", "Move"],
+["Mouse", "Look / interact"],
+["E", "Use / report"],
+["Q", "Kill (impostor)"],
+["M", "Map"],
+["Esc", "Menu"]
+],
+"tips": [
+"First load can take a moment while assets download.",
+"Works best in a modern browser with hardware acceleration.",
+"Use the in-game name and colour picker before joining a lobby."
+],
+"order": 50
+  }
 ];
