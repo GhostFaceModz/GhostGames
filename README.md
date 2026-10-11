@@ -92,7 +92,6 @@ Alternate (GitHub Pages): **[ghostfacemodz.github.io/GhostGames/new/](https://gh
 | Game | About | How it runs | Status |
 |---|---|---|---|
 | [WASM Arcade](https://ghostgames.app/ghostgames/game/?id=wasm-arcade) | A huge hub of PC and arcade classics compiled for browsers. | New tab | 🟢 Online |
-| [Flash Games (850+)](https://ghostgames.app/ghostgames/game/?id=flash-games) | 850+ classic Flash games, revived with the Ruffle emulator. | New tab | 🟢 Online |
 
 ### Retro
 | Game | About | How it runs | Status |

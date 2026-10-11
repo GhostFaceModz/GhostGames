@@ -2367,42 +2367,5 @@ window.GG_GAMES=[
 "Your saves stay in this browser."
 ],
 "order": 49
-},
-{
-"id": "flash-games",
-"devices": ["pc"],
-"title": "Flash Games (850+)",
-"category": "Arcade",
-"url": "https://wasmarcade.com/flash-games",
-"external": true,
-"icon": "fa-bolt",
-"badge": "Hub",
-"color": "from-yellow-500 to-red-900",
-"description": "Hundreds of classic Flash games (Happy Wheels, Bloons TD, Age of War and more) running on the Ruffle emulator, no plugin needed. Hosted by WASM Arcade, which doesn't allow embedding, so it opens in a new tab.",
-"featured": false,
-"blurb": "850+ classic Flash games, revived with the Ruffle emulator.",
-"tags": [
-"Single player",
-"Retro"
-],
-"controls": [
-[
-"Mouse",
-"Pick a game / play"
-],
-[
-"Arrows / W A S D",
-"Move (most games)"
-],
-[
-"Space",
-"Jump / action"
-]
-],
-"tips": [
-"Each game shows its own controls on its page.",
-"Click inside the game first so it gets keyboard input."
-],
-"order": 50
 }
 ];
