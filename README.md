@@ -2,7 +2,7 @@
 
 Play classic and WebAssembly game ports right in your browser. There are no downloads, no installs and no account. Pick a game from the spinning 3D library, hit **Play**, and it opens in the built-in player.
 
-## ▶️ [Play now: GhostGames Library](https://ghostfacezen-portfolio.onrender.com/ghostgames/)
+## ▶️ [Play now: ghostgames.app](https://ghostgames.app)
 
 Alternate (GitHub Pages): **[ghostfacemodz.github.io/GhostGames/new/](https://ghostfacemodz.github.io/GhostGames/new/)** · Classic version: [ghostfacemodz.github.io/GhostGames/](https://ghostfacemodz.github.io/GhostGames/)
 
