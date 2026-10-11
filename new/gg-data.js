@@ -2,6 +2,7 @@
 window.GG_GAMES=[
 {
 "id": "bo1-zombies",
+"screenshot": {"src": "screens/bo1-zombies.webp", "w": 960, "h": 540},
 "devices": ["pc"],
 "title": "BO1 Zombies Hub",
 "category": "Zombies",
@@ -314,6 +315,7 @@ window.GG_GAMES=[
 },
 {
 "id": "skate-3",
+"screenshot": {"src": "screens/skate-3.webp", "w": 960, "h": 624},
 "devices": ["pc"],
 "title": "Skate 3 Browser",
 "category": "Sports",
@@ -358,6 +360,7 @@ window.GG_GAMES=[
 },
 {
 "id": "cs-surf",
+"screenshot": {"src": "screens/cs-surf.webp", "w": 960, "h": 540},
 "devices": ["pc"],
 "title": "CS Surf Browser",
 "category": "Skill",
@@ -398,6 +401,7 @@ window.GG_GAMES=[
 },
 {
 "id": "halo-ce",
+"screenshot": {"src": "screens/halo-ce.webp", "w": 565, "h": 512},
 "devices": ["pc"],
 "title": "Halo: Combat Evolved",
 "category": "FPS",
@@ -447,6 +451,7 @@ window.GG_GAMES=[
 },
 {
 "id": "halo-ce-mobile",
+"screenshot": {"src": "screens/halo-ce-mobile.webp", "w": 960, "h": 537},
 "devices": ["pc", "mobile"],
 "title": "Halo CE Web Mobile",
 "category": "FPS",
@@ -490,6 +495,7 @@ window.GG_GAMES=[
 },
 {
 "id": "pes-6",
+"screenshot": {"src": "screens/pes-6.webp", "w": 960, "h": 540},
 "controller": true,
 "devices": ["pc"],
 "title": "Pro Evolution Soccer 6",
@@ -582,6 +588,7 @@ window.GG_GAMES=[
 },
 {
 "id": "gta-vice-city",
+"screenshot": {"src": "screens/gta-vice-city.webp", "w": 960, "h": 557},
 "devices": ["pc"],
 "title": "GTA: Vice City WASM",
 "category": "Open World",
@@ -674,6 +681,7 @@ window.GG_GAMES=[
 },
 {
 "id": "quake-1",
+"screenshot": {"src": "screens/quake-1.webp", "w": 321, "h": 674},
 "devices": ["pc"],
 "title": "Quake 1 WASM",
 "category": "Classic Shooter",
@@ -723,6 +731,7 @@ window.GG_GAMES=[
 },
 {
 "id": "quake-2",
+"screenshot": {"src": "screens/quake-2.webp", "w": 353, "h": 667},
 "devices": ["pc"],
 "title": "Quake II WASM",
 "category": "Classic Shooter",
@@ -772,6 +781,7 @@ window.GG_GAMES=[
 },
 {
 "id": "quake-3",
+"screenshot": {"src": "screens/quake-3.webp", "w": 960, "h": 536},
 "controller": true,
 "devices": ["pc"],
 "title": "Quake III Arena",
@@ -824,6 +834,7 @@ window.GG_GAMES=[
 },
 {
 "id": "rtcw",
+"screenshot": {"src": "screens/rtcw.webp", "w": 960, "h": 690},
 "devices": ["pc"],
 "title": "Return to Castle Wolfenstein",
 "category": "Classic Shooter",
@@ -873,6 +884,7 @@ window.GG_GAMES=[
 },
 {
 "id": "unreal-tournament",
+"screenshot": {"src": "screens/unreal-tournament.webp", "w": 960, "h": 539},
 "devices": ["pc"],
 "title": "Unreal Tournament",
 "category": "Classic Shooter",
@@ -924,6 +936,7 @@ window.GG_GAMES=[
 },
 {
 "id": "half-life",
+"screenshot": {"src": "screens/half-life.webp", "w": 960, "h": 540},
 "devices": ["pc"],
 "title": "Half-Life (GoldSrc)",
 "category": "FPS",
@@ -973,6 +986,7 @@ window.GG_GAMES=[
 },
 {
 "id": "web-xash-cs",
+"screenshot": {"src": "screens/web-xash-cs.webp", "w": 797, "h": 527},
 "devices": ["pc"],
 "title": "CS 1.6 / Xash3D",
 "category": "FPS",
@@ -1023,6 +1037,7 @@ window.GG_GAMES=[
 },
 {
 "id": "diablo-1",
+"screenshot": {"src": "screens/diablo-1.webp", "w": 960, "h": 583},
 "devices": ["pc"],
 "title": "Diablo I Web",
 "category": "RPG",
@@ -1106,6 +1121,7 @@ window.GG_GAMES=[
 },
 {
 "id": "wasm-arcade",
+"screenshot": {"src": "screens/wasm-arcade.webp", "w": 960, "h": 533},
 "devices": ["pc"],
 "title": "WASM Arcade",
 "category": "Arcade",
@@ -1201,6 +1217,7 @@ window.GG_GAMES=[
 },
 {
 "id": "silent-space-marine",
+"screenshot": {"src": "screens/silent-space-marine.webp", "w": 871, "h": 680},
 "devices": ["pc"],
 "title": "Silent Space Marine (Doom WASM)",
 "category": "Classic Shooter",
@@ -1250,6 +1267,7 @@ window.GG_GAMES=[
 },
 {
 "id": "tweetcraft",
+"screenshot": {"src": "screens/tweetcraft.webp", "w": 960, "h": 540},
 "devices": ["pc", "mobile"],
 "title": "Tweetcraft",
 "category": "Open World",
@@ -1320,6 +1338,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "tobu-tobu-girl",
+"screenshot": {"src": "screens/tobu-tobu-girl.webp", "w": 960, "h": 800},
 "controller": true,
 "devices": ["pc", "mobile"],
 "title": "Tobu Tobu Girl",
@@ -1366,6 +1385,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "ucity",
+"screenshot": {"src": "screens/ucity.webp", "w": 960, "h": 800},
 "controller": true,
 "devices": ["pc", "mobile"],
 "title": "µCity",
@@ -1413,6 +1433,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "nova-the-squirrel",
+"screenshot": {"src": "screens/nova-the-squirrel.webp", "w": 960, "h": 683},
 "controller": true,
 "devices": ["pc", "mobile"],
 "title": "Nova the Squirrel",
@@ -1504,6 +1525,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "zelda-oot-embed",
+"screenshot": {"src": "screens/zelda-oot-embed.webp", "w": 958, "h": 539},
 "controller": true,
 "devices": ["pc", "mobile"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[276, 315, 935, 68], [156, 246, 958, 539]], "hint": "Click the game, then press Enter to start · Z = A, X = B", "hintTouch": "Tap START on the on-screen pad to begin"},
@@ -1551,6 +1573,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "sonic-1-embed",
+"screenshot": {"src": "screens/sonic-1-embed.webp", "w": 960, "h": 721},
 "controller": true,
 "devices": ["pc"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
@@ -1598,6 +1621,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "sonic-2-embed",
+"screenshot": {"src": "screens/sonic-2-embed.webp", "w": 960, "h": 723},
 "controller": true,
 "devices": ["pc"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
@@ -1645,6 +1669,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "super-mario-advance-embed",
+"screenshot": {"src": "screens/super-mario-advance-embed.webp", "w": 960, "h": 540},
 "controller": true,
 "devices": ["pc", "mobile"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[276, 315, 935, 68], [156, 246, 958, 539]], "hint": "Click the game, then press Enter to start · Z = A, X = B", "hintTouch": "Tap START on the on-screen pad to begin"},
@@ -1692,6 +1717,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "metroid-2-embed",
+"screenshot": {"src": "screens/metroid-2-embed.webp", "w": 960, "h": 442},
 "controller": true,
 "devices": ["pc", "mobile"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[276, 315, 935, 68], [156, 246, 958, 539]], "hint": "Click the game, then press Enter to start · Z = A, X = B", "hintTouch": "Tap START on the on-screen pad to begin"},
@@ -1739,6 +1765,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "pokemon-emerald-embed",
+"screenshot": {"src": "screens/pokemon-emerald-embed.webp", "w": 759, "h": 498},
 "controller": true,
 "devices": ["pc"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [436, 154, 408, 592], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
@@ -1786,6 +1813,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "super-mario-bros-embed",
+"screenshot": {"src": "screens/super-mario-bros-embed.webp", "w": 918, "h": 996},
 "controller": true,
 "devices": ["pc"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
@@ -1833,6 +1861,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "contra-embed",
+"screenshot": {"src": "screens/contra-embed.webp", "w": 960, "h": 700},
 "controller": true,
 "devices": ["pc"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
@@ -1880,6 +1909,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "metal-slug-embed",
+"screenshot": {"src": "screens/metal-slug-embed.webp", "w": 960, "h": 708},
 "controller": true,
 "devices": ["pc"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]], "hint": "Click the game, press V for a coin, then Enter to start"},
@@ -1927,6 +1957,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "kof98-embed",
+"screenshot": {"src": "screens/kof98-embed.webp", "w": 499, "h": 457},
 "controller": true,
 "devices": ["pc"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]], "hint": "Click the game, press V for a coin, then Enter to start"},
@@ -1974,6 +2005,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "sonic-3-embed",
+"screenshot": {"src": "screens/sonic-3-embed.webp", "w": 960, "h": 596},
 "controller": true,
 "devices": ["pc"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
@@ -2021,6 +2053,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "kirby-amazing-mirror-embed",
+"screenshot": {"src": "screens/kirby-amazing-mirror-embed.webp", "w": 960, "h": 941},
 "controller": true,
 "devices": ["pc"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [436, 274, 408, 352], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
@@ -2138,6 +2171,7 @@ window.GG_GAMES=[
 },
 {
 "id": "gta-v-web",
+"screenshot": {"src": "screens/gta-v-web.webp", "w": 960, "h": 531},
 "devices": [
 "pc"
 ],
@@ -2273,6 +2307,7 @@ window.GG_GAMES=[
 },
 {
 "id": "peak",
+"screenshot": {"src": "screens/peak.webp", "w": 674, "h": 447},
 "devices": ["pc"],
 "title": "PEAK (web port)",
 "category": "Co-op",
@@ -2324,6 +2359,7 @@ window.GG_GAMES=[
 },
 {
 "id": "how-to-fish",
+"screenshot": {"src": "screens/how-to-fish.webp", "w": 960, "h": 540},
 "devices": ["pc"],
 "title": "How to Fish",
 "category": "Co-op",

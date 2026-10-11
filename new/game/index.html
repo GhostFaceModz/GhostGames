@@ -49,6 +49,7 @@
 .acts .btn{white-space:nowrap;height:52px;padding:0 28px;border-radius:14px;font-size:16px;font-weight:500}
 .acts .btn[disabled]{filter:grayscale(1) brightness(.7);cursor:not-allowed;transform:none}
 .acts .mb,.acts .ggfav{height:52px;border-radius:14px}.acts .ggfav{width:52px;font-size:18px}.acts .mb{padding:0 18px;font-size:14px}
+.dshot{margin:34px 0 0;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:#000;box-shadow:0 24px 60px rgba(0,0,0,.5)}.dshot img{display:block;width:100%;height:auto;max-height:560px;object-fit:contain;background:#000}.dshot figcaption{padding:10px 16px;font-size:12px;color:#7e8796;background:rgba(10,14,22,.9)}
 .drate{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:16px}.drl{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#7e8796;margin-right:2px}
 .plays{margin-top:14px;font-size:12px;color:#7e8796}.plays b{color:#dfe5ee;font-weight:600}
 .dtags{display:flex;gap:6px;flex-wrap:wrap;margin-top:20px}
@@ -118,6 +119,7 @@ $('main').innerHTML=
  (g.off?'':'<div class="drate"><span class="drl">Rate it</span>'+GG.rateHtml(g.id)+'<button type="button" class="mb" data-report="'+g.id+'"><i class="fa-solid fa-flag" aria-hidden="true"></i>Report broken game</button></div>')+
  '<p class="plays" id="plays"></p>'+
  '<div class="dtags">'+g.tags.map(function(t){return '<a href="../games/?tags='+encodeURIComponent(t)+'">#'+esc(t)+'</a>'}).join('')+'</div></div></section>'+
+ (g.screenshot?'<figure class="dshot"><img src="'+GG.BASE+esc(g.screenshot.src)+'" width="'+g.screenshot.w+'" height="'+g.screenshot.h+'" loading="lazy" decoding="async" alt="'+esc(g.title)+' screenshot"><figcaption>'+esc(g.title)+' running in the browser</figcaption></figure>':'')+
  '<section class="panels"><div class="panel"><h2><i class="fa-solid fa-keyboard" aria-hidden="true"></i>Controls</h2><div class="ctl">'+g.controls.map(function(c){return '<kbd>'+esc(c[0])+'</kbd><span>'+esc(c[1])+'</span>'}).join('')+'</div></div>'+
  '<div class="panel"><h2><i class="fa-solid fa-lightbulb" aria-hidden="true"></i>Tips</h2><ul class="tips">'+g.tips.map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul></div></section>'+
  '<section class="panels" style="margin-top:22px"><div class="panel" id="trouble" style="grid-column:1/-1"><h2><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>Game not loading?</h2>'+GG.helpHtml(g,false)+'</div></section>'+
