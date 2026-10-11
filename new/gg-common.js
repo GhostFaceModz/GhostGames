@@ -130,7 +130,7 @@ function helpHtml(g,live){var pcOnly=(g.devices||[]).indexOf('mobile')<0,st=g.st
  li('fa-computer-mouse','<b>Click inside the game</b> to give it keyboard and mouse focus. Press <b>Esc</b> to release the mouse.');
  li('fa-flag','<b>Still broken?</b> Report it and we\'ll take a look.<br><button type="button" class="mb" data-report="'+g.id+'"><i class="fa-solid fa-flag" aria-hidden="true"></i>Report a broken game</button>');
  li('fa-brands fa-discord','<b>Still stuck?</b> Ask in our Discord and we\'ll help.<br><a class="mb dcb" href="'+DISCORD+'" target="_blank" rel="noopener"><i class="fa-brands fa-discord" aria-hidden="true"></i>Join our Discord for help</a>');
- return '<ul class="ggtr">'+L.join('').replace('fa-solid fa-brands','fa-brands')+'</ul>'}
+ return '<ul class="ggtr">'+L.join('').replace('fa-solid fa-brands','fa-brands')+'</ul><p class="ggkofi" style="margin:10px 0 0;font-size:12.5px;opacity:.85"><a href="https://ko-fi.com/ghostgamesapp" target="_blank" rel="noopener" style="color:#5fe3ff"><i class="fa-solid fa-mug-hot" aria-hidden="true"></i>&nbsp;Support GhostGames</a></p>'}
 function hideChip(){clearTimeout(chipT);var c=$('mChip');if(c)c.classList.remove('show')}
 function openHelp(){if(!cur)return;hideChip();$('mHelpB').innerHTML=helpHtml(cur,true);$('mHelpP').classList.add('open');$('mHelpX').focus()}
 function closeHelp(){$('mHelpP').classList.remove('open');$('mHelp').focus()}
