@@ -5,6 +5,7 @@
 <title>Retro — GhostGames</title>
 <meta name="description" content="Play open-source homebrew retro games, or load a ROM you own (NES, SNES, N64, Game Boy, GBA, Genesis, PS1) in the browser. Files stay on your device.">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="../manifest.json"><link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
@@ -98,7 +99,7 @@ var ROMS={'tobu-tobu-girl':{core:'gb',rom:'roms/tobu-tobu-girl.gb'},'ucity':{cor
 var embed=window.top!==window;if(embed)document.body.classList.add('embed');
 GG.stars($('stA'),$('stB'));
 var frame=null,blobUrl=null,curId=null;
-$('hbl').innerHTML=Object.keys(ROMS).map(function(id){var g=GG.BY[id];return '<button type="button" class="hb" data-game="'+id+'"><img src="'+g.cover+'" alt="" loading="lazy"><span><b>'+esc(g.title)+'</b><span>'+esc(g.badge)+' · homebrew</span></span></button>'}).join('');
+$('hbl').innerHTML=Object.keys(ROMS).map(function(id){var g=GG.BY[id];return '<button type="button" class="hb" data-game="'+id+'"><img alt="" '+GG.imgAttrs(g,'38px')+'><span><b>'+esc(g.title)+'</b><span>'+esc(g.badge)+' · homebrew</span></span></button>'}).join('');
 function play(core,rom,name,id){
  if(frame)frame.remove();$('idle').hidden=true;
  frame=document.createElement('iframe');frame.id='emu';frame.title=name+' (emulator)';

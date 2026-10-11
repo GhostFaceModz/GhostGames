@@ -16,7 +16,9 @@
 (function(){if(window.crossOriginIsolated||!('serviceWorker' in navigator)||!window.isSecureContext)return;
  navigator.serviceWorker.register('coi-sw.js',{scope:'./'}).then(function(reg){
   if(sessionStorage.getItem('ggCoiReload'))return;function go(){sessionStorage.setItem('ggCoiReload','1');location.reload()}
-  if(navigator.serviceWorker.controller)go();else navigator.serviceWorker.addEventListener('controllerchange',go);
+  /* wait until THIS folder's worker is activated (the site-wide app worker may control the first load), then reload once */
+  var w=reg.installing||reg.waiting||reg.active;if(!w)return;if(w.state==='activated'){go();return}
+  w.addEventListener('statechange',function(){if(w.state==='activated')go()});
  }).catch(function(){})})();
 </script>
 <style>

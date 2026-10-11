@@ -490,6 +490,7 @@ window.GG_GAMES=[
 },
 {
 "id": "pes-6",
+"controller": true,
 "devices": ["pc"],
 "title": "Pro Evolution Soccer 6",
 "category": "Sports",
@@ -771,6 +772,7 @@ window.GG_GAMES=[
 },
 {
 "id": "quake-3",
+"controller": true,
 "devices": ["pc"],
 "title": "Quake III Arena",
 "category": "Classic Shooter",
@@ -1145,6 +1147,7 @@ window.GG_GAMES=[
 },
 {
 "id": "krunker",
+"controller": true,
 "devices": ["pc", "mobile"],
 "title": "Krunker.io",
 "category": "FPS",
@@ -1317,6 +1320,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "tobu-tobu-girl",
+"controller": true,
 "devices": ["pc", "mobile"],
 "title": "Tobu Tobu Girl",
 "url": "/GhostGames/new/retro/?game=tobu-tobu-girl",
@@ -1362,6 +1366,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "ucity",
+"controller": true,
 "devices": ["pc", "mobile"],
 "title": "µCity",
 "url": "/GhostGames/new/retro/?game=ucity",
@@ -1408,6 +1413,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "nova-the-squirrel",
+"controller": true,
 "devices": ["pc", "mobile"],
 "title": "Nova the Squirrel",
 "url": "/GhostGames/new/retro/?game=nova-the-squirrel",
@@ -1453,6 +1459,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "retro-player",
+"controller": true,
 "devices": ["pc", "mobile"],
 "title": "Retro Player (bring your own ROM)",
 "url": "/GhostGames/new/retro/",
@@ -1497,6 +1504,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "zelda-oot-embed",
+"controller": true,
 "devices": ["pc", "mobile"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[276, 315, 935, 68], [156, 246, 958, 539]], "hint": "Click the game, then press Enter to start · Z = A, X = B", "hintTouch": "Tap START on the on-screen pad to begin"},
 "title": "The Legend of Zelda: Ocarina of Time",
@@ -1543,6 +1551,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "sonic-1-embed",
+"controller": true,
 "devices": ["pc"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
 "title": "Sonic the Hedgehog",
@@ -1589,6 +1598,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "sonic-2-embed",
+"controller": true,
 "devices": ["pc"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
 "title": "Sonic the Hedgehog 2",
@@ -1635,6 +1645,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "super-mario-advance-embed",
+"controller": true,
 "devices": ["pc", "mobile"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[276, 315, 935, 68], [156, 246, 958, 539]], "hint": "Click the game, then press Enter to start · Z = A, X = B", "hintTouch": "Tap START on the on-screen pad to begin"},
 "title": "Super Mario Advance",
@@ -1681,6 +1692,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "metroid-2-embed",
+"controller": true,
 "devices": ["pc", "mobile"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[276, 315, 935, 68], [156, 246, 958, 539]], "hint": "Click the game, then press Enter to start · Z = A, X = B", "hintTouch": "Tap START on the on-screen pad to begin"},
 "title": "Metroid II: Return of Samus",
@@ -1727,6 +1739,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "pokemon-emerald-embed",
+"controller": true,
 "devices": ["pc"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [436, 154, 408, 592], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
 "title": "Pokémon Emerald",
@@ -1773,6 +1786,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "super-mario-bros-embed",
+"controller": true,
 "devices": ["pc"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
 "title": "Super Mario Bros.",
@@ -1819,6 +1833,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "contra-embed",
+"controller": true,
 "devices": ["pc"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
 "title": "Contra",
@@ -1865,6 +1880,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "metal-slug-embed",
+"controller": true,
 "devices": ["pc"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]], "hint": "Click the game, press V for a coin, then Enter to start"},
 "title": "Metal Slug",
@@ -1911,6 +1927,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "kof98-embed",
+"controller": true,
 "devices": ["pc"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]], "hint": "Click the game, press V for a coin, then Enter to start"},
 "title": "The King of Fighters '98",
@@ -1957,6 +1974,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "sonic-3-embed",
+"controller": true,
 "devices": ["pc"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
 "title": "Sonic the Hedgehog 3",
@@ -2003,6 +2021,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "kirby-amazing-mirror-embed",
+"controller": true,
 "devices": ["pc"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[858, 136, 130, 56], [390, 392, 180, 72], [436, 274, 408, 352], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
 "title": "Kirby & The Amazing Mirror",
@@ -2049,6 +2068,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "castlevania-sotn-embed",
+"controller": true,
 "devices": ["pc"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[451, 188, 130, 56], [390, 392, 180, 72], [436, 274, 408, 352], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
 "title": "Castlevania: Symphony of the Night",
@@ -2095,6 +2115,7 @@ window.GG_GAMES=[
 ]
 ],
 "id": "harvest-moon-mfomt-embed",
+"controller": true,
 "devices": ["pc"],
 "crop": {"vw": 1280, "vh": 900, "steps": [[451, 188, 130, 56], [390, 392, 180, 72], [436, 244, 408, 412], [64, 116, 836, 498]], "hint": "Click the game, then press Enter to start · Z = A, X = B"},
 "title": "Harvest Moon: Friends of Mineral Town",

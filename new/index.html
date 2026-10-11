@@ -5,6 +5,7 @@
 <title>GhostGames — Play instantly in your browser</title>
 <meta name="description" content="GhostGames: a free library of browser games. Zombies, shooters, open worlds, no installs.">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
@@ -284,6 +285,14 @@ html.intro .wa{opacity:0;scale:.88}
 .wa::after{animation:none}.wa.nosync::after{animation:none!important}
 html.intro .nav,html.intro .mark,html.intro .wm,html.intro .links a,html.intro .nav .btn,html.intro .burger,html.intro .badge,html.intro .h1,html.intro .sub,html.intro .cta2,html.intro .ring,html.intro .wa{opacity:1;translate:none;scale:none;clip-path:none}
 }
+.gotd{display:flex;align-items:center;gap:10px;max-width:100%;padding:6px 8px 6px 6px;border-radius:16px;border:1px solid rgba(95,227,255,.28);background:linear-gradient(120deg,rgba(10,16,26,.92),rgba(6,9,15,.92));color:#fff;font-family:Poppins,sans-serif;text-align:left;cursor:pointer;box-shadow:0 12px 30px rgba(0,0,0,.55),0 0 22px rgba(53,216,255,.12);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:transform .2s,border-color .2s}
+.gotd:hover,.gotd:focus-visible{transform:translateY(-2px);border-color:rgba(95,227,255,.6)}
+.gotd img{width:34px;height:56px;border-radius:8px;object-fit:cover;flex:none;background:linear-gradient(160deg,var(--c1),var(--c2))}
+.gotd .gt{display:flex;flex-direction:column;min-width:0}.gotd em{font-style:normal;font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#5fe3ff}.gotd em i{margin-right:5px;font-size:9px}
+.gotd b{font-size:13.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px}
+.gotd .gp{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#35d8ff;color:#04121a;font-size:11px;margin-left:4px}
+@media (max-width:700px){.gotd{padding:5px 7px 5px 5px;gap:8px}.gotd img{width:28px;height:46px}.gotd b{font-size:12.5px;max-width:170px}.gotd .gp{width:26px;height:26px}}
+@media (prefers-reduced-motion:reduce){.gotd{transition:none}}
 </style>
 <script>document.documentElement.classList.add('intro');setTimeout(function(){document.documentElement.classList.remove('intro');},4000);</script>
 <meta name="description" content="Play 32 classic and WebAssembly games right in your browser: CoD Zombies, Halo, Quake, GTA Vice City and more. No downloads, no account.">
@@ -352,9 +361,9 @@ stars($('stA'),150,0,.05,.30);stars($('stB'),18,1.2,.35,.70);
 var GAMES=GG.GAMES;
 var esc=GG.esc;
 function tsize(t,max,min){var L=t.length,W=Math.max.apply(null,t.split(' ').map(function(w){return w.length}));return Math.max(min*.8,Math.min(max,max*11/Math.max(11,L),128/(W*.68)))}
-function creative(g,v){
+function creative(g,v,ix){v=v||0;
  var T=esc(g.title.replace(/\s*\(.*?\)\s*/g,' ').trim()),ic='<i class="fa-solid '+g.icon+'"></i>';
- var base='<div class="art"><i class="fa-solid '+g.icon+' fi"></i></div><img class="cov" alt="" src="'+g.cover+'" loading="lazy" onerror="this.remove()"><div class="grade"></div><div class="vig"></div>';
+ var base='<div class="art"><i class="fa-solid '+g.icon+' fi"></i></div><img class="cov" alt="" '+GG.imgAttrs(g,'160px',(ix<5||ix>32)?'high':'eager')+' onerror="this.remove()"><div class="grade"></div><div class="vig"></div>';
  var cat='<div class="cat">'+esc(g.category)+'</div>',chip=g.badge?'<div class="chip">'+esc(g.badge)+'</div>':'';
  var bl=function(st){return '<div class="blurb" style="'+st+'">'+esc(g.blurb||g.description.split('.')[0])+'</div>'};
  var play='<div class="play" style="bottom:14px"><i class="fa-solid fa-play"></i>PLAY</div>';
@@ -388,8 +397,16 @@ for(var i=0;i<N;i++){
  ring.appendChild(c);cards.push(c);
 }
 function fillRing(){var l=list();for(var i=0;i<N;i++){var g=l[i%l.length],c=cards[i];c._g=g;c.style.setProperty('--c1',g.c1);c.style.setProperty('--c2',g.c2);
- c.innerHTML=creative(g,(i+Math.floor(i/l.length))%4)+'<div class="edge"></div>';c.setAttribute('aria-label','Play '+g.title)}}
+ c.innerHTML=creative(g,(i+Math.floor(i/l.length))%4,i)+'<div class="edge"></div>';c.setAttribute('aria-label','Play '+g.title)}}
 fillRing();
+
+/* Game of the day: deterministic from the UTC date (GG.gotd), refreshes itself at UTC midnight */
+function renderGotd(){var g=GG.gotd(),el=$('gotd');if(!g){if(el)el.remove();return}
+ if(!el){el=document.createElement('button');el.type='button';el.id='gotd';el.className='gotd';el.addEventListener('click',function(){var x=GG.BY[this.getAttribute('data-id')];if(x)openGame(x)});GG.getDock().appendChild(el)}
+ el.setAttribute('data-id',g.id);el.setAttribute('aria-label','Game of the day: '+g.title+'. Play now');el.style.setProperty('--c1',g.c1);el.style.setProperty('--c2',g.c2);
+ el.innerHTML='<img alt="" '+GG.imgAttrs(g,'34px','eager')+' onerror="this.remove()"><span class="gt"><em><i class="fa-solid fa-star" aria-hidden="true"></i>Game of the day</em><b>'+esc(g.title)+'</b></span><span class="gp"><i class="fa-solid fa-play" aria-hidden="true"></i></span>';
+ var n=new Date(),next=Date.UTC(n.getUTCFullYear(),n.getUTCMonth(),n.getUTCDate()+1)-n.getTime()+1000;clearTimeout(renderGotd.t);renderGotd.t=setTimeout(renderGotd,Math.min(next,2147e6))}
+renderGotd();
 function placeCards(){
  for(var i=0;i<N;i++){
   var a=((i*STEP+phase)%360+540)%360-180,el=cards[i];

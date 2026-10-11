@@ -1,0 +1,16 @@
+{
+  "name": "GhostGames",
+  "short_name": "GhostGames",
+  "description": "Free browser games: zombies, shooters, open worlds and retro classics. No installs.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#05070c",
+  "theme_color": "#7c3aed",
+  "icons": [
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}

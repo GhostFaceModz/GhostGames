@@ -12,6 +12,7 @@
 <meta property="og:url" id="ogU" content="https://ghostfacemodz.github.io/GhostGames/new/game/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="../manifest.json"><link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
@@ -48,6 +49,7 @@
 .acts .btn{white-space:nowrap;height:52px;padding:0 28px;border-radius:14px;font-size:16px;font-weight:500}
 .acts .btn[disabled]{filter:grayscale(1) brightness(.7);cursor:not-allowed;transform:none}
 .acts .mb,.acts .ggfav{height:52px;border-radius:14px}.acts .ggfav{width:52px;font-size:18px}.acts .mb{padding:0 18px;font-size:14px}
+.drate{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:16px}.drl{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#7e8796;margin-right:2px}
 .plays{margin-top:14px;font-size:12px;color:#7e8796}.plays b{color:#dfe5ee;font-weight:600}
 .dtags{display:flex;gap:6px;flex-wrap:wrap;margin-top:20px}
 .dtags a{height:30px;display:inline-flex;align-items:center;padding:0 12px;border-radius:16px;border:1px dashed rgba(255,255,255,.18);color:rgba(255,255,255,.82);font-size:12px;font-weight:500}.dtags a:hover{border-style:solid;border-color:rgba(95,227,255,.6);color:#fff}
@@ -109,18 +111,19 @@ var sim=GAMES.filter(function(x){return x!==g&&x.category===g.category&&!x.off})
 var n=GG.plays(g.id);
 $('main').innerHTML=
  '<nav class="crumb" aria-label="Breadcrumb"><a href="../games/"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> All games</a><span aria-hidden="true">/</span><a href="../games/?cat='+encodeURIComponent(g.category)+'">'+esc(LABEL[g.category]||g.category)+'</a><span aria-hidden="true">/</span><span aria-current="page">'+esc(g.title)+'</span></nav>'+
- '<section class="dh"><button type="button" class="dcover'+(g.off?' off':'')+'" id="dCover" style="--c1:'+g.c1+';--c2:'+g.c2+'" aria-label="'+esc(g.off?g.title+' is down':playLbl+': '+g.title)+'"'+(g.off?' aria-disabled="true"':'')+'><i class="fa-solid '+g.icon+' fi" aria-hidden="true"></i><img src="'+g.cover+'" alt="" onerror="this.remove()"><span class="vig"></span><span class="scan"></span><span class="shine"></span>'+(g.off?'':'<span class="ctp" aria-hidden="true"><span class="eq"><b></b><b></b><b></b><b></b></span>Click to play</span>')+'<span class="edge"></span></button>'+
- '<div class="dinfo"><div class="kick"><span class="pill">'+esc(g.category)+'</span>'+(g.badge?'<span class="pill w">'+esc(g.badge)+'</span>':'')+GG.stHtml(g)+'</div>'+
+ '<section class="dh"><button type="button" class="dcover'+(g.off?' off':'')+'" id="dCover" style="--c1:'+g.c1+';--c2:'+g.c2+'" aria-label="'+esc(g.off?g.title+' is down':playLbl+': '+g.title)+'"'+(g.off?' aria-disabled="true"':'')+'><i class="fa-solid '+g.icon+' fi" aria-hidden="true"></i><img alt="" '+GG.imgAttrs(g,'(max-width:700px) 90vw, 380px','high')+' onerror="this.remove()"><span class="vig"></span><span class="scan"></span><span class="shine"></span>'+(g.off?'':'<span class="ctp" aria-hidden="true"><span class="eq"><b></b><b></b><b></b><b></b></span>Click to play</span>')+'<span class="edge"></span></button>'+
+ '<div class="dinfo"><div class="kick"><span class="pill">'+esc(g.category)+'</span>'+(g.badge?'<span class="pill w">'+esc(g.badge)+'</span>':'')+GG.stHtml(g)+(g.controller?'<span class="pill" title="Works with a gamepad / controller"><i class="fa-solid fa-gamepad" aria-hidden="true"></i>&nbsp;Controller</span>':'')+'</div>'+
  '<h1>'+esc(g.title)+'</h1>'+(g.modes&&!g.off?'<div class="gmodes" role="group" aria-label="Play options">'+g.modes.map(function(m){return '<button type="button" class="mb gmode" data-url="'+esc(m.url)+'"><i class="fa-solid '+esc(m.icon||'fa-play')+'" aria-hidden="true"></i>&nbsp; <b>'+esc(m.kick)+'</b>&nbsp;'+esc(m.label)+'</button>'}).join('')+'</div>':'')+'<p class="desc">'+esc(g.description)+(g.off?' <br><b style="color:#fff">Currently down:</b> '+esc(g.note||'the host is unavailable')+'. We\'ll bring it back when a working link exists.':'')+'</p>'+
  '<div class="acts"><button type="button" class="btn" id="dPlay"'+(g.off?' disabled aria-disabled="true"':'')+'><span>'+(g.off?'<i class="fa-solid fa-power-off"></i>&nbsp; Down':'<i class="fa-solid '+(g.external?'fa-arrow-up-right-from-square':'fa-play')+'"></i>&nbsp; '+playLbl)+'</span></button>'+GG.heart(g.id)+(g.off||g.external?'':'<a class="mb" href="'+esc(g.url)+'" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>Open in new tab</a>')+'</div>'+
+ (g.off?'':'<div class="drate"><span class="drl">Rate it</span>'+GG.rateHtml(g.id)+'<button type="button" class="mb" data-report="'+g.id+'"><i class="fa-solid fa-flag" aria-hidden="true"></i>Report broken game</button></div>')+
  '<p class="plays" id="plays"></p>'+
  '<div class="dtags">'+g.tags.map(function(t){return '<a href="../games/?tags='+encodeURIComponent(t)+'">#'+esc(t)+'</a>'}).join('')+'</div></div></section>'+
  '<section class="panels"><div class="panel"><h2><i class="fa-solid fa-keyboard" aria-hidden="true"></i>Controls</h2><div class="ctl">'+g.controls.map(function(c){return '<kbd>'+esc(c[0])+'</kbd><span>'+esc(c[1])+'</span>'}).join('')+'</div></div>'+
  '<div class="panel"><h2><i class="fa-solid fa-lightbulb" aria-hidden="true"></i>Tips</h2><ul class="tips">'+g.tips.map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul></div></section>'+
  '<section class="panels" style="margin-top:22px"><div class="panel" id="trouble" style="grid-column:1/-1"><h2><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>Game not loading?</h2>'+GG.helpHtml(g,false)+'</div></section>'+
  '<div class="simh"><h2>Similar games</h2><a href="../games/?cat='+encodeURIComponent(g.category)+'">More '+esc(LABEL[g.category]||g.category)+' →</a></div><div class="grid" id="sim">'+sim.map(GG.card).join('')+'</div>';
-function plays(){var n=GG.plays(g.id);$('plays').innerHTML=n?'Played <b>'+n+'</b> '+(n===1?'time':'times')+' on this device':'Not played on this device yet'}
-plays();document.addEventListener('gg:recent',plays);
+function plays(){var n=GG.plays(g.id),s=GG.pcount(g.id);$('plays').innerHTML=(s!=null&&!g.off?'<b>'+GG.fmt(s)+'</b> '+(s===1?'play':'plays')+' on GhostGames · ':'')+(n?'Played <b>'+n+'</b> '+(n===1?'time':'times')+' on this device':'Not played on this device yet')}
+plays();document.addEventListener('gg:recent',plays);document.addEventListener('gg:cnt',function(e){if(e.detail.k==='p-'+g.id)plays()});GG.need([g].concat(sim));
 GG.applyStatus($('main'));GG.bindCards($('sim'));
 function play(){if(!g.off)GG.openGame(g)}
 $('dPlay').addEventListener('click',play);

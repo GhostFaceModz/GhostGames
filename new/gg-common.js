@@ -13,7 +13,7 @@ var RM=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function get(k,d){try{var v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}}
 function set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 function recent(){return get('gg:recent',[]).filter(function(r){return BY[r.id]})}
-function record(id){var r=recent().filter(function(x){return x.id!==id});r.unshift({id:id,t:Date.now()});set('gg:recent',r.slice(0,20));var p=get('gg:plays',{});p[id]=(p[id]||0)+1;set('gg:plays',p);document.dispatchEvent(new CustomEvent('gg:recent'))}
+function record(id){var r=recent().filter(function(x){return x.id!==id});r.unshift({id:id,t:Date.now()});set('gg:recent',r.slice(0,20));var p=get('gg:plays',{});p[id]=(p[id]||0)+1;set('gg:plays',p);hitPlay(id);document.dispatchEvent(new CustomEvent('gg:recent'))}
 function plays(id){return get('gg:plays',{})[id]||0}
 function favs(){return get('gg:favs',[]).filter(function(id){return BY[id]})}
 function isFav(id){return favs().indexOf(id)>=0}
@@ -33,16 +33,19 @@ function stHtml(g){var s=stStatic(g);return '<span class="ggst '+s.k+'" data-st=
 function applyStatus(root){Array.prototype.forEach.call((root||document).querySelectorAll('[data-st]'),function(el){var g=BY[el.getAttribute('data-st')];if(!g)return;probe(g,function(s){el.className='ggst '+s.k;el.querySelector('em').textContent=s.l;el.title=stTitle(g,s)})})}
 
 /* ---- card renderer (grid + detail "similar" rows) ---- */
-function devHtml(g){var d=g.devices||['pc'];return '<span class="dev" title="'+(d.indexOf('mobile')>=0?'PC and mobile':'PC only')+'"><i class="fa-solid fa-desktop" aria-hidden="true"></i>'+(d.indexOf('mobile')>=0?'<i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i>':'')+'<span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">'+(d.indexOf('mobile')>=0?'Plays on PC and mobile':'PC only')+'</span></span>'}
+function devHtml(g){var d=g.devices||['pc'];return '<span class="dev" title="'+(d.indexOf('mobile')>=0?'PC and mobile':'PC only')+'"><i class="fa-solid fa-desktop" aria-hidden="true"></i>'+(d.indexOf('mobile')>=0?'<i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i>':'')+'<span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">'+(d.indexOf('mobile')>=0?'Plays on PC and mobile':'PC only')+'</span></span>'+padHtml(g)}
+function padHtml(g){return g.controller?'<span class="ggpad" title="Controller supported"><i class="fa-solid fa-gamepad" aria-hidden="true"></i><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Controller supported</span></span>':''}
+function sm(g){return BASE+'covers/sm/'+g.id+'.webp'}
+function imgAttrs(g,sizes,eager){return 'src="'+g.cover+'" srcset="'+sm(g)+' 192w, '+g.cover+' 384w" sizes="'+sizes+'" width="384" height="640" decoding="async"'+(eager?(eager==='high'?' fetchpriority="high"':''):' loading="lazy"')}
 function card(g){
  var T=esc(g.title.replace(/\s*\(.*?\)\s*/g,' ').trim());
  var state=g.off?'<i class="fa-solid fa-power-off"></i>UNAVAILABLE':g.external?'<i class="fa-solid fa-arrow-up-right-from-square"></i>OPEN IN NEW TAB':'<i class="fa-solid fa-play"></i>PLAY NOW';
  var lbl=g.off?g.title+' (down, unavailable)':(g.external?'Play '+g.title+' (opens in new tab)':'Play '+g.title);
  return '<div class="card'+(g.off?' off':'')+'" data-id="'+g.id+'" style="--c1:'+g.c1+';--c2:'+g.c2+'">'+
-  '<span class="art"><i class="fa-solid '+g.icon+' fi"></i></span><img class="cov" alt="" src="'+g.cover+'" loading="lazy" onerror="this.remove()"><span class="grade"></span><span class="vig"></span><span class="scan"></span><span class="shine"></span><span class="fill"></span>'+
+  '<span class="art"><i class="fa-solid '+g.icon+' fi"></i></span><img class="cov" alt="" '+imgAttrs(g,'(max-width:700px) 48vw, 260px')+' onerror="this.remove()"><span class="grade"></span><span class="vig"></span><span class="scan"></span><span class="shine"></span><span class="fill"></span>'+
   '<span class="cat">'+esc(g.category)+'</span>'+(g.off?'<span class="chip">Down</span>':(g.badge?'<span class="chip">'+esc(g.badge)+'</span>':''))+
   (g.off?'':'<span class="ctp" aria-hidden="true"><span class="eq"><b></b><b></b><b></b><b></b></span>Click to play</span>')+
-  '<span class="meta"><span class="ico"><i class="fa-solid '+g.icon+'"></i>'+stHtml(g)+devHtml(g)+'</span><span class="ttl">'+T+'</span><span class="blurb">'+esc(g.blurb||'')+'</span><span class="play">'+state+'</span></span>'+
+  '<span class="meta"><span class="ico"><i class="fa-solid '+g.icon+'"></i>'+stHtml(g)+devHtml(g)+'</span><span class="ttl">'+T+'</span><span class="ggps" data-ps="'+g.id+'">'+psHtml(g.id)+'</span><span class="blurb">'+esc(g.blurb||'')+'</span><span class="play">'+state+'</span></span>'+
   '<button type="button" class="hit" aria-label="'+esc(lbl)+'"'+(g.off?' aria-disabled="true" title="'+esc(g.note||'Offline')+'"':'')+'></button>'+
   '<span class="side">'+heart(g.id)+'<a class="info" href="'+BASE+'game/?id='+g.id+'" aria-label="Details: '+esc(g.title)+'"><i class="fa-solid fa-circle-info" aria-hidden="true"></i></a></span>'+
   '<span class="edge"></span></div>';
@@ -67,7 +70,15 @@ var css='.modal{position:fixed;inset:0;z-index:2000;display:none;background:rgba
 '.ggtr{list-style:none;display:grid;gap:11px;margin:12px 0 0;padding:0}.ggtr li{position:relative;padding-left:26px;font-size:13px;line-height:1.55;color:#c3c8d0}.ggtr li>i{position:absolute;left:0;top:3px;width:16px;text-align:center;color:#5fe3ff;font-size:12px}.ggtr li b{color:#fff;font-weight:600}.ggtr li.warn>i{color:#f59e0b}.ggtr li.bad>i{color:#ef4444}.ggtr .mb{height:32px;padding:0 12px;font-size:12px;margin:7px 8px 0 0;border-radius:10px}.ggtr .mb.dcb{border-color:rgba(88,101,242,.55);background:rgba(88,101,242,.16)}.ggtr .mb.dcb:hover{background:rgba(88,101,242,.28)}'+
 '.mchip{position:absolute;left:50%;bottom:16px;z-index:3;transform:translateX(-50%);display:none;align-items:center;gap:4px;padding:4px 4px 4px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(9,12,19,.92);box-shadow:0 10px 30px rgba(0,0,0,.45);font:500 12px Poppins,sans-serif;color:#dfe5ee;white-space:nowrap}.mchip.show{display:inline-flex}.mchip button{background:none;border:0;color:inherit;font:inherit;cursor:pointer;padding:5px 6px;border-radius:999px}.mchip .mcgo{color:#5fe3ff}.mchip button:hover{background:rgba(255,255,255,.08)}.mchip button:focus-visible{outline:2px solid #5fe3ff}'+
 '@media (max-width:700px){.mbar{height:56px;padding:0 10px 0 12px;gap:8px}.mbar .mi{display:none}.mnt{width:38px;padding:0}.mnt em{display:none}.mstage{margin:0;border-radius:0}}'+
-'@media (prefers-reduced-motion:reduce){.ggfav{transition:none}}';
+'.ggps{display:flex;gap:10px;font:500 10.5px Poppins,sans-serif;color:rgba(255,255,255,.7);min-height:0;margin-top:2px}.ggps:empty{display:none}.ggps i{font-size:8.5px;margin-right:4px;color:#5fe3ff}'+
+'.ggpad{position:relative;display:inline-flex;align-items:center;margin-left:8px;font-size:11px;color:#5fe3ff}'+
+'.ggrate{display:inline-flex;gap:8px}.ggv{min-width:38px;padding:0 11px;gap:6px}.ggv span:empty{display:none}.ggv.on{border-color:rgba(95,227,255,.55);background:rgba(95,227,255,.14);color:#bff6ff}.ggv:disabled{cursor:default;opacity:.92}.ggv:disabled:not(.on){opacity:.5}'+
+'.mrate .ggv{height:38px}'+
+'.ggtoast{position:fixed;left:50%;bottom:26px;z-index:3000;transform:translate(-50%,20px);opacity:0;pointer-events:none;max-width:calc(100% - 32px);padding:11px 18px;border-radius:999px;background:rgba(8,12,20,.96);border:1px solid rgba(95,227,255,.4);color:#e9f6ff;font:600 13px Poppins,sans-serif;box-shadow:0 14px 40px rgba(0,0,0,.6);transition:opacity .25s,transform .25s}.ggtoast.show{opacity:1;transform:translate(-50%,0)}'+
+'.ggdock{position:fixed;left:18px;bottom:22px;z-index:450;display:flex;flex-direction:column;align-items:flex-start;gap:8px;max-width:calc(100% - 110px);pointer-events:none}.ggdock>*{pointer-events:auto}'+
+'.gginst{display:inline-flex;align-items:center;border-radius:999px;background:rgba(10,14,22,.88);border:1px solid rgba(255,255,255,.14);box-shadow:0 10px 26px rgba(0,0,0,.5);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}.gginst button{background:none;border:0;color:#e9eef6;cursor:pointer;font:600 12px Poppins,sans-serif;height:34px}.gginst .ggib{display:inline-flex;align-items:center;gap:7px;padding:0 6px 0 14px}.gginst .ggib i{color:#5fe3ff}.gginst .ggix{width:30px;color:#8b93a1}.gginst button:hover{color:#fff}'+
+'@media (max-width:700px){.mrate{display:none}.ggdock{left:12px;bottom:14px}}'+
+'@media (prefers-reduced-motion:reduce){.ggfav{transition:none}.ggtoast{transition:none}}';
 var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
 
 /* ---- player modal ---- */
@@ -76,7 +87,7 @@ var ALLOW='autoplay *; fullscreen *; gamepad *; pointer-lock *; keyboard-map *; 
 function $(id){return document.getElementById(id)}
 function ensureModal(){
  if(modal)return;var d=document.createElement('div');d.className='modal';d.id='modal';d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');d.setAttribute('aria-labelledby','mTitle');
- d.innerHTML='<div class="mbar"><div class="mi" id="mIcon"></div><div class="mt"><b id="mTitle">Game</b><span id="mCat"></span></div><span id="mFavWrap"></span>'+
+ d.innerHTML='<div class="mbar"><div class="mi" id="mIcon"></div><div class="mt"><b id="mTitle">Game</b><span id="mCat"></span></div><span id="mFavWrap"></span><span id="mRateWrap" class="mrate"></span>'+
  '<button type="button" class="mb mnt" id="mNew" aria-label="Open in new tab"><i class="fa-solid fa-arrow-up-right-from-square"></i><em style="font-style:normal">Open in new tab</em></button>'+
  '<button type="button" class="mb mnt" id="mHelp" aria-label="Game not loading? Help" aria-haspopup="dialog"><i class="fa-solid fa-circle-question"></i><em style="font-style:normal">Help</em></button>'+
  '<button type="button" class="mb mnt" id="mRestart" aria-label="Restart" style="display:none"><i class="fa-solid fa-rotate-right"></i><em style="font-style:normal">Restart</em></button><button type="button" id="mFocusTrap" tabindex="-1" aria-hidden="true" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none"></button>'+
@@ -94,7 +105,7 @@ function ensureModal(){
  $('mChipX').addEventListener('click',function(){hideChip();try{sessionStorage.setItem('gg:nochip','1')}catch(e){}});
  $('mHelpP').addEventListener('click',function(e){if(e.target===$('mHelpP'))closeHelp();var a=e.target.closest('[data-h]');if(!a)return;var k=a.getAttribute('data-h');if(k==='reload'){closeHelp();if(cur)openGame(cur)}else if(k==='new'){newTab()}});
  window.addEventListener('blur',function(){setTimeout(function(){if(frame&&document.activeElement===frame){touched=true;hideChip()}},0)});
- document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('open')){e.stopImmediatePropagation();if($('mHelpP').classList.contains('open'))closeHelp();else closeGame()}},true);
+ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('open')&&!(rp&&rp.classList.contains('open'))){e.stopImmediatePropagation();if($('mHelpP').classList.contains('open'))closeHelp();else closeGame()}},true);
  modal.addEventListener('keydown',function(e){if(e.key!=='Tab')return;var hp=$('mHelpP').classList.contains('open');var f=[].slice.call(modal.querySelectorAll(hp?'#mHelpP button,#mHelpP a':'.mbar button')).concat(frame&&!hp?[frame]:[]);var i=f.indexOf(document.activeElement);if(e.shiftKey&&i<=0){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&i===f.length-1){e.preventDefault();f[0].focus()}});
 }
 var cropS=null,hintT=0;
@@ -117,6 +128,7 @@ function helpHtml(g,live){var pcOnly=(g.devices||[]).indexOf('mobile')<0,st=g.st
  li('fa-globe','<b>Try a different browser.</b> Chrome or Edge on PC work best. Safari and iOS can struggle with WebAssembly games. Turn off ad blockers and privacy shields for this site.');
  if(!g.crop&&!g.external)li('fa-arrow-up-right-from-square','<b>Open it in a new tab.</b> Some games run better outside the player.<br>'+(live?'<button type="button" class="mb" data-h="new">':'<a class="mb" href="'+esc(g.url)+'" target="_blank" rel="noopener">')+'<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>Open in new tab'+(live?'</button>':'</a>'));
  li('fa-computer-mouse','<b>Click inside the game</b> to give it keyboard and mouse focus. Press <b>Esc</b> to release the mouse.');
+ li('fa-flag','<b>Still broken?</b> Report it and we\'ll take a look.<br><button type="button" class="mb" data-report="'+g.id+'"><i class="fa-solid fa-flag" aria-hidden="true"></i>Report a broken game</button>');
  li('fa-brands fa-discord','<b>Still stuck?</b> Ask in our Discord and we\'ll help.<br><a class="mb dcb" href="'+DISCORD+'" target="_blank" rel="noopener"><i class="fa-brands fa-discord" aria-hidden="true"></i>Join our Discord for help</a>');
  return '<ul class="ggtr">'+L.join('').replace('fa-solid fa-brands','fa-brands')+'</ul>'}
 function hideChip(){clearTimeout(chipT);var c=$('mChip');if(c)c.classList.remove('show')}
@@ -127,7 +139,7 @@ function openGame(g){
  if(g.external){window.open(g.url,'_blank','noopener');return}
  if(g.page){location.href=g.url;return}
  ensureModal();cur=g;lastFocus=document.activeElement;
- $('mTitle').textContent=g.title;$('mCat').textContent=g.category;$('mFavWrap').innerHTML=heart(g.id,'mfav');
+ $('mTitle').textContent=g.title;$('mCat').textContent=g.category;$('mFavWrap').innerHTML=heart(g.id,'mfav');$('mRateWrap').innerHTML=rateHtml(g.id);need([g],['u','d']);
  $('mIcon').innerHTML='<i class="fa-solid '+g.icon+'"></i>';$('mIcon').style.setProperty('--c1',g.c1);$('mIcon').style.setProperty('--c2',g.c2);
  mFb.classList.remove('show');if(frame)frame.remove();if(cropS){cropS.clip.remove();cropS=null}
  $('mNew').style.display=g.crop?'none':'';$('mRestart').style.display=g.crop?'':'none';
@@ -188,8 +200,96 @@ function burger(nav,btn){function close(){nav.classList.remove('open');btn.setAt
  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&nav.classList.contains('open')){close();btn.focus()}});
  window.addEventListener('resize',function(){if(innerWidth>1080)close()});return close}
 
+
+/* ---- shared counters: plays + thumbs up/down via Abacus (free, no account, CORS; 30 req / 10 s per visitor IP).
+   Values are cached in localStorage for 20 min and fetched through a throttled queue. ---- */
+var CNT='https://abacus.jasoncameron.dev',NS='ghostgames-gfz',CTTL=20*60000,cq=[],cBusy=0,cWin=[],cPend={};
+function cAll(){return get('gg:cnt',{})}
+function cnt(k){var c=cAll()[k];return c?c.v:null}
+function cSet(k,v){var a=cAll();a[k]={v:v,t:Date.now()};set('gg:cnt',a);document.dispatchEvent(new CustomEvent('gg:cnt',{detail:{k:k,v:v}}))}
+function cPump(){
+ if(!cq.length||cBusy>=4)return;var now=Date.now();cWin=cWin.filter(function(t){return now-t<10500});
+ if(cWin.length>=24){clearTimeout(cPump.t);cPump.t=setTimeout(cPump,10600-(now-cWin[0]));return}
+ var j=cq.shift();cWin.push(now);cBusy++;
+ fetch(CNT+'/'+j.op+'/'+NS+'/'+j.k,{cache:'no-store',credentials:'omit'}).then(function(r){if(r.status===404)return{value:0};if(r.status===429)throw 'rl';if(!r.ok)throw 0;return r.json()})
+ .then(function(d){var v=+d.value||0;cSet(j.k,v);if(j.cb)j.cb(v)})
+ .catch(function(e){if(e==='rl'&&!j.r){j.r=1;cq.unshift(j);for(var i=0;i<24;i++)cWin.push(Date.now())}else if(j.cb)j.cb(null)})
+ .then(function(){cBusy--;delete cPend[j.op+j.k];cPump()});
+ cPump()}
+function cReq(op,k,cb,front){if(cPend[op+k]&&op==='get')return;cPend[op+k]=1;var j={op:op,k:k,cb:cb};if(front)cq.unshift(j);else cq.push(j);cPump()}
+/* request plays/up/down for a list of games (skips fresh cache and offline games). Plays first, then ratings. */
+function need(list,what){var a=cAll(),now=Date.now();(what||['p','u','d']).forEach(function(w){(list||GAMES).forEach(function(g){if(!g||g.off)return;var k=w+'-'+g.id,c=a[k];if(!c||now-c.t>CTTL)cReq('get',k)})})}
+function fmt(n){return n>=1e6?(n/1e6).toFixed(1).replace(/\.0$/,'')+'M':n>=1e4?Math.round(n/1e3)+'k':n>=1e3?(n/1e3).toFixed(1).replace(/\.0$/,'')+'k':String(n)}
+function pcount(id){return cnt('p-'+id)}
+function score(id){var u=cnt('u-'+id)||0,d=cnt('d-'+id)||0;return (u+1)/(u+d+2)+u*1e-6}
+function psHtml(id){var p=cnt('p-'+id),u=cnt('u-'+id);if(p==null&&u==null)return '';
+ return (p!=null?'<span title="Plays on GhostGames (all visitors)"><i class="fa-solid fa-play" aria-hidden="true"></i>'+fmt(p)+' '+(p===1?'play':'plays')+'</span>':'')+(u?'<span title="Thumbs up"><i class="fa-solid fa-thumbs-up" aria-hidden="true"></i>'+fmt(u)+'</span>':'')}
+function hitPlay(id){var h=get('gg:hitT',{});if(h[id]&&Date.now()-h[id]<30*60000)return;h[id]=Date.now();set('gg:hitT',h);cReq('hit','p-'+id,null,true)}
+/* ratings: one vote per game per device (localStorage); counters are shared */
+function myVote(id){return get('gg:votes',{})[id]||null}
+function vote(id,dir){if(!BY[id]||myVote(id)||(dir!=='u'&&dir!=='d'))return false;var v=get('gg:votes',{});v[id]=dir;set('gg:votes',v);
+ var k=dir+'-'+id;cSet(k,(cnt(k)||0)+1);cReq('hit',k,null,true);toast(dir==='u'?'Thanks! Thumbs up recorded.':'Thanks for the feedback.');return true}
+function rateHtml(id,cls){var m=myVote(id),u=cnt('u-'+id),d=cnt('d-'+id);
+ function b(dir,ic,lbl,n){var on=m===dir;return '<button type="button" class="mb ggv'+(on?' on':'')+'" data-vote="'+dir+'" data-vid="'+id+'" aria-pressed="'+on+'"'+(m?' disabled':'')+' aria-label="'+lbl+(n!=null?' ('+n+')':'')+'" title="'+(m?(on?'You rated this':'You already rated this'):lbl)+'"><i class="fa-'+(on?'solid':'regular')+' '+ic+'" aria-hidden="true"></i><span>'+(n!=null?fmt(n):'')+'</span></button>'}
+ return '<span class="ggrate '+(cls||'')+'" data-rate="'+id+'">'+b('u','fa-thumbs-up','Thumbs up',u)+b('d','fa-thumbs-down','Thumbs down',d)+'</span>'}
+function syncCounts(id){Array.prototype.forEach.call(document.querySelectorAll('[data-ps="'+id+'"]'),function(el){el.innerHTML=psHtml(id)});
+ Array.prototype.forEach.call(document.querySelectorAll('[data-rate="'+id+'"]'),function(el){var t=document.createElement('div');t.innerHTML=rateHtml(id,el.className.replace('ggrate','').trim());el.innerHTML=t.firstChild.innerHTML})}
+document.addEventListener('gg:cnt',function(e){var id=e.detail.k.slice(2);if(BY[id])syncCounts(id)});
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-vote]');if(!b)return;e.preventDefault();e.stopPropagation();vote(b.getAttribute('data-vid'),b.getAttribute('data-vote'))},true);
+
+/* ---- toast ---- */
+var toastEl=null,toastT=0;
+function toast(msg){if(!toastEl){toastEl=document.createElement('div');toastEl.className='ggtoast';toastEl.setAttribute('role','status');toastEl.setAttribute('aria-live','polite');document.body.appendChild(toastEl)}
+ toastEl.textContent=msg;toastEl.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){toastEl.classList.remove('show')},3600)}
+
+/* ---- game of the day: deterministic per UTC date among online, embeddable games ---- */
+function gotdPool(mob){if(mob==null)mob=isMob();return GAMES.filter(function(g){return !g.off&&g.status!=='issues'&&!g.external&&!g.page&&g.id!=='retro-player'&&(!mob||(g.devices||[]).indexOf('mobile')>=0)}).sort(function(a,b){return a.id<b.id?-1:1})}
+function gotd(d){d=d||new Date();var day=Math.floor(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate())/864e5),x=(day*2654435761)>>>0;x^=x>>>15;x=Math.imul(x,2246822519)>>>0;x=(x^(x>>>13))>>>0;var p=gotdPool();return p.length?p[x%p.length]:null}
+
+/* ---- report a broken game (FormSubmit AJAX, same inbox as Suggest a game) ---- */
+var rp=null,rpG=null,rpLast=null;
+function devInfo(){var ua=navigator.userAgent,os=/Windows/.test(ua)?'Windows':/Android/.test(ua)?'Android':/iPhone|iPad|iPod/.test(ua)?'iOS':/Mac OS X/.test(ua)?'macOS':/CrOS/.test(ua)?'ChromeOS':/Linux/.test(ua)?'Linux':'Other';
+ var br=/Edg\//.test(ua)?'Edge':/OPR\//.test(ua)?'Opera':/Firefox\//.test(ua)?'Firefox':/Chrome\//.test(ua)?'Chrome':/Safari\//.test(ua)?'Safari':'Other';
+ return {browser:br,os:os,device:(isMob()?'Mobile/touch':'Desktop')+', '+innerWidth+'x'+innerHeight+' @'+(window.devicePixelRatio||1)+'x',ua:ua}}
+function absUrl(u){try{return new URL(u,location.href).href}catch(e){return u}}
+function openReport(id){var g=BY[id];if(!g)return;rpG=g;
+ if(!rp){rp=document.createElement('div');rp.className='modal sg';rp.id='report';rp.setAttribute('role','dialog');rp.setAttribute('aria-modal','true');rp.setAttribute('aria-labelledby','rpT');
+  rp.innerHTML='<form class="sgbox" id="rpForm" novalidate><button type="button" class="mb mclose sgx" id="rpClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button><h2 id="rpT">Report a broken game</h2><p class="sgsub" id="rpSub"></p>'+
+  '<div class="f"><label for="rpNote">What happened? <em>(optional)</em></label><textarea id="rpNote" maxlength="1000" placeholder="e.g. stuck on loading, black screen, controls don\'t work"></textarea></div>'+
+  '<p class="sgsub" style="margin:4px 0 0;font-size:11.5px">We\'ll also send the game, page link and your browser/device so we can reproduce it. Nothing else.</p>'+
+  '<div class="hp" aria-hidden="true"><label>Leave this empty<input id="rpHoney" tabindex="-1" autocomplete="off"></label></div>'+
+  '<div class="acts"><button type="submit" class="btn" id="rpSend"><span>Send report</span></button><button type="button" class="mb" id="rpCancel">Cancel</button></div><div class="msg" id="rpMsg" role="status" aria-live="polite"></div></form>';
+  document.body.appendChild(rp);
+  var close=function(){rp.classList.remove('open');if(!(modal&&modal.classList.contains('open')))document.documentElement.style.overflow='';if(rpLast&&rpLast.focus)rpLast.focus()};rp._close=close;
+  $('rpClose').addEventListener('click',close);$('rpCancel').addEventListener('click',close);rp.addEventListener('click',function(e){if(e.target===rp)close()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&rp.classList.contains('open')){e.stopImmediatePropagation();close()}},true);
+  $('rpForm').addEventListener('submit',function(e){e.preventDefault();var g=rpG,di=devInfo();
+   var d={_subject:'GhostGames broken game report: '+g.title,game:g.title,game_id:g.id,game_url:absUrl(g.url),page:location.href,browser:di.browser+' on '+di.os,device:di.device,user_agent:di.ua,note:$('rpNote').value.trim()||'(none)',_honey:$('rpHoney').value,_template:'table',_captcha:'false'};
+   var btn=$('rpSend');btn.disabled=true;$('rpMsg').className='msg';$('rpMsg').textContent='Sending…';
+   fetch(FS,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(d)}).then(function(r){return r.json().then(function(j){if(!r.ok||String(j.success)!=='true')throw 0;return j})})
+   .then(function(){$('rpForm').reset();$('rpMsg').textContent='';close();toast('Thanks! Report sent for '+g.title+'.')})
+   .catch(function(){var mt='mailto:zanebarker1331@gmail.com?subject='+encodeURIComponent(d._subject)+'&body='+encodeURIComponent('Game: '+d.game+' ('+d.game_id+')\nGame URL: '+d.game_url+'\nPage: '+d.page+'\nBrowser: '+d.browser+'\nDevice: '+d.device+'\nNote: '+d.note);$('rpMsg').className='msg';$('rpMsg').innerHTML='Couldn\'t send right now. <a href="'+esc(mt)+'">Email it instead</a>.'})
+   .then(function(){btn.disabled=false})});
+ }
+ $('rpSub').innerHTML='Tell us what\'s wrong with <b style="color:#fff">'+esc(g.title)+'</b> and we\'ll check it.';$('rpMsg').textContent='';
+ rpLast=document.activeElement;rp.classList.add('open');document.documentElement.style.overflow='hidden';$('rpNote').focus()}
+document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('[data-report]');if(t){e.preventDefault();e.stopPropagation();openReport(t.getAttribute('data-report'))}},true);
+
+/* ---- installable app: service worker (site shell + covers only) and an unobtrusive Install button ---- */
+var dock=null;function getDock(){if(!dock){dock=document.createElement('div');dock.className='ggdock';document.body.appendChild(dock)}return dock}
+if('serviceWorker' in navigator&&window.isSecureContext&&location.pathname.indexOf(new URL(BASE).pathname+'play/')!==0){
+ window.addEventListener('load',function(){navigator.serviceWorker.register(BASE+'sw.js',{scope:BASE}).catch(function(){})})}
+var deferredInstall=null;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstall=e;if(get('gg:noinstall',0)||document.getElementById('ggInst'))return;
+ var w=document.createElement('div');w.className='gginst';w.id='ggInst';w.innerHTML='<button type="button" class="ggib"><i class="fa-solid fa-download" aria-hidden="true"></i>Install app</button><button type="button" class="ggix" aria-label="Hide install button"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>';
+ getDock().insertBefore(w,getDock().firstChild);
+ w.querySelector('.ggib').addEventListener('click',function(){if(!deferredInstall)return;deferredInstall.prompt();deferredInstall.userChoice.then(function(c){if(c&&c.outcome==='accepted')w.remove();deferredInstall=null})});
+ w.querySelector('.ggix').addEventListener('click',function(){set('gg:noinstall',1);w.remove()})});
+window.addEventListener('appinstalled',function(){var w=document.getElementById('ggInst');if(w)w.remove();toast('GhostGames installed.')});
+
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){discord();syncPulse()});else discord();
 (window.requestAnimationFrame||setTimeout)(syncPulse);
 window.GG={BASE:BASE,GAMES:GAMES,BY:BY,esc:esc,RM:RM,recent:recent,record:record,plays:plays,favs:favs,isFav:isFav,toggleFav:toggleFav,heart:heart,
- probe:probe,stHtml:stHtml,applyStatus:applyStatus,card:card,bindCards:bindCards,openGame:openGame,closeGame:closeGame,openSuggest:openSuggest,stars:stars,burger:burger,DISCORD:DISCORD,helpHtml:helpHtml};
+ probe:probe,stHtml:stHtml,applyStatus:applyStatus,card:card,bindCards:bindCards,openGame:openGame,closeGame:closeGame,openSuggest:openSuggest,stars:stars,burger:burger,DISCORD:DISCORD,helpHtml:helpHtml,
+ need:need,cnt:cnt,pcount:pcount,score:score,psHtml:psHtml,rateHtml:rateHtml,vote:vote,myVote:myVote,fmt:fmt,toast:toast,gotd:gotd,gotdPool:gotdPool,openReport:openReport,getDock:getDock,imgAttrs:imgAttrs,padHtml:padHtml,sm:sm};
 })();

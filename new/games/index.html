@@ -5,6 +5,7 @@
 <title>All games — GhostGames</title>
 <meta name="description" content="Every GhostGames browser game in one place. Filter by category, search, and play instantly.">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="../manifest.json"><link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
@@ -51,7 +52,7 @@
     <div class="row1">
       <label class="search"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search games</span><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><input type="search" id="q" placeholder="Search games…" autocomplete="off"></label>
       <div class="row2">
-        <label class="sort">Sort <select id="sort"><option value="featured">Featured</option><option value="az">A–Z</option><option value="new">Newest added</option><option value="cat">Category</option></select></label>
+        <label class="sort">Sort <select id="sort"><option value="featured">Featured</option><option value="popular">Most played</option><option value="top">Top rated</option><option value="az">A–Z</option><option value="new">Newest added</option><option value="cat">Category</option></select></label>
         <label class="sort">Device <select id="device"><option value="all">All devices</option><option value="mobile">Mobile</option><option value="pc">PC</option></select></label>
         <div class="count" id="count" aria-live="polite"></div>
       </div>
@@ -76,23 +77,23 @@
 'use strict';
 var $=function(id){return document.getElementById(id)},GAMES=GG.GAMES,BY=GG.BY,esc=GG.esc;
 GG.stars($('stA'),$('stB'));
-var LABEL={'Classic Shooter':'Classics'},TAGS=['Multiplayer','Single player','Mobile friendly','Zombies','Retro','3D'];
+var LABEL={'Classic Shooter':'Classics'},TAGS=['Multiplayer','Single player','Mobile friendly','Controller','Zombies','Retro','3D'];
 var CATS=['All'];GAMES.forEach(function(g){if(CATS.indexOf(g.category)<0)CATS.push(g.category)});
 var st={cat:'All',q:'',sort:'featured',tags:[],fav:false,device:'all'};
-function hasTag(g,t){return t==='Zombies'?(g.category==='Zombies'||g.tags.indexOf('Zombies')>=0):g.tags.indexOf(t)>=0}
+function hasTag(g,t){return t==='Controller'?!!g.controller:t==='Zombies'?(g.category==='Zombies'||g.tags.indexOf('Zombies')>=0):g.tags.indexOf(t)>=0}
 
 $('links').innerHTML=CATS.map(function(c,i){return '<a href="'+(c==='All'?'./':'?cat='+encodeURIComponent(c))+'" data-cat="'+esc(c)+'"'+(i>4?' class="xc"':'')+'>'+esc(LABEL[c]||c)+'</a>'}).join('')+'<button type="button" class="suggest" data-suggest><i class="fa-regular fa-lightbulb" aria-hidden="true"></i>Suggest a game</button><a class="suggest" href="../retro/"><i class="fa-solid fa-gamepad" aria-hidden="true"></i>Load your own ROM</a>';
 $('tabs').innerHTML='<button type="button" class="tab fav" id="favTab" aria-pressed="false" hidden><i class="fa-solid fa-heart" aria-hidden="true"></i>Favourites<em id="favN"></em></button>'+CATS.map(function(c){var n=c==='All'?GAMES.length:GAMES.filter(function(g){return g.category===c}).length;return '<button type="button" class="tab" role="tab" data-cat="'+esc(c)+'" aria-selected="false">'+esc(LABEL[c]||c)+'<em>'+n+'</em></button>'}).join('');
 $('chips').innerHTML=TAGS.map(function(t){return '<button type="button" class="tchip" data-tag="'+t+'" aria-pressed="false">'+t+'</button>'}).join('');
 
-function readURL(){var p=new URLSearchParams(location.search);st.device=['mobile','pc'].indexOf(p.get('device'))>=0?p.get('device'):'all';if($('device'))$('device').value=st.device;st.cat=CATS.indexOf(p.get('cat'))>=0?p.get('cat'):'All';st.q=p.get('q')||'';st.sort=['featured','az','new','cat'].indexOf(p.get('sort'))>=0?p.get('sort'):'featured';st.tags=(p.get('tags')||'').split(',').filter(function(t){return TAGS.indexOf(t)>=0});st.fav=p.get('fav')==='1';$('q').value=st.q;$('sort').value=st.sort}
+function readURL(){var p=new URLSearchParams(location.search);st.device=['mobile','pc'].indexOf(p.get('device'))>=0?p.get('device'):'all';if($('device'))$('device').value=st.device;st.cat=CATS.indexOf(p.get('cat'))>=0?p.get('cat'):'All';st.q=p.get('q')||'';st.sort=['featured','popular','top','az','new','cat'].indexOf(p.get('sort'))>=0?p.get('sort'):'featured';st.tags=(p.get('tags')||'').split(',').filter(function(t){return TAGS.indexOf(t)>=0});st.fav=p.get('fav')==='1';$('q').value=st.q;$('sort').value=st.sort}
 function writeURL(push){var p=new URLSearchParams();if(st.cat!=='All')p.set('cat',st.cat);if(st.q)p.set('q',st.q);if(st.sort!=='featured')p.set('sort',st.sort);if(st.tags.length)p.set('tags',st.tags.join(','));if(st.fav)p.set('fav','1');if(st.device!=='all')p.set('device',st.device);var u=location.pathname+(p.toString()?'?'+p.toString():'');history[push?'pushState':'replaceState'](null,'',u)}
 
 function render(){
  var q=st.q.trim().toLowerCase(),F=GG.favs();
  if(st.fav&&!F.length)st.fav=false;
  var l=GAMES.filter(function(g){return (st.device==='all'||(g.devices||['pc']).indexOf(st.device)>=0)&&(st.cat==='All'||g.category===st.cat)&&(!st.fav||F.indexOf(g.id)>=0)&&st.tags.every(function(t){return hasTag(g,t)})&&(!q||(g.title+' '+g.category+' '+g.description+' '+g.tags.join(' ')).toLowerCase().indexOf(q)>=0)});
- var S={featured:function(a,b){return (b.featured?1:0)-(a.featured?1:0)||a.order-b.order},az:function(a,b){return a.title.localeCompare(b.title)},new:function(a,b){return b.order-a.order},cat:function(a,b){return a.category.localeCompare(b.category)||a.title.localeCompare(b.title)}}[st.sort];
+ var S={featured:function(a,b){return (b.featured?1:0)-(a.featured?1:0)||a.order-b.order},az:function(a,b){return a.title.localeCompare(b.title)},new:function(a,b){return b.order-a.order},cat:function(a,b){return a.category.localeCompare(b.category)||a.title.localeCompare(b.title)},popular:function(a,b){return (GG.pcount(b.id)||0)-(GG.pcount(a.id)||0)||a.order-b.order},top:function(a,b){return GG.score(b.id)-GG.score(a.id)||(GG.pcount(b.id)||0)-(GG.pcount(a.id)||0)||a.order-b.order}}[st.sort];
  l.sort(function(a,b){return (a.off?1:0)-(b.off?1:0)||S(a,b)});
  $('grid').innerHTML=l.map(GG.card).join('');GG.applyStatus($('grid'));
  $('empty').classList.toggle('show',!l.length);
@@ -107,13 +108,13 @@ function render(){
 function renderCont(){
  var r=GG.recent().slice(0,6);$('contSec').hidden=!r.length;
  $('cont').innerHTML=r.map(function(x){var g=BY[x.id];var ago=Math.round((Date.now()-x.t)/60000),t=ago<1?'just now':ago<60?ago+' min ago':ago<1440?Math.round(ago/60)+' h ago':Math.round(ago/1440)+' d ago';
-  return '<button type="button" class="mini" data-id="'+g.id+'" style="--c1:'+g.c1+';--c2:'+g.c2+'" aria-label="Continue '+esc(g.title)+'"><img src="'+g.cover+'" alt="" loading="lazy" onerror="this.className=\'mph\';this.removeAttribute(\'src\')"><span style="margin:0;color:inherit;min-width:0"><b>'+esc(g.title)+'</b><span>'+esc(g.category)+' · '+t+'</span></span><span class="mp"><i class="fa-solid '+(g.external?'fa-arrow-up-right-from-square':'fa-play')+'" aria-hidden="true"></i></span></button>'}).join('');
+  return '<button type="button" class="mini" data-id="'+g.id+'" style="--c1:'+g.c1+';--c2:'+g.c2+'" aria-label="Continue '+esc(g.title)+'"><img alt="" '+GG.imgAttrs(g,'46px')+' onerror="this.className=\'mph\';this.removeAttribute(\'src\')"><span style="margin:0;color:inherit;min-width:0"><b>'+esc(g.title)+'</b><span>'+esc(g.category)+' · '+t+'</span></span><span class="mp"><i class="fa-solid '+(g.external?'fa-arrow-up-right-from-square':'fa-play')+'" aria-hidden="true"></i></span></button>'}).join('');
 }
 function update(push){render();writeURL(push)}
 $('tabs').addEventListener('click',function(e){var t=e.target.closest('.tab');if(!t)return;if(t.id==='favTab')st.fav=!st.fav;else st.cat=t.getAttribute('data-cat');update(true)});
 $('tabs').addEventListener('keydown',function(e){if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;var ts=[].slice.call($('tabs').querySelectorAll('.tab:not([hidden])')),i=ts.indexOf(document.activeElement);if(i<0)return;e.preventDefault();ts[(i+(e.key==='ArrowRight'?1:ts.length-1))%ts.length].focus()});
 $('chips').addEventListener('click',function(e){var t=e.target.closest('.tchip');if(!t)return;var g=t.getAttribute('data-tag'),i=st.tags.indexOf(g);if(i>=0)st.tags.splice(i,1);else st.tags.push(g);update(true)});
-$('sort').addEventListener('change',function(){st.sort=this.value;update(true)});
+$('sort').addEventListener('change',function(){st.sort=this.value;update(true);if(st.sort==='top')GG.need(GAMES,['u','d'])});
 $('device').addEventListener('change',function(){st.device=this.value;update(true)});
 $('links').addEventListener('click',function(e){var a=e.target.closest('a[data-cat]');if(!a)return;e.preventDefault();closeMenu();st.cat=a.getAttribute('data-cat');update(true)});
 window.addEventListener('popstate',function(){readURL();render()});
@@ -126,7 +127,8 @@ document.addEventListener('gg:recent',renderCont);document.addEventListener('gg:
 $('navPlay').addEventListener('click',function(e){var l=GAMES.filter(function(g){return !g.off&&!g.external&&(st.cat==='All'||g.category===st.cat)});if(!l.length)l=GAMES.filter(function(g){return !g.off&&!g.external});if(!l.length)return;e.preventDefault();closeMenu();GG.openGame(l[Math.floor(Math.random()*l.length)])});
 var closeMenu=GG.burger($('nav'),$('burger'));
 function onScroll(){document.body.classList.toggle('scrolled',scrollY>40)}window.addEventListener('scroll',onScroll,{passive:true});onScroll();
-readURL();render();renderCont();
+readURL();render();renderCont();GG.need(GAMES,st.sort==='top'?['u','d','p']:['p','u','d']);
+var rsT;document.addEventListener('gg:cnt',function(){if(st.sort!=='popular'&&st.sort!=='top')return;clearTimeout(rsT);rsT=setTimeout(render,700)});
 })();
 </script>
 </body>
