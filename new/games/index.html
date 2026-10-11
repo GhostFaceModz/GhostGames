@@ -127,7 +127,7 @@ document.addEventListener('gg:recent',renderCont);document.addEventListener('gg:
 $('navPlay').addEventListener('click',function(e){var l=GAMES.filter(function(g){return !g.off&&!g.external&&(st.cat==='All'||g.category===st.cat)});if(!l.length)l=GAMES.filter(function(g){return !g.off&&!g.external});if(!l.length)return;e.preventDefault();closeMenu();GG.openGame(l[Math.floor(Math.random()*l.length)])});
 var closeMenu=GG.burger($('nav'),$('burger'));
 function onScroll(){document.body.classList.toggle('scrolled',scrollY>40)}window.addEventListener('scroll',onScroll,{passive:true});onScroll();
-readURL();render();renderCont();GG.need(GAMES,st.sort==='top'?['u','d','p']:['p','u','d']);
+readURL();render();renderCont();GG.need(GAMES,st.sort==='top'?['u','d','p']:['p','u']);
 var rsT;document.addEventListener('gg:cnt',function(){if(st.sort!=='popular'&&st.sort!=='top')return;clearTimeout(rsT);rsT=setTimeout(render,700)});
 })();
 </script>
