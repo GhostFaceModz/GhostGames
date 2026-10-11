@@ -2437,4 +2437,36 @@ window.GG_GAMES=[
 ],
 "order": 50
   }
+  ,{
+"id": "gta-3",
+"devices": ["pc"],
+"title": "GTA III Web",
+"category": "Open World",
+"url": "https://wasmarcade.com/gta3",
+"external": true,
+"icon": "fa-car",
+"badge": "New",
+"color": "from-orange-600 to-stone-900",
+"description": "Grand Theft Auto III in the browser. Liberty City 2001, open-world action running on WebAssembly.",
+"featured": true,
+"blurb": "Cruise Liberty City in the classic 2001 open-world game, right in your browser.",
+"tags": [
+"Single player",
+"3D",
+"Retro"
+],
+"controls": [
+["W A S D", "Move / drive"],
+["Mouse", "Camera"],
+["E / F", "Enter vehicle / interact"],
+["Space", "Jump / handbrake"],
+["Esc", "Menu"]
+],
+"tips": [
+"First load streams assets — give it a moment.",
+"Works best on desktop with hardware acceleration.",
+"Fullscreen gives the best experience."
+],
+"order": 51
+  }
 ];
