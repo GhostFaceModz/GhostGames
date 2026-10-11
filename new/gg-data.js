@@ -2215,5 +2215,194 @@ window.GG_GAMES=[
 "Desktop Chrome/Edge with a decent GPU recommended; not playable on phones."
 ],
 "order": 46
+},
+{
+"id": "super-mario-zombies",
+"devices": ["pc"],
+"title": "Super Mario Zombies",
+"category": "Zombies",
+"url": "https://smz.fun/",
+"icon": "fa-skull",
+"badge": "New",
+"color": "from-red-700 to-stone-950",
+"description": "A fan-made Mario take on Call of Duty: Black Ops Zombies, running in your browser. Pick from ten classic maps (Kino der Toten, Five, Der Riese, Nacht der Untoten, Verrückt, Shi No Numa, Ascension, Call of the Dead, Shangri-La, Moon), with Horde and Easy modes.",
+"featured": true,
+"blurb": "Mario takes on ten classic Black Ops Zombies maps, right in your tab.",
+"tags": [
+"Zombies",
+"Single player",
+"3D"
+],
+"controls": [
+[
+"W A S D",
+"Move"
+],
+[
+"Mouse",
+"Aim / look"
+],
+[
+"Left click",
+"Shoot"
+],
+[
+"Right click",
+"Aim down sights"
+],
+[
+"R",
+"Reload"
+],
+[
+"F",
+"Buy / interact"
+],
+[
+"Esc",
+"Pause / release mouse"
+]
+],
+"tips": [
+"Tick the Black Ops ownership box and press Enter to reach the map select.",
+"Pick a map, then click the screen to start and lock the mouse.",
+"Turn on Easy mode from the map select if the hordes are too much.",
+"Maps download when picked, so the first load can take a minute."
+],
+"order": 47
+},
+{
+"id": "peak",
+"devices": ["pc"],
+"title": "PEAK (web port)",
+"category": "Co-op",
+"url": "https://wasm.rip/files/peak/PEAK.html",
+"icon": "fa-mountain",
+"badge": "New",
+"color": "from-orange-600 to-stone-900",
+"description": "A browser port of PEAK, the co-op climbing game by Aggro Crab and Landfall: scramble up a procedurally changing mountain island, manage stamina and survive the climb. Host a game or play offline solo.",
+"featured": false,
+"blurb": "Climb a deadly island mountain, solo or with friends.",
+"tags": [
+"Multiplayer",
+"Single player",
+"3D"
+],
+"controls": [
+[
+"W A S D",
+"Move"
+],
+[
+"Mouse",
+"Look"
+],
+[
+"Space",
+"Jump"
+],
+[
+"Left / right click",
+"Grab / climb"
+],
+[
+"Shift",
+"Sprint"
+],
+[
+"Esc",
+"Menu"
+]
+],
+"tips": [
+"It is a big Unity download: give the first load a minute or two.",
+"Choose Play Offline for a solo climb.",
+"Watch your stamina bar before long climbs.",
+"Needs a decent PC with hardware acceleration on."
+],
+"order": 48
+},
+{
+"id": "how-to-fish",
+"devices": ["pc"],
+"title": "How to Fish",
+"category": "Co-op",
+"url": "https://wasm.rip/files/HowToFish/HowToFish.html",
+"icon": "fa-fish",
+"badge": "New",
+"color": "from-sky-600 to-blue-950",
+"description": "A relaxed co-op fishing game ported to the browser: take the boat out, cast, reel in fish and play with friends or alone. Saves are kept in your browser.",
+"featured": false,
+"blurb": "Take the boat out and reel in fish, alone or with friends.",
+"tags": [
+"Multiplayer",
+"Single player",
+"3D"
+],
+"controls": [
+[
+"W A S D",
+"Move"
+],
+[
+"Mouse",
+"Look"
+],
+[
+"Left click",
+"Cast / reel"
+],
+[
+"E",
+"Interact"
+],
+[
+"Esc",
+"Menu"
+]
+],
+"tips": [
+"The game is about 126 MB, so the first load takes a while.",
+"Use Host Game, then pick Singleplayer or Multiplayer as the session type.",
+"Your saves stay in this browser."
+],
+"order": 49
+},
+{
+"id": "flash-games",
+"devices": ["pc"],
+"title": "Flash Games (850+)",
+"category": "Arcade",
+"url": "https://wasmarcade.com/flash-games",
+"external": true,
+"icon": "fa-bolt",
+"badge": "Hub",
+"color": "from-yellow-500 to-red-900",
+"description": "Hundreds of classic Flash games (Happy Wheels, Bloons TD, Age of War and more) running on the Ruffle emulator, no plugin needed. Hosted by WASM Arcade, which doesn't allow embedding, so it opens in a new tab.",
+"featured": false,
+"blurb": "850+ classic Flash games, revived with the Ruffle emulator.",
+"tags": [
+"Single player",
+"Retro"
+],
+"controls": [
+[
+"Mouse",
+"Pick a game / play"
+],
+[
+"Arrows / W A S D",
+"Move (most games)"
+],
+[
+"Space",
+"Jump / action"
+]
+],
+"tips": [
+"Each game shows its own controls on its page.",
+"Click inside the game first so it gets keyboard input."
+],
+"order": 50
 }
 ];
