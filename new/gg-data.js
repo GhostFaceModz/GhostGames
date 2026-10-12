@@ -2466,4 +2466,479 @@ window.GG_GAMES=[
 ],
 "order": 51
   }
+  ,{
+"id": "tf2",
+"devices": [
+"pc"
+],
+"status": "online",
+"title": "Team Fortress 2 Web",
+"category": "FPS",
+"url": "https://tf2.riddy.workers.dev/",
+"icon": "fa-hat-cowboy",
+"badge": "New",
+"color": "from-orange-600 to-red-900",
+"description": "Team Fortress 2 ported to the browser. Pick a class and fight for your team.",
+"featured": false,
+"blurb": "Pick a class and push the cart in classic TF2.",
+"tags": [
+"Multiplayer",
+"3D",
+"FPS"
+],
+"controls": [
+[
+"W A S D",
+"Move"
+],
+[
+"Mouse",
+"Aim / look"
+],
+[
+"Left click",
+"Shoot"
+],
+[
+"Space",
+"Jump"
+],
+[
+"Esc",
+"Menu / release mouse"
+],
+[
+"1-3",
+"Switch weapon"
+]
+],
+"tips": [
+"First load downloads a lot of game data, so give it time.",
+"Click the game to lock the mouse."
+],
+"order": 52
+}
+  ,{
+"id": "cs-bhop",
+"devices": [
+"pc"
+],
+"status": "online",
+"title": "CS:Source Bunnyhop",
+"category": "Skill",
+"url": "https://bunnyhop.lol/",
+"icon": "fa-person-running",
+"badge": "New",
+"color": "from-sky-600 to-indigo-900",
+"description": "Counter-Strike: Source bunnyhop maps in the browser. Chain jumps to build speed.",
+"featured": false,
+"blurb": "Chain perfect jumps through CS:S bhop maps.",
+"tags": [
+"Single player",
+"3D",
+"Skill"
+],
+"controls": [
+[
+"W A S D",
+"Strafe"
+],
+[
+"Mouse",
+"Turn"
+],
+[
+"Space",
+"Jump (hold)"
+],
+[
+"Esc",
+"Menu"
+]
+],
+"tips": [
+"Strafe with A/D while turning the mouse to gain speed.",
+"Pairs well with CS Surf."
+],
+"order": 53
+}
+  ,{
+"id": "super-monkey-ball",
+"devices": [
+"pc"
+],
+"status": "online",
+"title": "Super Monkey Ball",
+"category": "Arcade",
+"url": "https://monkeyball-online.pages.dev/",
+"icon": "fa-baseball",
+"badge": "New",
+"color": "from-yellow-500 to-sky-900",
+"description": "Super Monkey Ball 1 rebuilt for the web. Tilt the stage and roll to the goal.",
+"featured": false,
+"blurb": "Tilt the stage and roll your monkey to the goal.",
+"tags": [
+"Single player",
+"3D",
+"Retro"
+],
+"controls": [
+[
+"W A S D / Arrows",
+"Tilt stage"
+],
+[
+"Enter",
+"Confirm"
+],
+[
+"Esc",
+"Pause"
+]
+],
+"tips": [
+"Gentle tilts beat full tilts on narrow tracks.",
+"Grab bananas for extra lives."
+],
+"order": 54
+}
+  ,{
+"id": "cs-16",
+"devices": [
+"pc"
+],
+"status": "online",
+"title": "Counter-Strike 1.6 (CSJS)",
+"category": "FPS",
+"url": "https://csjs.live/",
+"icon": "fa-crosshairs",
+"badge": "New",
+"color": "from-amber-600 to-stone-900",
+"description": "Counter-Strike 1.6 in the browser with online play.",
+"featured": false,
+"blurb": "Classic CS 1.6 matches right in your browser.",
+"tags": [
+"Multiplayer",
+"3D",
+"FPS",
+"Retro"
+],
+"controls": [
+[
+"W A S D",
+"Move"
+],
+[
+"Mouse",
+"Aim / look"
+],
+[
+"Left click",
+"Shoot"
+],
+[
+"Space",
+"Jump"
+],
+[
+"Esc",
+"Menu / release mouse"
+],
+[
+"B",
+"Buy menu"
+],
+[
+"R",
+"Reload"
+]
+],
+"tips": [
+"Click Play on the landing page to start.",
+"Buy armour before rifles on low cash."
+],
+"order": 55
+}
+  ,{
+"id": "jedi-academy",
+"devices": [
+"pc"
+],
+"status": "online",
+"title": "Star Wars Jedi Academy",
+"category": "Classic Shooter",
+"url": "https://jk.q3js.com/",
+"icon": "fa-jedi",
+"badge": "New",
+"color": "from-blue-600 to-slate-900",
+"description": "Jedi Academy (Quake 3 engine) in the browser. Lightsaber duels and Force powers.",
+"featured": false,
+"blurb": "Duel with lightsabers and Force powers in Jedi Academy.",
+"tags": [
+"Single player",
+"3D",
+"Retro"
+],
+"controls": [
+[
+"W A S D",
+"Move"
+],
+[
+"Mouse",
+"Aim"
+],
+[
+"Left click",
+"Attack"
+],
+[
+"Right click",
+"Alt attack"
+],
+[
+"Esc",
+"Menu"
+]
+],
+"tips": [
+"Switch saber styles to find one that suits you.",
+"Fullscreen helps with mouse lock."
+],
+"order": 56
+}
+  ,{
+"id": "nacht-der-untoten",
+"devices": [
+"pc"
+],
+"status": "online",
+"title": "Nacht der Untoten",
+"category": "Zombies",
+"url": "https://zombies.bitcoinsapi.com/",
+"external": true,
+"icon": "fa-skull",
+"badge": "New",
+"color": "from-red-700 to-stone-900",
+"description": "Browser remake of the original CoD Zombies map. Board up windows and survive the rounds.",
+"featured": false,
+"blurb": "Survive the original Zombies bunker round after round.",
+"tags": [
+"Zombies",
+"Single player",
+"3D"
+],
+"controls": [
+[
+"W A S D",
+"Move"
+],
+[
+"Mouse",
+"Aim / look"
+],
+[
+"Left click",
+"Shoot"
+],
+[
+"Space",
+"Jump"
+],
+[
+"Esc",
+"Menu / release mouse"
+],
+[
+"R",
+"Reload"
+],
+[
+"F",
+"Buy / repair"
+]
+],
+"tips": [
+"Opens in a new tab.",
+"Rebuild barriers between rounds for points."
+],
+"order": 57
+}
+  ,{
+"id": "eaglercraft",
+"devices": [
+"pc"
+],
+"status": "online",
+"title": "Minecraft 1.8.8 (Eaglercraft)",
+"category": "Open World",
+"url": "https://wasmarcade.com/minecraft",
+"external": true,
+"icon": "fa-cube",
+"badge": "New",
+"color": "from-green-600 to-emerald-900",
+"description": "Java Minecraft 1.8.8 in the browser via EaglercraftX. Singleplayer worlds and multiplayer servers.",
+"featured": false,
+"blurb": "Build, mine and join servers in browser Minecraft.",
+"tags": [
+"Multiplayer",
+"3D",
+"Single player"
+],
+"controls": [
+[
+"W A S D",
+"Move"
+],
+[
+"Mouse",
+"Look"
+],
+[
+"Left / right click",
+"Break / place"
+],
+[
+"E",
+"Inventory"
+],
+[
+"Esc",
+"Menu"
+]
+],
+"tips": [
+"Opens in a new tab.",
+"Worlds save in your browser storage."
+],
+"order": 58
+}
+  ,{
+"id": "crash-bash",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Crash Bash Online",
+"category": "Co-op",
+"url": "https://crashbash.app/",
+"external": true,
+"icon": "fa-users",
+"badge": "New",
+"color": "from-orange-500 to-purple-900",
+"description": "Crash Bash PS1 party game with online multiplayer lobbies.",
+"featured": false,
+"blurb": "Party minigames with friends, Crash style.",
+"tags": [
+"Multiplayer",
+"Retro",
+"3D"
+],
+"controls": [
+[
+"Arrows / WASD",
+"Move"
+],
+[
+"Space / Enter",
+"Action"
+],
+[
+"Esc",
+"Menu"
+]
+],
+"tips": [
+"Opens in a new tab.",
+"Create a lobby and share the link with friends."
+],
+"order": 59
+}
+  ,{
+"id": "red-alert-2",
+"devices": [
+"pc"
+],
+"status": "online",
+"title": "C&C Red Alert 2 (Chrono Divide)",
+"category": "Strategy",
+"url": "https://chronodivide.com/",
+"external": true,
+"icon": "fa-chess-rook",
+"badge": "New",
+"color": "from-red-600 to-zinc-900",
+"description": "Fan-made Red Alert 2 client with online multiplayer.",
+"featured": false,
+"blurb": "Command armies in classic Red Alert 2, online.",
+"tags": [
+"Multiplayer",
+"Strategy",
+"Retro"
+],
+"controls": [
+[
+"Left click",
+"Select / command"
+],
+[
+"Right click",
+"Deselect"
+],
+[
+"Ctrl + 1-9",
+"Group units"
+],
+[
+"Esc",
+"Menu"
+]
+],
+"tips": [
+"Opens in a new tab.",
+"Heavy page; first load can take a while."
+],
+"order": 60
+}
+  ,{
+"id": "lego-island",
+"devices": [
+"pc"
+],
+"status": "online",
+"title": "LEGO Island",
+"category": "Open World",
+"url": "https://isle.pizza/",
+"external": true,
+"icon": "fa-puzzle-piece",
+"badge": "New",
+"color": "from-yellow-500 to-red-800",
+"description": "The classic LEGO Island running in the browser from a decompiled port.",
+"featured": false,
+"blurb": "Explore LEGO Island, deliver pizzas and race.",
+"tags": [
+"Single player",
+"3D",
+"Retro"
+],
+"controls": [
+[
+"Arrows",
+"Move"
+],
+[
+"Mouse",
+"Click to interact"
+],
+[
+"Esc",
+"Menu"
+]
+],
+"tips": [
+"Opens in a new tab.",
+"Needs a modern browser with cross-origin isolation."
+],
+"order": 61
+}
 ];

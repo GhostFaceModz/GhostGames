@@ -2,7 +2,7 @@
    so the same file works on Render /ghostgames/ and GitHub Pages /GhostGames/new/).
    Caches ONLY our own shell (pages, JS/CSS, manifest, icons) and covers. Never touches third-party game hosts,
    ROMs, the retro emulator page, or play/ (play/gta-v/ has its own isolation worker with a more specific scope). */
-const V='gg-shell-v7',CV='gg-covers-v7',SCOPE=self.registration.scope;
+const V='gg-shell-v8',CV='gg-covers-v8',SCOPE=self.registration.scope;
 const SHELL=['','games/','game/','retro/','gg-common.js','gg-online.js','gg-config.js','gg-auth.js','gg-data.js','gg-site.css','manifest.json','icons/icon-192.png','icons/icon-512.png'].map(p=>new URL(p,SCOPE).href);
 self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>Promise.all(SHELL.map(u=>c.add(new Request(u,{cache:'reload'})).catch(()=>{})))).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>/^gg-/.test(k)&&k!==V&&k!==CV).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
