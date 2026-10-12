@@ -2410,7 +2410,6 @@ window.GG_GAMES=[
 "title": "Among Us Web",
 "category": "Co-op",
 "url": "https://wasm.rip/files/amongus/latest/",
-"external": true,
 "icon": "fa-users",
 "badge": "New",
 "color": "from-red-600 to-cyan-900",

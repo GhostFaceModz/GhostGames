@@ -26,7 +26,7 @@ Alternate (GitHub Pages): **[ghostfacemodz.github.io/GhostGames/new/](https://gh
 
 <img src="screenshots/mobile.png" alt="GhostGames on mobile" width="300">
 
-## 🎮 Games (44 playable, 50 listed)
+## 🎮 Games (45 playable, 51 listed)
 
 ### Zombies
 | Game | About | How it runs | Status |
@@ -67,6 +67,7 @@ Alternate (GitHub Pages): **[ghostfacemodz.github.io/GhostGames/new/](https://gh
 | [The Simpsons: Hit & Run](https://ghostgames.app/ghostgames/game/?id=simpsons-hit-and-run) | Drive, smash and explore Springfield in the full classic game. | In player | 🟢 Online |
 | [Tweetcraft](https://ghostgames.app/ghostgames/game/?id=tweetcraft) 📱 | A shared Minecraft-style voxel world anyone can join and build in. | New tab | 🟢 Online |
 | [GTA V (browser port)](https://ghostgames.app/ghostgames/game/?id=gta-v-web) | GTA V in your browser. Weak PC? Low-graphics mode. Free roam? Sandbox mode. | Own page | 🟢 Online |
+| [GTA III Web](https://ghostgames.app/ghostgames/game/?id=gta-3) | Cruise Liberty City in the classic 2001 open-world game, right in your browser. | New tab | 🟢 Online |
 
 ### Classic Shooter
 | Game | About | How it runs | Status |
@@ -120,6 +121,7 @@ Alternate (GitHub Pages): **[ghostfacemodz.github.io/GhostGames/new/](https://gh
 |---|---|---|---|
 | [PEAK (web port)](https://ghostgames.app/ghostgames/game/?id=peak) | Climb a deadly island mountain, solo or with friends. | In player | 🟢 Online |
 | [How to Fish](https://ghostgames.app/ghostgames/game/?id=how-to-fish) | Take the boat out and reel in fish, alone or with friends. | In player | 🟢 Online |
+| [Among Us Web](https://ghostgames.app/ghostgames/game/?id=among-us) 📱 | Complete tasks or sabotage as the impostor — Among Us in your browser. | In player | 🟢 Online |
 
 🎮 = controller supported · 📱 = plays on mobile
 
