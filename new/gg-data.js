@@ -633,6 +633,7 @@ window.GG_GAMES=[
 },
 {
 "id": "simpsons-hit-and-run",
+"newTabPrompt": true,
 "devices": ["pc"],
 "title": "The Simpsons: Hit & Run",
 "category": "Open World",
@@ -2250,6 +2251,7 @@ window.GG_GAMES=[
 },
 {
 "id": "super-mario-zombies",
+"newTabPrompt": true,
 "devices": ["pc"],
 "title": "Super Mario Zombies",
 "category": "Zombies",
