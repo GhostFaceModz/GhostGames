@@ -2173,8 +2173,8 @@ window.GG_GAMES=[
 "devices": [
 "pc"
 ],
-"status": "online",
-"note": "Needs WebGPU (recent desktop Chrome/Edge) and a strong PC",
+"status": "issues",
+"note": "Host server down, may return",
 "title": "GTA V (browser port)",
 "category": "Open World",
 "url": "/GhostGames/new/play/gta-v/",
