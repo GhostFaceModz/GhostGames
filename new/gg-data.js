@@ -2,6 +2,7 @@
 window.GG_GAMES=[
 {
 "id": "bo1-zombies",
+"newTabPrompt": true,
 "screenshot": {"src": "screens/bo1-zombies.webp", "w": 960, "h": 540},
 "devices": ["pc"],
 "title": "BO1 Zombies Hub",
