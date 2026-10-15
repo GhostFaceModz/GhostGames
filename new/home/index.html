@@ -54,7 +54,7 @@ img{display:block;max-width:100%}
 .nav-spacer{flex:1}
 .nav .cta,.nav #navPlay{display:inline-grid;place-items:center;height:38px;padding:0 16px;border-radius:12px;font-size:13px;font-weight:600;color:#fff;background:linear-gradient(to top,#3ec8e4 0,#0596b3 35%,#0a2a37 100%);box-shadow:0 0 0 1px rgba(152,218,234,.25),0 4px 16px rgba(20,180,225,.25)}
 .nav .cta:hover,#navPlay:hover{filter:brightness(1.1)}
-.burger{display:none;width:42px;height:42px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);place-items:center;gap:5px;flex-direction:column;padding:0}
+.burger{display:none!important}
 .burger span{display:block;width:18px;height:2px;border-radius:2px;background:#fff}
 .search-mini{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:rgba(255,255,255,.8);font-size:13px;font-weight:500}
 .search-mini:hover{border-color:rgba(95,227,255,.4);color:#fff}
@@ -73,7 +73,9 @@ img{display:block;max-width:100%}
 .ggmenubtn .gico{position:absolute;inset:0;display:grid;place-items:center;font-size:15px;color:#5fe3ff;opacity:0;transform:scale(.7);transition:opacity .25s,transform .25s;pointer-events:none}
 .ggmenubtn:hover .gico,.ggmenubtn[aria-expanded="true"] .gico{opacity:1;transform:scale(1)}
 .ggmenubtn:hover .hb,.ggmenubtn[aria-expanded="true"] .hb{opacity:0}
-@media (min-width:1081px){.ggmenubtn{position:fixed;top:18px;right:248px;z-index:460}}
+.ggmenubtn{position:fixed;top:max(12px,env(safe-area-inset-top));right:14px;z-index:470;width:44px;height:44px}
+@media (min-width:1081px){.ggfw{right:66px!important}.ggmenubtn{top:18px;right:14px}}
+@media (max-width:1080px){.ggmenubtn{width:42px;height:42px;top:max(10px,env(safe-area-inset-top));right:12px}}
 .ggside{position:fixed;inset:0;z-index:1200;pointer-events:none}
 .ggside.open{pointer-events:auto}
 .ggside .veil{position:absolute;inset:0;background:rgba(2,4,10,.55);opacity:0;transition:opacity .28s;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
@@ -93,7 +95,6 @@ img{display:block;max-width:100%}
 .ggside a i,.ggside button.mi i{width:22px;text-align:center;color:#5fe3ff;font-size:14px}
 .ggside .sep{height:1px;margin:8px 4px;background:rgba(255,255,255,.08)}
 .ggside .note{margin-top:auto;padding:12px 10px 0;font-size:11.5px;line-height:1.45;color:#7a8494}
-@media (max-width:1080px){.nav{padding-right:12px}.ggmenubtn{width:42px;height:42px;order:5}.burger{order:6}}
 
 /* floating GitHub / Discord (gg-common injects Discord next to .wa) */
 .wa{position:fixed;right:16px;bottom:18px;z-index:80;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:rgba(10,14,22,.88);border:1px solid rgba(255,255,255,.14);box-shadow:0 10px 28px rgba(0,0,0,.45);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
@@ -154,9 +155,9 @@ img{display:block;max-width:100%}
 .foot a{color:#9aa3b2}.foot a:hover{color:#5fe3ff}
 
 @media (max-width:1080px){
- .burger{display:inline-grid}
+ /* old burger removed — premium menu only */
  .navmenu{display:none;position:absolute;left:12px;right:12px;top:68px;padding:14px;border-radius:18px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,rgba(11,15,22,.985),rgba(7,10,16,.99));box-shadow:0 26px 60px rgba(0,0,0,.55);z-index:120}
- .nav.open .navmenu{display:block}
+ .nav.open .navmenu{display:none} /* premium slide-out replaces dropdown */
  .links{flex-direction:column;align-items:stretch;gap:4px;margin:0 0 12px}
  .links a,.links button.suggest{padding:12px 10px;border-radius:10px;text-align:left}
  .links a:hover,.links button.suggest:hover{background:rgba(255,255,255,.05)}
@@ -207,7 +208,6 @@ img{display:block;max-width:100%}
     <span class="hb" aria-hidden="true"><i></i><i></i><i></i></span>
     <span class="gico" aria-hidden="true"><i class="fa-solid fa-ghost"></i></span>
   </button>
-  <button type="button" class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="navmenu"><span></span><span></span><span></span></button>
 </header>
 
 <div class="ggside" id="ggSide" hidden>
@@ -220,9 +220,16 @@ img{display:block;max-width:100%}
     </div>
     <a href="./"><i class="fa-solid fa-house" aria-hidden="true"></i>Home</a>
     <a href="../games/"><i class="fa-solid fa-table-cells-large" aria-hidden="true"></i>All games</a>
+    <a href="../games/"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>Search</a>
+    <button type="button" class="mi" id="ggSidePlay"><i class="fa-solid fa-play" aria-hidden="true"></i>Play now</button>
+    <a href="../games/?cat=Zombies"><i class="fa-solid fa-biohazard" aria-hidden="true"></i>Zombies</a>
+    <a href="../games/?cat=FPS"><i class="fa-solid fa-crosshairs" aria-hidden="true"></i>FPS</a>
+    <a href="../games/?cat=Open%20World"><i class="fa-solid fa-globe" aria-hidden="true"></i>Open World</a>
+    <a href="../games/?cat=Co-op"><i class="fa-solid fa-users" aria-hidden="true"></i>Co-op</a>
     <a href="../retro/"><i class="fa-solid fa-gamepad" aria-hidden="true"></i>Retro</a>
     <button type="button" class="mi" id="ggSideGotd"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>Game of the day</button>
     <a href="../games/?fav=1"><i class="fa-solid fa-heart" aria-hidden="true"></i>Favourites</a>
+    <button type="button" class="mi" data-suggest><i class="fa-regular fa-lightbulb" aria-hidden="true"></i>Suggest a game</button>
     <div class="sep"></div>
     <button type="button" class="mi" id="ggSideLogin"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>Login</button>
     <a href="https://discord.gg/zenclipsdaily-arc-raiders-store-bloodstrike-1408818003591827539" target="_blank" rel="noopener"><i class="fa-brands fa-discord" aria-hidden="true"></i>Discord</a>
@@ -351,6 +358,7 @@ function mount(){
     document.addEventListener('keydown',function(e){if(e.key==='Escape'&&side.classList.contains('open'))close()});
     document.getElementById('ggSideGotd').addEventListener('click',function(){close();var g=GG.gotd&&GG.gotd();if(g&&GG.openGame)GG.openGame(g)});
     document.getElementById('ggSideLogin').addEventListener('click',function(){close();var b=document.querySelector('.ggli');if(b)b.click();else if(document.querySelector('.ggme'))document.querySelector('.ggme').click()});
+    side.addEventListener('click',function(e){if(e.target.closest('[data-suggest]'))close()});
     document.getElementById('ggSideHelp').addEventListener('click',function(){
       close();
       var g=(GG.gotd&&GG.gotd())||(GG.GAMES&&GG.GAMES[0]); if(!g)return;
@@ -366,7 +374,6 @@ function mount(){
     });
   })();
 
-  if(GG&&GG.burger) GG.burger(document.getElementById('nav'), document.getElementById('burger'));
   document.getElementById('navPlay').addEventListener('click',function(e){
     var r=(GG.recent?GG.recent():[]).filter(function(x){return GG.BY[x.id]&&!GG.BY[x.id].off})[0];
     var pool=live.filter(function(g){return !g.external&&!g.page});
