@@ -60,10 +60,19 @@ img{display:block;max-width:100%}
 .search-mini:hover{border-color:rgba(95,227,255,.4);color:#fff}
 .search-mini i{color:#5fe3ff}
 
-/* premium side menu */
-.nav{padding-right:12px}
-.ggmenubtn{position:relative;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(10,14,22,.55);color:#e9f6ff;cursor:pointer;flex:0 0 auto;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 6px 18px rgba(0,0,0,.25);transition:border-color .2s,box-shadow .2s,transform .2s,background .2s}
-.ggmenubtn:hover,.ggmenubtn[aria-expanded="true"]{border-color:rgba(95,227,255,.5);background:rgba(14,22,34,.8);box-shadow:0 0 0 1px rgba(95,227,255,.2),0 0 22px rgba(40,180,230,.28),inset 0 1px 0 rgba(255,255,255,.08);transform:translateY(-1px)}
+/* premium side menu — subtle cyan glass bubbles (preview) */
+.nav{padding-right:10px;gap:10px}
+.nav-actions{display:flex;align-items:center;gap:6px;margin-left:auto;flex:0 0 auto}
+.nav-act{display:inline-flex;align-items:center;gap:7px;height:40px;padding:0 12px;border-radius:12px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.03);color:rgba(255,255,255,.88);font-size:13px;font-weight:600;text-decoration:none;transition:border-color .2s,color .2s,background .2s,box-shadow .2s}
+.nav-act i{color:#5fe3ff;font-size:13px}
+.nav-act:hover{border-color:rgba(95,227,255,.4);color:#fff;background:rgba(95,227,255,.08);box-shadow:0 0 16px rgba(40,180,230,.12)}
+.nav-login{width:40px;height:40px;padding:0;border-radius:50%;border:1px solid rgba(95,227,255,.28);background:rgba(10,14,22,.55);display:grid;place-items:center;cursor:pointer;flex:0 0 auto;overflow:hidden;box-shadow:0 0 0 1px rgba(95,227,255,.12);transition:transform .2s,box-shadow .2s,border-color .2s}
+.nav-login img{width:100%;height:100%;object-fit:cover;display:block}
+.nav-login:hover{border-color:rgba(95,227,255,.55);transform:translateY(-1px);box-shadow:0 0 18px rgba(95,227,255,.28)}
+/* hide auth-injected Support + floating login; we use nav-login */
+.ggfw{display:none!important}
+.ggmenubtn{position:relative;top:auto;right:auto;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(10,14,22,.55);color:#e9f6ff;cursor:pointer;flex:0 0 auto;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(255,255,255,.06);transition:border-color .2s,box-shadow .2s,transform .2s,background .2s;z-index:1}
+.ggmenubtn:hover,.ggmenubtn[aria-expanded="true"]{border-color:rgba(95,227,255,.5);background:rgba(14,22,34,.8);box-shadow:0 0 0 1px rgba(95,227,255,.2),0 0 18px rgba(40,180,230,.25);transform:translateY(-1px)}
 .ggmenubtn .hb{position:relative;width:18px;height:14px}
 .ggmenubtn .hb i{position:absolute;left:0;right:0;height:2px;border-radius:2px;background:#5fe3ff;box-shadow:0 0 8px rgba(95,227,255,.55);transition:transform .28s,opacity .2s,top .28s}
 .ggmenubtn .hb i:nth-child(1){top:0}.ggmenubtn .hb i:nth-child(2){top:6px}.ggmenubtn .hb i:nth-child(3){top:12px}
@@ -73,28 +82,69 @@ img{display:block;max-width:100%}
 .ggmenubtn .gico{position:absolute;inset:0;display:grid;place-items:center;font-size:15px;color:#5fe3ff;opacity:0;transform:scale(.7);transition:opacity .25s,transform .25s;pointer-events:none}
 .ggmenubtn:hover .gico,.ggmenubtn[aria-expanded="true"] .gico{opacity:1;transform:scale(1)}
 .ggmenubtn:hover .hb,.ggmenubtn[aria-expanded="true"] .hb{opacity:0}
-.ggmenubtn{position:fixed;top:max(12px,env(safe-area-inset-top));right:14px;z-index:470;width:44px;height:44px}
-@media (min-width:1081px){.ggfw{right:66px!important}.ggmenubtn{top:18px;right:14px}}
-@media (max-width:1080px){.ggmenubtn{width:42px;height:42px;top:max(10px,env(safe-area-inset-top));right:12px}}
+.navmenu,.nav-spacer,.search-mini,.nav .cta,#navPlay{display:none!important}
+.burger{display:none!important}
+@media (max-width:700px){
+ .nav-act{width:38px;height:38px;padding:0;justify-content:center;border-radius:11px}
+ .nav-act .lbl{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+ .nav-act i{font-size:14px;margin:0}
+ .nav-login,.ggmenubtn{width:38px;height:38px}
+ .nav-actions{gap:5px}
+}
 .ggside{position:fixed;inset:0;z-index:1200;pointer-events:none}
 .ggside.open{pointer-events:auto}
-.ggside .veil{position:absolute;inset:0;background:rgba(2,4,10,.55);opacity:0;transition:opacity .28s;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+.ggside .veil{position:absolute;inset:0;background:rgba(2,4,10,.58);opacity:0;transition:opacity .28s;-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
 .ggside.open .veil{opacity:1}
-.ggside .panel{position:absolute;top:0;right:0;height:100%;width:min(340px,92vw);padding:18px 16px 28px;display:flex;flex-direction:column;gap:6px;
- background:linear-gradient(165deg,rgba(14,20,32,.96),rgba(6,10,18,.98));border-left:1px solid rgba(95,227,255,.18);
- box-shadow:-24px 0 60px rgba(0,0,0,.55),0 0 40px rgba(40,180,230,.08);transform:translateX(104%);transition:transform .34s cubic-bezier(.2,.8,.2,1);overflow:auto}
+.ggside .panel{position:absolute;top:0;right:0;height:100%;width:min(360px,94vw);padding:16px 14px 28px;display:flex;flex-direction:column;gap:0;
+ background:linear-gradient(165deg,rgba(12,18,30,.97),rgba(6,10,18,.99));
+ border-left:1px solid rgba(95,227,255,.16);
+ box-shadow:-24px 0 60px rgba(0,0,0,.55),0 0 36px rgba(40,180,230,.06);transform:translateX(104%);transition:transform .34s cubic-bezier(.2,.8,.2,1);overflow:auto}
 .ggside.open .panel{transform:none}
-.ggside .ph{display:flex;align-items:center;gap:10px;padding:6px 8px 14px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:8px}
-.ggside .ph .mark{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;color:#5fe3ff;font-size:18px;background:radial-gradient(circle at 35% 30%,rgba(95,227,255,.25),rgba(95,227,255,.05) 60%,transparent 70%),rgba(10,16,26,.9);box-shadow:0 0 0 1px rgba(95,227,255,.28),0 0 20px rgba(60,200,240,.25)}
-.ggside .ph b{display:block;font-size:15px;font-weight:800;letter-spacing:.02em;text-transform:uppercase}
-.ggside .ph span{display:block;font-size:11px;color:#8b93a1;margin-top:2px}
-.ggside .px{margin-left:auto;width:36px;height:36px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#fff;display:grid;place-items:center;cursor:pointer}
-.ggside .px:hover{border-color:rgba(95,227,255,.4)}
-.ggside a,.ggside button.mi{display:flex;align-items:center;gap:12px;width:100%;padding:12px 12px;border-radius:14px;border:1px solid transparent;background:none;color:#e8eef6;font:600 14px Poppins,system-ui,sans-serif;text-align:left;cursor:pointer;text-decoration:none}
-.ggside a:hover,.ggside button.mi:hover{background:rgba(95,227,255,.08);border-color:rgba(95,227,255,.16);color:#fff}
-.ggside a i,.ggside button.mi i{width:22px;text-align:center;color:#5fe3ff;font-size:14px}
-.ggside .sep{height:1px;margin:8px 4px;background:rgba(255,255,255,.08)}
-.ggside .note{margin-top:auto;padding:12px 10px 0;font-size:11.5px;line-height:1.45;color:#7a8494}
+.ggside .ph{display:flex;align-items:center;gap:12px;padding:10px 10px 14px;margin:0 2px 12px;border-radius:18px;
+ background:linear-gradient(180deg,rgba(14,22,36,.92),rgba(8,14,24,.96));
+ border:1px solid rgba(95,227,255,.18);box-shadow:0 8px 24px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06)}
+.ggside .ph .mark,.ggside .ph .mark-img{width:48px;height:48px;border-radius:50%;flex:0 0 auto;object-fit:cover;
+ box-shadow:0 0 0 2px rgba(95,227,255,.28),0 0 18px rgba(95,227,255,.22);background:#0a101a}
+.ggside .ph .mark{display:grid;place-items:center;color:#5fe3ff;font-size:22px;background:radial-gradient(circle at 35% 30%,rgba(95,227,255,.22),rgba(10,16,26,.95))}
+.ggside .ph b{display:block;font-size:15px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:#eef6ff}
+.ggside .ph span{display:block;font-size:11.5px;color:#8b93a1;margin-top:2px;font-weight:500}
+.ggside .px{margin-left:auto;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:#fff;display:grid;place-items:center;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s}
+.ggside .px:hover{border-color:rgba(95,227,255,.45);box-shadow:0 0 14px rgba(95,227,255,.25);transform:rotate(90deg) scale(1.05)}
+.ggside .bubbles{display:flex;flex-direction:column;gap:8px;padding:0 2px}
+.ggside .bub{display:flex;align-items:center;gap:12px;width:100%;padding:8px 12px 8px 8px;border-radius:999px;
+ border:1px solid rgba(95,227,255,.16);background:rgba(10,14,22,.72);
+ -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+ color:#e8eef6;font:600 13.5px Poppins,system-ui,sans-serif;text-align:left;cursor:pointer;text-decoration:none;
+ box-shadow:0 4px 12px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.04);
+ transition:transform .22s cubic-bezier(.2,.8,.2,1),box-shadow .22s,border-color .22s,background .22s;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.ggside .bub .bico{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;font-size:15px;color:#5fe3ff;
+ background:rgba(95,227,255,.08);border:1px solid rgba(95,227,255,.22);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+ transition:transform .28s cubic-bezier(.34,1.56,.64,1),box-shadow .22s,background .22s}
+.ggside .bub:hover{transform:translateY(-3px) scale(1.03);
+ border-color:rgba(95,227,255,.4);background:rgba(14,22,34,.88);
+ box-shadow:0 10px 26px rgba(0,0,0,.4),0 0 20px rgba(40,180,230,.18),inset 0 1px 0 rgba(255,255,255,.08)}
+.ggside .bub:hover .bico{transform:scale(1.12) rotate(-8deg);animation:bubWobble .55s ease;
+ background:rgba(95,227,255,.14);box-shadow:0 0 14px rgba(95,227,255,.28)}
+.ggside .bub:active{transform:scale(.96) translateY(0);transition-duration:.08s}
+.ggside .bub:active .bico{transform:scale(.92);animation:none}
+@keyframes bubWobble{0%{transform:scale(1.12) rotate(-8deg)}30%{transform:scale(1.16) rotate(10deg)}55%{transform:scale(1.1) rotate(-6deg)}100%{transform:scale(1.12) rotate(-8deg)}}
+.ggside .sep{height:1px;margin:12px 8px;background:linear-gradient(90deg,transparent,rgba(95,227,255,.2),transparent);border:0}
+.ggside .bub-login{display:flex;align-items:center;gap:12px;width:100%;margin-top:4px;padding:10px 14px 10px 10px;border-radius:999px;
+ border:1px solid rgba(95,227,255,.28);background:rgba(10,16,26,.82);
+ color:#fff;font:700 14px Poppins,system-ui,sans-serif;cursor:pointer;text-align:left;
+ box-shadow:0 4px 16px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.05);transition:transform .22s,box-shadow .22s,border-color .22s}
+.ggside .bub-login:hover{transform:translateY(-2px) scale(1.02);border-color:rgba(95,227,255,.5);
+ box-shadow:0 0 22px rgba(95,227,255,.2),0 10px 26px rgba(0,0,0,.35)}
+.ggside .bub-login:active{transform:scale(.97)}
+.ggside .bub-login .av{width:42px;height:42px;border-radius:50%;object-fit:cover;flex:0 0 auto;
+ box-shadow:0 0 0 2px rgba(95,227,255,.4),0 0 14px rgba(95,227,255,.25);background:#0a101a}
+.ggside .bub-login .sub{display:block;font-size:11px;font-weight:500;color:#8b93a1;margin-top:1px}
+.ggside .note{margin-top:auto;padding:14px 10px 0;font-size:11.5px;line-height:1.45;color:#7a8494}
+@media (prefers-reduced-motion:reduce){
+ .ggside .bub,.ggside .bub .bico,.ggside .bub-login,.ggside .px{transition:none!important;animation:none!important}
+ .ggside .bub:hover .bico{animation:none}
+}
 
 /* floating GitHub / Discord (gg-common injects Discord next to .wa) */
 .wa{position:fixed;right:16px;bottom:18px;z-index:80;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:rgba(10,14,22,.88);border:1px solid rgba(255,255,255,.14);box-shadow:0 10px 28px rgba(0,0,0,.45);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
@@ -189,53 +239,54 @@ img{display:block;max-width:100%}
     <svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="sw" x1="8" y1="8" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#8ef4ff"/><stop offset=".5" stop-color="#35d8ff"/><stop offset="1" stop-color="#0a86d8"/></linearGradient><linearGradient id="sw2" x1="40" y1="10" x2="10" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#a6f7ff"/><stop offset="1" stop-color="#0f9ae0" stop-opacity=".25"/></linearGradient></defs><g transform="rotate(-32 24 24)"><ellipse cx="24" cy="24" rx="19.5" ry="9.6" fill="none" stroke="url(#sw2)" stroke-width="3.1" stroke-linecap="round" stroke-dasharray="58 30" stroke-dashoffset="14"/><circle cx="42.4" cy="20.6" r="3.1" fill="#bff6ff"/></g><path d="M24 14.2c-5.4 0-8.6 4-8.6 9v10.6l2.9-2.2 2.85 2.2 2.85-2.2 2.85 2.2 2.85-2.2 2.9 2.2V23.2c0-5-3.2-9-8.6-9Z" fill="url(#sw)"/><circle cx="21" cy="23" r="1.7" fill="#04202c"/><circle cx="27" cy="23" r="1.7" fill="#04202c"/></svg>
     <span class="wm"><span class="kick">GHOST</span><span class="name">GAMES</span></span>
   </a>
-  <div class="navmenu" id="navmenu">
-    <div class="links" id="links">
-      <a href="../games/" class="on">Browse</a>
-      <a href="../games/?cat=Zombies">Zombies</a>
-      <a href="../games/?cat=FPS">FPS</a>
-      <a href="../games/?cat=Open%20World">Open World</a>
-      <a href="../retro/">Retro</a>
-      <a href="../games/?cat=Co-op">Co-op</a>
-      <a href="../games/"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>&nbsp;Search</a>
-      <button type="button" class="suggest" data-suggest><i class="fa-regular fa-lightbulb" aria-hidden="true"></i>Suggest a game</button>
-    </div>
-    <a class="cta" href="../games/" id="navPlay"><span>Play now</span></a>
+  <div class="nav-actions">
+    <a class="nav-act" href="../games/" aria-label="Browse"><i class="fa-solid fa-compass" aria-hidden="true"></i><span class="lbl">Browse</span></a>
+    <a class="nav-act" href="../games/" aria-label="Search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><span class="lbl">Search</span></a>
+    <a class="nav-act" href="https://ko-fi.com/ghostgamesapp" target="_blank" rel="noopener" aria-label="Support"><i class="fa-solid fa-mug-hot" aria-hidden="true"></i><span class="lbl">Support</span></a>
+    <button type="button" class="nav-login" id="navLogin" aria-label="Log in">
+      <img id="navAv" src="../icons/icon-192.png" alt="">
+    </button>
+    <button type="button" class="ggmenubtn" id="ggMenuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="ggSide">
+      <span class="hb" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="gico" aria-hidden="true"><i class="fa-solid fa-ghost"></i></span>
+    </button>
   </div>
-  <div class="nav-spacer"></div>
-  <a class="search-mini" href="../games/" aria-label="Search games"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Search</a>
-  <button type="button" class="ggmenubtn" id="ggMenuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="ggSide">
-    <span class="hb" aria-hidden="true"><i></i><i></i><i></i></span>
-    <span class="gico" aria-hidden="true"><i class="fa-solid fa-ghost"></i></span>
-  </button>
+  <!-- keep hidden stubs so older JS / auth mount points don't throw -->
+  <div class="navmenu" id="navmenu" hidden></div>
+  <a class="cta" href="../games/" id="navPlay" hidden><span>Play now</span></a>
 </header>
 
 <div class="ggside" id="ggSide" hidden>
   <div class="veil" data-close="1"></div>
   <aside class="panel" role="dialog" aria-modal="true" aria-labelledby="ggSideT">
     <div class="ph">
-      <div class="mark" aria-hidden="true"><i class="fa-solid fa-ghost"></i></div>
-      <div><b id="ggSideT">GhostGames</b><span>Quick menu</span></div>
+      <img class="mark-img" src="../icons/icon-192.png" alt="" width="48" height="48">
+      <div><b id="ggSideT">GhostGames</b><span>Play · Browse · Sync</span></div>
       <button type="button" class="px" id="ggSideX" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
     </div>
-    <a href="./"><i class="fa-solid fa-house" aria-hidden="true"></i>Home</a>
-    <a href="../games/"><i class="fa-solid fa-table-cells-large" aria-hidden="true"></i>All games</a>
-    <a href="../games/"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>Search</a>
-    <button type="button" class="mi" id="ggSidePlay"><i class="fa-solid fa-play" aria-hidden="true"></i>Play now</button>
-    <a href="../games/?cat=Zombies"><i class="fa-solid fa-biohazard" aria-hidden="true"></i>Zombies</a>
-    <a href="../games/?cat=FPS"><i class="fa-solid fa-crosshairs" aria-hidden="true"></i>FPS</a>
-    <a href="../games/?cat=Open%20World"><i class="fa-solid fa-globe" aria-hidden="true"></i>Open World</a>
-    <a href="../games/?cat=Co-op"><i class="fa-solid fa-users" aria-hidden="true"></i>Co-op</a>
-    <a href="../retro/"><i class="fa-solid fa-gamepad" aria-hidden="true"></i>Retro</a>
-    <button type="button" class="mi" id="ggSideGotd"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>Game of the day</button>
-    <a href="../games/?fav=1"><i class="fa-solid fa-heart" aria-hidden="true"></i>Favourites</a>
-    <button type="button" class="mi" data-suggest><i class="fa-regular fa-lightbulb" aria-hidden="true"></i>Suggest a game</button>
-    <div class="sep"></div>
-    <button type="button" class="mi" id="ggSideLogin"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>Login</button>
-    <a href="https://discord.gg/zenclipsdaily-arc-raiders-store-bloodstrike-1408818003591827539" target="_blank" rel="noopener"><i class="fa-brands fa-discord" aria-hidden="true"></i>Discord</a>
-    <a href="https://ko-fi.com/ghostgamesapp" target="_blank" rel="noopener"><i class="fa-solid fa-mug-hot" aria-hidden="true"></i>Support</a>
-    <button type="button" class="mi" id="ggSideHelp"><i class="fa-solid fa-circle-question" aria-hidden="true"></i>Help</button>
-    <a href="../?intro=1"><i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>Classic homepage</a>
+    <div class="bubbles">
+      <a class="bub c-cyan" href="./"><span class="bico"><i class="fa-solid fa-house" aria-hidden="true"></i></span><span>Home</span></a>
+      <a class="bub c-purple" href="../games/"><span class="bico"><i class="fa-solid fa-table-cells-large" aria-hidden="true"></i></span><span>All games</span></a>
+      <a class="bub c-blue" href="../games/"><span class="bico"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></span><span>Search</span></a>
+      <button type="button" class="bub c-teal" id="ggSidePlay"><span class="bico"><i class="fa-solid fa-play" aria-hidden="true"></i></span><span>Play now</span></button>
+      <a class="bub c-green" href="../games/?cat=Zombies"><span class="bico"><i class="fa-solid fa-biohazard" aria-hidden="true"></i></span><span>Zombies</span></a>
+      <a class="bub c-orange" href="../games/?cat=FPS"><span class="bico"><i class="fa-solid fa-crosshairs" aria-hidden="true"></i></span><span>FPS</span></a>
+      <a class="bub c-lime" href="../games/?cat=Open%20World"><span class="bico"><i class="fa-solid fa-globe" aria-hidden="true"></i></span><span>Open World</span></a>
+      <a class="bub c-indigo" href="../games/?cat=Co-op"><span class="bico"><i class="fa-solid fa-users" aria-hidden="true"></i></span><span>Co-op</span></a>
+      <a class="bub c-magenta" href="../retro/"><span class="bico"><i class="fa-solid fa-gamepad" aria-hidden="true"></i></span><span>Retro</span></a>
+      <button type="button" class="bub c-yellow" id="ggSideGotd"><span class="bico"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i></span><span>Game of the day</span></button>
+      <a class="bub c-pink" href="../games/?fav=1"><span class="bico"><i class="fa-solid fa-heart" aria-hidden="true"></i></span><span>Favourites</span></a>
+      <button type="button" class="bub c-red" data-suggest><span class="bico"><i class="fa-regular fa-lightbulb" aria-hidden="true"></i></span><span>Suggest a game</span></button>
+      <div class="sep"></div>
+      <button type="button" class="bub-login" id="ggSideLogin">
+        <img class="av" id="ggSideAv" src="../icons/icon-192.png" alt="" width="42" height="42">
+        <span><span id="ggSideLoginTxt">Log in</span><span class="sub" id="ggSideLoginSub">Sync favourites across devices</span></span>
+      </button>
+      <a class="bub c-indigo" href="https://discord.gg/zenclipsdaily-arc-raiders-store-bloodstrike-1408818003591827539" target="_blank" rel="noopener"><span class="bico"><i class="fa-brands fa-discord" aria-hidden="true"></i></span><span>Discord</span></a>
+      <a class="bub c-red" href="https://ko-fi.com/ghostgamesapp" target="_blank" rel="noopener"><span class="bico"><i class="fa-solid fa-mug-hot" aria-hidden="true"></i></span><span>Support</span></a>
+      <button type="button" class="bub c-blue" id="ggSideHelp"><span class="bico"><i class="fa-solid fa-circle-question" aria-hidden="true"></i></span><span>Help</span></button>
+      <a class="bub c-cyan" href="../?intro=1"><span class="bico"><i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i></span><span>Classic homepage</span></a>
+    </div>
     <p class="note">Tip: on return visits this session, the classic intro is skipped automatically.</p>
   </aside>
 </div>
@@ -357,7 +408,35 @@ function mount(){
     side.addEventListener('click',function(e){if(e.target.getAttribute('data-close')||e.target.closest('#ggSideX'))close()});
     document.addEventListener('keydown',function(e){if(e.key==='Escape'&&side.classList.contains('open'))close()});
     document.getElementById('ggSideGotd').addEventListener('click',function(){close();var g=GG.gotd&&GG.gotd();if(g&&GG.openGame)GG.openGame(g)});
-    document.getElementById('ggSideLogin').addEventListener('click',function(){close();if(window.GGAuth&&GGAuth.open)GGAuth.open();else{var b=document.querySelector('.ggli');if(b)b.click();else if(document.querySelector('.ggme'))document.querySelector('.ggme').click()}});
+    function syncSideLogin(){
+      var img=document.getElementById('ggSideAv'),txt=document.getElementById('ggSideLoginTxt'),sub=document.getElementById('ggSideLoginSub');
+      var nav=document.getElementById('navAv'), navBtn=document.getElementById('navLogin');
+      var ghost=(GG&&GG.BASE?GG.BASE:'../')+'icons/icon-192.png';
+      var u=window.GGAuth&&GGAuth.user&&GGAuth.user();
+      if(u){
+        var m=u.user_metadata||{};
+        var av=m.avatar_url||m.picture||'';
+        var name=(m.custom_claims&&m.custom_claims.global_name)||m.full_name||m.name||m.user_name||(u.email||'Player').split('@')[0];
+        if(img){img.src=av||ghost}if(txt)txt.textContent=name;if(sub)sub.textContent='Account · tap for favourites / log out';
+        if(nav)nav.src=av||ghost;if(navBtn)navBtn.setAttribute('aria-label',name);
+      }else{
+        if(img)img.src=ghost;if(txt)txt.textContent='Log in';if(sub)sub.textContent='Sync favourites across devices';
+        if(nav)nav.src=ghost;if(navBtn)navBtn.setAttribute('aria-label','Log in');
+      }
+    }
+    function openAuth(){
+      var u=window.GGAuth&&GGAuth.user&&GGAuth.user();
+      if(u){var me=document.querySelector('.ggme');if(me)me.click();else if(window.GGAuth&&GGAuth.open)GGAuth.open()}
+      else if(window.GGAuth&&GGAuth.open)GGAuth.open();
+      else{var b=document.querySelector('.ggli');if(b)b.click()}
+      setTimeout(syncSideLogin,400);
+    }
+    syncSideLogin();
+    setInterval(syncSideLogin,1500);
+    document.getElementById('ggSideLogin').addEventListener('click',function(){close();openAuth()});
+    var nl=document.getElementById('navLogin');if(nl)nl.addEventListener('click',openAuth);
+    var sp=document.getElementById('ggSidePlay');
+    if(sp)sp.addEventListener('click',function(){close();var a=document.getElementById('navPlay');if(a)a.click()});
     side.addEventListener('click',function(e){if(e.target.closest('[data-suggest]'))close()});
     document.getElementById('ggSideHelp').addEventListener('click',function(){
       close();

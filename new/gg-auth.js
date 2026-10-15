@@ -12,23 +12,24 @@ function css(){var s=document.createElement('style');s.textContent=
 '.ggau .lb{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(6,8,14,.55);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);color:#fff;font:500 14px inherit;font-family:inherit;cursor:pointer}'+
 '.ggau.mn .lb{width:100%;justify-content:center;height:46px;font-size:15px}'+
 '.ggau .lb:hover{border-color:rgba(120,225,255,.5)}.ggau .lb:focus-visible{outline:2px solid rgba(120,225,255,.7);outline-offset:2px}'+
-'.ggau .av{width:26px;height:26px;border-radius:50%;object-fit:cover;background:#1b2433;flex:0 0 auto}.ggau .un{max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}'+
+'.ggau .av{width:28px;height:28px;border-radius:50%;object-fit:cover;background:#0a101a;flex:0 0 auto;box-shadow:0 0 0 1px rgba(95,227,255,.35)}.ggau .un{max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}'+
 '.ggau .dd{position:absolute;right:0;top:calc(100% + 8px);min-width:190px;padding:6px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,rgba(11,15,22,.985),rgba(7,10,16,.99));box-shadow:0 18px 40px rgba(0,0,0,.5);display:none;z-index:5}'+
 '.ggau.mn .dd{position:static;margin-top:6px}.ggau.open .dd{display:block}'+
 '.ggau .dd a,.ggau .dd button{display:flex;gap:10px;align-items:center;width:100%;padding:10px 12px;border:0;border-radius:10px;background:none;color:#dfe5ee;font:500 14px inherit;font-family:inherit;text-decoration:none;cursor:pointer;text-align:left}'+
 '.ggau .dd a:hover,.ggau .dd button:hover{background:rgba(255,255,255,.06);color:#fff}'+
 '.ggam{position:fixed;inset:0;z-index:2600;display:none;place-items:center;background:rgba(0,0,0,.6);padding:16px}.ggam.open{display:grid}'+
 '.ggam .bx{position:relative;width:min(360px,100%);padding:26px 22px 20px;border-radius:22px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,#0d121b,#080b12);color:#e9eef6;text-align:center;font-family:Poppins,system-ui,sans-serif}'+
-'.ggam h2{margin:0 0 6px;font-size:20px}.ggam p{margin:0 0 18px;color:#9aa6b8;font-size:13.5px;line-height:1.5}'+
+'.ggam .ggam-ghost{width:64px;height:64px;border-radius:50%;object-fit:cover;margin:0 auto 12px;display:block;box-shadow:0 0 0 2px rgba(95,227,255,.4),0 0 28px rgba(95,227,255,.35);background:#0a101a}.ggam h2{margin:0 0 6px;font-size:20px}.ggam p{margin:0 0 18px;color:#9aa6b8;font-size:13.5px;line-height:1.5}'+
 '.ggam .pb{display:flex;gap:10px;align-items:center;justify-content:center;width:100%;height:46px;border-radius:14px;border:0;font:600 15px Poppins,system-ui,sans-serif;cursor:pointer;margin-top:10px}'+
 '.ggam .pd{background:#5865F2;color:#fff}.ggam .pd:hover{background:#4752c4}.ggam .pg{background:#fff;color:#1f1f1f}'+
 '.ggam .x{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#fff;font-size:18px;cursor:pointer}'+
 '.ggam [hidden]{display:none!important}.ggam .er{color:#fca5a5;font-size:12.5px;margin-top:10px;min-height:1em}';document.head.appendChild(s)}
 function esc(t){return GG.esc?GG.esc(t):String(t)}
 function meta(){var m=(user&&user.user_metadata)||{};return{name:(m.custom_claims&&m.custom_claims.global_name)||m.full_name||m.name||m.user_name||(user&&user.email||'Player').split('@')[0],av:m.avatar_url||m.picture||''}}
+function ghostAv(){return (GG.BASE||'')+'icons/icon-192.png'}
 function render(){els.forEach(function(el){
- if(!user){el.classList.remove('open');el.innerHTML='<button type="button" class="lb ggli"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i><span>Log in</span></button>';return}
- var m=meta();el.innerHTML='<button type="button" class="lb ggme" aria-haspopup="menu" aria-expanded="false">'+(m.av?'<img class="av" alt="" src="'+esc(m.av)+'" referrerpolicy="no-referrer">':'<span class="av"></span>')+'<span class="un">'+esc(m.name)+'</span><i class="fa-solid fa-chevron-down" aria-hidden="true" style="font-size:11px;opacity:.7"></i></button>'+
+ if(!user){el.classList.remove('open');el.innerHTML='<button type="button" class="lb ggli"><img class="av" alt="" src="'+esc(ghostAv())+'"><span>Log in</span></button>';return}
+ var m=meta();el.innerHTML='<button type="button" class="lb ggme" aria-haspopup="menu" aria-expanded="false"><img class="av" alt="" src="'+esc(m.av||ghostAv())+'" referrerpolicy="no-referrer"><span class="un">'+esc(m.name)+'</span><i class="fa-solid fa-chevron-down" aria-hidden="true" style="font-size:11px;opacity:.7"></i></button>'+
  '<div class="dd" role="menu"><a role="menuitem" href="'+GG.BASE+'games/?fav=1"><i class="fa-solid fa-heart" aria-hidden="true"></i>My favourites</a><button type="button" role="menuitem" class="gglo"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>Log out</button></div>'})}
 function mount(){css();
  var fw=document.createElement('div');fw.className='ggfw';fw.innerHTML='<a class="ggkf" href="https://ko-fi.com/ghostgamesapp" target="_blank" rel="noopener"><i class="fa-solid fa-mug-hot" aria-hidden="true"></i><span>Support</span></a>';document.body.appendChild(fw);var fx=document.createElement('div');fx.className='ggau fx';fw.appendChild(fx);els.push(fx);
@@ -41,7 +42,7 @@ function mount(){css();
   els.forEach(function(el){if(!el.contains(t))el.classList.remove('open')})});
  document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(modal&&modal.classList.contains('open'))closeModal();els.forEach(function(el){el.classList.remove('open')})}})}
 function openModal(){if(!modal){modal=document.createElement('div');modal.className='ggam';modal.setAttribute('role','dialog');modal.setAttribute('aria-modal','true');modal.setAttribute('aria-labelledby','ggamH');
- modal.innerHTML='<div class="bx"><button type="button" class="x" aria-label="Close">×</button><h2 id="ggamH">Log in to GhostGames</h2><p>Sync your favourites, recently played games and ratings across devices.</p>'+
+ modal.innerHTML='<div class="bx"><button type="button" class="x" aria-label="Close">×</button><img class="ggam-ghost" src="'+esc(ghostAv())+'" alt=""><h2 id="ggamH">Log in to GhostGames</h2><p>Sync your favourites, recently played games and ratings across devices.</p>'+
  '<button type="button" class="pb pd" data-p="discord">'+DISCORD_SVG+'Continue with Discord</button>'+
  '<button type="button" class="pb pg" data-p="google"'+(C.GG_AUTH_GOOGLE===true?'':' hidden')+'>'+GOOGLE_SVG+'Continue with Google</button><div class="er" role="alert"></div></div>';
  document.body.appendChild(modal);
