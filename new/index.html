@@ -8,7 +8,9 @@
   try{
     var oauth=/[?&](code|error|error_code|error_description)=/.test(location.search)||/access_token|error_description/.test(location.hash);
     if(oauth){location.replace('home/'+location.search+location.hash);return}
-    if(sessionStorage.getItem('gg:introSeen')==='1' && !/[?&]intro=1\b/.test(location.search)){
+    /* ?classic=1 / ?intro=1 = explicit classic visit — never bounce to premium */
+    var stay=/[?&](classic|intro)=1\b/.test(location.search);
+    if(sessionStorage.getItem('gg:introSeen')==='1' && !stay){
       location.replace('home/');
     }
   }catch(e){}
@@ -619,15 +621,23 @@ requestAnimationFrame(tick);
 (function(){
 'use strict';
 var DEST='home/', LOCK=false, T=null;
+var STAY=/[?&](classic|intro)=1\b/.test(location.search);
 function mark(){try{sessionStorage.setItem('gg:introSeen','1')}catch(e){}}
 function goPremium(){
-  if(LOCK)return; LOCK=true; clearTimeout(T); mark();
+  if(LOCK||STAY)return; LOCK=true; clearTimeout(T); mark();
   var boot=document.getElementById('ggBoot'), skip=document.getElementById('ggGateSkip');
   if(skip)skip.style.display='none';
   if(boot){boot.hidden=false;boot.classList.add('show')}
   setTimeout(function(){location.href=DEST},1200);
 }
 function arm(){
+  /* Explicit classic/intro request: stay on this page — no auto-forward, no CTA hijack. */
+  if(STAY){
+    mark(); /* still remember they've seen classic this session */
+    var skip=document.getElementById('ggGateSkip');
+    if(skip)skip.style.display='none';
+    return;
+  }
   // Auto-advance after ~5s on first visit
   T=setTimeout(goPremium,5000);
   var skip=document.getElementById('ggGateSkip');
