@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>GhostGames — Play instantly in your browser</title>
+<meta name="description" content="GhostGames: a free library of browser games. Zombies, shooters, open worlds, no installs. Play CoD Zombies, Halo, Quake, GTA and more right in your browser.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="../manifest.json"><link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+<meta property="og:type" content="website"><meta property="og:site_name" content="GhostGames">
+<meta property="og:title" content="GhostGames: Browser Games Library"><meta property="og:description" content="Play classic and WebAssembly games right in your browser: CoD Zombies, Halo, Quake, GTA Vice City and more. No downloads, no account.">
+<meta property="og:url" content="https://ghostfacemodz.github.io/GhostGames/new/home/"><meta property="og:image" content="https://ghostfacemodz.github.io/GhostGames/new/og-image.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://ghostfacemodz.github.io/GhostGames/new/og-image.png">
+<meta name="theme-color" content="#7c3aed">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{min-height:100%;font-family:Poppins,system-ui,sans-serif;background:#05070c;color:#fff;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+img{display:block;max-width:100%}
+.skip{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+.skip:focus{left:12px;top:12px;width:auto;height:auto;z-index:6000;padding:10px 14px;border-radius:10px;background:#0b1220;border:1px solid rgba(95,227,255,.5);color:#fff}
+
+/* loader */
+#boot{position:fixed;inset:0;z-index:5000;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 40%,#0d1a28 0%,#05070c 62%);transition:opacity .55s ease,visibility .55s}
+#boot.done{opacity:0;visibility:hidden;pointer-events:none}
+.boot-inner{text-align:center}
+.boot-ghost{width:72px;height:72px;margin:0 auto 16px;border-radius:22px;display:grid;place-items:center;font-size:34px;color:#5fe3ff;background:linear-gradient(150deg,rgba(30,60,90,.95),rgba(8,14,24,.98));box-shadow:0 0 0 1px rgba(95,227,255,.35),0 0 40px rgba(60,200,240,.35);animation:bootPulse 1.6s ease-in-out infinite}
+.boot-title{font-weight:900;font-size:22px;letter-spacing:.04em;text-transform:uppercase}
+.boot-title span{color:#5fe3ff}
+.boot-bar{width:160px;height:3px;margin:18px auto 0;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+.boot-bar i{display:block;height:100%;width:35%;border-radius:inherit;background:linear-gradient(90deg,#2aa8c8,#5fe3ff,#9af0ff);animation:bootLoad 1.1s ease-in-out infinite}
+@keyframes bootPulse{0%,100%{transform:scale(1);box-shadow:0 0 0 1px rgba(95,227,255,.35),0 0 28px rgba(60,200,240,.28)}50%{transform:scale(1.04);box-shadow:0 0 0 1px rgba(95,227,255,.55),0 0 48px rgba(60,200,240,.5)}}
+@keyframes bootLoad{0%{transform:translateX(-120%)}100%{transform:translateX(340%)}}
+
+/* sticky glass nav */
+.nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;padding:10px 22px;min-height:64px;background:linear-gradient(180deg,rgba(8,12,20,.88),rgba(8,12,20,.55));border-bottom:1px solid rgba(255,255,255,.06);-webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%)}
+.nav.scrolled{background:rgba(6,9,16,.94);box-shadow:0 10px 40px rgba(0,0,0,.35)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:17px;letter-spacing:-.01em;text-transform:uppercase;flex:0 0 auto}
+.brand svg{width:28px;height:28px;filter:drop-shadow(0 0 8px rgba(95,227,255,.55))}
+.brand .wm{display:flex;flex-direction:column;line-height:1}
+.brand .kick{font-size:8px;font-weight:700;letter-spacing:.14em;color:rgba(255,255,255,.75)}
+.brand .name{font-size:16px;font-weight:900;letter-spacing:.02em}
+.navmenu{display:contents}
+.links{display:flex;align-items:center;gap:16px;margin-left:6px}
+.links a,.links button.suggest{font-size:13px;font-weight:500;color:rgba(255,255,255,.78);transition:color .2s;background:none;border:0;cursor:pointer;font-family:inherit;padding:0}
+.links a:hover,.links a.on,.links button.suggest:hover{color:#fff}
+.links button.suggest{display:inline-flex;align-items:center;gap:6px}
+.nav-spacer{flex:1}
+.nav .cta,.nav #navPlay{display:inline-grid;place-items:center;height:38px;padding:0 16px;border-radius:12px;font-size:13px;font-weight:600;color:#fff;background:linear-gradient(to top,#3ec8e4 0,#0596b3 35%,#0a2a37 100%);box-shadow:0 0 0 1px rgba(152,218,234,.25),0 4px 16px rgba(20,180,225,.25)}
+.nav .cta:hover,#navPlay:hover{filter:brightness(1.1)}
+.burger{display:none;width:42px;height:42px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);place-items:center;gap:5px;flex-direction:column;padding:0}
+.burger span{display:block;width:18px;height:2px;border-radius:2px;background:#fff}
+.search-mini{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:rgba(255,255,255,.8);font-size:13px;font-weight:500}
+.search-mini:hover{border-color:rgba(95,227,255,.4);color:#fff}
+.search-mini i{color:#5fe3ff}
+
+/* premium side menu */
+.nav{padding-right:12px}
+.ggmenubtn{position:relative;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(10,14,22,.55);color:#e9f6ff;cursor:pointer;flex:0 0 auto;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 6px 18px rgba(0,0,0,.25);transition:border-color .2s,box-shadow .2s,transform .2s,background .2s}
+.ggmenubtn:hover,.ggmenubtn[aria-expanded="true"]{border-color:rgba(95,227,255,.5);background:rgba(14,22,34,.8);box-shadow:0 0 0 1px rgba(95,227,255,.2),0 0 22px rgba(40,180,230,.28),inset 0 1px 0 rgba(255,255,255,.08);transform:translateY(-1px)}
+.ggmenubtn .hb{position:relative;width:18px;height:14px}
+.ggmenubtn .hb i{position:absolute;left:0;right:0;height:2px;border-radius:2px;background:#5fe3ff;box-shadow:0 0 8px rgba(95,227,255,.55);transition:transform .28s,opacity .2s,top .28s}
+.ggmenubtn .hb i:nth-child(1){top:0}.ggmenubtn .hb i:nth-child(2){top:6px}.ggmenubtn .hb i:nth-child(3){top:12px}
+.ggmenubtn[aria-expanded="true"] .hb i:nth-child(1){top:6px;transform:rotate(45deg)}
+.ggmenubtn[aria-expanded="true"] .hb i:nth-child(2){opacity:0}
+.ggmenubtn[aria-expanded="true"] .hb i:nth-child(3){top:6px;transform:rotate(-45deg)}
+.ggmenubtn .gico{position:absolute;inset:0;display:grid;place-items:center;font-size:15px;color:#5fe3ff;opacity:0;transform:scale(.7);transition:opacity .25s,transform .25s;pointer-events:none}
+.ggmenubtn:hover .gico,.ggmenubtn[aria-expanded="true"] .gico{opacity:1;transform:scale(1)}
+.ggmenubtn:hover .hb,.ggmenubtn[aria-expanded="true"] .hb{opacity:0}
+@media (min-width:1081px){.ggmenubtn{position:fixed;top:18px;right:248px;z-index:460}}
+.ggside{position:fixed;inset:0;z-index:1200;pointer-events:none}
+.ggside.open{pointer-events:auto}
+.ggside .veil{position:absolute;inset:0;background:rgba(2,4,10,.55);opacity:0;transition:opacity .28s;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+.ggside.open .veil{opacity:1}
+.ggside .panel{position:absolute;top:0;right:0;height:100%;width:min(340px,92vw);padding:18px 16px 28px;display:flex;flex-direction:column;gap:6px;
+ background:linear-gradient(165deg,rgba(14,20,32,.96),rgba(6,10,18,.98));border-left:1px solid rgba(95,227,255,.18);
+ box-shadow:-24px 0 60px rgba(0,0,0,.55),0 0 40px rgba(40,180,230,.08);transform:translateX(104%);transition:transform .34s cubic-bezier(.2,.8,.2,1);overflow:auto}
+.ggside.open .panel{transform:none}
+.ggside .ph{display:flex;align-items:center;gap:10px;padding:6px 8px 14px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:8px}
+.ggside .ph .mark{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;color:#5fe3ff;font-size:18px;background:radial-gradient(circle at 35% 30%,rgba(95,227,255,.25),rgba(95,227,255,.05) 60%,transparent 70%),rgba(10,16,26,.9);box-shadow:0 0 0 1px rgba(95,227,255,.28),0 0 20px rgba(60,200,240,.25)}
+.ggside .ph b{display:block;font-size:15px;font-weight:800;letter-spacing:.02em;text-transform:uppercase}
+.ggside .ph span{display:block;font-size:11px;color:#8b93a1;margin-top:2px}
+.ggside .px{margin-left:auto;width:36px;height:36px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#fff;display:grid;place-items:center;cursor:pointer}
+.ggside .px:hover{border-color:rgba(95,227,255,.4)}
+.ggside a,.ggside button.mi{display:flex;align-items:center;gap:12px;width:100%;padding:12px 12px;border-radius:14px;border:1px solid transparent;background:none;color:#e8eef6;font:600 14px Poppins,system-ui,sans-serif;text-align:left;cursor:pointer;text-decoration:none}
+.ggside a:hover,.ggside button.mi:hover{background:rgba(95,227,255,.08);border-color:rgba(95,227,255,.16);color:#fff}
+.ggside a i,.ggside button.mi i{width:22px;text-align:center;color:#5fe3ff;font-size:14px}
+.ggside .sep{height:1px;margin:8px 4px;background:rgba(255,255,255,.08)}
+.ggside .note{margin-top:auto;padding:12px 10px 0;font-size:11.5px;line-height:1.45;color:#7a8494}
+@media (max-width:1080px){.nav{padding-right:12px}.ggmenubtn{width:42px;height:42px;order:5}.burger{order:6}}
+
+/* floating GitHub / Discord (gg-common injects Discord next to .wa) */
+.wa{position:fixed;right:16px;bottom:18px;z-index:80;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:rgba(10,14,22,.88);border:1px solid rgba(255,255,255,.14);box-shadow:0 10px 28px rgba(0,0,0,.45);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.wa.dc{bottom:74px;background:rgba(88,101,242,.92);border-color:rgba(255,255,255,.18)}
+.wa svg{width:22px;height:22px}
+@media (max-width:700px){.wa{right:12px;bottom:14px;width:44px;height:44px}.wa.dc{bottom:66px}}
+
+/* hero */
+.hero{position:relative;min-height:min(72vh,640px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.hero-bg,.hero-bg img{position:absolute;inset:0;width:100%;height:100%}
+.hero-bg img{object-fit:cover;transform:scale(1.08);filter:saturate(1.05);transition:opacity .8s ease,transform 8s ease;opacity:0}
+.hero-bg img.on{opacity:1}
+.hero-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,7,12,.92) 0%,rgba(5,7,12,.55) 42%,rgba(5,7,12,.2) 70%,rgba(5,7,12,.55) 100%),linear-gradient(180deg,rgba(5,7,12,.15) 0%,rgba(5,7,12,.2) 40%,rgba(5,7,12,.95) 100%),radial-gradient(ellipse at 70% 40%,rgba(40,160,210,.18),transparent 55%)}
+.hero-inner{position:relative;z-index:2;width:min(1120px,100%);margin:0 auto;padding:48px 28px 56px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:5px 11px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#bff6ff;background:rgba(95,227,255,.1);border:1px solid rgba(95,227,255,.28);margin-bottom:14px}
+.eyebrow i{color:#5fe3ff}
+.hero h1{max-width:640px;font-size:clamp(32px,5vw,54px);font-weight:900;letter-spacing:-.02em;line-height:1.05;margin-bottom:12px;text-shadow:0 8px 40px rgba(0,0,0,.55)}
+.hero p{max-width:480px;font-size:15px;line-height:1.55;color:#c4cad6;margin-bottom:22px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.play{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 22px;border-radius:14px;font-size:15px;font-weight:700;background:linear-gradient(to top,#9ad9ec 1px,#61daef 4px,#0596b3 8px,#0a2a37 18px,#0a111d 100%);box-shadow:0 0 0 1px rgba(152,218,234,.3),0 8px 28px rgba(20,180,225,.35)}
+.play:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.ghost-btn{display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 18px;border-radius:14px;font-size:14px;font-weight:600;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04)}
+.ghost-btn:hover{background:rgba(255,255,255,.08)}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;font-size:12px;color:#9aa3b2}
+.hero-meta span{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+.hero-dots{position:absolute;right:28px;bottom:28px;z-index:3;display:flex;gap:7px}
+.hero-dots button{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.28)}
+.hero-dots button.on{background:#5fe3ff;box-shadow:0 0 10px rgba(95,227,255,.7);width:22px;border-radius:999px}
+
+/* rows */
+.shelf{width:min(1120px,100%);margin:0 auto;padding:8px 0 6px}
+.shelf-head{display:flex;align-items:baseline;justify-content:space-between;padding:0 28px 12px}
+.shelf-head h2{font-size:18px;font-weight:800;letter-spacing:-.01em}
+.shelf-head a{font-size:12.5px;font-weight:600;color:#5fe3ff;opacity:.9}
+.rail{display:flex;gap:14px;overflow-x:auto;padding:4px 28px 22px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.pcard{flex:0 0 148px;scroll-snap-align:start;border:0;padding:0;text-align:left;border-radius:16px;overflow:hidden;position:relative;background:#0c111a;box-shadow:0 10px 28px rgba(0,0,0,.35);transition:transform .28s cubic-bezier(.2,.8,.2,1),box-shadow .28s}
+.pcard .shot{position:relative;aspect-ratio:3/4;overflow:hidden;background:#101622}
+.pcard .shot img{width:100%;height:100%;object-fit:cover;transform:scale(1.05);transition:transform 4.5s ease}
+.pcard:hover{transform:translateY(-8px) scale(1.04);z-index:2;box-shadow:0 18px 40px rgba(0,0,0,.55),0 0 0 1px rgba(95,227,255,.35),0 0 28px rgba(40,180,230,.22)}
+.pcard:hover .shot img{transform:scale(1.18) translate3d(-4%,-3%,0)}
+.pcard .grad{position:absolute;left:0;right:0;bottom:0;height:55%;background:linear-gradient(180deg,transparent,rgba(4,7,12,.95));pointer-events:none}
+.pcard .info{position:absolute;left:0;right:0;bottom:0;padding:12px 11px 11px;z-index:1}
+.pcard .info b{display:block;font-size:12.5px;font-weight:700;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pcard .dchips{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.pcard .dchips span{font-size:9.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#9aa3b2;padding:2px 6px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}
+.pcard .chip{position:absolute;left:8px;top:8px;z-index:1;padding:3px 7px;border-radius:999px;font-size:10px;font-weight:700;background:rgba(5,8,14,.72);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(6px)}
+@media (min-width:900px){.pcard{flex-basis:168px}}
+
+.footwrap{width:min(1120px,100%);margin:8px auto 48px;padding:0 28px}
+.footcta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;padding:20px 22px;border-radius:18px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(14,20,32,.7),rgba(8,12,20,.85));margin-bottom:18px}
+.footcta b{display:block;font-size:15px;margin-bottom:4px}
+.footcta p{color:#9aa3b2;font-size:13px}
+.footcta .btn{display:inline-grid;place-items:center;height:44px;padding:0 18px;border-radius:13px;font-size:14px;font-weight:600;background:linear-gradient(to top,#3ec8e4 0,#0596b3 40%,#0a2a37 100%);box-shadow:0 0 0 1px rgba(152,218,234,.25)}
+.kofi{text-align:center;margin:0 0 12px;font-size:13.5px;color:#9aa6b8}
+.kofi a{color:#5fe3ff;font-weight:600}
+.foot{text-align:center;color:#6f7887;font-size:12.5px;line-height:1.7}
+.foot a{color:#9aa3b2}.foot a:hover{color:#5fe3ff}
+
+@media (max-width:1080px){
+ .burger{display:inline-grid}
+ .navmenu{display:none;position:absolute;left:12px;right:12px;top:68px;padding:14px;border-radius:18px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,rgba(11,15,22,.985),rgba(7,10,16,.99));box-shadow:0 26px 60px rgba(0,0,0,.55);z-index:120}
+ .nav.open .navmenu{display:block}
+ .links{flex-direction:column;align-items:stretch;gap:4px;margin:0 0 12px}
+ .links a,.links button.suggest{padding:12px 10px;border-radius:10px;text-align:left}
+ .links a:hover,.links button.suggest:hover{background:rgba(255,255,255,.05)}
+ #navPlay{width:100%;height:46px}
+ .search-mini{display:none}
+ .nav-spacer{display:none}
+}
+@media (max-width:700px){
+ .nav{padding:10px 12px}.hero-inner{padding:36px 16px 44px}.hero h1{font-size:30px}
+ .shelf-head,.rail,.footwrap{padding-left:16px;padding-right:16px}.pcard{flex-basis:132px}.hero-dots{right:16px;bottom:16px}
+ .footcta{flex-direction:column;align-items:stretch}.footcta .btn{width:100%}
+}
+@media (prefers-reduced-motion:reduce){
+ .boot-ghost,.boot-bar i{animation:none}.pcard,.pcard .shot img,.hero-bg img{transition:none}
+ .pcard:hover .shot img{transform:scale(1.06)}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#rows">Skip to games</a>
+<div id="boot" aria-live="polite"><div class="boot-inner">
+  <div class="boot-ghost" aria-hidden="true"><i class="fa-solid fa-ghost"></i></div>
+  <div class="boot-title">Ghost<span>Games</span></div>
+  <div class="boot-bar" aria-hidden="true"><i></i></div>
+</div></div>
+
+<header class="nav" id="nav">
+  <a class="brand" href="./" aria-label="GhostGames home">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="sw" x1="8" y1="8" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#8ef4ff"/><stop offset=".5" stop-color="#35d8ff"/><stop offset="1" stop-color="#0a86d8"/></linearGradient><linearGradient id="sw2" x1="40" y1="10" x2="10" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#a6f7ff"/><stop offset="1" stop-color="#0f9ae0" stop-opacity=".25"/></linearGradient></defs><g transform="rotate(-32 24 24)"><ellipse cx="24" cy="24" rx="19.5" ry="9.6" fill="none" stroke="url(#sw2)" stroke-width="3.1" stroke-linecap="round" stroke-dasharray="58 30" stroke-dashoffset="14"/><circle cx="42.4" cy="20.6" r="3.1" fill="#bff6ff"/></g><path d="M24 14.2c-5.4 0-8.6 4-8.6 9v10.6l2.9-2.2 2.85 2.2 2.85-2.2 2.85 2.2 2.85-2.2 2.9 2.2V23.2c0-5-3.2-9-8.6-9Z" fill="url(#sw)"/><circle cx="21" cy="23" r="1.7" fill="#04202c"/><circle cx="27" cy="23" r="1.7" fill="#04202c"/></svg>
+    <span class="wm"><span class="kick">GHOST</span><span class="name">GAMES</span></span>
+  </a>
+  <div class="navmenu" id="navmenu">
+    <div class="links" id="links">
+      <a href="../games/" class="on">Browse</a>
+      <a href="../games/?cat=Zombies">Zombies</a>
+      <a href="../games/?cat=FPS">FPS</a>
+      <a href="../games/?cat=Open%20World">Open World</a>
+      <a href="../retro/">Retro</a>
+      <a href="../games/?cat=Co-op">Co-op</a>
+      <a href="../games/"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>&nbsp;Search</a>
+      <button type="button" class="suggest" data-suggest><i class="fa-regular fa-lightbulb" aria-hidden="true"></i>Suggest a game</button>
+    </div>
+    <a class="cta" href="../games/" id="navPlay"><span>Play now</span></a>
+  </div>
+  <div class="nav-spacer"></div>
+  <a class="search-mini" href="../games/" aria-label="Search games"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Search</a>
+  <button type="button" class="ggmenubtn" id="ggMenuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="ggSide">
+    <span class="hb" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="gico" aria-hidden="true"><i class="fa-solid fa-ghost"></i></span>
+  </button>
+  <button type="button" class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="navmenu"><span></span><span></span><span></span></button>
+</header>
+
+<div class="ggside" id="ggSide" hidden>
+  <div class="veil" data-close="1"></div>
+  <aside class="panel" role="dialog" aria-modal="true" aria-labelledby="ggSideT">
+    <div class="ph">
+      <div class="mark" aria-hidden="true"><i class="fa-solid fa-ghost"></i></div>
+      <div><b id="ggSideT">GhostGames</b><span>Quick menu</span></div>
+      <button type="button" class="px" id="ggSideX" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <a href="./"><i class="fa-solid fa-house" aria-hidden="true"></i>Home</a>
+    <a href="../games/"><i class="fa-solid fa-table-cells-large" aria-hidden="true"></i>All games</a>
+    <a href="../retro/"><i class="fa-solid fa-gamepad" aria-hidden="true"></i>Retro</a>
+    <button type="button" class="mi" id="ggSideGotd"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>Game of the day</button>
+    <a href="../games/?fav=1"><i class="fa-solid fa-heart" aria-hidden="true"></i>Favourites</a>
+    <div class="sep"></div>
+    <button type="button" class="mi" id="ggSideLogin"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>Login</button>
+    <a href="https://discord.gg/zenclipsdaily-arc-raiders-store-bloodstrike-1408818003591827539" target="_blank" rel="noopener"><i class="fa-brands fa-discord" aria-hidden="true"></i>Discord</a>
+    <a href="https://ko-fi.com/ghostgamesapp" target="_blank" rel="noopener"><i class="fa-solid fa-mug-hot" aria-hidden="true"></i>Support</a>
+    <button type="button" class="mi" id="ggSideHelp"><i class="fa-solid fa-circle-question" aria-hidden="true"></i>Help</button>
+    <a href="../?intro=1"><i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>Classic homepage</a>
+    <p class="note">Tip: on return visits this session, the classic intro is skipped automatically.</p>
+  </aside>
+</div>
+
+<section class="hero" id="hero" aria-label="Featured game">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-veil"></div>
+  <div class="hero-inner">
+    <div class="eyebrow" id="heroEye"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> Game of the day</div>
+    <h1 id="heroTitle">Loading…</h1>
+    <p id="heroBlurb"></p>
+    <div class="hero-actions">
+      <button type="button" class="play" id="heroPlay"><i class="fa-solid fa-play" aria-hidden="true"></i> Play now</button>
+      <a class="ghost-btn" id="heroMore" href="#"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Details</a>
+    </div>
+    <div class="hero-meta" id="heroMeta"></div>
+  </div>
+  <div class="hero-dots" id="heroDots" aria-label="Featured slides"></div>
+</section>
+
+<main id="rows"></main>
+
+<div class="footwrap">
+  <div class="footcta">
+    <div><b>Missing a game?</b><p>Tell us about a browser port and we'll look at adding it.</p></div>
+    <button type="button" class="btn" data-suggest><span>Suggest a game</span></button>
+  </div>
+  <p class="kofi"><i class="fa-solid fa-mug-hot" aria-hidden="true" style="color:#ff5e5b"></i>&nbsp; Enjoying GhostGames? <a href="https://ko-fi.com/ghostgamesapp" target="_blank" rel="noopener">Support us on Ko-fi</a></p>
+  <p class="foot">
+    <a href="../games/">All games</a> ·
+    <a href="https://github.com/GhostFaceModz/GhostGames" target="_blank" rel="noopener">GitHub</a> ·
+    <a href="https://discord.gg/zenclipsdaily-arc-raiders-store-bloodstrike-1408818003591827539" target="_blank" rel="noopener">Discord</a> ·
+    <a href="../privacy/">Privacy</a> ·
+    <a href="../">Classic intro</a>
+  </p>
+</div>
+
+<a class="wa" href="https://github.com/GhostFaceModz/GhostGames" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 16 16" fill="#fff" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg></a>
+
+<script src="../gg-data.js"></script>
+<script src="../gg-common.js"></script>
+<script src="../gg-online.js" defer></script>
+<script src="../gg-config.js"></script>
+<script src="../gg-auth.js" defer></script>
+<script>
+(function(){
+'use strict';
+var G=window.GG_GAMES||[], GG=window.GG, live=G.filter(function(g){return g.status!=='offline'});
+function cover(g){return (GG&&GG.BY[g.id]&&GG.BY[g.id].cover)||('../covers/'+g.id+'.webp')}
+function esc(t){return (GG&&GG.esc)?GG.esc(t):String(t==null?'':t).replace(/[&<>"']/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])})}
+function byCat(c){return live.filter(function(g){return g.category===c}).sort(function(a,b){return (a.order||0)-(b.order||0)})}
+function featured(){return live.filter(function(g){return g.featured}).sort(function(a,b){return (a.order||0)-(b.order||0)})}
+function newest(){return live.slice().sort(function(a,b){return (b.order||0)-(a.order||0)}).slice(0,14)}
+function trending(){var f=featured().filter(function(g){return !g.off});var rest=live.filter(function(g){return f.indexOf(g)<0});return f.concat(rest).slice(0,14)}
+function continuePlaceholder(){var r=(GG&&GG.recent)?GG.recent().map(function(x){return GG.BY[x.id]}).filter(Boolean):[];return r.length?r.slice(0,10):trending().slice(2,8)}
+function deviceChips(g){
+  var d=g.devices||['pc'], out=['<span><i class="fa-solid fa-fire" aria-hidden="true"></i> Trending</span>'];
+  if(d.indexOf('pc')>=0) out.push('<span><i class="fa-solid fa-desktop" aria-hidden="true"></i> PC</span>');
+  if(d.indexOf('mobile')>=0) out.push('<span><i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i> Mobile</span>');
+  return out.join('');
+}
+function deviceChipLabels(g){
+  var d=g.devices||['pc'], out=['<span>Trending</span>'];
+  if(d.indexOf('pc')>=0) out.push('<span>PC</span>');
+  if(d.indexOf('mobile')>=0) out.push('<span>Mobile</span>');
+  return '<div class="dchips">'+out.join('')+'</div>';
+}
+
+/* hero */
+var slides=[], si=0, heroTimer=0;
+function buildHeroPool(){
+  var gotd=GG&&GG.gotd?GG.gotd():null, pool=[];
+  if(gotd&&gotd.status!=='offline') pool.push(gotd);
+  featured().forEach(function(g){if(!pool.some(function(x){return x.id===g.id})&&g.status!=='offline') pool.push(g)});
+  slides=pool.slice(0,6); if(!slides.length) slides=live.slice(0,4);
+}
+function renderHero(i){
+  si=((i%slides.length)+slides.length)%slides.length;
+  var g=slides[si], bg=document.getElementById('heroBg');
+  var imgs=bg.querySelectorAll('img');
+  if(!imgs[si]){var im=document.createElement('img');im.src=cover(g);im.alt='';im.decoding='async';if(si===0)im.fetchPriority='high';bg.appendChild(im);imgs=bg.querySelectorAll('img')}
+  Array.prototype.forEach.call(imgs,function(im,n){im.classList.toggle('on',n===si);if(n===si)im.style.transform='scale(1.12)'});
+  var isGotd=GG&&GG.gotd&&g.id===(GG.gotd()||{}).id;
+  document.getElementById('heroEye').innerHTML=isGotd?'<i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> Game of the day':'<i class="fa-solid fa-fire" aria-hidden="true"></i> Top pick';
+  document.getElementById('heroTitle').textContent=g.title;
+  document.getElementById('heroBlurb').textContent=g.blurb||g.description||'';
+  document.getElementById('heroMore').href='../game/?id='+encodeURIComponent(g.id);
+  document.getElementById('heroPlay').onclick=function(){if(GG&&GG.openGame)GG.openGame(g);else location.href=g.url};
+  document.getElementById('heroMeta').innerHTML=deviceChips(g);
+  var dots=document.getElementById('heroDots');
+  dots.innerHTML=slides.map(function(_,n){return '<button type="button" class="'+(n===si?'on':'')+'" aria-label="Slide '+(n+1)+'"></button>'}).join('');
+  Array.prototype.forEach.call(dots.children,function(b,n){b.onclick=function(){showHero(n)}});
+}
+function showHero(i){clearInterval(heroTimer);renderHero(i);heroTimer=setInterval(function(){renderHero(si+1)},6500)}
+
+function cardHtml(g){
+  return '<button type="button" class="pcard" data-id="'+esc(g.id)+'" aria-label="Play '+esc(g.title)+'">'+
+    '<div class="shot"><img src="'+esc(cover(g))+'" alt="" loading="lazy" width="384" height="512" decoding="async">'+
+    (g.badge?'<span class="chip">'+esc(g.badge)+'</span>':'')+
+    '<div class="grad"></div><div class="info"><b>'+esc(g.title)+'</b>'+deviceChipLabels(g)+'</div></div></button>';
+}
+function row(title,list,moreHref){
+  if(!list||!list.length) return '';
+  return '<section class="shelf"><div class="shelf-head"><h2>'+esc(title)+'</h2>'+(moreHref?'<a href="'+esc(moreHref)+'">See all</a>':'')+'</div><div class="rail">'+list.map(cardHtml).join('')+'</div></section>';
+}
+function bindCards(root){
+  root.addEventListener('click',function(e){var c=e.target.closest('.pcard');if(!c)return;var g=GG&&GG.BY[c.getAttribute('data-id')];if(g&&GG.openGame)GG.openGame(g)});
+}
+
+function mount(){
+
+  // premium side menu
+  (function(){
+    var btn=document.getElementById('ggMenuBtn'), side=document.getElementById('ggSide');
+    if(!btn||!side)return;
+    function open(){side.hidden=false;requestAnimationFrame(function(){side.classList.add('open')});btn.setAttribute('aria-expanded','true');document.documentElement.style.overflow='hidden'}
+    function close(){side.classList.remove('open');btn.setAttribute('aria-expanded','false');document.documentElement.style.overflow='';setTimeout(function(){if(!side.classList.contains('open'))side.hidden=true},320)}
+    btn.addEventListener('click',function(e){e.stopPropagation();side.classList.contains('open')?close():open()});
+    side.addEventListener('click',function(e){if(e.target.getAttribute('data-close')||e.target.closest('#ggSideX'))close()});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&side.classList.contains('open'))close()});
+    document.getElementById('ggSideGotd').addEventListener('click',function(){close();var g=GG.gotd&&GG.gotd();if(g&&GG.openGame)GG.openGame(g)});
+    document.getElementById('ggSideLogin').addEventListener('click',function(){close();var b=document.querySelector('.ggli');if(b)b.click();else if(document.querySelector('.ggme'))document.querySelector('.ggme').click()});
+    document.getElementById('ggSideHelp').addEventListener('click',function(){
+      close();
+      var g=(GG.gotd&&GG.gotd())||(GG.GAMES&&GG.GAMES[0]); if(!g)return;
+      // open a lightweight help dialog reusing helpHtml without starting the player
+      var d=document.getElementById('ggHomeHelp');
+      if(!d){d=document.createElement('div');d.id='ggHomeHelp';d.className='modal sg';d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');
+        d.innerHTML='<div class="sgbox"><button type="button" class="mb mclose sgx" id="ggHomeHelpX" aria-label="Close"><i class="fa-solid fa-xmark"></i></button><h2>Need a hand?</h2><div class="sgsub">Quick tips for playing on GhostGames.</div><div id="ggHomeHelpB"></div></div>';
+        document.body.appendChild(d);
+        d.addEventListener('click',function(e){if(e.target===d||e.target.closest('#ggHomeHelpX')){d.classList.remove('open');document.documentElement.style.overflow=''}});
+      }
+      document.getElementById('ggHomeHelpB').innerHTML=GG.helpHtml?GG.helpHtml(g,false):('<p style="color:#a9aeb5">Open any game and tap Help for troubleshooting tips, or join Discord.</p>');
+      d.classList.add('open');document.documentElement.style.overflow='hidden';
+    });
+  })();
+
+  if(GG&&GG.burger) GG.burger(document.getElementById('nav'), document.getElementById('burger'));
+  document.getElementById('navPlay').addEventListener('click',function(e){
+    var r=(GG.recent?GG.recent():[]).filter(function(x){return GG.BY[x.id]&&!GG.BY[x.id].off})[0];
+    var pool=live.filter(function(g){return !g.external&&!g.page});
+    var g=r?GG.BY[r.id]:pool[Math.floor(Math.random()*pool.length)];
+    if(!g)return; e.preventDefault(); if(GG.openGame)GG.openGame(g);
+  });
+  buildHeroPool();
+  var first=slides[0], img=new Image();
+  img.onload=img.onerror=function(){
+    showHero(0);
+    document.getElementById('rows').innerHTML=
+      row('Trending now', trending(), 'games/?sort=top')+
+      row('New on GhostGames', newest(), 'games/?sort=new')+
+      row('Co-op', byCat('Co-op'), 'games/?cat=Co-op')+
+      row('Zombies', byCat('Zombies'), 'games/?cat=Zombies')+
+      row('Retro classics', byCat('Retro'), 'retro/')+
+      row('Continue playing', continuePlaceholder(), 'games/');
+    bindCards(document.getElementById('rows'));
+    setTimeout(function(){document.getElementById('boot').classList.add('done')}, 420);
+  };
+  img.src=cover(first);
+}
+window.addEventListener('scroll',function(){document.getElementById('nav').classList.toggle('scrolled', scrollY>12)},{passive:true});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
+})();
+</script>
+</body>
+</html>
