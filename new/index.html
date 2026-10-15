@@ -2,10 +2,13 @@
 <html lang="en-US">
 <head>
 <script>
-/* Intro gate: returning visitors in this session skip straight to the premium home. */
+/* Intro gate: returning visitors in this session skip straight to the premium home.
+   OAuth/PKCE callbacks (?code= / #access_token) must keep their params — never strip them. */
 (function(){
   try{
-    if(sessionStorage.getItem('gg:introSeen')==='1' && !/[?&]intro=1/.test(location.search)){
+    var oauth=/[?&](code|error|error_code|error_description)=/.test(location.search)||/access_token|error_description/.test(location.hash);
+    if(oauth){location.replace('home/'+location.search+location.hash);return}
+    if(sessionStorage.getItem('gg:introSeen')==='1' && !/[?&]intro=1\b/.test(location.search)){
       location.replace('home/');
     }
   }catch(e){}

@@ -357,7 +357,7 @@ function mount(){
     side.addEventListener('click',function(e){if(e.target.getAttribute('data-close')||e.target.closest('#ggSideX'))close()});
     document.addEventListener('keydown',function(e){if(e.key==='Escape'&&side.classList.contains('open'))close()});
     document.getElementById('ggSideGotd').addEventListener('click',function(){close();var g=GG.gotd&&GG.gotd();if(g&&GG.openGame)GG.openGame(g)});
-    document.getElementById('ggSideLogin').addEventListener('click',function(){close();var b=document.querySelector('.ggli');if(b)b.click();else if(document.querySelector('.ggme'))document.querySelector('.ggme').click()});
+    document.getElementById('ggSideLogin').addEventListener('click',function(){close();if(window.GGAuth&&GGAuth.open)GGAuth.open();else{var b=document.querySelector('.ggli');if(b)b.click();else if(document.querySelector('.ggme'))document.querySelector('.ggme').click()}});
     side.addEventListener('click',function(e){if(e.target.closest('[data-suggest]'))close()});
     document.getElementById('ggSideHelp').addEventListener('click',function(){
       close();

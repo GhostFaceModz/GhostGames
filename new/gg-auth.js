@@ -17,7 +17,7 @@ function css(){var s=document.createElement('style');s.textContent=
 '.ggau.mn .dd{position:static;margin-top:6px}.ggau.open .dd{display:block}'+
 '.ggau .dd a,.ggau .dd button{display:flex;gap:10px;align-items:center;width:100%;padding:10px 12px;border:0;border-radius:10px;background:none;color:#dfe5ee;font:500 14px inherit;font-family:inherit;text-decoration:none;cursor:pointer;text-align:left}'+
 '.ggau .dd a:hover,.ggau .dd button:hover{background:rgba(255,255,255,.06);color:#fff}'+
-'.ggam{position:fixed;inset:0;z-index:1000;display:none;place-items:center;background:rgba(0,0,0,.6);padding:16px}.ggam.open{display:grid}'+
+'.ggam{position:fixed;inset:0;z-index:2600;display:none;place-items:center;background:rgba(0,0,0,.6);padding:16px}.ggam.open{display:grid}'+
 '.ggam .bx{position:relative;width:min(360px,100%);padding:26px 22px 20px;border-radius:22px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,#0d121b,#080b12);color:#e9eef6;text-align:center;font-family:Poppins,system-ui,sans-serif}'+
 '.ggam h2{margin:0 0 6px;font-size:20px}.ggam p{margin:0 0 18px;color:#9aa6b8;font-size:13.5px;line-height:1.5}'+
 '.ggam .pb{display:flex;gap:10px;align-items:center;justify-content:center;width:100%;height:46px;border-radius:14px;border:0;font:600 15px Poppins,system-ui,sans-serif;cursor:pointer;margin-top:10px}'+
@@ -53,7 +53,9 @@ function client(){return ready||(ready=import('https://esm.sh/@supabase/supabase
 function cleanUrl(){var u=new URL(location.href),ch=false;['code','error','error_code','error_description','state'].forEach(function(k){if(u.searchParams.has(k)){u.searchParams.delete(k);ch=true}});
  if(/access_token|error_description/.test(u.hash)){u.hash='';ch=true}if(ch)history.replaceState(history.state,'',u.pathname+u.search+u.hash)}
 function login(p,btn){if(p==='google'&&C.GG_AUTH_GOOGLE!==true)return;btn.disabled=true;var er=modal.querySelector('.er');er.textContent='';
- var u=new URL(location.href);u.hash='';
+ /* Always return to premium home (allow-listed under site). Avoid per-page URLs so the classic
+    intro gate cannot strip ?code= when bouncing index → home/. */
+ var u=new URL((GG.BASE||'/')+'home/',location.href);u.search='';u.hash='';
  client().then(function(sb){return sb.auth.signInWithOAuth({provider:p,options:{redirectTo:u.href}})})
  .then(function(r){if(r&&r.error)throw r.error}).catch(function(e){btn.disabled=false;er.textContent='Couldn\'t start login: '+(e&&e.message||e)})}
 function logout(){client().then(function(sb){return sb.auth.signOut()}).then(function(){user=null;render();GG.toast&&GG.toast('Logged out. Your data stays on this device.')})}
