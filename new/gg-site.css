@@ -15,6 +15,9 @@ a{text-decoration:none;color:inherit}
 .logo .wm{display:flex;flex-direction:column;line-height:1}
 .logo .kick{font-size:6px;font-weight:600;letter-spacing:.2em;opacity:.92;margin-left:2px}
 .logo .name{font-weight:900;font-size:20px;letter-spacing:-.01em}
+.home-ico{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:12px;border:1px solid rgba(95,227,255,.22);background:rgba(10,14,22,.45);color:#5fe3ff;flex:0 0 auto;margin-left:2px;text-decoration:none;transition:border-color .2s,box-shadow .2s,transform .2s,background .2s,color .2s}
+.home-ico:hover{border-color:rgba(95,227,255,.5);background:rgba(95,227,255,.1);box-shadow:0 0 14px rgba(40,180,230,.22);transform:translateY(-1px);color:#bff6ff}
+.home-ico i{font-size:13px}
 .navmenu{display:flex;align-items:center;gap:22px;flex:1;justify-content:flex-end}
 .links{display:flex;align-items:center;gap:20px}
 .links a{font-size:13px;color:rgba(255,255,255,.92);white-space:nowrap;transition:opacity .25s;border-radius:8px}
@@ -149,7 +152,9 @@ body.scrolled .topcover{opacity:1}
 @media (hover:hover) and (max-width:1080px){.links a:hover{background:rgba(255,255,255,.055);opacity:1}}
 @media (max-width:700px){
 .wrap{padding:0 16px 70px}
-.nav{height:58px;padding-left:16px}
+.nav{height:58px;padding-left:14px;padding-right:8px;gap:12px}
+.home-ico{width:32px;height:32px;border-radius:10px}
+.logo .name{font-size:17px}
 .head{padding:36px 0 18px}
 .tools{top:76px}
 .search{max-width:none}
