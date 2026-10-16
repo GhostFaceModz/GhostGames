@@ -79,6 +79,7 @@ var css='.modal{position:fixed;inset:0;z-index:2000;display:none;background:rgba
 '.ggdock{position:fixed;left:18px;bottom:22px;z-index:450;display:flex;flex-direction:column;align-items:flex-start;gap:8px;max-width:calc(100% - 110px);pointer-events:none}.ggdock>*{pointer-events:auto}'+
 '.gginst{display:inline-flex;align-items:center;border-radius:999px;background:rgba(10,14,22,.88);border:1px solid rgba(255,255,255,.14);box-shadow:0 10px 26px rgba(0,0,0,.5);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}.gginst button{background:none;border:0;color:#e9eef6;cursor:pointer;font:600 12px Poppins,sans-serif;height:34px}.gginst .ggib{display:inline-flex;align-items:center;gap:7px;padding:0 6px 0 14px}.gginst .ggib i{color:#5fe3ff}.gginst .ggix{width:30px;color:#8b93a1}.gginst button:hover{color:#fff}'+
 '@media (max-width:700px){.mrate{display:none}.ggdock{left:12px;bottom:14px}}'+
+'.ggsearch{position:fixed;inset:0;z-index:2800;display:none;align-items:flex-start;justify-content:center;padding:max(12px,env(safe-area-inset-top)) 12px 24px;background:rgba(2,4,10,.62);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font-family:Poppins,system-ui,sans-serif;color:#fff}'+'.ggsearch.open{display:flex}'+'.ggsearch .panel{position:relative;width:min(560px,100%);margin-top:min(10vh,72px);max-height:min(78vh,720px);display:flex;flex-direction:column;border-radius:22px;border:1px solid rgba(95,227,255,.22);background:linear-gradient(165deg,rgba(14,20,32,.96),rgba(6,10,18,.98));box-shadow:0 28px 70px rgba(0,0,0,.65),0 0 40px rgba(40,180,230,.1);overflow:hidden}'+'.ggsearch .bar{display:flex;align-items:center;gap:10px;padding:14px 14px 12px;border-bottom:1px solid rgba(255,255,255,.08)}'+'.ggsearch .bar i.ico{color:#5fe3ff;font-size:15px;width:22px;text-align:center;flex:0 0 auto}'+'.ggsearch .bar input{flex:1;min-width:0;height:42px;border:0;background:transparent;color:#fff;font:500 16px Poppins,system-ui,sans-serif;outline:none}'+'.ggsearch .bar input::placeholder{color:#7a8494}'+'.ggsearch .x{width:38px;height:38px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:#fff;display:grid;place-items:center;cursor:pointer;flex:0 0 auto}'+'.ggsearch .x:hover{border-color:rgba(95,227,255,.45);box-shadow:0 0 12px rgba(95,227,255,.2)}'+'.ggsearch .hint{padding:8px 16px 0;font-size:11.5px;color:#7a8494}'+'.ggsearch .list{flex:1;overflow:auto;padding:8px;display:flex;flex-direction:column;gap:6px;-webkit-overflow-scrolling:touch}'+'.ggsearch .row{display:flex;align-items:center;gap:12px;width:100%;padding:8px 10px;border-radius:14px;border:1px solid transparent;background:rgba(255,255,255,.03);color:inherit;text-align:left;cursor:pointer;font:inherit}'+'.ggsearch .row:hover,.ggsearch .row.on{border-color:rgba(95,227,255,.35);background:rgba(95,227,255,.08);box-shadow:0 0 18px rgba(40,180,230,.12)}'+'.ggsearch .row:active{transform:scale(.985)}'+'.ggsearch .thumb{width:48px;height:64px;border-radius:10px;object-fit:cover;background:#0c111a;flex:0 0 auto;box-shadow:0 0 0 1px rgba(255,255,255,.08)}'+'.ggsearch .meta{min-width:0;flex:1}'+'.ggsearch .meta b{display:block;font-size:13.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}'+'.ggsearch .meta .sub{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:4px;font-size:11px;color:#9aa3b2}'+'.ggsearch .meta .cat{color:#5fe3ff;font-weight:600}'+'.ggsearch .dch{display:inline-flex;gap:4px;align-items:center}'+'.ggsearch .dch i{font-size:10px;color:#8b93a1}'+'.ggsearch .empty{padding:28px 16px;text-align:center;color:#8b93a1;font-size:13.5px;line-height:1.5}'+'.ggsearch .empty b{color:#cfd8e6;display:block;margin-bottom:4px}'+'@media (max-width:700px){.ggsearch{padding:max(8px,env(safe-area-inset-top)) 8px 16px}.ggsearch .panel{margin-top:8px;max-height:calc(100vh - 24px);border-radius:18px}.ggsearch .bar input{font-size:16px}}'+
 '@media (prefers-reduced-motion:reduce){.ggfav{transition:none}.ggtoast{transition:none}}';
 var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
 
@@ -294,7 +295,110 @@ window.addEventListener('appinstalled',function(){var w=document.getElementById(
 
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){discord();syncPulse()});else discord();
 (window.requestAnimationFrame||setTimeout)(syncPulse);
+
+/* ---- in-place game search overlay (shared) ---- */
+var sRoot=null,sInput=null,sList=null,sHint=null,sRows=[],sIdx=-1,sPrevFocus=null,sOpen=false;
+function sMatch(g,q){
+  if(!q)return true;
+  var hay=(g.title+' '+g.category+' '+(g.description||'')+' '+(g.blurb||'')+' '+((g.tags||[]).join(' '))).toLowerCase();
+  return hay.indexOf(q)>=0;
+}
+function sDev(g){
+  var d=g.devices||['pc'], h='';
+  h+='<span class="dch" title="'+(d.indexOf('mobile')>=0?'PC & mobile':'PC only')+'"><i class="fa-solid fa-desktop" aria-hidden="true"></i>'+(d.indexOf('mobile')>=0?'<i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i>':'')+'</span>';
+  if(g.controller)h+='<span class="dch" title="Controller"><i class="fa-solid fa-gamepad" aria-hidden="true"></i></span>';
+  return h;
+}
+function sRowHtml(g,i){
+  var st=stStatic(g);
+  return '<button type="button" class="row" role="option" data-i="'+i+'" data-id="'+esc(g.id)+'" aria-selected="false">'+
+    '<img class="thumb" alt="" src="'+sm(g)+'" width="48" height="64" loading="lazy" decoding="async" onerror="this.style.opacity=.2">'+
+    '<span class="meta"><b>'+esc(g.title)+'</b><span class="sub"><span class="cat">'+esc(g.category)+'</span>'+sDev(g)+
+    '<span class="ggst '+st.k+'" title="'+esc(stTitle(g,st))+'"><i aria-hidden="true"></i><em>'+st.l+'</em></span></span></span></button>';
+}
+function sEnsure(){
+  if(sRoot)return;
+  sRoot=document.createElement('div');sRoot.className='ggsearch';sRoot.id='ggSearch';sRoot.setAttribute('role','dialog');sRoot.setAttribute('aria-modal','true');sRoot.setAttribute('aria-label','Search games');
+  sRoot.innerHTML='<div class="panel">'+
+    '<div class="bar"><i class="fa-solid fa-magnifying-glass ico" aria-hidden="true"></i>'+
+    '<input type="search" id="ggSearchQ" placeholder="Search games…" autocomplete="off" enterkeyhint="search" aria-autocomplete="list" aria-controls="ggSearchList">'+
+    '<button type="button" class="x" id="ggSearchX" aria-label="Close search"><i class="fa-solid fa-xmark"></i></button></div>'+
+    '<div class="hint" id="ggSearchHint">Type to filter by title, category or tags</div>'+
+    '<div class="list" id="ggSearchList" role="listbox" aria-label="Search results"></div></div>';
+  document.body.appendChild(sRoot);
+  sInput=$('ggSearchQ');sList=$('ggSearchList');sHint=$('ggSearchHint');
+  sRoot.addEventListener('click',function(e){if(e.target===sRoot)closeSearch()});
+  $('ggSearchX').addEventListener('click',closeSearch);
+  sInput.addEventListener('input',function(){sRender(sInput.value)});
+  sList.addEventListener('click',function(e){
+    var row=e.target.closest('.row');if(!row)return;
+    sPick(row.getAttribute('data-id'));
+  });
+  sInput.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){e.preventDefault();closeSearch();return}
+    if(e.key==='ArrowDown'){e.preventDefault();sMove(1);return}
+    if(e.key==='ArrowUp'){e.preventDefault();sMove(-1);return}
+    if(e.key==='Enter'){e.preventDefault();if(sIdx>=0&&sRows[sIdx])sPick(sRows[sIdx].id);else if(sRows[0])sPick(sRows[0].id)}
+  });
+  document.addEventListener('keydown',function(e){if(sOpen&&e.key==='Escape'){e.preventDefault();closeSearch()}});
+}
+function sMove(d){
+  if(!sRows.length)return;
+  sIdx=(sIdx+d+sRows.length)%sRows.length;
+  var nodes=sList.querySelectorAll('.row');
+  Array.prototype.forEach.call(nodes,function(n,i){n.classList.toggle('on',i===sIdx);n.setAttribute('aria-selected',i===sIdx?'true':'false')});
+  if(nodes[sIdx])nodes[sIdx].scrollIntoView({block:'nearest'});
+}
+function sRender(q){
+  q=(q||'').trim().toLowerCase();
+  sRows=GAMES.filter(function(g){return sMatch(g,q)}).slice(0,40);
+  sIdx=sRows.length?0:-1;
+  if(!sRows.length){
+    sList.innerHTML='<div class="empty"><b>No games match</b>Try another title, category or tag.</div>';
+    sHint.textContent=q?'0 results':'Type to filter by title, category or tags';
+    return;
+  }
+  sList.innerHTML=sRows.map(sRowHtml).join('');
+  sHint.textContent=sRows.length+(q?' result'+(sRows.length===1?'':'s')+' for “'+q+'”':' games — start typing to filter');
+  var first=sList.querySelector('.row');if(first){first.classList.add('on');first.setAttribute('aria-selected','true')}
+}
+function sPick(id){
+  var g=BY[id];if(!g)return;
+  closeSearch();
+  if(g.off){location.href=BASE+'game/?id='+encodeURIComponent(g.id);return}
+  openGame(g);
+}
+function openSearch(prefill){
+  sEnsure();
+  sPrevFocus=document.activeElement;
+  sOpen=true;sRoot.classList.add('open');document.documentElement.style.overflow='hidden';
+  sInput.value=prefill||'';sRender(sInput.value);
+  setTimeout(function(){sInput.focus();sInput.select&&prefill&&sInput.select()},30);
+}
+function closeSearch(){
+  if(!sRoot||!sOpen)return;
+  sOpen=false;sRoot.classList.remove('open');document.documentElement.style.overflow='';
+  if(sPrevFocus&&sPrevFocus.focus)try{sPrevFocus.focus()}catch(e){}
+}
+function searchTrigger(t){
+  if(!t||!t.closest)return null;
+  var a=t.closest('[data-gg-search]');
+  if(a)return a;
+  a=t.closest('a.nav-act[aria-label="Search"], button.nav-act[aria-label="Search"], #ggSearchOpen');
+  if(a)return a;
+  var bub=t.closest('.ggside a.bub, .ggside button.bub, .ggside a, .ggside button.mi');
+  if(bub&&bub.querySelector('.fa-magnifying-glass')&&/search/i.test(bub.textContent||''))return bub;
+  return null;
+}
+document.addEventListener('click',function(e){
+  var t=searchTrigger(e.target);if(!t)return;
+  e.preventDefault();e.stopPropagation();
+  var side=document.getElementById('ggSide');
+  if(side&&side.classList.contains('open')){side.classList.remove('open');var mb=document.getElementById('ggMenuBtn');if(mb)mb.setAttribute('aria-expanded','false');document.documentElement.style.overflow='';setTimeout(function(){if(side&&!side.classList.contains('open'))side.hidden=true},280)}
+  openSearch();
+},true);
+
 window.GG={syncHearts:syncHearts,get:get,set:set,BASE:BASE,GAMES:GAMES,BY:BY,esc:esc,RM:RM,recent:recent,record:record,plays:plays,favs:favs,isFav:isFav,toggleFav:toggleFav,heart:heart,
  probe:probe,stHtml:stHtml,applyStatus:applyStatus,card:card,bindCards:bindCards,openGame:openGame,closeGame:closeGame,openSuggest:openSuggest,stars:stars,burger:burger,DISCORD:DISCORD,helpHtml:helpHtml,
- need:need,cnt:cnt,pcount:pcount,score:score,psHtml:psHtml,rateHtml:rateHtml,vote:vote,myVote:myVote,fmt:fmt,toast:toast,gotd:gotd,gotdPool:gotdPool,openReport:openReport,getDock:getDock,imgAttrs:imgAttrs,padHtml:padHtml,sm:sm};
+ need:need,cnt:cnt,pcount:pcount,score:score,psHtml:psHtml,rateHtml:rateHtml,vote:vote,myVote:myVote,fmt:fmt,toast:toast,gotd:gotd,gotdPool:gotdPool,openReport:openReport,getDock:getDock,imgAttrs:imgAttrs,padHtml:padHtml,sm:sm,openSearch:openSearch,closeSearch:closeSearch};
 })();
