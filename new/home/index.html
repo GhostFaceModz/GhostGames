@@ -139,6 +139,15 @@ img{display:block;max-width:100%}
 .ggside .bub:active{transform:scale(.96) translateY(0);transition-duration:.08s}
 .ggside .bub:active .bico{transform:scale(.92);animation:none}
 @keyframes bubWobble{0%{transform:scale(1.12) rotate(-8deg)}30%{transform:scale(1.16) rotate(10deg)}55%{transform:scale(1.1) rotate(-6deg)}100%{transform:scale(1.12) rotate(-8deg)}}
+.ggside .genre-wrap{display:flex;flex-direction:column;gap:0}
+.ggside .genre-toggle{position:relative;padding-right:42px}
+.ggside .genre-toggle .gtxt{flex:1}
+.ggside .genre-toggle .gchev{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:11px;color:#5fe3ff;opacity:.9;transition:transform .28s ease}
+.ggside .genre-toggle[aria-expanded="true"] .gchev{transform:translateY(-50%) rotate(180deg)}
+.ggside .genre-drop{display:flex;flex-direction:column;gap:6px;padding:0 0 0 12px;max-height:0;opacity:0;overflow:hidden;pointer-events:none;transition:max-height .34s ease,opacity .28s ease,padding .28s ease,margin .28s ease;margin:0}
+.ggside .genre-drop.open{max-height:320px;opacity:1;pointer-events:auto;padding:8px 0 2px 12px;margin:0 0 2px}
+.ggside .bub-sm{padding:6px 10px 6px 6px;font-size:12.5px;font-weight:600}
+.ggside .bub-sm .bico{width:34px;height:34px;font-size:13px}
 .ggside .sep{height:1px;margin:12px 8px;background:linear-gradient(90deg,transparent,rgba(95,227,255,.2),transparent);border:0}
 .ggside .bub-login{display:flex;align-items:center;gap:12px;width:100%;margin-top:4px;padding:10px 14px 10px 10px;border-radius:999px;
  border:1px solid rgba(95,227,255,.28);background:rgba(10,16,26,.82);
@@ -280,11 +289,20 @@ img{display:block;max-width:100%}
       <a class="bub c-purple" href="../games/"><span class="bico"><i class="fa-solid fa-table-cells-large" aria-hidden="true"></i></span><span>All games</span></a>
       <a class="bub c-blue" href="../games/" data-gg-search><span class="bico"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></span><span>Search</span></a>
       <button type="button" class="bub c-teal" id="ggSidePlay"><span class="bico"><i class="fa-solid fa-play" aria-hidden="true"></i></span><span>Play now</span></button>
-      <a class="bub c-green" href="../games/?cat=Zombies"><span class="bico"><i class="fa-solid fa-biohazard" aria-hidden="true"></i></span><span>Zombies</span></a>
-      <a class="bub c-orange" href="../games/?cat=FPS"><span class="bico"><i class="fa-solid fa-crosshairs" aria-hidden="true"></i></span><span>FPS</span></a>
-      <a class="bub c-lime" href="../games/?cat=Open%20World"><span class="bico"><i class="fa-solid fa-globe" aria-hidden="true"></i></span><span>Open World</span></a>
-      <a class="bub c-indigo" href="../games/?cat=Co-op"><span class="bico"><i class="fa-solid fa-users" aria-hidden="true"></i></span><span>Co-op</span></a>
-      <a class="bub c-magenta" href="../retro/"><span class="bico"><i class="fa-solid fa-gamepad" aria-hidden="true"></i></span><span>Retro</span></a>
+      <div class="genre-wrap">
+        <button type="button" class="bub genre-toggle" id="ggGenreBtn" aria-expanded="false" aria-controls="ggGenreDrop">
+          <span class="bico"><i class="fa-solid fa-tags" aria-hidden="true"></i></span>
+          <span class="gtxt">Genres</span>
+          <i class="fa-solid fa-chevron-down gchev" aria-hidden="true"></i>
+        </button>
+        <div class="genre-drop" id="ggGenreDrop" hidden>
+          <a class="bub bub-sm" href="../games/?cat=Zombies"><span class="bico"><i class="fa-solid fa-biohazard" aria-hidden="true"></i></span><span>Zombies</span></a>
+          <a class="bub bub-sm" href="../games/?cat=FPS"><span class="bico"><i class="fa-solid fa-crosshairs" aria-hidden="true"></i></span><span>FPS</span></a>
+          <a class="bub bub-sm" href="../games/?cat=Open%20World"><span class="bico"><i class="fa-solid fa-globe" aria-hidden="true"></i></span><span>Open World</span></a>
+          <a class="bub bub-sm" href="../games/?cat=Co-op"><span class="bico"><i class="fa-solid fa-users" aria-hidden="true"></i></span><span>Co-op</span></a>
+          <a class="bub bub-sm" href="../retro/"><span class="bico"><i class="fa-solid fa-gamepad" aria-hidden="true"></i></span><span>Retro</span></a>
+        </div>
+      </div>
       <button type="button" class="bub c-yellow" id="ggSideGotd"><span class="bico"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i></span><span>Game of the day</span></button>
       <a class="bub c-pink" href="../games/?fav=1"><span class="bico"><i class="fa-solid fa-heart" aria-hidden="true"></i></span><span>Favourites</span></a>
       <button type="button" class="bub c-red" data-suggest><span class="bico"><i class="fa-regular fa-lightbulb" aria-hidden="true"></i></span><span>Suggest a game</span></button>
@@ -448,6 +466,15 @@ function mount(){
     var nl=document.getElementById('navLogin');if(nl)nl.addEventListener('click',openAuth);
     var sp=document.getElementById('ggSidePlay');
     if(sp)sp.addEventListener('click',function(){close();var a=document.getElementById('navPlay');if(a)a.click()});
+    var gBtn=document.getElementById('ggGenreBtn'), gDrop=document.getElementById('ggGenreDrop');
+    if(gBtn&&gDrop){
+      gBtn.addEventListener('click',function(){
+        var on=gBtn.getAttribute('aria-expanded')==='true';
+        gBtn.setAttribute('aria-expanded', on?'false':'true');
+        if(on){gDrop.classList.remove('open');setTimeout(function(){if(gBtn.getAttribute('aria-expanded')!=='true')gDrop.hidden=true},340)}
+        else{gDrop.hidden=false;requestAnimationFrame(function(){gDrop.classList.add('open')})}
+      });
+    }
     side.addEventListener('click',function(e){if(e.target.closest('[data-suggest]'))close()});
     document.getElementById('ggSideHelp').addEventListener('click',function(){
       close();
