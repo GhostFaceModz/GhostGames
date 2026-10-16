@@ -2175,8 +2175,6 @@ window.GG_GAMES=[
 "devices": [
 "pc"
 ],
-"status": "issues",
-"note": "Host server down, may return",
 "title": "GTA V (browser port)",
 "category": "Open World",
 "url": "/GhostGames/new/play/gta-v/",
