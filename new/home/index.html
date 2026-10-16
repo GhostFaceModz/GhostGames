@@ -502,12 +502,12 @@ function mount(){
   img.onload=img.onerror=function(){
     showHero(0);
     document.getElementById('rows').innerHTML=
-      row('Trending now', trending(), 'games/?sort=top')+
-      row('New on GhostGames', newest(), 'games/?sort=new')+
-      row('Co-op', byCat('Co-op'), 'games/?cat=Co-op')+
-      row('Zombies', byCat('Zombies'), 'games/?cat=Zombies')+
-      row('Retro classics', byCat('Retro'), 'retro/')+
-      row('Continue playing', continuePlaceholder(), 'games/');
+      row('Trending now', trending(), '../games/?sort=trending')+
+      row('New on GhostGames', newest(), '../games/?badge=New&sort=new')+
+      row('Co-op', byCat('Co-op'), '../games/?cat=Co-op')+
+      row('Zombies', byCat('Zombies'), '../games/?cat=Zombies')+
+      row('Retro classics', byCat('Retro'), '../retro/')+
+      row('Continue playing', continuePlaceholder(), '../games/?recent=1');
     bindCards(document.getElementById('rows'));
     setTimeout(function(){document.getElementById('boot').classList.add('done')}, 420);
   };
