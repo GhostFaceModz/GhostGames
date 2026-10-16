@@ -371,7 +371,7 @@ html.intro .nav,html.intro .mark,html.intro .wm,html.intro .home-ico,html.intro 
       <div class="h1" id="h1b" role="presentation">Instantly</div>
       <p class="sub s1" id="sub1"><b>Zombies, shooters, open worlds / <span class="nb">no installs</span></b> streamed straight to</p>
       <p class="sub" id="sub2">your browser, free to play, ready in seconds.</p>
-      <a class="btn cta2" href="games/" id="browseAll"><span id="vpLabel">Browse all</span></a>
+      <a class="btn cta2" href="home/" id="browseAll"><span id="vpLabel">Browse all</span></a>
     </div>
 
     <div class="showcase" id="showcase">
@@ -623,17 +623,25 @@ requestAnimationFrame(tick);
 var DEST='home/', LOCK=false, T=null;
 var STAY=/[?&](classic|intro)=1\b/.test(location.search);
 function mark(){try{sessionStorage.setItem('gg:introSeen','1')}catch(e){}}
-function goPremium(){
-  if(LOCK||STAY)return; LOCK=true; clearTimeout(T); mark();
+function goPremium(force){
+  if(LOCK)return;
+  if(STAY&&!force)return;
+  LOCK=true; clearTimeout(T); mark();
   var boot=document.getElementById('ggBoot'), skip=document.getElementById('ggGateSkip');
   if(skip)skip.style.display='none';
   if(boot){boot.hidden=false;boot.classList.add('show')}
   setTimeout(function(){location.href=DEST},1200);
 }
 function arm(){
-  /* Explicit classic/intro request: stay on this page — no auto-forward, no CTA hijack. */
+  /* Browse all always goes to premium home with the branded load — even on ?classic=1. */
+  var ba=document.getElementById('browseAll');
+  if(ba){
+    ba.setAttribute('href','home/');
+    ba.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();goPremium(true)},true);
+  }
+  /* Explicit classic/intro request: stay on this page — no auto-forward / other CTA hijack. */
   if(STAY){
-    mark(); /* still remember they've seen classic this session */
+    mark();
     var skip=document.getElementById('ggGateSkip');
     if(skip)skip.style.display='none';
     return;
@@ -642,11 +650,9 @@ function arm(){
   T=setTimeout(goPremium,5000);
   var skip=document.getElementById('ggGateSkip');
   if(skip)skip.addEventListener('click',function(e){e.preventDefault();goPremium()});
-  // Main CTAs
-  ['browseAll','navPlay'].forEach(function(id){
-    var el=document.getElementById(id); if(!el)return;
-    el.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();goPremium()},true);
-  });
+  // Play now (intro mode) → premium
+  var np=document.getElementById('navPlay');
+  if(np)np.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();goPremium()},true);
   // Any in-page game action (ring cards / GOTD dock)
   document.addEventListener('click',function(e){
     if(e.target.closest('#ring .card, #gotd, button.card')){e.preventDefault();e.stopPropagation();goPremium()}
