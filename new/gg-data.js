@@ -2943,5 +2943,51 @@ window.GG_GAMES=[
 "Needs a modern browser with cross-origin isolation."
 ],
 "order": 61
+},
+{
+"id": "webrcade",
+"newTabPrompt": true,
+"status": "online",
+"devices": ["pc", "mobile"],
+"controller": true,
+"title": "webRcade",
+"category": "Retro",
+"url": "https://play.webrcade.com/",
+"icon": "fa-ghost",
+"badge": "New",
+"color": "from-fuchsia-500 to-indigo-900",
+"description": "Open-source retro arcade with free homebrew games for NES, SNES, Genesis, GBA and more — or load your own ROMs.",
+"featured": true,
+"blurb": "Free homebrew arcade for NES, SNES, Genesis, GBA and more — or load your own ROMs.",
+"tags": [
+"Retro",
+"Single player",
+"Emulator",
+"Multi-system"
+],
+"controls": [
+[
+"Arrow keys",
+"D-pad"
+],
+[
+"Enter",
+"Start / confirm"
+],
+[
+"Z / X",
+"Face buttons"
+],
+[
+"Esc",
+"Back / menu"
+]
+],
+"tips": [
+"Opens in a new tab — webRcade needs cross-origin isolation that our player can't provide.",
+"Browse free homebrew feeds, or load ROMs you own from your device.",
+"Works on PC and mobile browsers."
+],
+"order": 62
 }
 ];

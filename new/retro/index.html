@@ -72,6 +72,8 @@ body.embed .nav,body.embed .head,body.embed .foot,body.embed .wa,body.embed .top
     <aside class="panel" aria-label="Games and ROM loader">
       <h2>Homebrew games</h2>
       <div class="hbl" id="hbl"></div>
+      <h2>Also try</h2>
+      <div class="hbl" id="extLinks"></div>
       <h2>Load your own ROM</h2>
       <label>System <select id="sys">
         <option value="nes">NES / Famicom</option><option value="snes">SNES</option><option value="n64">Nintendo 64</option>
@@ -100,6 +102,9 @@ var embed=window.top!==window;if(embed)document.body.classList.add('embed');
 GG.stars($('stA'),$('stB'));
 var frame=null,blobUrl=null,curId=null;
 $('hbl').innerHTML=Object.keys(ROMS).map(function(id){var g=GG.BY[id];return '<button type="button" class="hb" data-game="'+id+'"><img alt="" '+GG.imgAttrs(g,'38px')+'><span><b>'+esc(g.title)+'</b><span>'+esc(g.badge)+' · homebrew</span></span></button>'}).join('');
+var wr=GG.BY['webrcade'];
+if(wr&&$('extLinks'))$('extLinks').innerHTML='<button type="button" class="hb" id="webrcadeBtn"><img alt="" '+GG.imgAttrs(wr,'38px')+'><span><b>'+esc(wr.title)+'</b><span>Opens in new tab · arcade hub</span></span></button>';
+
 function play(core,rom,name,id){
  if(frame)frame.remove();$('idle').hidden=true;
  frame=document.createElement('iframe');frame.id='emu';frame.title=name+' (emulator)';
@@ -113,6 +118,7 @@ function play(core,rom,name,id){
 function playId(id,push){var r=ROMS[id],g=GG.BY[id];if(!r)return;play(r.core,r.rom,g.title,id);
  if(push!==false)history.replaceState(null,'','?game='+encodeURIComponent(id));if(!embed)GG.record(id)}
 $('hbl').addEventListener('click',function(e){var b=e.target.closest('.hb');if(b)playId(b.getAttribute('data-game'))});
+if($('webrcadeBtn'))$('webrcadeBtn').addEventListener('click',function(){if(GG.BY.webrcade)GG.openGame(GG.BY.webrcade)});
 $('rom').addEventListener('change',function(){
  var f=this.files&&this.files[0];if(!f)return;
  if(blobUrl)URL.revokeObjectURL(blobUrl);blobUrl=URL.createObjectURL(f);
