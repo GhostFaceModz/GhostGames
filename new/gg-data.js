@@ -264,6 +264,8 @@ window.GG_GAMES=[
 {
 "id": "modern-warfare-2",
 "devices": ["pc"],
+"status": "offline",
+"note": "Taken down by DMCA (host shows a takedown notice)",
 "title": "Modern Warfare 2 Web",
 "category": "FPS",
 "url": "https://ovz-game-production.up.railway.app",

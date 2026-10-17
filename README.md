@@ -41,7 +41,7 @@ Alternate (GitHub Pages): **[ghostfacemodz.github.io/GhostGames/new/](https://gh
 | Game | About | How it runs | Status |
 |---|---|---|---|
 | [Black Ops 2 Web](https://ghostgames.app/ghostgames/game/?id=black-ops-2) | Black Ops 2 style multiplayer rebuilt for the browser. | New tab | 🔴 Down |
-| [Modern Warfare 2 Web](https://ghostgames.app/ghostgames/game/?id=modern-warfare-2) | Classic MW2 multiplayer with matchmaking, bots and killstreaks. | New tab | 🟢 Online |
+| [Modern Warfare 2 Web](https://ghostgames.app/ghostgames/game/?id=modern-warfare-2) | Classic MW2 multiplayer with matchmaking, bots and killstreaks. | New tab | 🔴 Down |
 | [Halo: Combat Evolved](https://ghostgames.app/ghostgames/game/?id=halo-ce) | Master Chief returns: the original Halo campaign in your browser. | In player | 🟢 Online |
 | [Halo CE Web Mobile](https://ghostgames.app/ghostgames/game/?id=halo-ce-mobile) 📱 | Halo: Combat Evolved tuned for touch controls on your phone. | In player | 🟢 Online |
 | [Half-Life (GoldSrc)](https://ghostgames.app/ghostgames/game/?id=half-life) | Relive the Black Mesa incident on a web-built GoldSrc engine. | In player | 🟢 Online |
