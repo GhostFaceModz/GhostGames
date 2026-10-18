@@ -404,7 +404,9 @@ function deviceChipLabels(g){
 /* hero */
 var slides=[], si=0, heroTimer=0;
 function buildHeroPool(){
-  var gotd=GG&&GG.gotd?GG.gotd():null, pool=[];
+  var gotd=GG&&GG.gotd?GG.gotd():null, pool=[], pin=live.filter(function(g){return g.id==='gta-v-web'})[0];
+  if(pin) pool.push(pin); /* GTA V pinned as the first hero slide */
+  if(gotd&&pin&&gotd.id===pin.id) gotd=null;
   if(gotd&&gotd.status!=='offline') pool.push(gotd);
   featured().forEach(function(g){if(!pool.some(function(x){return x.id===g.id})&&g.status!=='offline') pool.push(g)});
   slides=pool.slice(0,6); if(!slides.length) slides=live.slice(0,4);

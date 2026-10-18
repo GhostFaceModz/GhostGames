@@ -542,52 +542,6 @@ window.GG_GAMES=[
 "order": 11
 },
 {
-"id": "gta-5",
-"devices": ["pc"],
-"status": "offline",
-"note": "Host blocking access (401 Unauthorized)",
-"title": "GTA 5 Web Concept",
-"category": "Open World",
-"url": "https://playgta5.com",
-"icon": "fa-car",
-"badge": "Concept",
-"color": "from-violet-600 to-purple-950",
-"description": "Grand Theft Auto V web project archive and sandbox client.",
-"featured": false,
-"blurb": "An archived Grand Theft Auto V web sandbox concept.",
-"tags": [
-"Single player",
-"3D"
-],
-"controls": [
-[
-"W A S D",
-"Move / drive"
-],
-[
-"Mouse",
-"Camera"
-],
-[
-"E / F",
-"Enter vehicle / interact"
-],
-[
-"Space",
-"Jump / handbrake"
-],
-[
-"Esc",
-"Menu"
-]
-],
-"tips": [
-"Some ports need your own game files; follow the on-screen import steps.",
-"Give the first load time: assets are big and cached afterwards."
-],
-"order": 12
-},
-{
 "id": "gta-vice-city",
 "screenshot": {"src": "screens/gta-vice-city.webp", "w": 960, "h": 557},
 "devices": ["pc"],
@@ -2173,6 +2127,7 @@ window.GG_GAMES=[
 },
 {
 "id": "gta-v-web",
+"status": "online",
 "screenshot": {"src": "screens/gta-v-web.webp", "w": 960, "h": 531},
 "devices": [
 "pc"
@@ -2184,7 +2139,7 @@ window.GG_GAMES=[
 "icon": "fa-city",
 "badge": "Port",
 "color": "from-amber-600 to-stone-950",
-"description": "A WebAssembly port of Grand Theft Auto V running in the browser: Story Mode, or Sandbox free roam on the GTA V map with every weapon. Opens in GhostGames' own full-page player (the game needs a cross-origin-isolated page), with the site's own controls shown alongside.",
+"description": "A WebAssembly port of Grand Theft Auto V running in the browser (now hosted on fiveplay.lol): Story Mode, or Sandbox free roam on the GTA V map with every weapon. Opens in GhostGames' own full-page player (the game needs a cross-origin-isolated page), with the site's own controls shown alongside.",
 "featured": true,
 "blurb": "GTA V in your browser. Weak PC? Low-graphics mode. Free roam? Sandbox mode.",
 "tags": [
