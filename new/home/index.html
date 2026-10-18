@@ -337,7 +337,7 @@ img{display:block;max-width:100%}
   <div class="hero-bg" id="heroBg"></div>
   <div class="hero-veil"></div>
   <div class="hero-inner">
-    <div class="eyebrow" id="heroEye"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> Game of the day</div>
+    <div class="eyebrow" id="heroEye"><i class="fa-solid fa-fire" aria-hidden="true"></i> Top pick</div>
     <h1 id="heroTitle">Loading…</h1>
     <p id="heroBlurb"></p>
     <div class="hero-actions">
@@ -403,13 +403,12 @@ function deviceChipLabels(g){
 
 /* hero */
 var slides=[], si=0, heroTimer=0;
+/* fixed hero line-up, in this exact order (no dynamic Game of the day slide) */
+var HERO_IDS=['gta-v-web','bo1-zombies','skate-3','peak','how-to-fish','simpsons-hit-and-run'];
 function buildHeroPool(){
-  var gotd=GG&&GG.gotd?GG.gotd():null, pool=[], pin=live.filter(function(g){return g.id==='gta-v-web'})[0];
-  if(pin) pool.push(pin); /* GTA V pinned as the first hero slide */
-  if(gotd&&pin&&gotd.id===pin.id) gotd=null;
-  if(gotd&&gotd.status!=='offline') pool.push(gotd);
-  featured().forEach(function(g){if(!pool.some(function(x){return x.id===g.id})&&g.status!=='offline') pool.push(g)});
-  slides=pool.slice(0,6); if(!slides.length) slides=live.slice(0,4);
+  var by={}; G.forEach(function(g){by[g.id]=g});
+  slides=HERO_IDS.map(function(id){return by[id]}).filter(Boolean);
+  if(!slides.length) slides=live.slice(0,4);
 }
 function renderHero(i){
   si=((i%slides.length)+slides.length)%slides.length;
@@ -417,8 +416,7 @@ function renderHero(i){
   var imgs=bg.querySelectorAll('img');
   if(!imgs[si]){var im=document.createElement('img');im.src=cover(g);im.alt='';im.decoding='async';if(si===0)im.fetchPriority='high';bg.appendChild(im);imgs=bg.querySelectorAll('img')}
   Array.prototype.forEach.call(imgs,function(im,n){im.classList.toggle('on',n===si);if(n===si)im.style.transform='scale(1.12)'});
-  var isGotd=GG&&GG.gotd&&g.id===(GG.gotd()||{}).id;
-  document.getElementById('heroEye').innerHTML=isGotd?'<i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> Game of the day':'<i class="fa-solid fa-fire" aria-hidden="true"></i> Top pick';
+  document.getElementById('heroEye').innerHTML=g.id==='gta-v-web'?'<i class="fa-solid fa-fire" aria-hidden="true"></i> Top pick':'<i class="fa-solid fa-star" aria-hidden="true"></i> Featured';
   document.getElementById('heroTitle').textContent=g.title;
   document.getElementById('heroBlurb').textContent=g.blurb||g.description||'';
   document.getElementById('heroMore').href='../game/?id='+encodeURIComponent(g.id);
