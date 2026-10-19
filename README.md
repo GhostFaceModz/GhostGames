@@ -31,7 +31,7 @@ Alternate (GitHub Pages): **[ghostfacemodz.github.io/GhostGames/new/](https://gh
 ### Zombies
 | Game | About | How it runs | Status |
 |---|---|---|---|
-| [BO1 Zombies Hub](https://ghostgames.app/ghostgames/game/?id=bo1-zombies) | Every Black Ops 1 Zombies map, ported straight to your browser. | In player | 🟢 Online |
+| [BO1 Zombies Hub](https://ghostgames.app/ghostgames/game/?id=bo1-zombies) | Every Black Ops 1 Zombies map, ported straight to your browser. | In player | 🟠 Issues |
 | [Call of Duty: Moon](https://ghostgames.app/ghostgames/game/?id=moon-zombies) | Hold the lunar base against endless hordes in low gravity. | In player | 🔴 Down |
 | [Kino der Toten](https://ghostgames.app/ghostgames/game/?id=kino-der-toten) | Survive the iconic theater of the dead, solo or with friends. | In player | 🔴 Down |
 | [BO3 Cheese Cube Unlimited](https://ghostgames.app/ghostgames/game/?id=bo3-cheese-cube) | The cult-favorite custom Zombies map, running right in your tab. | In player | 🔴 Down |

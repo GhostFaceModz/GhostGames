@@ -5,6 +5,8 @@ window.GG_GAMES=[
 "newTabPrompt": true,
 "screenshot": {"src": "screens/bo1-zombies.webp", "w": 960, "h": 540},
 "devices": ["pc"],
+"status": "issues",
+"note": "Host now serves a blank page, so the game is not loading",
 "title": "BO1 Zombies Hub",
 "category": "Zombies",
 "url": "https://vel.gg/bo1z",
