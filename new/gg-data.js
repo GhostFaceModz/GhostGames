@@ -2619,18 +2619,16 @@ window.GG_GAMES=[
 }
   ,{
 "id": "nacht-der-untoten",
-"devices": [
-"pc"
-],
+"newTabPrompt": true,
+"devices": ["pc"],
 "status": "online",
 "title": "Nacht der Untoten",
 "category": "Zombies",
-"url": "https://zombies.bitcoinsapi.com/",
-"external": true,
+"url": "https://vel.gg/bsz/nacht",
 "icon": "fa-skull",
 "badge": "New",
 "color": "from-red-700 to-stone-900",
-"description": "Browser remake of the original CoD Zombies map. Board up windows and survive the rounds.",
+"description": "The original World at War Zombies bunker, running in your browser via the same port that powers the BO1 Zombies Hub. Opens straight into Nacht der Untoten's game setup: pick solo, then hit Play. Needs a desktop browser with hardware acceleration.",
 "featured": false,
 "blurb": "Survive the original Zombies bunker round after round.",
 "tags": [
