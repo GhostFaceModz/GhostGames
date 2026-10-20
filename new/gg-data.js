@@ -55,23 +55,24 @@ window.GG_GAMES=[
 "order": 0
 },
 {
-"id": "moon-zombies",
+"id": "bo1-kino-der-toten",
+"newTabPrompt": true,
 "devices": ["pc"],
-"status": "offline",
-"note": "Domain now redirects to an unrelated site",
-"title": "Call of Duty: Moon",
+"status": "online",
+"title": "Kino der Toten (BO1 Zombies)",
 "category": "Zombies",
-"url": "https://moon-zombies.pages.dev",
-"icon": "fa-moon",
-"badge": "Classic",
-"color": "from-indigo-600 to-slate-900",
-"description": "CoD Zombies Moon map WASM build. Defend the lunar base against endless hordes.",
+"url": "https://vel.gg/bsz/kino",
+"icon": "fa-biohazard",
+"badge": "Must Play",
+"color": "from-amber-700 to-stone-900",
+"description": "The iconic Black Ops 1 theater map, running in your browser via the same port that powers the BO1 Zombies Hub. Opens straight into Kino der Toten's game setup: pick solo, then hit Play. Needs a desktop browser with hardware acceleration.",
 "featured": true,
-"blurb": "Hold the lunar base against endless hordes in low gravity.",
+"blurb": "Survive the iconic theater of the dead, right in your browser.",
 "tags": [
 "Zombies",
 "Single player",
-"3D"
+"3D",
+"Retro"
 ],
 "controls": [
 [
@@ -100,31 +101,32 @@ window.GG_GAMES=[
 ]
 ],
 "tips": [
-"Low gravity changes jumps: use it to escape crowds.",
+"First load downloads the map data, so give it a minute.",
 "Buy the wall guns early and save points for the Mystery Box.",
 "Train zombies in wide loops instead of camping corners."
 ],
 "order": 1
 },
 {
-"id": "kino-der-toten",
+"id": "bo1-moon",
+"newTabPrompt": true,
+"screenshot": {"src": "screens/bo1-moon.webp", "w": 960, "h": 540},
 "devices": ["pc"],
-"status": "offline",
-"note": "Domain now redirects to an unrelated site",
-"title": "Kino der Toten",
+"status": "online",
+"title": "Moon (BO1 Zombies)",
 "category": "Zombies",
-"url": "https://kino-der-toten.pages.dev",
-"icon": "fa-film",
-"badge": "Must Play",
-"color": "from-amber-700 to-stone-900",
-"description": "Experience the iconic theater of the dead in pure WebAssembly browser format.",
+"url": "https://vel.gg/bsz/moon",
+"icon": "fa-biohazard",
+"badge": "Classic",
+"color": "from-indigo-600 to-slate-900",
+"description": "Black Ops 1's final Zombies map, from Area 51 to the lunar base, running in your browser via the same port that powers the BO1 Zombies Hub. Opens straight into Moon's game setup: pick solo, then hit Play. Needs a desktop browser with hardware acceleration.",
 "featured": true,
-"blurb": "Survive the iconic theater of the dead, solo or with friends.",
+"blurb": "Hold the lunar base against endless hordes in low gravity.",
 "tags": [
 "Zombies",
-"Multiplayer",
 "Single player",
-"3D"
+"3D",
+"Retro"
 ],
 "controls": [
 [
@@ -153,62 +155,11 @@ window.GG_GAMES=[
 ]
 ],
 "tips": [
-"Start a private match to bring friends along.",
-"Buy the wall guns early and save points for the Mystery Box.",
+"First load downloads the map data, so give it a minute.",
+"Low gravity changes jumps: use it to escape crowds.",
 "Train zombies in wide loops instead of camping corners."
 ],
 "order": 2
-},
-{
-"id": "bo3-cheese-cube",
-"devices": ["pc"],
-"status": "offline",
-"note": "Domain now redirects to an unrelated site",
-"title": "BO3 Cheese Cube Unlimited",
-"category": "Zombies",
-"url": "https://cheese-cube.pages.dev",
-"icon": "fa-cube",
-"badge": "Mod",
-"color": "from-yellow-600 to-amber-900",
-"description": "Fan favorite custom zombies map Cheese Cube Unlimited running directly in browser.",
-"featured": false,
-"blurb": "The cult-favorite custom Zombies map, running right in your tab.",
-"tags": [
-"Zombies",
-"Single player",
-"3D"
-],
-"controls": [
-[
-"W A S D",
-"Move"
-],
-[
-"Mouse",
-"Aim / look"
-],
-[
-"Left click",
-"Shoot"
-],
-[
-"R",
-"Reload"
-],
-[
-"F",
-"Buy / interact"
-],
-[
-"Esc",
-"Pause / release mouse"
-]
-],
-"tips": [
-"Buy the wall guns early and save points for the Mystery Box.",
-"Train zombies in wide loops instead of camping corners."
-],
-"order": 3
 },
 {
 "id": "black-ops-2",
@@ -2129,7 +2080,7 @@ window.GG_GAMES=[
 {
 "id": "gta-v-web",
 "status": "online",
-"screenshot": {"src": "screens/gta-v-web.webp", "w": 960, "h": 531},
+"screenshot": {"src": "screens/gta-v-web.webp", "w": 960, "h": 540},
 "devices": [
 "pc"
 ],
