@@ -178,8 +178,7 @@ window.GG_GAMES=[
 "blurb": "Black Ops 2 style multiplayer rebuilt for the browser.",
 "tags": [
 "Multiplayer",
-"3D",
-"Mobile friendly"
+"3D"
 ],
 "controls": [
 [
@@ -230,8 +229,7 @@ window.GG_GAMES=[
 "blurb": "Classic MW2 multiplayer with matchmaking, bots and killstreaks.",
 "tags": [
 "Multiplayer",
-"3D",
-"Mobile friendly"
+"3D"
 ],
 "controls": [
 [
@@ -590,7 +588,7 @@ window.GG_GAMES=[
 {
 "id": "quake-1",
 "screenshot": {"src": "screens/quake-1.webp", "w": 321, "h": 674},
-"devices": ["pc"],
+"devices": ["pc", "mobile"],
 "title": "Quake 1 WASM",
 "category": "Classic Shooter",
 "url": "https://q1.pieter.com",
@@ -640,7 +638,7 @@ window.GG_GAMES=[
 {
 "id": "quake-2",
 "screenshot": {"src": "screens/quake-2.webp", "w": 353, "h": 667},
-"devices": ["pc"],
+"devices": ["pc", "mobile"],
 "title": "Quake II WASM",
 "category": "Classic Shooter",
 "url": "https://q2.pieter.com",
@@ -691,7 +689,7 @@ window.GG_GAMES=[
 "id": "quake-3",
 "screenshot": {"src": "screens/quake-3.webp", "w": 960, "h": 536},
 "controller": true,
-"devices": ["pc"],
+"devices": ["pc", "mobile"],
 "title": "Quake III Arena",
 "category": "Classic Shooter",
 "url": "https://q3.pieter.com",
@@ -743,7 +741,7 @@ window.GG_GAMES=[
 {
 "id": "rtcw",
 "screenshot": {"src": "screens/rtcw.webp", "w": 960, "h": 690},
-"devices": ["pc"],
+"devices": ["pc", "mobile"],
 "title": "Return to Castle Wolfenstein",
 "category": "Classic Shooter",
 "url": "https://rtcw.pieter.com",
@@ -1126,7 +1124,7 @@ window.GG_GAMES=[
 {
 "id": "silent-space-marine",
 "screenshot": {"src": "screens/silent-space-marine.webp", "w": 871, "h": 680},
-"devices": ["pc"],
+"devices": ["pc", "mobile"],
 "title": "Silent Space Marine (Doom WASM)",
 "category": "Classic Shooter",
 "url": "https://silentspacemarine.com/",
@@ -2314,7 +2312,7 @@ window.GG_GAMES=[
 }
   ,{
 "id": "among-us",
-"devices": ["pc", "mobile"],
+"devices": ["pc"],
 "title": "Among Us Web",
 "category": "Co-op",
 "url": "https://wasm.rip/files/amongus/latest/",
@@ -2326,8 +2324,7 @@ window.GG_GAMES=[
 "blurb": "Complete tasks or sabotage as the impostor — Among Us in your browser.",
 "tags": [
 "Multiplayer",
-"3D",
-"Mobile friendly"
+"3D"
 ],
 "controls": [
 ["W A S D", "Move"],
@@ -2474,9 +2471,7 @@ window.GG_GAMES=[
 }
   ,{
 "id": "super-monkey-ball",
-"devices": [
-"pc"
-],
+"devices": ["pc", "mobile"],
 "status": "online",
 "title": "Super Monkey Ball",
 "category": "Arcade",
@@ -2514,9 +2509,7 @@ window.GG_GAMES=[
 }
   ,{
 "id": "cs-16",
-"devices": [
-"pc"
-],
+"devices": ["pc", "mobile"],
 "status": "online",
 "title": "Counter-Strike 1.6 (CSJS)",
 "category": "FPS",
@@ -2765,9 +2758,7 @@ window.GG_GAMES=[
 }
   ,{
 "id": "red-alert-2",
-"devices": [
-"pc"
-],
+"devices": ["pc", "mobile"],
 "status": "online",
 "title": "C&C Red Alert 2 (Chrono Divide)",
 "category": "Strategy",
@@ -2810,9 +2801,7 @@ window.GG_GAMES=[
 }
   ,{
 "id": "lego-island",
-"devices": [
-"pc"
-],
+"devices": ["pc", "mobile"],
 "status": "online",
 "title": "LEGO Island",
 "category": "Open World",
@@ -2921,7 +2910,7 @@ window.GG_GAMES=[
 },
 {
 "id": "garrys-mod",
-"devices": ["pc", "mobile"],
+"devices": ["pc"],
 "status": "online",
 "title": "Garry's Mod",
 "category": "Open World",
@@ -3082,10 +3071,7 @@ window.GG_GAMES=[
 },
 {
 "id": "pokemon-firered-version",
-"devices": [
-"pc",
-"mobile"
-],
+"devices": ["pc"],
 "status": "online",
 "title": "Pokémon FireRed",
 "category": "RPG",
@@ -3151,10 +3137,7 @@ window.GG_GAMES=[
 },
 {
 "id": "pokemon-platinum",
-"devices": [
-"pc",
-"mobile"
-],
+"devices": ["pc"],
 "status": "online",
 "title": "Pokémon Platinum",
 "category": "RPG",
@@ -3358,10 +3341,7 @@ window.GG_GAMES=[
 },
 {
 "id": "cuphead",
-"devices": [
-"pc",
-"mobile"
-],
+"devices": ["pc"],
 "status": "online",
 "title": "Cuphead",
 "category": "Skill",
@@ -3381,10 +3361,7 @@ window.GG_GAMES=[
 },
 {
 "id": "hollow-knight",
-"devices": [
-"pc",
-"mobile"
-],
+"devices": ["pc"],
 "status": "online",
 "title": "Hollow Knight",
 "category": "Skill",
@@ -3473,10 +3450,7 @@ window.GG_GAMES=[
 },
 {
 "id": "sonic-mania-plus",
-"devices": [
-"pc",
-"mobile"
-],
+"devices": ["pc"],
 "status": "online",
 "title": "Sonic Mania Plus",
 "category": "Retro",
@@ -3519,10 +3493,7 @@ window.GG_GAMES=[
 },
 {
 "id": "stardew-valley",
-"devices": [
-"pc",
-"mobile"
-],
+"devices": ["pc"],
 "status": "online",
 "title": "Stardew Valley",
 "category": "Simulation",

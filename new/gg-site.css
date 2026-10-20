@@ -212,7 +212,22 @@ html{scroll-behavior:auto}
 @media (prefers-reduced-motion:reduce){.mini:hover{transform:none}}
 .wa.nosync::after{animation:none!important}
 
-.card .dev{display:inline-flex;gap:5px;align-items:center;margin-left:8px;font-size:10.5px;color:rgba(255,255,255,.62)}
+.card .dev{display:inline-flex;gap:4px;align-items:center;margin-left:8px;height:18px;padding:0 7px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(6,9,16,.55);font-size:9.5px;color:rgba(255,255,255,.78);white-space:nowrap;vertical-align:middle}
+.card .dev b{font-weight:600;letter-spacing:.02em;margin-left:1px}
+.card .dev.both{border-color:rgba(95,227,255,.42);color:#c9f6ff;background:rgba(10,40,58,.55)}
+@media (max-width:420px){.card .dev{margin-left:5px;padding:0 6px}.card .dev.both b{display:none}}
+/* device tabs (games page): PC / Mobile sections above the category tabs */
+.dtabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.dtab{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 18px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.035);color:rgba(255,255,255,.88);font:600 13.5px Poppins,PoppinsFB,sans-serif;cursor:pointer;transition:background .2s,border-color .2s,color .2s,box-shadow .2s}
+.dtab .de{font-size:16px;line-height:1}
+.dtab em{font-style:normal;opacity:.55;font-size:11px;font-weight:500}
+.dtab:hover{background:rgba(255,255,255,.07);color:#fff}
+.dtab[aria-pressed="true"]{background:rgba(95,227,255,.13);border-color:rgba(95,227,255,.6);color:#fff;box-shadow:0 0 16px rgba(60,190,235,.28)}
+.dtab.mob[aria-pressed="true"]{background:rgba(124,58,237,.18);border-color:rgba(167,139,250,.7);box-shadow:0 0 16px rgba(124,58,237,.35)}
+.dhint{margin:0 0 10px;font-size:12.5px;color:#c4b5fd}
+.dhint[hidden]{display:none}
+.dhint button{margin-left:6px;padding:0;border:0;background:none;color:#5fe3ff;font:600 12.5px Poppins,PoppinsFB,sans-serif;cursor:pointer;text-decoration:underline}
+@media (max-width:700px){.dtabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.dtab{justify-content:center;padding:0 8px;font-size:12.5px;gap:6px}.dtab .dx{display:none}}
 
 /* gg-perf: no horizontal overflow at 360-414px (tools bar bled 12px past the 16px gutter); reserve grid space so the footer doesn't jump in */
 @media (max-width:700px){.tools{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}}

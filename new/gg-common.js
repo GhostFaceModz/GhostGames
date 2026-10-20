@@ -38,7 +38,9 @@ function stHtml(g){var s=stStatic(g);return '<span class="ggst '+s.k+'" data-st=
 function applyStatus(root){Array.prototype.forEach.call((root||document).querySelectorAll('[data-st]'),function(el){var g=BY[el.getAttribute('data-st')];if(!g)return;probe(g,function(s){el.className='ggst '+s.k;el.querySelector('em').textContent=s.l;el.title=stTitle(g,s)})})}
 
 /* ---- card renderer (grid + detail "similar" rows) ---- */
-function devHtml(g){var d=g.devices||['pc'];return '<span class="dev" title="'+(d.indexOf('mobile')>=0?'PC and mobile':'PC only')+'"><i class="fa-solid fa-desktop" aria-hidden="true"></i>'+(d.indexOf('mobile')>=0?'<i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i>':'')+'<span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">'+(d.indexOf('mobile')>=0?'Plays on PC and mobile':'PC only')+'</span></span>'+padHtml(g)}
+function devHtml(g){var m=(g.devices||['pc']).indexOf('mobile')>=0;return '<span class="dev '+(m?'both':'pc')+'" title="'+(m?'Plays on PC and mobile (touch controls)':'PC only: needs a keyboard and mouse')+'"><i class="fa-solid fa-desktop" aria-hidden="true"></i>'+(m?'<i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i>':'')+'<b>'+(m?'PC + Mobile':'PC')+'</b><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">'+(m?', plays on PC and mobile':', PC only')+'</span></span>'+padHtml(g)}
+/* phone/tablet-sized touch device (used to auto-pick the Mobile device tab) */
+function isPhone(){var ua=navigator.userAgent;return /iPhone|iPod|Android.+Mobile|Mobile.+Firefox|IEMobile|Opera Mini/i.test(ua)||(window.matchMedia('(pointer:coarse)').matches&&Math.min(screen.width,screen.height)<=820&&!/Windows/.test(ua))}
 function padHtml(g){return g.controller?'<span class="ggpad" title="Controller supported"><i class="fa-solid fa-gamepad" aria-hidden="true"></i><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Controller supported</span></span>':''}
 function sm(g){return BASE+'covers/sm/'+g.id+'.webp'}
 function gpage(g){return BASE+'g/'+(typeof g==='string'?g:g.id)+'/'}
@@ -477,6 +479,6 @@ function openProfile(){
 document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('[data-profile]');if(t){e.preventDefault();openProfile()}});
 
 window.GG={gpage:gpage,stats:stats,badges:badges,days:days,addDay:addDay,dayKey:dayKey,openProfile:openProfile,accountClick:accountClick,syncAccountUI:syncAccountUI,authUser:authUser,userMeta:userMeta,syncHearts:syncHearts,get:get,set:set,BASE:BASE,GAMES:GAMES,BY:BY,esc:esc,RM:RM,recent:recent,record:record,plays:plays,favs:favs,isFav:isFav,toggleFav:toggleFav,heart:heart,
- probe:probe,stHtml:stHtml,applyStatus:applyStatus,card:card,bindCards:bindCards,openGame:openGame,closeGame:closeGame,openSuggest:openSuggest,stars:stars,burger:burger,DISCORD:DISCORD,helpHtml:helpHtml,
+ probe:probe,stHtml:stHtml,applyStatus:applyStatus,card:card,isPhone:isPhone,devHtml:devHtml,bindCards:bindCards,openGame:openGame,closeGame:closeGame,openSuggest:openSuggest,stars:stars,burger:burger,DISCORD:DISCORD,helpHtml:helpHtml,
  need:need,cnt:cnt,pcount:pcount,score:score,psHtml:psHtml,rateHtml:rateHtml,vote:vote,myVote:myVote,fmt:fmt,toast:toast,gotd:gotd,gotdPool:gotdPool,openReport:openReport,getDock:getDock,imgAttrs:imgAttrs,padHtml:padHtml,sm:sm,openSearch:openSearch,closeSearch:closeSearch};
 })();

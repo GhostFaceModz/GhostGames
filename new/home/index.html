@@ -355,8 +355,23 @@ img{display:block;max-width:100%}
   <div class="hero-dots" id="heroDots" aria-label="Featured slides"></div>
 </section>
 
+<nav class="devbar" id="devbar" aria-label="Find games for your device">
+  <a class="dvb" href="../games/?device=pc" data-dev="pc"><span class="de" aria-hidden="true">🖥️</span><span><b>PC games</b><small id="dvPc">Keyboard &amp; mouse · every game</small></span></a>
+  <a class="dvb mob" href="../games/?device=mobile" data-dev="mobile"><span class="de" aria-hidden="true">📱</span><span><b>Mobile games</b><small id="dvMob">Touch controls · phone &amp; tablet</small></span></a>
+</nav>
 <main id="rows"></main>
-<style>#rows:empty{min-height:110vh}</style>
+<style>#rows:empty{min-height:110vh}
+.devbar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:760px;padding:18px 4% 6px}
+.dvb{display:flex;align-items:center;gap:12px;min-height:62px;padding:10px 16px;border-radius:16px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));color:#fff;transition:border-color .2s,background .2s,box-shadow .2s}
+.dvb:hover{border-color:rgba(95,227,255,.55);box-shadow:0 0 18px rgba(60,190,235,.22)}
+.dvb .de{font-size:24px;line-height:1}
+.dvb b{display:block;font-size:14.5px;font-weight:700}
+.dvb small{display:block;font-size:11.5px;color:#9aa3b2;margin-top:2px}
+.dvb.mob:hover,.dvb.mob.hl{border-color:rgba(167,139,250,.75);box-shadow:0 0 18px rgba(124,58,237,.35);background:linear-gradient(180deg,rgba(124,58,237,.18),rgba(124,58,237,.05))}
+.dvb.hl small{color:#c4b5fd}
+.dchips span.m{color:#d8ccff;background:rgba(124,58,237,.2);border-color:rgba(167,139,250,.35)}
+@media (max-width:700px){.devbar{padding:14px 16px 4px;gap:8px}.dvb{padding:10px 12px;gap:10px;min-height:58px}.dvb .de{font-size:20px}.dvb b{font-size:13.5px}.dvb small{font-size:10.5px}}
+</style>
 
 <div class="footwrap">
   <div class="footcta">
@@ -391,6 +406,7 @@ function featSort(a,b){return (b.featured?1:0)-(a.featured?1:0)||(a.order||0)-(b
 function byCat(c){return live.filter(function(g){return g.category===c}).sort(featSort)}
 function featured(){return live.filter(function(g){return g.featured}).sort(function(a,b){return (a.order||0)-(b.order||0)})}
 function newest(){return live.slice().sort(function(a,b){return (b.order||0)-(a.order||0)}).slice(0,14)}
+function mobileList(){return live.filter(function(g){return (g.devices||[]).indexOf('mobile')>=0}).sort(featSort)}
 function trending(){return live.slice().sort(featSort).slice(0,14)}
 function recentList(){return (GG&&GG.recent)?GG.recent().map(function(x){return GG.BY[x.id]}).filter(function(g){return g&&g.status!=='offline'}):[]}
 function deviceChips(g){
@@ -402,7 +418,7 @@ function deviceChips(g){
 function deviceChipLabels(g){
   var d=g.devices||['pc'], out=['<span>Trending</span>'];
   if(d.indexOf('pc')>=0) out.push('<span>PC</span>');
-  if(d.indexOf('mobile')>=0) out.push('<span>Mobile</span>');
+  if(d.indexOf('mobile')>=0) out.push('<span class="m">Mobile</span>');
   return '<div class="dchips">'+out.join('')+'</div>';
 }
 
@@ -530,15 +546,21 @@ function mount(){
     var g=r?GG.BY[r.id]:pool[Math.floor(Math.random()*pool.length)];
     if(!g)return; e.preventDefault(); if(GG.openGame)GG.openGame(g);
   });
+  (function(){var nm=G.filter(function(g){return (g.devices||[]).indexOf('mobile')>=0}).length;
+    document.getElementById('dvPc').textContent='Keyboard & mouse · all '+G.length+' games';
+    document.getElementById('dvMob').textContent='Touch controls · '+nm+' games';
+    if(GG&&GG.isPhone&&GG.isPhone()){var m=document.querySelector('.dvb.mob');m.classList.add('hl');document.getElementById('dvMob').textContent='Your device · '+nm+' games with touch'}})();
   buildHeroPool();
   document.getElementById('heroPrev').addEventListener('click',function(){showHero(si-1)});
   document.getElementById('heroNext').addEventListener('click',function(){showHero(si+1)});
   var first=slides[0], img=new Image();
   img.onload=img.onerror=function(){
     showHero(0);
-    document.getElementById('rows').innerHTML=
+    var phone=GG&&GG.isPhone&&GG.isPhone(), mrow=row('📱 Plays on mobile', mobileList().slice(0,16), '../games/?device=mobile&live=1');
+    document.getElementById('rows').innerHTML=(phone?mrow:'')+
       row('Trending now', trending(), '../games/?sort=featured&live=1&view=trending')+
       row('New on GhostGames', newest(), '../games/?sort=new&live=1&view=new')+
+(phone?'':mrow)+
       row('Co-op', byCat('Co-op'), '../games/?cat=Co-op&live=1')+
       row('Zombies', byCat('Zombies'), '../games/?cat=Zombies&live=1')+
       row('Retro classics', byCat('Retro'), '../games/?cat=Retro&live=1')+

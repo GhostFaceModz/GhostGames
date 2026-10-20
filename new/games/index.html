@@ -54,10 +54,11 @@
       <label class="search"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search games</span><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><input type="search" id="q" placeholder="Search games…" autocomplete="off"></label>
       <div class="row2">
         <label class="sort">Sort <select id="sort"><option value="featured">Featured</option><option value="trending">Trending</option><option value="top">Top rated</option><option value="az">A–Z</option><option value="new">Newest added</option><option value="cat">Category</option></select></label>
-        <label class="sort">Device <select id="device"><option value="all">All devices</option><option value="mobile">Mobile</option><option value="pc">PC</option></select></label>
         <div class="count" id="count" aria-live="polite"></div>
       </div>
     </div>
+    <div class="dtabs" id="dtabs" role="group" aria-label="Device"></div>
+    <p class="dhint" id="dhint" hidden></p>
     <div class="tabs" id="tabs" role="tablist" aria-label="Categories"></div>
     <div class="chips" id="chips" role="group" aria-label="Tags"></div>
   </div>
@@ -81,15 +82,20 @@ var $=function(id){return document.getElementById(id)},GAMES=GG.GAMES,BY=GG.BY,e
 GG.stars($('stA'),$('stB'));
 var LABEL={'Classic Shooter':'Classics'},TAGS=['Multiplayer','Single player','Mobile friendly','Controller','Zombies','Retro','3D'];
 var CATS=['All'];GAMES.forEach(function(g){if(CATS.indexOf(g.category)<0)CATS.push(g.category)});
+function onMob(g){return (g.devices||['pc']).indexOf('mobile')>=0}
+var AUTO=false;
 var st={cat:'All',q:'',sort:'featured',tags:[],fav:false,device:'all',badge:'',recent:false,live:false,view:''};
-function hasTag(g,t){return t==='Controller'?!!g.controller:t==='Zombies'?(g.category==='Zombies'||g.tags.indexOf('Zombies')>=0):g.tags.indexOf(t)>=0}
+function hasTag(g,t){return t==='Mobile friendly'?onMob(g):t==='Controller'?!!g.controller:t==='Zombies'?(g.category==='Zombies'||g.tags.indexOf('Zombies')>=0):g.tags.indexOf(t)>=0}
 
 $('links').innerHTML=CATS.map(function(c,i){return '<a href="'+(c==='All'?'./':'?cat='+encodeURIComponent(c))+'" data-cat="'+esc(c)+'"'+(i>4?' class="xc"':'')+'>'+esc(LABEL[c]||c)+'</a>'}).join('')+'<button type="button" class="suggest" data-suggest><i class="fa-regular fa-lightbulb" aria-hidden="true"></i>Suggest a game</button><a class="suggest" href="../retro/"><i class="fa-solid fa-gamepad" aria-hidden="true"></i>Load your own ROM</a><button type="button" class="suggest pfm" data-profile><i class="fa-solid fa-ghost" aria-hidden="true"></i>My GhostGames</button>';
 $('tabs').innerHTML='<button type="button" class="tab fav" id="favTab" aria-pressed="false" hidden><i class="fa-solid fa-heart" aria-hidden="true"></i>Favourites<em id="favN"></em></button>'+CATS.map(function(c){var n=c==='All'?GAMES.length:GAMES.filter(function(g){return g.category===c}).length;return '<button type="button" class="tab" role="tab" data-cat="'+esc(c)+'" aria-selected="false">'+esc(LABEL[c]||c)+'<em>'+n+'</em></button>'}).join('');
+var NMOB=GAMES.filter(onMob).length,NPC=GAMES.filter(function(g){return (g.devices||['pc']).indexOf('pc')>=0}).length;
+$('dtabs').innerHTML='<button type="button" class="dtab" data-dev="all" aria-pressed="false"><span class="de" aria-hidden="true">🎮</span>All<span class="dx"> devices</span><em>'+GAMES.length+'</em></button><button type="button" class="dtab" data-dev="pc" aria-pressed="false" title="Every game here plays on a PC with keyboard and mouse"><span class="de" aria-hidden="true">🖥️</span>PC<em>'+NPC+'</em></button><button type="button" class="dtab mob" data-dev="mobile" aria-pressed="false" title="Games with touch controls that work on phones and tablets"><span class="de" aria-hidden="true">📱</span>Mobile<em>'+NMOB+'</em></button>';
 $('chips').innerHTML=TAGS.map(function(t){return '<button type="button" class="tchip" data-tag="'+t+'" aria-pressed="false">'+t+'</button>'}).join('');
 
-function readURL(){var p=new URLSearchParams(location.search);st.device=['mobile','pc'].indexOf(p.get('device'))>=0?p.get('device'):'all';if($('device'))$('device').value=st.device;st.cat=CATS.indexOf(p.get('cat'))>=0?p.get('cat'):'All';st.q=p.get('q')||'';var sort=p.get('sort')||'featured';if(sort==='popular')sort='trending';st.sort=['featured','trending','top','az','new','cat'].indexOf(sort)>=0?sort:'featured';st.tags=(p.get('tags')||'').split(',').filter(function(t){return TAGS.indexOf(t)>=0});st.fav=p.get('fav')==='1';st.recent=p.get('recent')==='1';st.badge=p.get('badge')||'';st.live=p.get('live')==='1';st.view=['trending','new'].indexOf(p.get('view'))>=0?p.get('view'):'';$('q').value=st.q;$('sort').value=st.sort}
-function writeURL(push){var p=new URLSearchParams();if(st.cat!=='All')p.set('cat',st.cat);if(st.q)p.set('q',st.q);if(st.sort!=='featured')p.set('sort',st.sort);if(st.tags.length)p.set('tags',st.tags.join(','));if(st.fav)p.set('fav','1');if(st.recent)p.set('recent','1');if(st.badge)p.set('badge',st.badge);if(st.device!=='all')p.set('device',st.device);if(st.live)p.set('live','1');if(st.view)p.set('view',st.view);var u=location.pathname+(p.toString()?'?'+p.toString():'');history[push?'pushState':'replaceState'](null,'',u)}
+function readURL(){var p=new URLSearchParams(location.search);st.device=['mobile','pc','all'].indexOf(p.get('device'))>=0?p.get('device'):'all';AUTO=false;st.cat=CATS.indexOf(p.get('cat'))>=0?p.get('cat'):'All';st.q=p.get('q')||'';var sort=p.get('sort')||'featured';if(sort==='popular')sort='trending';st.sort=['featured','trending','top','az','new','cat'].indexOf(sort)>=0?sort:'featured';st.tags=(p.get('tags')||'').split(',').filter(function(t){return TAGS.indexOf(t)>=0});st.fav=p.get('fav')==='1';st.recent=p.get('recent')==='1';st.badge=p.get('badge')||'';st.live=p.get('live')==='1';st.view=['trending','new'].indexOf(p.get('view'))>=0?p.get('view'):'';$('q').value=st.q;$('sort').value=st.sort;
+ if(!p.get('device')&&!st.fav&&!st.recent&&!st.q&&GG.isPhone&&GG.isPhone()&&GG.get('gg:device','mobile')==='mobile'){st.device='mobile';AUTO=true}}
+function writeURL(push){var p=new URLSearchParams();if(st.cat!=='All')p.set('cat',st.cat);if(st.q)p.set('q',st.q);if(st.sort!=='featured')p.set('sort',st.sort);if(st.tags.length)p.set('tags',st.tags.join(','));if(st.fav)p.set('fav','1');if(st.recent)p.set('recent','1');if(st.badge)p.set('badge',st.badge);if(st.device!=='all'&&!AUTO)p.set('device',st.device);if(st.live)p.set('live','1');if(st.view)p.set('view',st.view);var u=location.pathname+(p.toString()?'?'+p.toString():'');history[push?'pushState':'replaceState'](null,'',u)}
 
 function render(){
  var q=st.q.trim().toLowerCase(),F=GG.favs();
@@ -107,10 +113,12 @@ function render(){
  $('grid').innerHTML=l.map(GG.card).join('');GG.applyStatus($('grid'));
  $('empty').classList.toggle('show',!l.length);
  var off=l.filter(function(g){return g.off}).length;
- $('count').innerHTML='<b>'+l.length+'</b> '+(l.length===1?'game':'games')+(st.recent?' recently played':'')+(st.badge?' · '+esc(st.badge):'')+(st.cat!=='All'?' in '+esc(LABEL[st.cat]||st.cat):'')+(off?' · '+off+' down':'');
+ $('count').innerHTML='<b>'+l.length+'</b> '+(l.length===1?'game':'games')+(st.recent?' recently played':'')+(st.badge?' · '+esc(st.badge):'')+(st.cat!=='All'?' in '+esc(LABEL[st.cat]||st.cat):'')+(st.device==='mobile'?' for mobile':st.device==='pc'?' for PC':'')+(off?' · '+off+' down':'');
  [].forEach.call(document.querySelectorAll('.tab[data-cat]'),function(t){t.setAttribute('aria-selected',t.getAttribute('data-cat')===st.cat?'true':'false')});
  [].forEach.call(document.querySelectorAll('.tchip'),function(t){t.setAttribute('aria-pressed',st.tags.indexOf(t.getAttribute('data-tag'))>=0?'true':'false')});
  [].forEach.call($('links').querySelectorAll('a[data-cat]'),function(a){var on=a.getAttribute('data-cat')===st.cat;a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+ [].forEach.call($('dtabs').children,function(b){b.setAttribute('aria-pressed',b.getAttribute('data-dev')===st.device?'true':'false')});
+ $('dhint').hidden=!AUTO||st.device!=='mobile';if(AUTO)$('dhint').innerHTML='<span aria-hidden="true">📱</span> You\'re on a phone, so we\'re showing games with touch controls. <button type="button" id="dall">Show all games</button>';
  $('favTab').hidden=!F.length;$('favTab').setAttribute('aria-pressed',st.fav?'true':'false');$('favN').textContent=F.length;
  var V={trending:'Trending now',new:'New on GhostGames'};var head=st.recent?'Continue playing':st.fav?'Your favourites':st.view?V[st.view]:st.badge?(st.badge+' games'):st.cat!=='All'?(LABEL[st.cat]||st.cat)+' games':'All games';
  $('badgeTxt').textContent=st.recent?'Continue playing':st.fav?'Your favourites':st.view?V[st.view]:st.badge?('Badge: '+st.badge):st.cat==='All'?'Full library':(LABEL[st.cat]||st.cat)+' games';
@@ -126,16 +134,18 @@ $('tabs').addEventListener('click',function(e){var t=e.target.closest('.tab');if
 $('tabs').addEventListener('keydown',function(e){if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;var ts=[].slice.call($('tabs').querySelectorAll('.tab:not([hidden])')),i=ts.indexOf(document.activeElement);if(i<0)return;e.preventDefault();ts[(i+(e.key==='ArrowRight'?1:ts.length-1))%ts.length].focus()});
 $('chips').addEventListener('click',function(e){var t=e.target.closest('.tchip');if(!t)return;var g=t.getAttribute('data-tag'),i=st.tags.indexOf(g);if(i>=0)st.tags.splice(i,1);else st.tags.push(g);update(true)});
 $('sort').addEventListener('change',function(){st.sort=this.value;st.recent=false;st.view='';update(true);if(st.sort==='top'||st.sort==='trending')GG.need(GAMES,['u','d','p'])});
-$('device').addEventListener('change',function(){st.device=this.value;update(true)});
+function setDev(d){st.device=d;AUTO=false;if(GG.isPhone&&GG.isPhone())GG.set('gg:device',d);update(true)}
+$('dtabs').addEventListener('click',function(e){var b=e.target.closest('.dtab');if(b)setDev(b.getAttribute('data-dev'))});
+$('dhint').addEventListener('click',function(e){if(e.target.closest('#dall'))setDev('all')});
 $('links').addEventListener('click',function(e){var a=e.target.closest('a[data-cat]');if(!a)return;e.preventDefault();closeMenu();st.cat=a.getAttribute('data-cat');st.view='';update(true)});
 window.addEventListener('popstate',function(){readURL();render()});
 var qT;$('q').addEventListener('input',function(){st.q=this.value;render();clearTimeout(qT);qT=setTimeout(function(){writeURL(false)},300)});
-$('reset').addEventListener('click',function(){st={cat:'All',q:'',sort:'featured',tags:[],fav:false,device:'all',badge:'',recent:false,live:false,view:''};$('q').value='';$('sort').value='featured';$('device').value='all';update(true)});
+$('reset').addEventListener('click',function(){st={cat:'All',q:'',sort:'featured',tags:[],fav:false,device:'all',badge:'',recent:false,live:false,view:''};$('q').value='';$('sort').value='featured';AUTO=false;update(true)});
 GG.bindCards($('grid'));
 $('cont').addEventListener('click',function(e){var b=e.target.closest('.mini');if(b)GG.openGame(b.getAttribute('data-id'))});
 $('contClear').addEventListener('click',function(){try{localStorage.removeItem('gg:recent')}catch(x){}renderCont()});
 document.addEventListener('gg:recent',renderCont);document.addEventListener('gg:fav',function(){render()});
-$('navPlay').addEventListener('click',function(e){var l=GAMES.filter(function(g){return !g.off&&!g.external&&(st.cat==='All'||g.category===st.cat)});if(!l.length)l=GAMES.filter(function(g){return !g.off&&!g.external});if(!l.length)return;e.preventDefault();closeMenu();GG.openGame(l[Math.floor(Math.random()*l.length)])});
+$('navPlay').addEventListener('click',function(e){var l=GAMES.filter(function(g){return !g.off&&!g.external&&(st.cat==='All'||g.category===st.cat)&&(st.device!=='mobile'||onMob(g))});if(!l.length)l=GAMES.filter(function(g){return !g.off&&!g.external});if(!l.length)return;e.preventDefault();closeMenu();GG.openGame(l[Math.floor(Math.random()*l.length)])});
 var closeMenu=GG.burger($('nav'),$('burger'));
 function onScroll(){document.body.classList.toggle('scrolled',scrollY>40)}window.addEventListener('scroll',onScroll,{passive:true});onScroll();
 readURL();render();renderCont();GG.need(GAMES,(st.sort==='top'||st.sort==='trending')?['u','d','p']:['p','u']);
