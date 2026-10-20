@@ -3626,5 +3626,74 @@ window.GG_GAMES=[
 ]
 ],
 "order": 92
+},
+{
+"id": "sandbox-city",
+"devices": [
+"pc"
+],
+"status": "online",
+"title": "Sandbox City",
+"category": "Open World",
+"url": "https://sandboxcity.net/embed/game.html",
+"icon": "fa-city",
+"badge": "New",
+"color": "from-blue-600 to-slate-900",
+"description": "Open-world 3D sandbox set in a city full of zombies, ragdolls and cars. Explore the streets on foot, jump into vehicles, fight with fists and weapons, slow time down for ragdoll chaos, or switch to Build Mode and place your own objects. Customise your character and car, take on missions and buy a home. Click Play Here, then Play to start; press L to toggle the mouse cursor.",
+"blurb": "Open-world city sandbox with cars, zombies and ragdolls.",
+"tags": [
+"Sandbox",
+"Open World",
+"3D",
+"Driving",
+"Zombies"
+],
+"controls": [
+[
+"W A S D",
+"Run / drive"
+],
+[
+"Shift",
+"Walk"
+],
+[
+"Space",
+"Jump"
+],
+[
+"Left click / Ctrl",
+"Attack"
+],
+[
+"Right click / Alt",
+"Aim / kick"
+],
+[
+"E",
+"Interact / enter vehicle"
+],
+[
+"Q",
+"Change weapon"
+],
+[
+"C",
+"Change camera"
+],
+[
+"T",
+"Slow-mo"
+],
+[
+"B",
+"Build mode"
+],
+[
+"L",
+"Toggle cursor"
+]
+],
+"order": 93
 }
 ];
