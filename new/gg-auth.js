@@ -95,7 +95,7 @@ function start(){mount();hooks();
  if(!cb&&!stored)return; /* don't load supabase-js for anonymous visitors until they click Log in */
  boot()}
 function boot(){client().then(function(sb){
- sb.auth.onAuthStateChange(function(ev,s){var was=user&&user.id;user=s&&s.user||null;render();
+ sb.auth.onAuthStateChange(function(ev,s){var was=user&&user.id;user=s&&s.user||null;render();try{document.dispatchEvent(new CustomEvent('gg:auth',{detail:{user:user}}))}catch(e){}
   if(user&&was!==user.id){merge();if(ev==='SIGNED_IN'&&!was&&/[?&]code=/.test(location.search)){GG.toast&&GG.toast('Logged in as '+meta().name+'.')}}
   if(ev==='SIGNED_IN'||ev==='INITIAL_SESSION')cleanUrl()});
  }).catch(function(e){console.warn('[gg-auth] supabase-js failed to load',e)})}
