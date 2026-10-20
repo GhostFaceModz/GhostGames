@@ -5,15 +5,14 @@ window.GG_GAMES=[
 "newTabPrompt": true,
 "screenshot": {"src": "screens/bo1-zombies.webp", "w": 960, "h": 540},
 "devices": ["pc"],
-"status": "issues",
-"note": "Host now serves a blank page, so the game is not loading",
+"status": "online",
 "title": "BO1 Zombies Hub",
 "category": "Zombies",
-"url": "https://vel.gg/bo1z",
+"url": "https://vel.gg/bsz",
 "icon": "fa-biohazard",
 "badge": "Popular",
 "color": "from-red-600 to-red-900",
-"description": "Black Ops 1 Zombies ported to browser. WASD to move, LMB to shoot, R to reload.",
+"description": "Black Ops 1 Zombies ported to browser. Pick from Kino der Toten, Five, Der Riese, Nacht der Untoten, Verrückt, Shi No Numa, Ascension, Call of the Dead, Shangri-La and Moon. WASD to move, LMB to shoot, R to reload.",
 "featured": true,
 "blurb": "Every Black Ops 1 Zombies map, ported straight to your browser.",
 "tags": [
@@ -2946,5 +2945,627 @@ window.GG_GAMES=[
 "Works on PC and mobile browsers."
 ],
 "order": 62
+},
+{
+"id": "meccha-chameleon",
+"devices": ["pc", "mobile"],
+"status": "online",
+"title": "Meccha Chameleon",
+"category": "Arcade",
+"url": "https://www.miniplay.com/embed/meccha-chameleon",
+"icon": "fa-paintbrush",
+"badge": "New",
+"color": "from-lime-500 to-emerald-900",
+"description": "Hide-and-seek painting game: your character starts plain white, so paint its head, body, arms and legs to match the surfaces around you, strike a pose to break up your silhouette, and stay hidden from the Seekers.",
+"blurb": "Paint yourself to blend in and hide from the Seekers.",
+"tags": [
+"Casual",
+"Drawing",
+"Hide and seek",
+"3D"
+],
+"tips": [
+"Study the hiding spot's colors before you start painting.",
+"Mix shades across body parts and watch for shadows and lighting changes."
+],
+"order": 63
+},
+{
+"id": "garrys-mod",
+"devices": ["pc", "mobile"],
+"status": "online",
+"title": "Garry's Mod",
+"category": "Open World",
+"url": "https://www.miniplay.com/embed/garrys-mod",
+"icon": "fa-cubes",
+"badge": "New",
+"color": "from-sky-500 to-slate-900",
+"description": "Browser sandbox inspired by Garry's Mod: explore a big open map with three modes: Sandbox with an unlimited arsenal of weapons, Survival where you fend off zombie attacks, and Nextbots.",
+"blurb": "Sandbox, zombie Survival and Nextbots modes in your browser.",
+"tags": [
+"Sandbox",
+"Single player",
+"3D",
+"Zombies"
+],
+"tips": [
+"Pick Sandbox for free play with every weapon, or Survival to fight zombie waves."
+],
+"order": 64
+},
+{
+"id": "roblox-rivals",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Roblox Rivals",
+"category": "FPS",
+"url": "https://www.miniplay.com/embed/roblox-rivals",
+"icon": "fa-crosshairs",
+"badge": "New",
+"color": "from-orange-500 to-red-900",
+"description": "RIVALS from Roblox: competitive FPS where aim, positioning and quick decisions win fights. Varied maps from small arenas to bigger battlegrounds, lots of weapons and gear, plus keys and challenges that unlock new weapons and cosmetics.",
+"blurb": "Competitive Roblox FPS duels across varied maps.",
+"tags": [
+"Multiplayer",
+"PvP",
+"3D",
+"Roblox"
+],
+"tips": [
+"Complete challenges and earn keys to unlock new weapons and cosmetics."
+],
+"order": 65
+},
+{
+"id": "pacman",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Pac-Man",
+"category": "Arcade",
+"url": "https://www.miniplay.com/embed/pacman",
+"icon": "fa-ghost",
+"badge": "New",
+"color": "from-yellow-400 to-blue-900",
+"description": "The classic maze arcade game: eat every dot while the colorful ghosts chase you. Grab a power pellet to turn the tables and eat the ghosts for extra points, and pick up cherries for bonus points.",
+"blurb": "Classic maze chase: eat the dots, dodge the ghosts.",
+"tags": [
+"Retro",
+"Classic",
+"Single player",
+"2D"
+],
+"controls": [
+[
+"Arrow keys",
+"Move"
+]
+],
+"tips": [
+"Save the power pellets for when the ghosts are close."
+],
+"order": 66
+},
+{
+"id": "plants-vs-zombies",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Plants vs. Zombies",
+"category": "Strategy",
+"url": "https://www.miniplay.com/embed/plants-vs-zombies",
+"icon": "fa-seedling",
+"badge": "New",
+"color": "from-green-500 to-lime-900",
+"description": "Tower-defense classic: stop the zombies crossing your garden to the house by planting a defense of mutant plants: pea shooters (normal or frozen), biting plants, wall-nuts that hold enemies back and mines that explode on contact. Collect sun to grow more plants.",
+"blurb": "Plant a garden defense to hold off the zombie horde.",
+"tags": [
+"Tower defense",
+"Zombies",
+"Single player",
+"2D"
+],
+"tips": [
+"Collect falling sun quickly so you can afford more plants.",
+"Put wall-nuts in front of your shooters to buy time."
+],
+"order": 67
+},
+{
+"id": "five-nights-at-freddys",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Five Nights at Freddy's",
+"category": "Horror",
+"url": "https://www.miniplay.com/embed/five-nights-at-freddys",
+"icon": "fa-mask",
+"badge": "New",
+"color": "from-stone-700 to-black",
+"description": "Scott Cawthon's 2014 indie horror classic: as the night security guard at Freddy Fazbear's Pizza, use the cameras, doors and lights to survive until morning while the animatronics roam the restaurant.",
+"blurb": "Survive the night shift as the animatronics hunt you.",
+"tags": [
+"Horror",
+"Single player",
+"Survival",
+"Point and click"
+],
+"tips": [
+"Watch your power: cameras, lights and doors all drain it."
+],
+"order": 68
+},
+{
+"id": "five-nights-at-freddys-2",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Five Nights at Freddy's 2",
+"category": "Horror",
+"url": "https://www.miniplay.com/embed/five-nights-at-freddys-2",
+"icon": "fa-mask",
+"badge": "New",
+"color": "from-red-900 to-black",
+"description": "The sequel to Scott Cawthon's horror hit: survive the night shift at the new Freddy Fazbear's Pizza with no doors to hide behind, only the cameras, a flashlight and an empty Freddy head mask, and keep the Puppet's music box wound.",
+"blurb": "No doors this time: just a mask, a flashlight and a music box.",
+"tags": [
+"Horror",
+"Single player",
+"Survival",
+"Point and click"
+],
+"tips": [
+"Keep winding the music box between camera checks.",
+"Put the mask on fast when an animatronic reaches the office."
+],
+"order": 69
+},
+{
+"id": "pokemon-firered-version",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Pokémon FireRed",
+"category": "RPG",
+"url": "https://www.miniplay.com/embed/pokemon-firered-version",
+"icon": "fa-fire",
+"badge": "New",
+"color": "from-red-500 to-orange-900",
+"description": "Game Boy Advance remake of the original Kanto adventure: pick Bulbasaur, Charmander or Squirtle, earn all eight Gym badges, beat Team Rocket and the Elite Four.",
+"blurb": "Kanto remade for GBA: badges, Team Rocket and the Elite Four.",
+"tags": [
+"Pokémon",
+"Single player",
+"RPG",
+"GBA"
+],
+"order": 70
+},
+{
+"id": "pokemon-ruby-version",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Pokémon Ruby",
+"category": "RPG",
+"url": "https://www.miniplay.com/embed/pokemon-ruby-version",
+"icon": "fa-gem",
+"badge": "New",
+"color": "from-rose-500 to-red-900",
+"description": "Generation III Game Boy Advance adventure in the Hoenn region: start with Treecko, Torchic or Mudkip, stop Team Magma from awakening Groudon and take on the Hoenn League.",
+"blurb": "Hoenn adventure vs. Team Magma and Groudon.",
+"tags": [
+"Pokémon",
+"Single player",
+"RPG",
+"GBA"
+],
+"order": 71
+},
+{
+"id": "pokemon-sapphire",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Pokémon Sapphire",
+"category": "RPG",
+"url": "https://www.miniplay.com/embed/pokemon-sapphire",
+"icon": "fa-water",
+"badge": "New",
+"color": "from-blue-500 to-indigo-900",
+"description": "The sister game to Ruby: explore Hoenn, collect eight badges and stop Team Aqua from awakening the legendary Kyogre.",
+"blurb": "Hoenn adventure vs. Team Aqua and Kyogre.",
+"tags": [
+"Pokémon",
+"Single player",
+"RPG",
+"GBA"
+],
+"order": 72
+},
+{
+"id": "pokemon-platinum",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Pokémon Platinum",
+"category": "RPG",
+"url": "https://www.miniplay.com/embed/pokemon-platinum",
+"icon": "fa-mountain",
+"badge": "New",
+"color": "from-slate-400 to-zinc-900",
+"description": "Enhanced Nintendo DS version of Diamond and Pearl set in Sinnoh: battle Team Galactic, venture into the Distortion World and face Giratina.",
+"blurb": "Sinnoh, Team Galactic and the Distortion World.",
+"tags": [
+"Pokémon",
+"Single player",
+"RPG",
+"DS"
+],
+"order": 73
+},
+{
+"id": "pokemon-unbound",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Pokémon Unbound",
+"category": "RPG",
+"url": "https://www.miniplay.com/embed/pokemon-unbound",
+"icon": "fa-moon",
+"badge": "New",
+"color": "from-purple-600 to-slate-950",
+"description": "Popular fan-made Pokémon adventure in the Borrius region: stop the organization known as The Shadows from unleashing an ancient nightmare.",
+"blurb": "Fan-made Borrius quest against The Shadows.",
+"tags": [
+"Pokémon",
+"Single player",
+"RPG",
+"Fan game"
+],
+"order": 74
+},
+{
+"id": "pokemon-quetzal",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Pokémon Quetzal",
+"category": "RPG",
+"url": "https://www.miniplay.com/embed/pokemon-quetzal",
+"icon": "fa-feather",
+"badge": "New",
+"color": "from-emerald-500 to-teal-900",
+"description": "Fan-made Pokémon adventure in the Hoenn region with a standout soundtrack and Pokémon up to the eighth generation, including Shinies to hunt.",
+"blurb": "Fan-made Hoenn adventure with Pokémon up to Gen 8.",
+"tags": [
+"Pokémon",
+"Single player",
+"RPG",
+"Fan game"
+],
+"order": 75
+},
+{
+"id": "pokemon-lets-go-pikachu",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Pokémon Let's Go Pikachu",
+"category": "RPG",
+"url": "https://www.miniplay.com/embed/pokemon-lets-go-pikachu",
+"icon": "fa-bolt",
+"badge": "New",
+"color": "from-yellow-400 to-amber-800",
+"description": "A take on the first Pokémon RPG: set off across Kanto with Pikachu as your partner, find Professor Oak and train to become the best trainer.",
+"blurb": "Kanto with Pikachu at your side.",
+"tags": [
+"Pokémon",
+"Single player",
+"RPG",
+"Retro"
+],
+"order": 76
+},
+{
+"id": "pokemon-overlord",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Pokémon Overlord",
+"category": "Strategy",
+"url": "https://www.miniplay.com/embed/pokemon-overlord",
+"icon": "fa-chess",
+"badge": "New",
+"color": "from-indigo-500 to-violet-950",
+"description": "Fan-made Pokémon squad tactics game: no wandering the tall grass, just fast, high-stakes team battles where positioning decides every match.",
+"blurb": "Fast Pokémon squad battles where positioning wins.",
+"tags": [
+"Pokémon",
+"Single player",
+"Strategy",
+"Fan game"
+],
+"order": 77
+},
+{
+"id": "pokesurvivor",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "PokéSurvivor",
+"category": "Arcade",
+"url": "https://www.miniplay.com/embed/pokesurvivor",
+"icon": "fa-shield-halved",
+"badge": "New",
+"color": "from-cyan-500 to-blue-950",
+"description": "Fan-made survivors-style action game: fight waves of foes with a roster of hundreds of Pokémon from nine regions, shinies included, choosing moves, stat boosts and evolutions as you level, with type matchups mattering.",
+"blurb": "Survive the waves with hundreds of Pokémon.",
+"tags": [
+"Pokémon",
+"Single player",
+"Survival",
+"Fan game"
+],
+"order": 78
+},
+{
+"id": "pokebonk",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "PokéBonk",
+"category": "Arcade",
+"url": "https://www.miniplay.com/embed/pokebonk",
+"icon": "fa-hammer",
+"badge": "New",
+"color": "from-lime-500 to-green-900",
+"description": "Fan-made survival battler set in Kanto: your Pokémon evolves mid-match at key levels, unlocking stronger attacks, passives and ultimates; unlock all 151 originals through League achievements, with browser saves.",
+"blurb": "Kanto survival battler where you evolve mid-match.",
+"tags": [
+"Pokémon",
+"Single player",
+"Survival",
+"Fan game"
+],
+"order": 79
+},
+{
+"id": "super-mario-64",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Super Mario 64",
+"category": "Retro",
+"url": "https://www.miniplay.com/embed/super-mario-64",
+"icon": "fa-star",
+"badge": "New",
+"color": "from-red-500 to-blue-900",
+"description": "Nintendo 64 classic: explore Peach's castle and the 3D worlds behind its paintings, collecting Power Stars to stop Bowser.",
+"blurb": "Mario's 3D debut on the N64.",
+"tags": [
+"Retro",
+"Single player",
+"3D",
+"N64"
+],
+"order": 80
+},
+{
+"id": "mario-kart-64",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Mario Kart 64",
+"category": "Retro",
+"url": "https://www.miniplay.com/embed/mario-kart-64",
+"icon": "fa-flag-checkered",
+"badge": "New",
+"color": "from-red-600 to-yellow-800",
+"description": "Nintendo 64 kart racer: race Mario and friends across classic cups and tracks, using items like shells and bananas to grab first place.",
+"blurb": "Classic N64 kart racing with items.",
+"tags": [
+"Retro",
+"Racing",
+"3D",
+"N64"
+],
+"order": 81
+},
+{
+"id": "cuphead",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Cuphead",
+"category": "Skill",
+"url": "https://www.miniplay.com/embed/cuphead",
+"icon": "fa-mug-hot",
+"badge": "New",
+"color": "from-amber-400 to-red-900",
+"description": "Run-and-gun with 1930s cartoon style: shoot, jump and dodge your way through brutal multi-phase boss fights where memorizing patterns is the only way to win.",
+"blurb": "Brutal 1930s-cartoon boss fights.",
+"tags": [
+"Single player",
+"2D",
+"Platformer",
+"Bosses"
+],
+"order": 82
+},
+{
+"id": "hollow-knight",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Hollow Knight",
+"category": "Skill",
+"url": "https://www.miniplay.com/embed/hollow-knight",
+"icon": "fa-khanda",
+"badge": "New",
+"color": "from-slate-500 to-black",
+"description": "Atmospheric action adventure in Hallownest, a fallen bug kingdom ravaged by the Infection: explore caverns and ruined cities, defeat huge bosses and gain abilities that open new paths.",
+"blurb": "Explore the ruined bug kingdom of Hallownest.",
+"tags": [
+"Single player",
+"2D",
+"Metroidvania",
+"Bosses"
+],
+"order": 83
+},
+{
+"id": "tekken-3",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Tekken 3",
+"category": "Retro",
+"url": "https://www.miniplay.com/embed/tekken-3",
+"icon": "fa-hand-fist",
+"badge": "New",
+"color": "from-orange-500 to-stone-900",
+"description": "PlayStation fighting classic: 20+ fighters (ten at the start, more unlocked as you play) across Arcade, Versus, Team Battle, Time Attack, Practice and the side-scrolling Tekken Force mode.",
+"blurb": "The PS1 fighting classic with 20+ fighters.",
+"tags": [
+"Retro",
+"Fighting",
+"3D",
+"PS1"
+],
+"order": 84
+},
+{
+"id": "fireboy-and-watergirl-the-forest-temple",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Fireboy and Watergirl: The Forest Temple",
+"category": "Skill",
+"url": "https://www.miniplay.com/embed/fireboy-and-watergirl-the-forest-temple",
+"icon": "fa-fire-flame-curved",
+"badge": "New",
+"color": "from-orange-500 to-sky-800",
+"description": "Oslo Albet's co-op puzzle platformer: guide Fireboy and Watergirl through the Forest Temple together, keeping each away from the wrong element and collecting gems.",
+"blurb": "Co-op puzzle platformer for two.",
+"tags": [
+"Co-op",
+"2 player",
+"2D",
+"Puzzle"
+],
+"order": 85
+},
+{
+"id": "crash-team-racing",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Crash Team Racing",
+"category": "Retro",
+"url": "https://www.miniplay.com/embed/crash-team-racing",
+"icon": "fa-car",
+"badge": "New",
+"color": "from-orange-500 to-purple-900",
+"description": "Naughty Dog's 1999 PlayStation kart racer: race Crash Bandicoot and friends against Nitrous Oxide to save their planet, using power-ups across three-lap races.",
+"blurb": "Naughty Dog's PS1 kart racer.",
+"tags": [
+"Retro",
+"Racing",
+"3D",
+"PS1"
+],
+"order": 86
+},
+{
+"id": "sonic-mania-plus",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Sonic Mania Plus",
+"category": "Retro",
+"url": "https://www.miniplay.com/embed/sonic-mania-plus",
+"icon": "fa-bolt-lightning",
+"badge": "New",
+"color": "from-blue-500 to-indigo-950",
+"description": "Love letter to classic Sonic: loop-filled zones with alternate paths and secrets, play as Sonic, Tails, Knuckles, Mighty or Ray, and hunt the Chaos Emeralds in special stages.",
+"blurb": "Classic Sonic with Mighty and Ray.",
+"tags": [
+"Retro",
+"Single player",
+"2D",
+"Platformer"
+],
+"order": 87
+},
+{
+"id": "bloxd-io",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Bloxd.io",
+"category": "Open World",
+"url": "https://www.miniplay.com/embed/bloxd-io",
+"icon": "fa-cube",
+"badge": "New",
+"color": "from-green-500 to-sky-900",
+"description": "Blocky multiplayer browser game with modes like BloxdHop parkour, Survival and Creative: earn gold in matches for upgrades, and place or break blocks in building modes.",
+"blurb": "Blocky multiplayer parkour, survival and creative.",
+"tags": [
+"Multiplayer",
+"3D",
+"Sandbox",
+"io"
+],
+"order": 88
 }
 ];

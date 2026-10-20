@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Play Pac-Man free in your browser | GhostGames</title>
+<meta name="description" content="Classic maze chase: eat the dots, dodge the ghosts. The classic maze arcade game: eat every dot while the colorful ghosts chase you. Play Pac-Man free in…">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="canonical" href="https://ghostgames.app/ghostgames/g/pacman/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="GhostGames">
+<meta property="og:title" content="Pac-Man | Play free in your browser">
+<meta property="og:description" content="Classic maze chase: eat the dots, dodge the ghosts. The classic maze arcade game: eat every dot while the colorful ghosts chase you. Play Pac-Man free in…">
+<meta property="og:url" content="https://ghostgames.app/ghostgames/g/pacman/">
+<meta property="og:image" content="https://ghostgames.app/ghostgames/covers/pacman.webp"><meta property="og:image:width" content="384"><meta property="og:image:height" content="640"><meta property="og:image:alt" content="Pac-Man cover art">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Pac-Man | GhostGames"><meta name="twitter:description" content="Classic maze chase: eat the dots, dodge the ghosts. The classic maze arcade game: eat every dot while the colorful ghosts chase you. Play Pac-Man free in…"><meta name="twitter:image" content="https://ghostgames.app/ghostgames/covers/pacman.webp">
+<meta name="theme-color" content="#7c3aed">
+<link rel="icon" type="image/png" sizes="192x192" href="../../icons/icon-192.png"><link rel="manifest" href="../../manifest.json"><link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="preload" as="image" href="../../covers/pacman.webp" fetchpriority="high">
+<link rel="preload" href="../../vendor/fonts/poppins-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="../../vendor/fonts/poppins-900.woff2" as="font" type="font/woff2" crossorigin>
+<style id="ggfonts">@font-face{font-family:'Poppins';font-style:normal;font-weight:400;font-display:swap;src:url(../../vendor/fonts/poppins-400.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'Poppins';font-style:normal;font-weight:500;font-display:swap;src:url(../../vendor/fonts/poppins-500.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'Poppins';font-style:normal;font-weight:600;font-display:swap;src:url(../../vendor/fonts/poppins-600.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'Poppins';font-style:normal;font-weight:700;font-display:swap;src:url(../../vendor/fonts/poppins-700.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'Poppins';font-style:normal;font-weight:800;font-display:swap;src:url(../../vendor/fonts/poppins-800.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'Poppins';font-style:normal;font-weight:900;font-display:swap;src:url(../../vendor/fonts/poppins-900.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:PoppinsFB;src:local('Arial'),local('ArialMT'),local('Liberation Sans'),local('LiberationSans'),local('Arimo'),local('Helvetica');size-adjust:112.16%;ascent-override:93.62%;descent-override:31.21%;line-gap-override:8.92%}</style>
+<style id="ggfa">/*!
+ * Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com
+ * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+ * Copyright 2023 Fonticons, Inc.
+ */
+.fa{font-family:var(--fa-style-family,"Font Awesome 6 Free");font-weight:var(--fa-style,900)}.fa,.fa-brands,.fa-classic,.fa-regular,.fa-sharp,.fa-solid,.fab,.far,.fas{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;display:var(--fa-display,inline-block);font-style:normal;font-variant:normal;line-height:1;text-rendering:auto}.fa-classic,.fa-regular,.fa-solid,.far,.fas{font-family:"Font Awesome 6 Free"}.fa-brands,.fab{font-family:"Font Awesome 6 Brands"}.fa-1x{font-size:1em}.fa-2x{font-size:2em}.fa-3x{font-size:3em}.fa-4x{font-size:4em}.fa-5x{font-size:5em}.fa-6x{font-size:6em}.fa-7x{font-size:7em}.fa-8x{font-size:8em}.fa-9x{font-size:9em}.fa-10x{font-size:10em}.fa-2xs{font-size:.625em;line-height:.1em;vertical-align:.225em}.fa-xs{font-size:.75em;line-height:.08333em;vertical-align:.125em}.fa-sm{font-size:.875em;line-height:.07143em;vertical-align:.05357em}.fa-lg{font-size:1.25em;line-height:.05em;vertical-align:-.075em}.fa-xl{font-size:1.5em;line-height:.04167em;vertical-align:-.125em}.fa-2xl{font-size:2em;line-height:.03125em;vertical-align:-.1875em}.fa-fw{text-align:center;width:1.25em}.fa-ul{list-style-type:none;margin-left:var(--fa-li-margin,2.5em);padding-left:0}.fa-ul>li{position:relative}.fa-li{left:calc(var(--fa-li-width, 2em)*-1);position:absolute;text-align:center;width:var(--fa-li-width,2em);line-height:inherit}.fa-border{border-radius:var(--fa-border-radius,.1em);border:var(--fa-border-width,.08em) var(--fa-border-style,solid) var(--fa-border-color,#eee);padding:var(--fa-border-padding,.2em .25em .15em)}.fa-pull-left{float:left;margin-right:var(--fa-pull-margin,.3em)}.fa-pull-right{float:right;margin-left:var(--fa-pull-margin,.3em)}.fa-beat{-webkit-animation-name:fa-beat;animation-name:fa-beat;-webkit-animation-delay:var(--fa-animation-delay,0s);animation-delay:var(--fa-animation-delay,0s);-webkit-animation-direction:var(--fa-animation-direction,normal);animation-direction:var(--fa-animation-direction,normal);-webkit-animation-duration:var(--fa-animation-duration,1s);animation-duration:var(--fa-animation-duration,1s);-webkit-animation-iteration-count:var(--fa-animation-iteration-count,infinite);animation-iteration-count:var(--fa-animation-iteration-count,infinite);-webkit-animation-timing-function:var(--fa-animation-timing,ease-in-out);animation-timing-function:var(--fa-animation-timing,ease-in-out)}.fa-bounce{-webkit-animation-name:fa-bounce;animation-name:fa-bounce;-webkit-animation-delay:var(--fa-animation-delay,0s);animation-delay:var(--fa-animation-delay,0s);-webkit-animation-direction:var(--fa-animation-direction,normal);animation-direction:var(--fa-animation-direction,normal);-webkit-animation-duration:var(--fa-animation-duration,1s);animation-duration:var(--fa-animation-duration,1s);-webkit-animation-iteration-count:var(--fa-animation-iteration-count,infinite);animation-iteration-count:var(--fa-animation-iteration-count,infinite);-webkit-animation-timing-function:var(--fa-animation-timing,cubic-bezier(.28,.84,.42,1));animation-timing-function:var(--fa-animation-timing,cubic-bezier(.28,.84,.42,1))}.fa-fade{-webkit-animation-name:fa-fade;animation-name:fa-fade;-webkit-animation-iteration-count:var(--fa-animation-iteration-count,infinite);animation-iteration-count:var(--fa-animation-iteration-count,infinite);-webkit-animation-timing-function:var(--fa-animation-timing,cubic-bezier(.4,0,.6,1));animation-timing-function:var(--fa-animation-timing,cubic-bezier(.4,0,.6,1))}.fa-beat-fade,.fa-fade{-webkit-animation-delay:var(--fa-animation-delay,0s);animation-delay:var(--fa-animation-delay,0s);-webkit-animation-direction:var(--fa-animation-direction,normal);animation-direction:var(--fa-animation-direction,normal);-webkit-animation-duration:var(--fa-animation-duration,1s);animation-duration:var(--fa-animation-duration,1s)}.fa-beat-fade{-webkit-animation-name:fa-beat-fade;animation-name:fa-beat-fade;-webkit-animation-iteration-count:var(--fa-animation-iteration-count,infinite);animation-iteration-count:var(--fa-animation-iteration-count,infinite);-webkit-animation-timing-function:var(--fa-animation-timing,cubic-bezier(.4,0,.6,1));animation-timing-function:var(--fa-animation-timing,cubic-bezier(.4,0,.6,1))}.fa-flip{-webkit-animation-name:fa-flip;animation-name:fa-flip;-webkit-animation-delay:var(--fa-animation-delay,0s);animation-delay:var(--fa-animation-delay,0s);-webkit-animation-direction:var(--fa-animation-direction,normal);animation-direction:var(--fa-animation-direction,normal);-webkit-animation-duration:var(--fa-animation-duration,1s);animation-duration:var(--fa-animation-duration,1s);-webkit-animation-iteration-count:var(--fa-animation-iteration-count,infinite);animation-iteration-count:var(--fa-animation-iteration-count,infinite);-webkit-animation-timing-function:var(--fa-animation-timing,ease-in-out);animation-timing-function:var(--fa-animation-timing,ease-in-out)}.fa-shake{-webkit-animation-name:fa-shake;animation-name:fa-shake;-webkit-animation-duration:var(--fa-animation-duration,1s);animation-duration:var(--fa-animation-duration,1s);-webkit-animation-iteration-count:var(--fa-animation-iteration-count,infinite);animation-iteration-count:var(--fa-animation-iteration-count,infinite);-webkit-animation-timing-function:var(--fa-animation-timing,linear);animation-timing-function:var(--fa-animation-timing,linear)}.fa-shake,.fa-spin{-webkit-animation-delay:var(--fa-animation-delay,0s);animation-delay:var(--fa-animation-delay,0s);-webkit-animation-direction:var(--fa-animation-direction,normal);animation-direction:var(--fa-animation-direction,normal)}.fa-spin{-webkit-animation-name:fa-spin;animation-name:fa-spin;-webkit-animation-duration:var(--fa-animation-duration,2s);animation-duration:var(--fa-animation-duration,2s);-webkit-animation-iteration-count:var(--fa-animation-iteration-count,infinite);animation-iteration-count:var(--fa-animation-iteration-count,infinite);-webkit-animation-timing-function:var(--fa-animation-timing,linear);animation-timing-function:var(--fa-animation-timing,linear)}.fa-spin-reverse{--fa-animation-direction:reverse}.fa-pulse,.fa-spin-pulse{-webkit-animation-name:fa-spin;animation-name:fa-spin;-webkit-animation-direction:var(--fa-animation-direction,normal);animation-direction:var(--fa-animation-direction,normal);-webkit-animation-duration:var(--fa-animation-duration,1s);animation-duration:var(--fa-animation-duration,1s);-webkit-animation-iteration-count:var(--fa-animation-iteration-count,infinite);animation-iteration-count:var(--fa-animation-iteration-count,infinite);-webkit-animation-timing-function:var(--fa-animation-timing,steps(8));animation-timing-function:var(--fa-animation-timing,steps(8))}@media (prefers-reduced-motion:reduce){.fa-beat,.fa-beat-fade,.fa-bounce,.fa-fade,.fa-flip,.fa-pulse,.fa-shake,.fa-spin,.fa-spin-pulse{-webkit-animation-delay:-1ms;animation-delay:-1ms;-webkit-animation-duration:1ms;animation-duration:1ms;-webkit-animation-iteration-count:1;animation-iteration-count:1;-webkit-transition-delay:0s;transition-delay:0s;-webkit-transition-duration:0s;transition-duration:0s}}@-webkit-keyframes fa-beat{0%,90%{-webkit-transform:scale(1);transform:scale(1)}45%{-webkit-transform:scale(var(--fa-beat-scale,1.25));transform:scale(var(--fa-beat-scale,1.25))}}@keyframes fa-beat{0%,90%{-webkit-transform:scale(1);transform:scale(1)}45%{-webkit-transform:scale(var(--fa-beat-scale,1.25));transform:scale(var(--fa-beat-scale,1.25))}}@-webkit-keyframes fa-bounce{0%{-webkit-transform:scale(1) translateY(0);transform:scale(1) translateY(0)}10%{-webkit-transform:scale(var(--fa-bounce-start-scale-x,1.1),var(--fa-bounce-start-scale-y,.9)) translateY(0);transform:scale(var(--fa-bounce-start-scale-x,1.1),var(--fa-bounce-start-scale-y,.9)) translateY(0)}30%{-webkit-transform:scale(var(--fa-bounce-jump-scale-x,.9),var(--fa-bounce-jump-scale-y,1.1)) translateY(var(--fa-bounce-height,-.5em));transform:scale(var(--fa-bounce-jump-scale-x,.9),var(--fa-bounce-jump-scale-y,1.1)) translateY(var(--fa-bounce-height,-.5em))}50%{-webkit-transform:scale(var(--fa-bounce-land-scale-x,1.05),var(--fa-bounce-land-scale-y,.95)) translateY(0);transform:scale(var(--fa-bounce-land-scale-x,1.05),var(--fa-bounce-land-scale-y,.95)) translateY(0)}57%{-webkit-transform:scale(1) translateY(var(--fa-bounce-rebound,-.125em));transform:scale(1) translateY(var(--fa-bounce-rebound,-.125em))}64%{-webkit-transform:scale(1) translateY(0);transform:scale(1) translateY(0)}to{-webkit-transform:scale(1) translateY(0);transform:scale(1) translateY(0)}}@keyframes fa-bounce{0%{-webkit-transform:scale(1) translateY(0);transform:scale(1) translateY(0)}10%{-webkit-transform:scale(var(--fa-bounce-start-scale-x,1.1),var(--fa-bounce-start-scale-y,.9)) translateY(0);transform:scale(var(--fa-bounce-start-scale-x,1.1),var(--fa-bounce-start-scale-y,.9)) translateY(0)}30%{-webkit-transform:scale(var(--fa-bounce-jump-scale-x,.9),var(--fa-bounce-jump-scale-y,1.1)) translateY(var(--fa-bounce-height,-.5em));transform:scale(var(--fa-bounce-jump-scale-x,.9),var(--fa-bounce-jump-scale-y,1.1)) translateY(var(--fa-bounce-height,-.5em))}50%{-webkit-transform:scale(var(--fa-bounce-land-scale-x,1.05),var(--fa-bounce-land-scale-y,.95)) translateY(0);transform:scale(var(--fa-bounce-land-scale-x,1.05),var(--fa-bounce-land-scale-y,.95)) translateY(0)}57%{-webkit-transform:scale(1) translateY(var(--fa-bounce-rebound,-.125em));transform:scale(1) translateY(var(--fa-bounce-rebound,-.125em))}64%{-webkit-transform:scale(1) translateY(0);transform:scale(1) translateY(0)}to{-webkit-transform:scale(1) translateY(0);transform:scale(1) translateY(0)}}@-webkit-keyframes fa-fade{50%{opacity:var(--fa-fade-opacity,.4)}}@keyframes fa-fade{50%{opacity:var(--fa-fade-opacity,.4)}}@-webkit-keyframes fa-beat-fade{0%,to{opacity:var(--fa-beat-fade-opacity,.4);-webkit-transform:scale(1);transform:scale(1)}50%{opacity:1;-webkit-transform:scale(var(--fa-beat-fade-scale,1.125));transform:scale(var(--fa-beat-fade-scale,1.125))}}@keyframes fa-beat-fade{0%,to{opacity:var(--fa-beat-fade-opacity,.4);-webkit-transform:scale(1);transform:scale(1)}50%{opacity:1;-webkit-transform:scale(var(--fa-beat-fade-scale,1.125));transform:scale(var(--fa-beat-fade-scale,1.125))}}@-webkit-keyframes fa-flip{50%{-webkit-transform:rotate3d(var(--fa-flip-x,0),var(--fa-flip-y,1),var(--fa-flip-z,0),var(--fa-flip-angle,-180deg));transform:rotate3d(var(--fa-flip-x,0),var(--fa-flip-y,1),var(--fa-flip-z,0),var(--fa-flip-angle,-180deg))}}@keyframes fa-flip{50%{-webkit-transform:rotate3d(var(--fa-flip-x,0),var(--fa-flip-y,1),var(--fa-flip-z,0),var(--fa-flip-angle,-180deg));transform:rotate3d(var(--fa-flip-x,0),var(--fa-flip-y,1),var(--fa-flip-z,0),var(--fa-flip-angle,-180deg))}}@-webkit-keyframes fa-shake{0%{-webkit-transform:rotate(-15deg);transform:rotate(-15deg)}4%{-webkit-transform:rotate(15deg);transform:rotate(15deg)}8%,24%{-webkit-transform:rotate(-18deg);transform:rotate(-18deg)}12%,28%{-webkit-transform:rotate(18deg);transform:rotate(18deg)}16%{-webkit-transform:rotate(-22deg);transform:rotate(-22deg)}20%{-webkit-transform:rotate(22deg);transform:rotate(22deg)}32%{-webkit-transform:rotate(-12deg);transform:rotate(-12deg)}36%{-webkit-transform:rotate(12deg);transform:rotate(12deg)}40%,to{-webkit-transform:rotate(0deg);transform:rotate(0deg)}}@keyframes fa-shake{0%{-webkit-transform:rotate(-15deg);transform:rotate(-15deg)}4%{-webkit-transform:rotate(15deg);transform:rotate(15deg)}8%,24%{-webkit-transform:rotate(-18deg);transform:rotate(-18deg)}12%,28%{-webkit-transform:rotate(18deg);transform:rotate(18deg)}16%{-webkit-transform:rotate(-22deg);transform:rotate(-22deg)}20%{-webkit-transform:rotate(22deg);transform:rotate(22deg)}32%{-webkit-transform:rotate(-12deg);transform:rotate(-12deg)}36%{-webkit-transform:rotate(12deg);transform:rotate(12deg)}40%,to{-webkit-transform:rotate(0deg);transform:rotate(0deg)}}@-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}@keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}.fa-rotate-90{-webkit-transform:rotate(90deg);transform:rotate(90deg)}.fa-rotate-180{-webkit-transform:rotate(180deg);transform:rotate(180deg)}.fa-rotate-270{-webkit-transform:rotate(270deg);transform:rotate(270deg)}.fa-flip-horizontal{-webkit-transform:scaleX(-1);transform:scaleX(-1)}.fa-flip-vertical{-webkit-transform:scaleY(-1);transform:scaleY(-1)}.fa-flip-both,.fa-flip-horizontal.fa-flip-vertical{-webkit-transform:scale(-1);transform:scale(-1)}.fa-rotate-by{-webkit-transform:rotate(var(--fa-rotate-angle,none));transform:rotate(var(--fa-rotate-angle,none))}.fa-stack{display:inline-block;height:2em;line-height:2em;position:relative;vertical-align:middle;width:2.5em}.fa-stack-1x,.fa-stack-2x{left:0;position:absolute;text-align:center;width:100%;z-index:var(--fa-stack-z-index,auto)}.fa-stack-1x{line-height:inherit}.fa-stack-2x{font-size:2em}.fa-inverse{color:var(--fa-inverse,#fff)}
+
+.fa-ring:before{content:"\f70b"}.fa-right-from-bracket:before{content:"\f2f5"}.fa-flag-checkered:before{content:"\f11e"}.fa-football:before{content:"\f44e"}.fa-truck-monster:before{content:"\f63b"}.fa-circle-notch:before{content:"\f1ce"}.fa-paw:before{content:"\f1b0"}.fa-cloud:before{content:"\f0c2"}.fa-compass:before{content:"\f14e"}.fa-film:before{content:"\f008"}.fa-lightbulb:before{content:"\f0eb"}.fa-flag:before{content:"\f024"}.fa-feather:before{content:"\f52d"}.fa-compress:before{content:"\f066"}.fa-ghost:before{content:"\f6e2"}.fa-gamepad:before{content:"\f11b"}.fa-paintbrush:before{content:"\f1fc"}.fa-car-side:before{content:"\f5e4"}.fa-users:before{content:"\f0c0"}.fa-radiation:before{content:"\f7b9"}.fa-wand-magic-sparkles:before{content:"\e2ca"}.fa-globe:before{content:"\f0ac"}.fa-star:before{content:"\f005"}.fa-shuffle:before{content:"\f074"}.fa-person-running:before{content:"\f70c"}.fa-computer-mouse:before{content:"\f8cc"}.fa-right-to-bracket:before{content:"\f2f6"}.fa-crown:before{content:"\f521"}.fa-fire:before{content:"\f06d"}.fa-city:before{content:"\f64f"}.fa-jedi:before{content:"\f669"}.fa-mug-hot:before{content:"\f7b6"}.fa-gem:before{content:"\f3a5"}.fa-person-skating:before{content:"\f7c5"}.fa-bomb:before{content:"\f1e2"}.fa-seedling:before{content:"\f4d8"}.fa-shield-halved:before{content:"\f3ed"}.fa-puzzle-piece:before{content:"\f12e"}.fa-arrow-up-right-from-square:before{content:"\f08e"}.fa-road:before{content:"\f018"}.fa-bolt-lightning:before{content:"\e0b7"}.fa-screwdriver-wrench:before{content:"\f7d9"}.fa-heart:before{content:"\f004"}.fa-cube:before{content:"\f1b2"}.fa-user-astronaut:before{content:"\f4fb"}.fa-mobile-screen-button:before{content:"\f3cd"}.fa-circle-question:before{content:"\f059"}.fa-hat-cowboy:before{content:"\f8c0"}.fa-tags:before{content:"\f02c"}.fa-biohazard:before{content:"\f780"}.fa-gauge-simple:before{content:"\f629"}.fa-cubes:before{content:"\f1b3"}.fa-arrow-left:before{content:"\f060"}.fa-table-cells-large:before{content:"\f009"}.fa-mountain:before{content:"\f6fc"}.fa-circle-info:before{content:"\f05a"}.fa-water:before{content:"\f773"}.fa-crosshairs:before{content:"\f05b"}.fa-chess:before{content:"\f439"}.fa-person-military-rifle:before{content:"\e54b"}.fa-keyboard:before{content:"\f11c"}.fa-mobile-screen:before{content:"\f3cf"}.fa-khanda:before{content:"\f66d"}.fa-power-off:before{content:"\f011"}.fa-person-rifle:before{content:"\e54e"}.fa-download:before{content:"\f019"}.fa-house:before{content:"\f015"}.fa-rotate-right:before{content:"\f2f9"}.fa-skull:before{content:"\f54c"}.fa-bolt:before{content:"\f0e7"}.fa-sun:before{content:"\f185"}.fa-thumbs-down:before{content:"\f165"}.fa-car:before{content:"\f1b9"}.fa-chess-rook:before{content:"\f447"}.fa-play:before{content:"\f04b"}.fa-magnifying-glass:before{content:"\f002"}.fa-chevron-down:before{content:"\f078"}.fa-skull-crossbones:before{content:"\f714"}.fa-wind:before{content:"\f72e"}.fa-fish:before{content:"\f578"}.fa-baseball:before{content:"\f433"}.fa-gun:before{content:"\e19b"}.fa-expand:before{content:"\f065"}.fa-xmark:before{content:"\f00d"}.fa-chevron-left:before{content:"\f053"}.fa-chevron-right:before{content:"\f054"}.fa-trophy:before{content:"\f091"}.fa-hammer:before{content:"\f6e3"}.fa-robot:before{content:"\f544"}.fa-clock-rotate-left:before{content:"\f1da"}.fa-carrot:before{content:"\f787"}.fa-moon:before{content:"\f186"}.fa-dragon:before{content:"\f6d5"}.fa-fire-flame-curved:before{content:"\f7e4"}.fa-desktop:before{content:"\f390"}.fa-check:before{content:"\f00c"}.fa-hand-fist:before{content:"\f6de"}.fa-triangle-exclamation:before{content:"\f071"}.fa-dungeon:before{content:"\f6d9"}.fa-thumbs-up:before{content:"\f164"}.fa-mask:before{content:"\f6fa"}
+.fa-sr-only,.fa-sr-only-focusable:not(:focus),.sr-only,.sr-only-focusable:not(:focus){position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}:host,:root{--fa-style-family-brands:"Font Awesome 6 Brands";--fa-font-brands:normal 400 1em/1 "Font Awesome 6 Brands"}@font-face{font-family:"Font Awesome 6 Brands";font-style:normal;font-weight:400;font-display:block;src:url(../../vendor/fa/webfonts/gg-fa-brands-400.woff2) format("woff2")}.fa-brands,.fab{font-weight:400}.fa-discord:before{content:"\f392"}:host,:root{--fa-font-regular:normal 400 1em/1 "Font Awesome 6 Free"}@font-face{font-family:"Font Awesome 6 Free";font-style:normal;font-weight:400;font-display:block;src:url(../../vendor/fa/webfonts/gg-fa-regular-400.woff2) format("woff2")}.fa-regular,.far{font-weight:400}:host,:root{--fa-style-family-classic:"Font Awesome 6 Free";--fa-font-solid:normal 900 1em/1 "Font Awesome 6 Free"}@font-face{font-family:"Font Awesome 6 Free";font-style:normal;font-weight:900;font-display:block;src:url(../../vendor/fa/webfonts/gg-fa-solid-900.woff2) format("woff2")}.fa-solid,.fas{font-weight:900}@font-face{font-family:"Font Awesome 5 Brands";font-display:block;font-weight:400;src:url(../../vendor/fa/webfonts/gg-fa-brands-400.woff2) format("woff2")}@font-face{font-family:"Font Awesome 5 Free";font-display:block;font-weight:900;src:url(../../vendor/fa/webfonts/gg-fa-solid-900.woff2) format("woff2")}@font-face{font-family:"Font Awesome 5 Free";font-display:block;font-weight:400;src:url(../../vendor/fa/webfonts/gg-fa-regular-400.woff2) format("woff2")}@font-face{font-family:"FontAwesome";font-display:block;src:url(../../vendor/fa/webfonts/gg-fa-solid-900.woff2) format("woff2")}@font-face{font-family:"FontAwesome";font-display:block;src:url(../../vendor/fa/webfonts/gg-fa-brands-400.woff2) format("woff2")}@font-face{font-family:"FontAwesome";font-display:block;src:url(../../vendor/fa/webfonts/gg-fa-regular-400.woff2) format("woff2");unicode-range:u+f003,u+f006,u+f014,u+f016-f017,u+f01a-f01b,u+f01d,u+f022,u+f03e,u+f044,u+f046,u+f05c-f05d,u+f06e,u+f070,u+f087-f088,u+f08a,u+f094,u+f096-f097,u+f09d,u+f0a0,u+f0a2,u+f0a4-f0a7,u+f0c5,u+f0c7,u+f0e5-f0e6,u+f0eb,u+f0f6-f0f8,u+f10c,u+f114-f115,u+f118-f11a,u+f11c-f11d,u+f133,u+f147,u+f14e,u+f150-f152,u+f185-f186,u+f18e,u+f190-f192,u+f196,u+f1c1-f1c9,u+f1d9,u+f1db,u+f1e3,u+f1ea,u+f1f7,u+f1f9,u+f20a,u+f247-f248,u+f24a,u+f24d,u+f255-f25b,u+f25d,u+f271-f274,u+f278,u+f27b,u+f28c,u+f28e,u+f29c,u+f2b5,u+f2b7,u+f2ba,u+f2bc,u+f2be,u+f2c0-f2c1,u+f2c3,u+f2d0,u+f2d2,u+f2d4,u+f2dc}@font-face{font-family:"FontAwesome";font-display:block;src:url(../../vendor/fa/webfonts/fa-v4compatibility.woff2) format("woff2");unicode-range:u+f041,u+f047,u+f065-f066,u+f07d-f07e,u+f080,u+f08b,u+f08e,u+f090,u+f09a,u+f0ac,u+f0ae,u+f0b2,u+f0d0,u+f0d6,u+f0e4,u+f0ec,u+f10a-f10b,u+f123,u+f13e,u+f148-f149,u+f14c,u+f156,u+f15e,u+f160-f161,u+f163,u+f175-f178,u+f195,u+f1f8,u+f219,u+f27a}</style>
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"VideoGame","name":"Pac-Man","url":"https://ghostgames.app/ghostgames/g/pacman/","description":"The classic maze arcade game: eat every dot while the colorful ghosts chase you. Grab a power pellet to turn the tables and eat the ghosts for extra points, and pick up cherries for bonus points.","image":"https://ghostgames.app/ghostgames/covers/pacman.webp","genre":"Arcade","keywords":"Retro, Classic, Single player, 2D","gamePlatform":["Web browser","PC","Mobile"],"applicationCategory":"Game","operatingSystem":"Any (runs in a web browser)","isAccessibleForFree":true,"playMode":["SinglePlayer"],"inLanguage":"en"},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"GhostGames","item":"https://ghostgames.app/ghostgames/home/"},{"@type":"ListItem","position":2,"name":"All games","item":"https://ghostgames.app/ghostgames/games/"},{"@type":"ListItem","position":3,"name":"Arcade","item":"https://ghostgames.app/ghostgames/games/?cat=Arcade"},{"@type":"ListItem","position":4,"name":"Pac-Man","item":"https://ghostgames.app/ghostgames/g/pacman/"}]}]</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{min-height:100%;font-family:Poppins,PoppinsFB,system-ui,sans-serif;background:#05070c;color:#fff;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+img{display:block;max-width:100%}
+.skip{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+.skip:focus{left:12px;top:12px;width:auto;height:auto;z-index:6000;padding:10px 14px;border-radius:10px;background:#0b1220;border:1px solid rgba(95,227,255,.5);color:#fff}
+
+/* sticky glass nav */
+.nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;padding:10px 22px;min-height:64px;background:linear-gradient(180deg,rgba(8,12,20,.88),rgba(8,12,20,.55));border-bottom:1px solid rgba(255,255,255,.06);-webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%)}
+.nav.scrolled{background:rgba(6,9,16,.94);box-shadow:0 10px 40px rgba(0,0,0,.35)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:17px;letter-spacing:-.01em;text-transform:uppercase;flex:0 0 auto}
+.brand svg{width:28px;height:28px;filter:drop-shadow(0 0 8px rgba(95,227,255,.55))}
+.brand .wm{display:flex;flex-direction:column;line-height:1}
+.brand .kick{font-size:8px;font-weight:700;letter-spacing:.14em;color:rgba(255,255,255,.75)}
+.brand .name{font-size:16px;font-weight:900;letter-spacing:.02em}
+.home-ico{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;border:1px solid rgba(95,227,255,.22);background:rgba(10,14,22,.55);color:#5fe3ff;flex:0 0 auto;text-decoration:none;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(255,255,255,.05);transition:border-color .2s,box-shadow .2s,transform .2s,background .2s}
+.home-ico:hover{border-color:rgba(95,227,255,.5);background:rgba(95,227,255,.1);box-shadow:0 0 16px rgba(40,180,230,.22);transform:translateY(-1px);color:#bff6ff}
+.home-ico i{font-size:14px}
+.navmenu{display:contents}
+.links{display:flex;align-items:center;gap:16px;margin-left:6px}
+.links a,.links button.suggest{font-size:13px;font-weight:500;color:rgba(255,255,255,.78);transition:color .2s;background:none;border:0;cursor:pointer;font-family:inherit;padding:0}
+.links a:hover,.links a.on,.links button.suggest:hover{color:#fff}
+.links button.suggest{display:inline-flex;align-items:center;gap:6px}
+.nav-spacer{flex:1}
+.nav .cta,.nav #navPlay{display:inline-grid;place-items:center;height:38px;padding:0 16px;border-radius:12px;font-size:13px;font-weight:600;color:#fff;background:linear-gradient(to top,#3ec8e4 0,#0596b3 35%,#0a2a37 100%);box-shadow:0 0 0 1px rgba(152,218,234,.25),0 4px 16px rgba(20,180,225,.25)}
+.nav .cta:hover,#navPlay:hover{filter:brightness(1.1)}
+.burger{display:none!important}
+.burger span{display:block;width:18px;height:2px;border-radius:2px;background:#fff}
+.search-mini{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:rgba(255,255,255,.8);font-size:13px;font-weight:500}
+.search-mini:hover{border-color:rgba(95,227,255,.4);color:#fff}
+.search-mini i{color:#5fe3ff}
+
+/* premium side menu — subtle cyan glass bubbles (preview) */
+.nav{padding-right:10px;gap:10px}
+.nav-actions{display:flex;align-items:center;gap:6px;margin-left:auto;flex:0 0 auto}
+.nav-act{display:inline-flex;align-items:center;gap:7px;height:40px;padding:0 12px;border-radius:12px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.03);color:rgba(255,255,255,.88);font-size:13px;font-weight:600;text-decoration:none;transition:border-color .2s,color .2s,background .2s,box-shadow .2s}
+.nav-act i{color:#5fe3ff;font-size:13px}
+.nav-act:hover{border-color:rgba(95,227,255,.4);color:#fff;background:rgba(95,227,255,.08);box-shadow:0 0 16px rgba(40,180,230,.12)}
+.nav-login{width:40px;height:40px;padding:0;border-radius:50%;border:1px solid rgba(95,227,255,.28);background:rgba(10,14,22,.55);display:grid;place-items:center;cursor:pointer;flex:0 0 auto;overflow:hidden;box-shadow:0 0 0 1px rgba(95,227,255,.12);transition:transform .2s,box-shadow .2s,border-color .2s}
+.nav-login img{width:100%;height:100%;object-fit:cover;display:block}
+.nav-login:hover{border-color:rgba(95,227,255,.55);transform:translateY(-1px);box-shadow:0 0 18px rgba(95,227,255,.28)}
+/* hide auth-injected Support + floating login; we use nav-login */
+.ggfw{display:none!important}
+.ggmenubtn{position:relative;top:auto;right:auto;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(10,14,22,.55);color:#e9f6ff;cursor:pointer;flex:0 0 auto;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(255,255,255,.06);transition:border-color .2s,box-shadow .2s,transform .2s,background .2s;z-index:1}
+.ggmenubtn:hover,.ggmenubtn[aria-expanded="true"]{border-color:rgba(95,227,255,.5);background:rgba(14,22,34,.8);box-shadow:0 0 0 1px rgba(95,227,255,.2),0 0 18px rgba(40,180,230,.25);transform:translateY(-1px)}
+.ggmenubtn .hb{position:relative;width:18px;height:14px}
+.ggmenubtn .hb i{position:absolute;left:0;right:0;height:2px;border-radius:2px;background:#5fe3ff;box-shadow:0 0 8px rgba(95,227,255,.55);transition:transform .28s,opacity .2s,top .28s}
+.ggmenubtn .hb i:nth-child(1){top:0}.ggmenubtn .hb i:nth-child(2){top:6px}.ggmenubtn .hb i:nth-child(3){top:12px}
+.ggmenubtn[aria-expanded="true"] .hb i:nth-child(1){top:6px;transform:rotate(45deg)}
+.ggmenubtn[aria-expanded="true"] .hb i:nth-child(2){opacity:0}
+.ggmenubtn[aria-expanded="true"] .hb i:nth-child(3){top:6px;transform:rotate(-45deg)}
+.ggmenubtn .gico{position:absolute;inset:0;display:grid;place-items:center;font-size:15px;color:#5fe3ff;opacity:0;transform:scale(.7);transition:opacity .25s,transform .25s;pointer-events:none}
+.ggmenubtn:hover .gico,.ggmenubtn[aria-expanded="true"] .gico{opacity:1;transform:scale(1)}
+.ggmenubtn:hover .hb,.ggmenubtn[aria-expanded="true"] .hb{opacity:0}
+.navmenu,.nav-spacer,.search-mini,.nav .cta,#navPlay{display:none!important}
+.burger{display:none!important}
+@media (max-width:700px){
+ .nav{padding:8px 8px;gap:6px;min-height:56px;overflow:visible}
+ .brand{gap:6px}
+ .brand svg{width:24px;height:24px}
+ .brand .kick{display:none}
+ .brand .name{font-size:13px}
+ .home-ico{width:34px;height:34px;border-radius:10px}
+ .home-ico i{font-size:13px}
+ .nav-act{width:34px;height:34px;padding:0;justify-content:center;border-radius:10px}
+ .nav-act .lbl{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+ .nav-act i{font-size:13px;margin:0}
+ .nav-login,.ggmenubtn{width:34px;height:34px;border-radius:10px}
+ .nav-actions{gap:4px;min-width:0}
+}
+.ggside{position:fixed;inset:0;z-index:1200;pointer-events:none}
+.ggside.open{pointer-events:auto}
+.ggside .veil{position:absolute;inset:0;background:rgba(2,4,10,.58);opacity:0;transition:opacity .28s;-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.ggside.open .veil{opacity:1}
+.ggside .panel{position:absolute;top:0;right:0;height:100%;width:min(360px,94vw);padding:16px 14px 28px;display:flex;flex-direction:column;gap:0;
+ background:linear-gradient(165deg,rgba(12,18,30,.97),rgba(6,10,18,.99));
+ border-left:1px solid rgba(95,227,255,.16);
+ box-shadow:-24px 0 60px rgba(0,0,0,.55),0 0 36px rgba(40,180,230,.06);transform:translateX(104%);transition:transform .34s cubic-bezier(.2,.8,.2,1);overflow:auto}
+.ggside.open .panel{transform:none}
+.ggside .ph{display:flex;align-items:center;gap:12px;padding:10px 10px 14px;margin:0 2px 12px;border-radius:18px;
+ background:linear-gradient(180deg,rgba(14,22,36,.92),rgba(8,14,24,.96));
+ border:1px solid rgba(95,227,255,.18);box-shadow:0 8px 24px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06)}
+.ggside .ph .mark,.ggside .ph .mark-img{width:48px;height:48px;border-radius:50%;flex:0 0 auto;object-fit:cover;
+ box-shadow:0 0 0 2px rgba(95,227,255,.28),0 0 18px rgba(95,227,255,.22);background:#0a101a}
+.ggside .ph .mark{display:grid;place-items:center;color:#5fe3ff;font-size:22px;background:radial-gradient(circle at 35% 30%,rgba(95,227,255,.22),rgba(10,16,26,.95))}
+.ggside .ph b{display:block;font-size:15px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:#eef6ff}
+.ggside .ph span{display:block;font-size:11.5px;color:#8b93a1;margin-top:2px;font-weight:500}
+.ggside .px{margin-left:auto;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:#fff;display:grid;place-items:center;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s}
+.ggside .px:hover{border-color:rgba(95,227,255,.45);box-shadow:0 0 14px rgba(95,227,255,.25);transform:rotate(90deg) scale(1.05)}
+.ggside .bubbles{display:flex;flex-direction:column;gap:8px;padding:0 2px}
+.ggside .bub{display:flex;align-items:center;gap:12px;width:100%;padding:8px 12px 8px 8px;border-radius:999px;
+ border:1px solid rgba(95,227,255,.16);background:rgba(10,14,22,.72);
+ -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+ color:#e8eef6;font:600 13.5px Poppins,PoppinsFB,system-ui,sans-serif;text-align:left;cursor:pointer;text-decoration:none;
+ box-shadow:0 4px 12px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.04);
+ transition:transform .22s cubic-bezier(.2,.8,.2,1),box-shadow .22s,border-color .22s,background .22s;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.ggside .bub .bico{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;font-size:15px;color:#5fe3ff;
+ background:rgba(95,227,255,.08);border:1px solid rgba(95,227,255,.22);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+ transition:transform .28s cubic-bezier(.34,1.56,.64,1),box-shadow .22s,background .22s}
+.ggside .bub:hover{transform:translateY(-3px) scale(1.03);
+ border-color:rgba(95,227,255,.4);background:rgba(14,22,34,.88);
+ box-shadow:0 10px 26px rgba(0,0,0,.4),0 0 20px rgba(40,180,230,.18),inset 0 1px 0 rgba(255,255,255,.08)}
+.ggside .bub:hover .bico{transform:scale(1.12) rotate(-8deg);animation:bubWobble .55s ease;
+ background:rgba(95,227,255,.14);box-shadow:0 0 14px rgba(95,227,255,.28)}
+.ggside .bub:active{transform:scale(.96) translateY(0);transition-duration:.08s}
+.ggside .bub:active .bico{transform:scale(.92);animation:none}
+@keyframes bubWobble{0%{transform:scale(1.12) rotate(-8deg)}30%{transform:scale(1.16) rotate(10deg)}55%{transform:scale(1.1) rotate(-6deg)}100%{transform:scale(1.12) rotate(-8deg)}}
+.ggside .genre-wrap{display:flex;flex-direction:column;gap:0}
+.ggside .genre-toggle{position:relative;padding-right:42px}
+.ggside .genre-toggle .gtxt{flex:1}
+.ggside .genre-toggle .gchev{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:11px;color:#5fe3ff;opacity:.9;transition:transform .28s ease}
+.ggside .genre-toggle[aria-expanded="true"] .gchev{transform:translateY(-50%) rotate(180deg)}
+.ggside .genre-drop{display:flex;flex-direction:column;gap:6px;padding:0 0 0 12px;max-height:0;opacity:0;overflow:hidden;pointer-events:none;transition:max-height .34s ease,opacity .28s ease,padding .28s ease,margin .28s ease;margin:0}
+.ggside .genre-drop.open{max-height:320px;opacity:1;pointer-events:auto;padding:8px 0 2px 12px;margin:0 0 2px}
+.ggside .bub-sm{padding:6px 10px 6px 6px;font-size:12.5px;font-weight:600}
+.ggside .bub-sm .bico{width:34px;height:34px;font-size:13px}
+.ggside .sep{height:1px;margin:12px 8px;background:linear-gradient(90deg,transparent,rgba(95,227,255,.2),transparent);border:0}
+.ggside .bub-login{display:flex;align-items:center;gap:12px;width:100%;margin-top:4px;padding:10px 14px 10px 10px;border-radius:999px;
+ border:1px solid rgba(95,227,255,.28);background:rgba(10,16,26,.82);
+ color:#fff;font:700 14px Poppins,PoppinsFB,system-ui,sans-serif;cursor:pointer;text-align:left;
+ box-shadow:0 4px 16px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.05);transition:transform .22s,box-shadow .22s,border-color .22s}
+.ggside .bub-login:hover{transform:translateY(-2px) scale(1.02);border-color:rgba(95,227,255,.5);
+ box-shadow:0 0 22px rgba(95,227,255,.2),0 10px 26px rgba(0,0,0,.35)}
+.ggside .bub-login:active{transform:scale(.97)}
+.ggside .bub-login .av{width:42px;height:42px;border-radius:50%;object-fit:cover;flex:0 0 auto;
+ box-shadow:0 0 0 2px rgba(95,227,255,.4),0 0 14px rgba(95,227,255,.25);background:#0a101a}
+.ggside .bub-login .sub{display:block;font-size:11px;font-weight:500;color:#8b93a1;margin-top:1px}
+.ggside .note{margin-top:auto;padding:14px 10px 0;font-size:11.5px;line-height:1.45;color:#7a8494}
+@media (prefers-reduced-motion:reduce){
+ .ggside .bub,.ggside .bub .bico,.ggside .bub-login,.ggside .px{transition:none!important;animation:none!important}
+ .ggside .bub:hover .bico{animation:none}
+}
+
+/* floating GitHub / Discord (gg-common injects Discord next to .wa) */
+.wa{position:fixed;right:16px;bottom:18px;z-index:80;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:rgba(10,14,22,.88);border:1px solid rgba(255,255,255,.14);box-shadow:0 10px 28px rgba(0,0,0,.45);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.wa.dc{bottom:74px;background:rgba(88,101,242,.92);border-color:rgba(255,255,255,.18)}
+.wa svg{width:22px;height:22px}
+@media (max-width:700px){.wa{right:12px;bottom:14px;width:44px;height:44px}.wa.dc{bottom:66px}}
+
+/* hero */
+.hero{position:relative;min-height:min(72vh,640px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.hero-bg,.hero-bg img{position:absolute;inset:0;width:100%;height:100%}
+.hero-bg img{object-fit:cover;transform:scale(1.08);filter:saturate(1.05);transition:opacity .8s ease,transform 8s ease;opacity:0}
+.hero-bg img.on{opacity:1}
+.hero-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,7,12,.92) 0%,rgba(5,7,12,.55) 42%,rgba(5,7,12,.2) 70%,rgba(5,7,12,.55) 100%),linear-gradient(180deg,rgba(5,7,12,.15) 0%,rgba(5,7,12,.2) 40%,rgba(5,7,12,.95) 100%),radial-gradient(ellipse at 70% 40%,rgba(40,160,210,.18),transparent 55%)}
+.hero-inner{position:relative;z-index:2;width:100%;margin:0;padding:48px 4% 64px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:5px 11px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#bff6ff;background:rgba(95,227,255,.1);border:1px solid rgba(95,227,255,.28);margin-bottom:14px}
+.eyebrow i{color:#5fe3ff}
+.hero h1{max-width:min(52vw,820px);font-size:clamp(32px,4.2vw,72px);font-weight:900;letter-spacing:-.02em;line-height:1.05;margin-bottom:12px;text-shadow:0 8px 40px rgba(0,0,0,.55)}
+.hero p{max-width:min(40vw,620px);font-size:clamp(15px,1.05vw,18px);line-height:1.55;color:#c4cad6;margin-bottom:22px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.play{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 22px;border-radius:14px;font-size:15px;font-weight:700;background:linear-gradient(to top,#9ad9ec 1px,#61daef 4px,#0596b3 8px,#0a2a37 18px,#0a111d 100%);box-shadow:0 0 0 1px rgba(152,218,234,.3),0 8px 28px rgba(20,180,225,.35)}
+.play:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.ghost-btn{display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 18px;border-radius:14px;font-size:14px;font-weight:600;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04)}
+.ghost-btn:hover{background:rgba(255,255,255,.08)}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;font-size:12px;color:#9aa3b2}
+.hero-meta span{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+.hero-dots{position:absolute;right:4%;bottom:28px;z-index:3;display:flex;gap:7px;align-items:center}
+.hero-dots button{cursor:pointer;transition:width .25s,background .25s}
+.hero-arrow{position:absolute;top:50%;z-index:3;width:44px;height:44px;margin-top:-22px;border-radius:50%;display:grid;place-items:center;background:rgba(5,8,14,.55);border:1px solid rgba(255,255,255,.16);color:#fff;font-size:16px;opacity:.75;transition:opacity .2s,background .2s;cursor:pointer}
+.hero-arrow:hover{opacity:1;background:rgba(95,227,255,.18)}
+.hero-arrow.prev{left:1%}.hero-arrow.next{right:1%}
+.hero-dots button{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.28)}
+.hero-dots button.on{background:#5fe3ff;box-shadow:0 0 10px rgba(95,227,255,.7);width:22px;border-radius:999px}
+/* 24px tap targets around the 8px dots (padding is transparent: background-clip keeps the same visual dot) */
+.hero-dots{gap:0}.hero-dots button{box-sizing:content-box;padding:8px;background-clip:content-box}.hero-dots button.on{box-shadow:none;filter:drop-shadow(0 0 5px rgba(95,227,255,.7))}
+
+/* rows */
+.shelf{width:100%;margin:0;padding:8px 0 6px}
+.shelf-head{display:flex;align-items:baseline;justify-content:space-between;padding:0 4% 12px}
+.shelf-head h2{font-size:18px;font-weight:800;letter-spacing:-.01em}
+.shelf-head a{font-size:12.5px;font-weight:600;color:#5fe3ff;opacity:.9}
+.rail-wrap{position:relative}
+.rarr{position:absolute;top:4px;bottom:22px;z-index:5;width:4%;min-width:36px;display:grid;place-items:center;font-size:22px;color:#fff;background:linear-gradient(90deg,rgba(5,7,12,.85),rgba(5,7,12,.35));opacity:0;transition:opacity .2s,background .2s;cursor:pointer}
+.rarr.r{right:0;background:linear-gradient(270deg,rgba(5,7,12,.85),rgba(5,7,12,.35))}.rarr.l{left:0}
+.rarr:hover{background:rgba(5,7,12,.8)}.rarr:hover i{transform:scale(1.25)}.rarr i{transition:transform .2s}
+.rail-wrap:hover .rarr,.rarr:focus-visible{opacity:1}
+.rarr[hidden]{display:none}
+@media (hover:none){.rarr{display:none!important}}
+.rail{display:flex;gap:14px;overflow-x:auto;padding:4px 4% 22px;scroll-padding:0 4%;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.pcard{flex:0 0 148px;scroll-snap-align:start;border:0;padding:0;text-align:left;border-radius:16px;overflow:hidden;position:relative;background:#0c111a;box-shadow:0 10px 28px rgba(0,0,0,.35);transition:transform .28s cubic-bezier(.2,.8,.2,1),box-shadow .28s}
+.pcard .shot{position:relative;aspect-ratio:3/4;overflow:hidden;background:#101622}
+.pcard .shot img{width:100%;height:100%;object-fit:cover;transform:scale(1.05);transition:transform 4.5s ease}
+.pcard:hover{transform:translateY(-8px) scale(1.04);z-index:2;box-shadow:0 18px 40px rgba(0,0,0,.55),0 0 0 1px rgba(95,227,255,.35),0 0 28px rgba(40,180,230,.22)}
+.pcard:hover .shot img{transform:scale(1.18) translate3d(-4%,-3%,0)}
+.pcard .grad{position:absolute;left:0;right:0;bottom:0;height:55%;background:linear-gradient(180deg,transparent,rgba(4,7,12,.95));pointer-events:none}
+.pcard .info{position:absolute;left:0;right:0;bottom:0;padding:12px 11px 11px;z-index:1}
+.pcard .info b{display:block;font-size:12.5px;font-weight:700;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pcard .dchips{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.pcard .dchips span{font-size:9.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#9aa3b2;padding:2px 6px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}
+.pcard .chip{position:absolute;left:8px;top:8px;z-index:1;padding:3px 7px;border-radius:999px;font-size:10px;font-weight:700;background:rgba(5,8,14,.72);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(6px)}
+@media (min-width:900px){.pcard{flex-basis:168px}}
+@media (min-width:1400px){.pcard{flex-basis:200px}}
+@media (min-width:1800px){.pcard{flex-basis:224px}}
+
+.footwrap{width:100%;margin:8px 0 48px;padding:0 4%}
+.footcta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;padding:20px 22px;border-radius:18px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(14,20,32,.7),rgba(8,12,20,.85));margin-bottom:18px}
+.footcta b{display:block;font-size:15px;margin-bottom:4px}
+.footcta p{color:#9aa3b2;font-size:13px}
+.footcta .btn{display:inline-grid;place-items:center;height:44px;padding:0 18px;border-radius:13px;font-size:14px;font-weight:600;background:linear-gradient(to top,#3ec8e4 0,#0596b3 40%,#0a2a37 100%);box-shadow:0 0 0 1px rgba(152,218,234,.25)}
+.kofi{text-align:center;margin:0 0 12px;font-size:13.5px;color:#9aa6b8}
+.kofi a{color:#5fe3ff;font-weight:600}
+.foot{text-align:center;color:#6f7887;font-size:12.5px;line-height:1.7}
+.foot a{color:#9aa3b2}.foot a:hover{color:#5fe3ff}
+
+@media (max-width:1080px){
+ /* old burger removed — premium menu only */
+ .navmenu{display:none;position:absolute;left:12px;right:12px;top:68px;padding:14px;border-radius:18px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,rgba(11,15,22,.985),rgba(7,10,16,.99));box-shadow:0 26px 60px rgba(0,0,0,.55);z-index:120}
+ .nav.open .navmenu{display:none} /* premium slide-out replaces dropdown */
+ .links{flex-direction:column;align-items:stretch;gap:4px;margin:0 0 12px}
+ .links a,.links button.suggest{padding:12px 10px;border-radius:10px;text-align:left}
+ .links a:hover,.links button.suggest:hover{background:rgba(255,255,255,.05)}
+ #navPlay{width:100%;height:46px}
+ .search-mini{display:none}
+ .nav-spacer{display:none}
+}
+@media (max-width:700px){
+ .nav{padding:8px 8px}.hero-inner{padding:36px 16px 44px}.hero h1{font-size:30px}
+ .shelf-head,.rail,.footwrap{padding-left:16px;padding-right:16px}.pcard{flex-basis:132px}.hero-dots{right:16px;bottom:16px}
+ .footcta{flex-direction:column;align-items:stretch}.footcta .btn{width:100%}
+}
+@media (prefers-reduced-motion:reduce){
+ .boot-ghost,.boot-bar i{animation:none}.pcard,.pcard .shot img,.hero-bg img{transition:none}
+ .pcard:hover .shot img{transform:scale(1.06)}
+}
+
+body{background:radial-gradient(1200px 600px at 75% -10%,rgba(40,160,210,.13),transparent 60%),#05070c}
+.gp{width:100%;max-width:1240px;margin:0 auto;padding:0 4% 24px}
+.crumb{display:flex;align-items:center;gap:8px;font-size:13px;color:#7e8796;padding:26px 0 20px;flex-wrap:wrap}
+.crumb a{color:#a9aeb5;display:inline-flex;align-items:center;min-height:32px}.crumb a:hover{color:#fff}
+.dh{display:grid;grid-template-columns:minmax(240px,340px) 1fr;gap:44px;align-items:start}
+.dcover{position:relative;aspect-ratio:3/4;border-radius:22px;overflow:hidden;background:linear-gradient(160deg,var(--c1),var(--c2));box-shadow:0 30px 70px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.12);margin:0;cursor:pointer}
+.dcover.off{cursor:default;filter:grayscale(.85) brightness(.6)}
+.dcover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 4.5s ease}
+.dcover:not(.off):hover img{transform:scale(1.08)}
+.dcover .vig{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 60%,rgba(0,0,0,.55));pointer-events:none}
+.dinfo .kick{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#7fdcf2}
+.pill.w{color:#0c0f16;background:rgba(255,255,255,.92);border-color:transparent;letter-spacing:.06em}
+.pill.dv{color:#c4cad6;letter-spacing:.04em}.pill i{color:#5fe3ff}
+.pill.st i{width:7px;height:7px;border-radius:50%;background:#22c55e}.pill.st.iss i{background:#f59e0b}.pill.st.off i{background:#ef4444}.pill.st{color:#dfe5ee;letter-spacing:.04em}
+.dinfo h1{margin:14px 0 10px;font-size:clamp(30px,4.4vw,56px);font-weight:900;letter-spacing:-.02em;line-height:1.05;text-shadow:0 8px 40px rgba(0,0,0,.55)}
+.dinfo .lead{color:#c4cad6;font-size:16px;line-height:1.6;max-width:640px}
+.down{margin-top:16px;padding:14px 16px;border-radius:14px;border:1px solid rgba(239,68,68,.4);background:rgba(239,68,68,.08);color:#fecaca;font-size:14px;line-height:1.55;max-width:640px}.down b{color:#fff}
+.acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;align-items:center}
+.acts .play[aria-disabled="true"]{filter:grayscale(1) brightness(.7);cursor:not-allowed}
+.acts .ggfav{width:48px;height:48px;border-radius:14px;font-size:17px}
+.gmodes{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.gmodes .ghost-btn{height:42px;font-size:13px}.gmodes b{color:#5fe3ff}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:22px;max-width:640px}
+.facts div{padding:12px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03)}
+.facts dt{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#7e8796}.facts dd{margin-top:4px;font-size:13.5px;font-weight:600;color:#e9eef6}
+.dtags{display:flex;gap:6px;flex-wrap:wrap;margin-top:18px}
+.dtags a{min-height:32px;display:inline-flex;align-items:center;padding:0 12px;border-radius:999px;border:1px dashed rgba(255,255,255,.18);color:rgba(255,255,255,.82);font-size:12px;font-weight:500}.dtags a:hover{border-style:solid;border-color:rgba(95,227,255,.6);color:#fff}
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:44px}
+.panel{padding:22px;border-radius:20px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01))}
+.panel.wide{grid-column:1/-1}
+.panel h2{font-size:15px;font-weight:700;margin-bottom:14px}.panel h2 i{color:#5fe3ff;margin-right:8px}
+.panel p{color:#c3c8d0;font-size:14px;line-height:1.7}
+.ctl{display:grid;grid-template-columns:auto 1fr;gap:10px 16px;align-items:center;font-size:13.5px;color:#c3c8d0}
+kbd{display:inline-block;padding:5px 10px;border-radius:9px;border:1px solid rgba(255,255,255,.16);border-bottom-width:2px;background:rgba(255,255,255,.05);font:600 12px Poppins,PoppinsFB,sans-serif;color:#fff;white-space:nowrap}
+.tips{list-style:none;display:grid;gap:10px}.tips li{position:relative;padding-left:18px;font-size:13.5px;line-height:1.6;color:#c3c8d0}.tips li::before{content:"";position:absolute;left:2px;top:9px;width:6px;height:6px;border-radius:50%;background:#5fe3ff;box-shadow:0 0 8px rgba(95,227,255,.6)}
+.note{font-size:12px;color:#7e8796;margin-top:12px}
+.dshot{margin:18px 0 0;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:#000}.dshot img{display:block;width:100%;height:auto;max-height:560px;object-fit:contain;background:#000}.dshot figcaption{padding:10px 16px;font-size:12px;color:#7e8796;background:rgba(10,14,22,.9)}
+.more{margin-top:44px}.more .shelf-head,.more .rail{padding-left:0;padding-right:0}
+.more .shelf-head a{min-height:32px;display:inline-flex;align-items:center}
+.gp .footwrap{padding:0}
+@media (max-width:900px){.dh{grid-template-columns:1fr;gap:24px}.dcover{max-width:300px;width:100%;margin:0 auto}.panels{grid-template-columns:1fr}}
+@media (max-width:700px){.gp{padding:0 16px 16px}.crumb{padding:16px 0 14px}.dcover{max-width:220px}.dinfo h1{font-size:30px}.acts .play{flex:1 1 auto;justify-content:center}.panel{padding:18px}.facts{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body data-game="pacman">
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav" id="nav">
+  <a class="brand" href="../../?classic=1" aria-label="GhostGames classic home">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="sw" x1="8" y1="8" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#8ef4ff"/><stop offset=".5" stop-color="#35d8ff"/><stop offset="1" stop-color="#0a86d8"/></linearGradient><linearGradient id="sw2" x1="40" y1="10" x2="10" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#a6f7ff"/><stop offset="1" stop-color="#0f9ae0" stop-opacity=".25"/></linearGradient></defs><g transform="rotate(-32 24 24)"><ellipse cx="24" cy="24" rx="19.5" ry="9.6" fill="none" stroke="url(#sw2)" stroke-width="3.1" stroke-linecap="round" stroke-dasharray="58 30" stroke-dashoffset="14"/><circle cx="42.4" cy="20.6" r="3.1" fill="#bff6ff"/></g><path d="M24 14.2c-5.4 0-8.6 4-8.6 9v10.6l2.9-2.2 2.85 2.2 2.85-2.2 2.85 2.2 2.85-2.2 2.9 2.2V23.2c0-5-3.2-9-8.6-9Z" fill="url(#sw)"/><circle cx="21" cy="23" r="1.7" fill="#04202c"/><circle cx="27" cy="23" r="1.7" fill="#04202c"/></svg>
+    <span class="wm"><span class="kick">GHOST</span><span class="name">GAMES</span></span>
+  </a>
+  <a class="home-ico" href="../../../home/" aria-label="Premium home"><i class="fa-solid fa-house" aria-hidden="true"></i></a>
+  <div class="nav-actions">
+    <a class="nav-act" href="../../games/" aria-label="Browse"><i class="fa-solid fa-compass" aria-hidden="true"></i><span class="lbl">Browse</span></a>
+    <a class="nav-act" href="../../games/" aria-label="Search" data-gg-search><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><span class="lbl">Search</span></a>
+    <a class="nav-act" href="https://ko-fi.com/ghostgamesapp" target="_blank" rel="noopener" aria-label="Support"><i class="fa-solid fa-mug-hot" aria-hidden="true"></i><span class="lbl">Support</span></a>
+    <button type="button" class="nav-login" id="navLogin" aria-label="Log in">
+      <img id="navAv" src="../../icons/icon-192.png" alt="">
+    </button>
+    <button type="button" class="ggmenubtn" id="ggMenuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="ggSide">
+      <span class="hb" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="gico" aria-hidden="true"><i class="fa-solid fa-ghost"></i></span>
+    </button>
+  </div>
+  <!-- keep hidden stubs so older JS / auth mount points don't throw -->
+  <div class="navmenu" id="navmenu" hidden></div>
+  <a class="cta" href="../../games/" id="navPlay" hidden><span>Play now</span></a>
+</header>
+
+<div class="ggside" id="ggSide" hidden>
+  <div class="veil" data-close="1"></div>
+  <aside class="panel" role="dialog" aria-modal="true" aria-labelledby="ggSideT">
+    <div class="ph">
+      <img class="mark-img" src="../../icons/icon-192.png" alt="" width="48" height="48">
+      <div><b id="ggSideT">GhostGames</b><span>Play · Browse · Sync</span></div>
+      <button type="button" class="px" id="ggSideX" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="bubbles">
+      <a class="bub c-cyan" href="../../../home/"><span class="bico"><i class="fa-solid fa-house" aria-hidden="true"></i></span><span>Home</span></a>
+      <a class="bub c-purple" href="../../games/"><span class="bico"><i class="fa-solid fa-table-cells-large" aria-hidden="true"></i></span><span>All games</span></a>
+      <a class="bub c-blue" href="../../games/" data-gg-search><span class="bico"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></span><span>Search</span></a>
+      <button type="button" class="bub c-teal" id="ggSidePlay"><span class="bico"><i class="fa-solid fa-play" aria-hidden="true"></i></span><span>Play now</span></button>
+      <div class="genre-wrap">
+        <button type="button" class="bub genre-toggle" id="ggGenreBtn" aria-expanded="false" aria-controls="ggGenreDrop">
+          <span class="bico"><i class="fa-solid fa-tags" aria-hidden="true"></i></span>
+          <span class="gtxt">Genres</span>
+          <i class="fa-solid fa-chevron-down gchev" aria-hidden="true"></i>
+        </button>
+        <div class="genre-drop" id="ggGenreDrop" hidden>
+          <a class="bub bub-sm" href="../../games/?cat=Zombies"><span class="bico"><i class="fa-solid fa-biohazard" aria-hidden="true"></i></span><span>Zombies</span></a>
+          <a class="bub bub-sm" href="../../games/?cat=FPS"><span class="bico"><i class="fa-solid fa-crosshairs" aria-hidden="true"></i></span><span>FPS</span></a>
+          <a class="bub bub-sm" href="../../games/?cat=Open%20World"><span class="bico"><i class="fa-solid fa-globe" aria-hidden="true"></i></span><span>Open World</span></a>
+          <a class="bub bub-sm" href="../../games/?cat=Co-op"><span class="bico"><i class="fa-solid fa-users" aria-hidden="true"></i></span><span>Co-op</span></a>
+          <a class="bub bub-sm" href="../../retro/"><span class="bico"><i class="fa-solid fa-gamepad" aria-hidden="true"></i></span><span>Retro</span></a>
+        </div>
+      </div>
+      <button type="button" class="bub c-yellow" id="ggSideGotd"><span class="bico"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i></span><span>Game of the day</span></button>
+      <button type="button" class="bub c-cyan" data-profile><span class="bico"><i class="fa-solid fa-ghost" aria-hidden="true"></i></span><span>My GhostGames</span></button>
+      <a class="bub c-pink" href="../../games/?fav=1"><span class="bico"><i class="fa-solid fa-heart" aria-hidden="true"></i></span><span>Favourites</span></a>
+      <button type="button" class="bub c-red" data-suggest><span class="bico"><i class="fa-regular fa-lightbulb" aria-hidden="true"></i></span><span>Suggest a game</span></button>
+      <div class="sep"></div>
+      <button type="button" class="bub-login" id="ggSideLogin">
+        <img class="av" id="ggSideAv" src="../../icons/icon-192.png" alt="" width="42" height="42">
+        <span><span id="ggSideLoginTxt">Log in</span><span class="sub" id="ggSideLoginSub">Sync favourites across devices</span></span>
+      </button>
+      <a class="bub c-indigo" href="https://discord.gg/zenclipsdaily-arc-raiders-store-bloodstrike-1408818003591827539" target="_blank" rel="noopener"><span class="bico"><i class="fa-brands fa-discord" aria-hidden="true"></i></span><span>Discord</span></a>
+      <a class="bub c-red" href="https://ko-fi.com/ghostgamesapp" target="_blank" rel="noopener"><span class="bico"><i class="fa-solid fa-mug-hot" aria-hidden="true"></i></span><span>Support</span></a>
+      <button type="button" class="bub c-blue" id="ggSideHelp"><span class="bico"><i class="fa-solid fa-circle-question" aria-hidden="true"></i></span><span>Help</span></button>
+      <a class="bub c-cyan" href="../../?classic=1"><span class="bico"><i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i></span><span>Classic homepage</span></a>
+    </div>
+    <p class="note">Tip: on return visits this session, the classic intro is skipped automatically.</p>
+  </aside>
+</div>
+
+
+<main class="gp" id="main" tabindex="-1">
+<nav class="crumb" aria-label="Breadcrumb"><a href="../../home/">Home</a><span aria-hidden="true">/</span><a href="../../games/">All games</a><span aria-hidden="true">/</span><a href="../../games/?cat=Arcade">Arcade</a><span aria-hidden="true">/</span><span aria-current="page">Pac-Man</span></nav>
+<section class="dh">
+<figure class="dcover" id="dCover" style="--c1:#1e293b;--c2:#05070c"><img src="../../covers/pacman.webp" width="384" height="640" alt="Pac-Man cover art" fetchpriority="high" decoding="async"><span class="vig"></span></figure>
+<div class="dinfo">
+<div class="kick"><span class="pill">Arcade</span><span class="pill w">New</span><span class="pill st on" title="Online"><i aria-hidden="true"></i>Online</span><span class="pill dv"><i class="fa-solid fa-desktop" aria-hidden="true"></i><i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i>PC + Mobile</span></div>
+<h1>Pac-Man</h1>
+<p class="lead">Classic maze chase: eat the dots, dodge the ghosts.</p>
+
+<div class="acts"><a class="play" id="dPlay" href="https://www.miniplay.com/embed/pacman" target="_blank" rel="noopener nofollow"><i class="fa-solid fa-play" aria-hidden="true"></i> Play now</a><button type="button" class="ggfav" data-fav="pacman" aria-pressed="false" aria-label="Add Pac-Man to favourites"><i class="fa-regular fa-heart" aria-hidden="true"></i></button><a class="ghost-btn" href="https://www.miniplay.com/embed/pacman" target="_blank" rel="noopener nofollow"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Open in new tab</a></div>
+
+<dl class="facts"><div><dt>Category</dt><dd>Arcade</dd></div><div><dt>Device</dt><dd>PC and mobile</dd></div><div><dt>Status</dt><dd>Online</dd></div><div><dt>How it plays</dt><dd>Embedded GhostGames player</dd></div></dl>
+<div class="dtags"><a href="../../games/?tags=Retro">#Retro</a><a href="../../games/?tags=Classic">#Classic</a><a href="../../games/?tags=Single%20player">#Single player</a><a href="../../games/?tags=2D">#2D</a></div>
+</div>
+</section>
+<section class="panels">
+<div class="panel wide"><h2><i class="fa-solid fa-circle-info" aria-hidden="true"></i>About Pac-Man</h2><p>The classic maze arcade game: eat every dot while the colorful ghosts chase you. Grab a power pellet to turn the tables and eat the ghosts for extra points, and pick up cherries for bonus points.</p></div>
+<div class="panel"><h2><i class="fa-solid fa-keyboard" aria-hidden="true"></i>Controls</h2><div class="ctl"><kbd>Arrow keys</kbd><span>Move</span></div></div>
+<div class="panel"><h2><i class="fa-solid fa-lightbulb" aria-hidden="true"></i>Tips</h2><ul class="tips"><li>Save the power pellets for when the ghosts are close.</li></ul></div>
+<div class="panel wide" id="trouble"><h2><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>Game not loading?</h2><ul class="tips"><li>Reload the game: a fresh start fixes most stuck loading screens.</li><li>Chrome or Edge on PC work best. Turn off ad blockers and privacy shields for this site.</li><li>Click inside the game to give it keyboard and mouse focus. Press Esc to release the mouse.</li></ul></div>
+</section>
+<section class="shelf more" aria-labelledby="moreH"><div class="shelf-head"><h2 id="moreH">More like this</h2><a href="../../games/?cat=Arcade">More Arcade</a></div><div class="rail-wrap"><div class="rail"><a class="pcard" href="../wasm-arcade/" data-id="wasm-arcade" aria-label="WASM Arcade"><div class="shot"><img src="../../covers/sm/wasm-arcade.webp" alt="" loading="lazy" decoding="async" width="192" height="320"><span class="chip">Hub</span><div class="grad"></div><div class="info"><b>WASM Arcade</b><div class="dchips"><span>Arcade</span><span>PC</span></div></div></div></a><a class="pcard" href="../super-monkey-ball/" data-id="super-monkey-ball" aria-label="Super Monkey Ball"><div class="shot"><img src="../../covers/sm/super-monkey-ball.webp" alt="" loading="lazy" decoding="async" width="192" height="320"><span class="chip">New</span><div class="grad"></div><div class="info"><b>Super Monkey Ball</b><div class="dchips"><span>Arcade</span><span>PC</span></div></div></div></a><a class="pcard" href="../pokesurvivor/" data-id="pokesurvivor" aria-label="PokéSurvivor"><div class="shot"><img src="../../covers/pokesurvivor.webp" alt="" loading="lazy" decoding="async" width="384" height="640"><span class="chip">New</span><div class="grad"></div><div class="info"><b>PokéSurvivor</b><div class="dchips"><span>Arcade</span><span>Mobile</span></div></div></div></a><a class="pcard" href="../pokebonk/" data-id="pokebonk" aria-label="PokéBonk"><div class="shot"><img src="../../covers/pokebonk.webp" alt="" loading="lazy" decoding="async" width="384" height="640"><span class="chip">New</span><div class="grad"></div><div class="info"><b>PokéBonk</b><div class="dchips"><span>Arcade</span><span>Mobile</span></div></div></div></a><a class="pcard" href="../meccha-chameleon/" data-id="meccha-chameleon" aria-label="Meccha Chameleon"><div class="shot"><img src="../../covers/meccha-chameleon.webp" alt="" loading="lazy" decoding="async" width="384" height="640"><span class="chip">New</span><div class="grad"></div><div class="info"><b>Meccha Chameleon</b><div class="dchips"><span>Arcade</span><span>Mobile</span></div></div></div></a><a class="pcard" href="../sonic-mania-plus/" data-id="sonic-mania-plus" aria-label="Sonic Mania Plus"><div class="shot"><img src="../../covers/sonic-mania-plus.webp" alt="" loading="lazy" decoding="async" width="384" height="640"><span class="chip">New</span><div class="grad"></div><div class="info"><b>Sonic Mania Plus</b><div class="dchips"><span>Retro</span><span>Mobile</span></div></div></div></a><a class="pcard" href="../bo1-zombies/" data-id="bo1-zombies" aria-label="BO1 Zombies Hub"><div class="shot"><img src="../../covers/sm/bo1-zombies.webp" alt="" loading="lazy" decoding="async" width="192" height="320"><span class="chip">Popular</span><div class="grad"></div><div class="info"><b>BO1 Zombies Hub</b><div class="dchips"><span>Zombies</span><span>PC</span></div></div></div></a><a class="pcard" href="../halo-ce/" data-id="halo-ce" aria-label="Halo: Combat Evolved"><div class="shot"><img src="../../covers/sm/halo-ce.webp" alt="" loading="lazy" decoding="async" width="192" height="320"><span class="chip">Retro</span><div class="grad"></div><div class="info"><b>Halo: Combat Evolved</b><div class="dchips"><span>FPS</span><span>PC</span></div></div></div></a></div></div></section>
+<div class="footwrap" style="margin-top:40px">
+  <div class="footcta">
+    <div><b>Missing a game?</b><p>Tell us about a browser port and we'll look at adding it.</p></div>
+    <button type="button" class="btn" data-suggest><span>Suggest a game</span></button>
+  </div>
+  <p class="kofi"><i class="fa-solid fa-mug-hot" aria-hidden="true" style="color:#ff5e5b"></i>&nbsp; Enjoying GhostGames? <a href="https://ko-fi.com/ghostgamesapp" target="_blank" rel="noopener">Support us on Ko-fi</a></p>
+  <p class="foot">
+    <a href="../../games/">All games</a> ·
+    <a href="https://github.com/GhostFaceModz/GhostGames" target="_blank" rel="noopener">GitHub</a> ·
+    <a href="https://discord.gg/zenclipsdaily-arc-raiders-store-bloodstrike-1408818003591827539" target="_blank" rel="noopener">Discord</a> ·
+    <a href="../../privacy/">Privacy</a> ·
+    <a href="../../?classic=1">Classic intro</a>
+  </p>
+</div>
+
+<a class="wa" href="https://github.com/GhostFaceModz/GhostGames" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 16 16" fill="#fff" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg></a>
+
+
+<script src="../../gg-data.js" defer></script>
+<script src="../../gg-common.js" defer></script>
+<script src="../../gg-page.js" defer></script>
+<script src="../../gg-online.js" defer></script>
+<script src="../../gg-config.js" defer></script>
+<script src="../../gg-auth.js" defer></script>
+</body>
+</html>
