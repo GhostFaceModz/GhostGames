@@ -6,10 +6,18 @@
 var API='https://abacus.jasoncameron.dev',NS='ghostgames-gfz',el,last=null,OWNER='zanebarker1331@gmail.com';
 /* hide any #ggOnline before first paint / auth resolves (no flash for non-owners) */
 (function(){var s=document.createElement('style');s.id='ggOnHide';s.textContent='#ggOnline:not(.ggown),.ggon:not(.ggown){display:none!important}';(document.head||document.documentElement).appendChild(s)})();
-function email(){var u=null;try{if(window.GGAuth&&GGAuth.user)u=GGAuth.user()}catch(e){}
+/* Owner Discord user ids (snowflakes), for Discord logins whose email differs. Unknown for now, so empty:
+   the owner check relies on email (Discord accounts normally share zanebarker1331@gmail.com). */
+var OWNER_DISCORD_IDS=[];
+function curUser(){var u=null;try{if(window.GGAuth&&GGAuth.user)u=GGAuth.user()}catch(e){}
  if(!u){try{var j=JSON.parse(localStorage.getItem('gg-auth')||'null');u=j&&(j.user||(j.currentSession&&j.currentSession.user))||null}catch(e){}}
- return u&&u.email?String(u.email).toLowerCase():''}
-function gate(){var on=email()===OWNER;if(el){el.classList.toggle('ggown',on);if(on)el.removeAttribute('hidden');else el.setAttribute('hidden','')}}
+ return u}
+function isOwner(u){if(!u)return false;var m=u.user_metadata||{},ids=u.identities||[],em=[u.email,m.email],dc=[];
+ ids.forEach(function(i){var d=i&&i.identity_data||{};em.push(d.email);if(i&&i.provider==='discord')dc.push(i.id,d.provider_id,d.sub)});
+ if((u.app_metadata&&u.app_metadata.provider)==='discord'||ids.some(function(i){return i&&i.provider==='discord'}))dc.push(m.provider_id,m.sub);
+ if(em.some(function(e){return e&&String(e).toLowerCase()===OWNER}))return true;
+ return dc.some(function(x){return x&&OWNER_DISCORD_IDS.indexOf(String(x))>-1})}
+function gate(){var on=isOwner(curUser());if(el){el.classList.toggle('ggown',on);if(on)el.removeAttribute('hidden');else el.setAttribute('hidden','')}}
 function css(){if(document.getElementById('ggOnCss'))return;var s=document.createElement('style');s.id='ggOnCss';
  s.textContent='.ggon{display:inline-flex;align-items:center;gap:7px;font:600 12px Poppins,system-ui,sans-serif;color:#dfe9f5;background:rgba(10,14,22,.78);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:5px 11px;line-height:1;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}'+
  '.ggon i{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 0 rgba(34,197,94,.6);animation:ggonp 2s infinite}'+
