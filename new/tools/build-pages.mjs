@@ -20,6 +20,10 @@ const ORIGIN = 'https://ghostgames.app';
 const SITE = ORIGIN + '/ghostgames/';
 /* self-hosted Poppins (+ metric-matched PoppinsFB fallback) and Font Awesome: no third-party render-blocking CSS */
 const FONTFACE = fs.readFileSync(path.join(GG, 'vendor/fonts/fontface.tpl.css'), 'utf8');
+/* Font Awesome subset (only icons GhostGames uses), inlined so the game pages have no render-blocking CSS request */
+import {execFileSync} from 'node:child_process';
+execFileSync(process.execPath, [path.join(HERE, 'fa-subset.mjs')], {stdio: 'inherit'});
+const FACSS = fs.readFileSync(path.join(GG, 'vendor/fa/css/fa-subset.tpl.css'), 'utf8');
 
 /* ---------- data ---------- */
 const ctx = {window: {}};
@@ -186,7 +190,7 @@ function page(g) {
 <link rel="preload" as="image" href="${BASE}covers/${g.id}.webp"${imgSrcset ? ` imagesrcset="${BASE}covers/sm/${g.id}.webp 192w, ${BASE}covers/${g.id}.webp 384w" imagesizes="(max-width:700px) 220px, 340px"` : ''} fetchpriority="high">
 <link rel="preload" href="${BASE}vendor/fonts/poppins-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="${BASE}vendor/fonts/poppins-900.woff2" as="font" type="font/woff2" crossorigin>
 <style id="ggfonts">${FONTFACE.replaceAll('__B__', BASE)}</style>
-<link rel="stylesheet" href="${BASE}vendor/fa/css/all.min.css">
+<style id="ggfa">${FACSS.replaceAll('__FA__', BASE + 'vendor/fa/webfonts/')}</style>
 <script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>
 <style>${baseCss}${PAGE_CSS}</style>
 </head>

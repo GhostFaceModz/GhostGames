@@ -220,7 +220,7 @@ window.GG_GAMES=[
 "category": "FPS",
 "url": "https://vibeslops.luckeysystems.com",
 "external": true,
-"icon": "fa-crosshair",
+"icon": "fa-crosshairs",
 "badge": "Hot",
 "color": "from-orange-600 to-neutral-900",
 "description": "Black Ops 2 web assembly test client featuring FPS multiplayer gameplay mechanics.",

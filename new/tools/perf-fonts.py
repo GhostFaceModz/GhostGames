@@ -23,7 +23,7 @@ for f,b in pages.items():
         else:
             # no Google Fonts link (privacy page): just add the faces after <meta charset>
             s=s.replace('<meta charset="utf-8">','<meta charset="utf-8">'+style,1)
-    s=s.replace('href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"','href="%svendor/fa/css/all.min.css"'%b)
+    s=s.replace('href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"','href="%svendor/fa/css/fa-subset.min.css"'%b)
     s=re.sub(r'Poppins,(?!PoppinsFB)','Poppins,PoppinsFB,',s);s=re.sub(r'Poppins;','Poppins,PoppinsFB;',s)
     if s!=o:open(p,'w').write(s);print('patched',f)
 for f in ['gg-site.css','gg-common.js','gg-auth.js','gg-online.js']:
