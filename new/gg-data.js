@@ -3516,5 +3516,73 @@ window.GG_GAMES=[
 "io"
 ],
 "order": 88
+},
+{
+"id": "stardew-valley",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Stardew Valley",
+"category": "Simulation",
+"url": "https://www.miniplay.com/embed/stardew-valley",
+"icon": "fa-seedling",
+"badge": "New",
+"color": "from-green-500 to-amber-800",
+"description": "Inherit your grandfather's run-down farm in Pelican Town: plant and harvest crops, raise animals, fish, mine for ore and befriend the townsfolk as the seasons change. Choose a light no-sound download or the full version with music.",
+"blurb": "Cosy farming life sim in Pelican Town.",
+"tags": [
+"Farming",
+"Chill",
+"Pixel Art",
+"Simulation"
+],
+"order": 89
+},
+{
+"id": "uno",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "UNO Online",
+"category": "Card",
+"url": "https://www.miniplay.com/embed/uno",
+"icon": "fa-layer-group",
+"badge": "New",
+"color": "from-red-500 to-yellow-600",
+"description": "UNO-style card game (4 Colors): match cards by colour or number, play +2, skip, reverse and wild cards, and be first to empty your hand. Play online multiplayer or train against AI opponents.",
+"blurb": "Classic colour-matching card game, online or vs AI.",
+"tags": [
+"Card",
+"Multiplayer",
+"Casual"
+],
+"order": 90
+},
+{
+"id": "firestone-idle-rpg",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Firestone Idle RPG",
+"category": "RPG",
+"url": "https://www.miniplay.com/embed/firestone-idle-rpg",
+"icon": "fa-hat-wizard",
+"badge": "New",
+"color": "from-purple-600 to-indigo-900",
+"description": "Idle clicker RPG: recruit and upgrade a party of fantasy heroes who keep fighting waves of enemies even while you are away, then spend the loot on upgrades, guardians and expeditions. Progress is saved to your online account.",
+"blurb": "Fantasy idle clicker RPG with a hero party.",
+"tags": [
+"Idle",
+"RPG",
+"Fantasy",
+"Clicker"
+],
+"order": 91
 }
 ];
