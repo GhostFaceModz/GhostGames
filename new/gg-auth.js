@@ -21,9 +21,9 @@ function css(){var s=document.createElement('style');s.textContent=
 '.ggau .dd a,.ggau .dd button{display:flex;gap:10px;align-items:center;width:100%;padding:10px 12px;border:0;border-radius:10px;background:none;color:#dfe5ee;font:500 14px inherit;font-family:inherit;text-decoration:none;cursor:pointer;text-align:left}'+
 '.ggau .dd a:hover,.ggau .dd button:hover{background:rgba(255,255,255,.06);color:#fff}'+
 '.ggam{position:fixed;inset:0;z-index:2600;display:none;place-items:center;background:rgba(0,0,0,.6);padding:16px}.ggam.open{display:grid}'+
-'.ggam .bx{position:relative;width:min(360px,100%);padding:26px 22px 20px;border-radius:22px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,#0d121b,#080b12);color:#e9eef6;text-align:center;font-family:Poppins,system-ui,sans-serif}'+
+'.ggam .bx{position:relative;width:min(360px,100%);padding:26px 22px 20px;border-radius:22px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,#0d121b,#080b12);color:#e9eef6;text-align:center;font-family:Poppins,PoppinsFB,system-ui,sans-serif}'+
 '.ggam .ggam-ghost{width:64px;height:64px;border-radius:50%;object-fit:cover;margin:0 auto 12px;display:block;box-shadow:0 0 0 2px rgba(95,227,255,.4),0 0 28px rgba(95,227,255,.35);background:#0a101a}.ggam h2{margin:0 0 6px;font-size:20px}.ggam p{margin:0 0 18px;color:#9aa6b8;font-size:13.5px;line-height:1.5}'+
-'.ggam .pb{display:flex;gap:10px;align-items:center;justify-content:center;width:100%;height:46px;border-radius:14px;border:0;font:600 15px Poppins,system-ui,sans-serif;cursor:pointer;margin-top:10px}'+
+'.ggam .pb{display:flex;gap:10px;align-items:center;justify-content:center;width:100%;height:46px;border-radius:14px;border:0;font:600 15px Poppins,PoppinsFB,system-ui,sans-serif;cursor:pointer;margin-top:10px}'+
 '.ggam .pd{background:#5865F2;color:#fff}.ggam .pd:hover{background:#4752c4}.ggam .pg{background:#fff;color:#1f1f1f}'+
 '.ggam .x{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#fff;font-size:18px;cursor:pointer}'+
 '.ggam [hidden]{display:none!important}.ggam .er{color:#fca5a5;font-size:12.5px;margin-top:10px;min-height:1em}';document.head.appendChild(s)}
@@ -71,8 +71,10 @@ function T(n){return sb.from(n)}
 var FSK='gg:favSync';
 function favBase(uid){var p=GG.get(FSK,null);return p&&p.uid===uid?p.ids:null}
 function favSaved(uid,ids){GG.set(FSK,{uid:uid,ids:ids.slice()})}
-function mergeDays(uid){T('play_days').select('day').then(function(r){
-  if(r.error){daysOk=false;if(!missing(r.error))console.warn('[gg-auth] play_days sync error',r.error);return}
+function mergeDays(uid){var nd=GG.get('gg:noDays',0);if(nd&&Date.now()-nd<6*36e5){daysOk=false;return} /* table not created yet: re-check at most every 6 h */
+ T('play_days').select('day').then(function(r){
+  if(r.error){daysOk=false;if(missing(r.error))GG.set('gg:noDays',Date.now());else console.warn('[gg-auth] play_days sync error',r.error);return}
+  GG.set('gg:noDays',0);
   daysOk=true;var rd=r.data.map(function(x){return String(x.day).slice(0,10)}),ld=GG.days(),ch=false;
   rd.forEach(function(k){if(ld.indexOf(k)<0){GG.addDay(k);ch=true}});
   var up=ld.filter(function(k){return rd.indexOf(k)<0});if(up.length)T('play_days').upsert(up.map(function(k){return{user_id:uid,day:k}}),{ignoreDuplicates:true}).then(function(){});

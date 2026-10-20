@@ -18,8 +18,8 @@ const GG = path.resolve(HERE, '..');            // ghostgames/
 const REPO = path.resolve(GG, '..');            // repo root, served at https://ghostgames.app/
 const ORIGIN = 'https://ghostgames.app';
 const SITE = ORIGIN + '/ghostgames/';
-const FA = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
-const FONTS = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap';
+/* self-hosted Poppins (+ metric-matched PoppinsFB fallback) and Font Awesome: no third-party render-blocking CSS */
+const FONTFACE = fs.readFileSync(path.join(GG, 'vendor/fonts/fontface.tpl.css'), 'utf8');
 
 /* ---------- data ---------- */
 const ctx = {window: {}};
@@ -124,7 +124,7 @@ body{background:radial-gradient(1200px 600px at 75% -10%,rgba(40,160,210,.13),tr
 .panel h2{font-size:15px;font-weight:700;margin-bottom:14px}.panel h2 i{color:#5fe3ff;margin-right:8px}
 .panel p{color:#c3c8d0;font-size:14px;line-height:1.7}
 .ctl{display:grid;grid-template-columns:auto 1fr;gap:10px 16px;align-items:center;font-size:13.5px;color:#c3c8d0}
-kbd{display:inline-block;padding:5px 10px;border-radius:9px;border:1px solid rgba(255,255,255,.16);border-bottom-width:2px;background:rgba(255,255,255,.05);font:600 12px Poppins,sans-serif;color:#fff;white-space:nowrap}
+kbd{display:inline-block;padding:5px 10px;border-radius:9px;border:1px solid rgba(255,255,255,.16);border-bottom-width:2px;background:rgba(255,255,255,.05);font:600 12px Poppins,PoppinsFB,sans-serif;color:#fff;white-space:nowrap}
 .tips{list-style:none;display:grid;gap:10px}.tips li{position:relative;padding-left:18px;font-size:13.5px;line-height:1.6;color:#c3c8d0}.tips li::before{content:"";position:absolute;left:2px;top:9px;width:6px;height:6px;border-radius:50%;background:#5fe3ff;box-shadow:0 0 8px rgba(95,227,255,.6)}
 .note{font-size:12px;color:#7e8796;margin-top:12px}
 .dshot{margin:18px 0 0;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:#000}.dshot img{display:block;width:100%;height:auto;max-height:560px;object-fit:contain;background:#000}.dshot figcaption{padding:10px 16px;font-size:12px;color:#7e8796;background:rgba(10,14,22,.9)}
@@ -182,12 +182,11 @@ function page(g) {
 <meta property="og:image" content="${coverAbs(g)}"><meta property="og:image:width" content="384"><meta property="og:image:height" content="640"><meta property="og:image:alt" content="${esc(g.title)} cover art">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(g.title)} | GhostGames"><meta name="twitter:description" content="${esc(desc)}"><meta name="twitter:image" content="${coverAbs(g)}">
 <meta name="theme-color" content="#7c3aed">
-<link rel="manifest" href="${BASE}manifest.json"><link rel="apple-touch-icon" href="${BASE}icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="${BASE}icons/icon-192.png"><link rel="manifest" href="${BASE}manifest.json"><link rel="apple-touch-icon" href="${BASE}icons/apple-touch-icon.png">
 <link rel="preload" as="image" href="${BASE}covers/${g.id}.webp"${imgSrcset ? ` imagesrcset="${BASE}covers/sm/${g.id}.webp 192w, ${BASE}covers/${g.id}.webp 384w" imagesizes="(max-width:700px) 220px, 340px"` : ''} fetchpriority="high">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-<link rel="stylesheet" href="${FONTS}" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="${FA}" crossorigin="anonymous" referrerpolicy="no-referrer" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="${FONTS}"><link rel="stylesheet" href="${FA}"></noscript>
+<link rel="preload" href="${BASE}vendor/fonts/poppins-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="${BASE}vendor/fonts/poppins-900.woff2" as="font" type="font/woff2" crossorigin>
+<style id="ggfonts">${FONTFACE.replaceAll('__B__', BASE)}</style>
+<link rel="stylesheet" href="${BASE}vendor/fa/css/all.min.css">
 <script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>
 <style>${baseCss}${PAGE_CSS}</style>
 </head>

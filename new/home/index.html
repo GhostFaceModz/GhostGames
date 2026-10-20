@@ -5,12 +5,12 @@
 <title>GhostGames — Play instantly in your browser</title>
 <meta name="description" content="GhostGames: a free library of browser games. Zombies, shooters, open worlds, no installs. Play CoD Zombies, Halo, Quake, GTA and more right in your browser.">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" type="image/png" sizes="192x192" href="../icons/icon-192.png">
 <link rel="canonical" href="https://ghostgames.app/ghostgames/home/">
+<link rel="preload" as="image" href="../covers/gta-v-web.webp" fetchpriority="high">
 <link rel="manifest" href="../manifest.json"><link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="preload" href="../vendor/fonts/poppins-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="../vendor/fonts/poppins-900.woff2" as="font" type="font/woff2" crossorigin><style id="ggfonts">@font-face{font-family:'Poppins';font-style:normal;font-weight:400;font-display:swap;src:url(../vendor/fonts/poppins-400.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'Poppins';font-style:normal;font-weight:500;font-display:swap;src:url(../vendor/fonts/poppins-500.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'Poppins';font-style:normal;font-weight:600;font-display:swap;src:url(../vendor/fonts/poppins-600.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'Poppins';font-style:normal;font-weight:700;font-display:swap;src:url(../vendor/fonts/poppins-700.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'Poppins';font-style:normal;font-weight:800;font-display:swap;src:url(../vendor/fonts/poppins-800.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'Poppins';font-style:normal;font-weight:900;font-display:swap;src:url(../vendor/fonts/poppins-900.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:PoppinsFB;src:local('Arial'),local('ArialMT'),local('Liberation Sans'),local('LiberationSans'),local('Arimo'),local('Helvetica');size-adjust:112.16%;ascent-override:93.62%;descent-override:31.21%;line-gap-override:8.92%}</style>
+<link rel="stylesheet" href="../vendor/fa/css/all.min.css">
 <meta property="og:type" content="website"><meta property="og:site_name" content="GhostGames">
 <meta property="og:title" content="GhostGames: Browser Games Library"><meta property="og:description" content="Play classic and WebAssembly games right in your browser: CoD Zombies, Halo, Quake, GTA Vice City and more. No downloads, no account.">
 <meta property="og:url" content="https://ghostgames.app/ghostgames/home/"><meta property="og:image" content="https://ghostgames.app/ghostgames/og-image.png">
@@ -20,7 +20,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{min-height:100%;font-family:Poppins,system-ui,sans-serif;background:#05070c;color:#fff;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{min-height:100%;font-family:Poppins,PoppinsFB,system-ui,sans-serif;background:#05070c;color:#fff;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 img{display:block;max-width:100%}
@@ -125,7 +125,7 @@ img{display:block;max-width:100%}
 .ggside .bub{display:flex;align-items:center;gap:12px;width:100%;padding:8px 12px 8px 8px;border-radius:999px;
  border:1px solid rgba(95,227,255,.16);background:rgba(10,14,22,.72);
  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
- color:#e8eef6;font:600 13.5px Poppins,system-ui,sans-serif;text-align:left;cursor:pointer;text-decoration:none;
+ color:#e8eef6;font:600 13.5px Poppins,PoppinsFB,system-ui,sans-serif;text-align:left;cursor:pointer;text-decoration:none;
  box-shadow:0 4px 12px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.04);
  transition:transform .22s cubic-bezier(.2,.8,.2,1),box-shadow .22s,border-color .22s,background .22s;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .ggside .bub .bico{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;font-size:15px;color:#5fe3ff;
@@ -152,7 +152,7 @@ img{display:block;max-width:100%}
 .ggside .sep{height:1px;margin:12px 8px;background:linear-gradient(90deg,transparent,rgba(95,227,255,.2),transparent);border:0}
 .ggside .bub-login{display:flex;align-items:center;gap:12px;width:100%;margin-top:4px;padding:10px 14px 10px 10px;border-radius:999px;
  border:1px solid rgba(95,227,255,.28);background:rgba(10,16,26,.82);
- color:#fff;font:700 14px Poppins,system-ui,sans-serif;cursor:pointer;text-align:left;
+ color:#fff;font:700 14px Poppins,PoppinsFB,system-ui,sans-serif;cursor:pointer;text-align:left;
  box-shadow:0 4px 16px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.05);transition:transform .22s,box-shadow .22s,border-color .22s}
 .ggside .bub-login:hover{transform:translateY(-2px) scale(1.02);border-color:rgba(95,227,255,.5);
  box-shadow:0 0 22px rgba(95,227,255,.2),0 10px 26px rgba(0,0,0,.35)}
@@ -197,6 +197,8 @@ img{display:block;max-width:100%}
 .hero-arrow.prev{left:1%}.hero-arrow.next{right:1%}
 .hero-dots button{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.28)}
 .hero-dots button.on{background:#5fe3ff;box-shadow:0 0 10px rgba(95,227,255,.7);width:22px;border-radius:999px}
+/* 24px tap targets around the 8px dots (padding is transparent: background-clip keeps the same visual dot) */
+.hero-dots{gap:0}.hero-dots button{box-sizing:content-box;padding:8px;background-clip:content-box}.hero-dots button.on{box-shadow:none;filter:drop-shadow(0 0 5px rgba(95,227,255,.7))}
 
 /* rows */
 .shelf{width:100%;margin:0;padding:8px 0 6px}
@@ -340,13 +342,13 @@ img{display:block;max-width:100%}
   <div class="hero-veil"></div>
   <div class="hero-inner">
     <div class="eyebrow" id="heroEye"><i class="fa-solid fa-fire" aria-hidden="true"></i> Top pick</div>
-    <h1 id="heroTitle">Loading…</h1>
-    <p id="heroBlurb"></p>
+    <h1 id="heroTitle">GTA V (browser port)</h1>
+    <p id="heroBlurb">GTA V in your browser. Weak PC? Low-graphics mode. Free roam? Sandbox mode.</p>
     <div class="hero-actions">
       <button type="button" class="play" id="heroPlay"><i class="fa-solid fa-play" aria-hidden="true"></i> Play now</button>
       <a class="ghost-btn" id="heroMore" href="#"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Details</a>
     </div>
-    <div class="hero-meta" id="heroMeta"></div>
+    <div class="hero-meta" id="heroMeta"><span><i class="fa-solid fa-fire" aria-hidden="true"></i> Trending</span><span><i class="fa-solid fa-desktop" aria-hidden="true"></i> PC</span></div>
   </div>
   <button type="button" class="hero-arrow prev" id="heroPrev" aria-label="Previous featured game"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
   <button type="button" class="hero-arrow next" id="heroNext" aria-label="Next featured game"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
@@ -354,6 +356,7 @@ img{display:block;max-width:100%}
 </section>
 
 <main id="rows"></main>
+<style>#rows:empty{min-height:110vh}</style>
 
 <div class="footwrap">
   <div class="footcta">
@@ -432,7 +435,7 @@ function showHero(i){clearInterval(heroTimer);renderHero(i);heroTimer=setInterva
 
 function cardHtml(g){
   return '<a class="pcard" href="../g/'+esc(g.id)+'/" data-id="'+esc(g.id)+'" aria-label="Play '+esc(g.title)+'">'+
-    '<div class="shot"><img src="'+esc(cover(g))+'" alt="" loading="lazy" width="384" height="512" decoding="async">'+
+    '<div class="shot"><img src="'+esc(cover(g))+'" srcset="'+esc(GG.sm?GG.sm(g):cover(g))+' 192w, '+esc(cover(g))+' 384w" sizes="(min-width:1800px) 224px, (min-width:1400px) 200px, (min-width:900px) 168px, 132px" alt="" loading="lazy" width="384" height="512" decoding="async">'+
     (g.badge?'<span class="chip">'+esc(g.badge)+'</span>':'')+
     '<div class="grad"></div><div class="info"><b>'+esc(g.title)+'</b>'+deviceChipLabels(g)+'</div></div></a>';
 }
