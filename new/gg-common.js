@@ -175,6 +175,12 @@ function discord(){var gh=document.querySelector('.wa:not(.dc)');if(!gh||documen
 
 /* ---- Suggest a game (FormSubmit AJAX, mailto fallback) ---- */
 var FS='https://formsubmit.co/ajax/zanebarker1331@gmail.com',sg=null,sgLast=null;
+/* Discord DM via the GhostGames bot (Supabase Edge Function) first, FormSubmit email copy in parallel; success if either lands */
+var GGN='https://rswtambjckwmlagydsvf.supabase.co/functions/v1/gg-notify';
+function ggSend(nd,fd){
+ var a=fetch(GGN,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(nd)}).then(function(r){return r.json().then(function(j){if(!r.ok||!j||j.ok!==true)throw 0;return j})});
+ var b=fetch(FS,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(fd)}).then(function(r){return r.json().then(function(j){if(!r.ok||String(j.success)!=='true')throw 0;return j})});
+ return new Promise(function(res,rej){var n=0;function f(){if(++n===2)rej(0)}a.then(res,f);b.then(res,f)})}
 function mailto(d){return 'mailto:zanebarker1331@gmail.com?subject='+encodeURIComponent('GhostGames suggestion')+'&body='+encodeURIComponent('Game: '+(d.name||'')+'\nURL: '+(d.url||'')+'\nNote: '+(d.note||'')+'\nFrom: '+(d.email||''))}
 function openSuggest(){
  if(!sg){sg=document.createElement('div');sg.className='modal sg';sg.id='suggest';sg.setAttribute('role','dialog');sg.setAttribute('aria-modal','true');sg.setAttribute('aria-labelledby','sgT');
@@ -196,7 +202,7 @@ function openSuggest(){
    if(bad){bad.focus();$('sgMsg').className='msg';$('sgMsg').textContent='Please fix the highlighted fields.';return}
    var d={name:$('sgName').value.trim(),url:$('sgUrl').value.trim(),note:$('sgNote').value.trim(),email:$('sgEmail').value.trim(),_subject:'GhostGames suggestion',_honey:$('sgHoney').value,_template:'table',_captcha:'false'};
    var btn=$('sgSend');btn.disabled=true;$('sgMsg').className='msg';$('sgMsg').textContent='Sending…';
-   fetch(FS,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(d)}).then(function(r){return r.json().then(function(j){if(!r.ok||String(j.success)!=='true')throw 0;return j})})
+   ggSend({type:'suggest',name:d.name,url:d.url,note:d.note,email:d.email,page:location.href,_honey:d._honey},d)
    .then(function(){$('sgMsg').className='msg ok';$('sgMsg').textContent='Thanks! Your suggestion was sent.';$('sgForm').reset()})
    .catch(function(){$('sgMsg').className='msg';$('sgMsg').innerHTML='Couldn\'t send right now. <a href="'+esc(mailto(d))+'">Email it instead</a>.'})
    .then(function(){btn.disabled=false});
@@ -282,7 +288,8 @@ function openReport(id){var g=BY[id];if(!g)return;rpG=g;
   $('rpForm').addEventListener('submit',function(e){e.preventDefault();var g=rpG,di=devInfo();
    var d={_subject:'GhostGames broken game report: '+g.title,game:g.title,game_id:g.id,game_url:absUrl(g.url),page:location.href,browser:di.browser+' on '+di.os,device:di.device,user_agent:di.ua,note:$('rpNote').value.trim()||'(none)',_honey:$('rpHoney').value,_template:'table',_captcha:'false'};
    var btn=$('rpSend');btn.disabled=true;$('rpMsg').className='msg';$('rpMsg').textContent='Sending…';
-   fetch(FS,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(d)}).then(function(r){return r.json().then(function(j){if(!r.ok||String(j.success)!=='true')throw 0;return j})})
+   var rn=$('rpNote').value.trim().slice(0,800);
+   ggSend({type:'report',name:g.title,game_id:g.id,url:d.game_url,note:(rn||'(no details)')+'\n\n'+d.browser+' · '+d.device,page:d.page,_honey:d._honey},d)
    .then(function(){$('rpForm').reset();$('rpMsg').textContent='';close();toast('Thanks! Report sent for '+g.title+'.')})
    .catch(function(){var mt='mailto:zanebarker1331@gmail.com?subject='+encodeURIComponent(d._subject)+'&body='+encodeURIComponent('Game: '+d.game+' ('+d.game_id+')\nGame URL: '+d.game_url+'\nPage: '+d.page+'\nBrowser: '+d.browser+'\nDevice: '+d.device+'\nNote: '+d.note);$('rpMsg').className='msg';$('rpMsg').innerHTML='Couldn\'t send right now. <a href="'+esc(mt)+'">Email it instead</a>.'})
    .then(function(){btn.disabled=false})});
