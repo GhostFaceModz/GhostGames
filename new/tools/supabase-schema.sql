@@ -1,6 +1,6 @@
 -- GhostGames account sync schema (Supabase). Safe to re-run: everything is "if not exists" / "drop … if exists".
 -- Run in Supabase Dashboard -> SQL editor. profiles / favourites / recent / votes already exist on the live project;
--- the NEW part needed for cross-device play streaks is the play_days block at the bottom.
+-- play_days and play_events (bottom) were applied on 2026-10-20 (with the GhostGames Discord bot stats work).
 create table if not exists public.profiles(
   id uuid primary key references auth.users(id) on delete cascade,
   username text, avatar_url text, updated_at timestamptz not null default now());
@@ -68,3 +68,23 @@ create policy "own play days" on public.play_days for all to authenticated
   using ((select auth.uid()) = user_id) with check ((select auth.uid()) = user_id);
 grant select,insert,update,delete on public.play_days to authenticated;
 revoke all on public.play_days from anon;
+
+-- ===================== play events (per-user play counts for the Discord bot /stats & leaderboards) =====================
+-- One row per game launch by a logged-in user. Users can insert/read only their own rows; no update/delete.
+-- A trigger sets played_at server-side and drops spam (same game within 30 s, >300 launches / 24 h).
+-- Applied live from ghostgames-bot/supabase/migrations/20261020010000_gg_site_play_tracking.sql (canonical copy there).
+create table if not exists public.play_events(
+  id bigint generated always as identity primary key,
+  user_id uuid not null references auth.users(id) on delete cascade default auth.uid(),
+  game_id text not null check (game_id ~ '^[a-z0-9][a-z0-9-]{0,79}$'),
+  played_at timestamptz not null default now());
+create index if not exists play_events_user_time on public.play_events(user_id, played_at desc);
+alter table public.play_events enable row level security;
+drop policy if exists "insert own play events" on public.play_events;
+create policy "insert own play events" on public.play_events for insert to authenticated
+  with check ((select auth.uid()) = user_id);
+drop policy if exists "read own play events" on public.play_events;
+create policy "read own play events" on public.play_events for select to authenticated
+  using ((select auth.uid()) = user_id);
+revoke all on public.play_events from anon, authenticated;
+grant select, insert on public.play_events to authenticated;

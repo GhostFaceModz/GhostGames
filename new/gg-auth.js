@@ -1,11 +1,11 @@
 /* GhostGames accounts: Supabase Auth (Discord; Google behind GG_CONFIG.GG_AUTH_GOOGLE) + sync of
    favourites / recently played / votes / play days (streak). Falls back to localStorage-only if the tables
    aren't there. Schema + RLS: tools/supabase-schema.sql (play_days is optional: without it the streak still
-   works per device, plus days derived from synced recently-played timestamps).
-   TODO(owner): run the play_days block of tools/supabase-schema.sql once in the Supabase SQL editor. */
+   works per device, plus days derived from synced recently-played timestamps). Logged-in game launches are also
+   recorded to play_events (insert-own-only) for the GhostGames Discord bot's /stats, ranks and leaderboards. */
 (function(){
 var C=window.GG_CONFIG||{},GG=window.GG;if(!C.SUPABASE_URL||!GG)return;
-var sb=null,user=null,tablesOk=null,daysOk=null,lastMerge=0,els=[],modal,ready;
+var sb=null,user=null,tablesOk=null,daysOk=null,evOk=null,lastMerge=0,els=[],modal,ready;
 var DISCORD_SVG='<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3l-.6 1.3a18.4 18.4 0 0 0-5.5 0L8.6 3a19.7 19.7 0 0 0-4.9 1.5C.6 9.1-.3 13.6.1 18.1a19.9 19.9 0 0 0 6 3l1.3-2a12.9 12.9 0 0 1-2-1l.5-.4a14.2 14.2 0 0 0 12.2 0l.5.4c-.6.4-1.3.7-2 1l1.3 2a19.8 19.8 0 0 0 6-3c.5-5.2-.9-9.7-3.6-13.7ZM8.3 15.3c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Zm7.4 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Z"/></svg>';
 var GOOGLE_SVG='<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#EA4335" d="M12 10.2v3.9h5.5c-.2 1.3-1.6 3.8-5.5 3.8-3.3 0-6-2.7-6-6.1s2.7-6.1 6-6.1c1.9 0 3.1.8 3.8 1.5l2.6-2.5C16.8 3.2 14.6 2.2 12 2.2 6.6 2.2 2.2 6.6 2.2 12s4.4 9.8 9.8 9.8c5.7 0 9.4-4 9.4-9.6 0-.6-.1-1.1-.2-1.6H12Z"/></svg>';
 function css(){var s=document.createElement('style');s.textContent=
@@ -111,6 +111,8 @@ function hooks(){
   var uid=user.id,done=function(r){if(r&&!r.error)favSaved(uid,GG.favs())};
   if(d.on)T('favourites').upsert({user_id:uid,game_id:d.id},{ignoreDuplicates:true}).then(done);else T('favourites').delete().eq('user_id',uid).eq('game_id',d.id).then(done)});
  document.addEventListener('gg:recent',function(e){if(!user||!tablesOk||(e.detail&&e.detail.sync))return;var r=GG.get('gg:recent',[])[0];if(r)T('recent').upsert({user_id:user.id,game_id:r.id,played_at:new Date(r.t).toISOString()}).then(function(){});
+  /* one play_events row per launch (own rows only, RLS); feeds Discord /stats, ranks and leaderboards */
+  if(r&&evOk!==false&&Date.now()-r.t<60000)T('play_events').insert({user_id:user.id,game_id:r.id}).then(function(x){if(x&&x.error&&missing(x.error))evOk=false});
   if(r&&daysOk)T('play_days').upsert({user_id:user.id,day:GG.dayKey(r.t)},{ignoreDuplicates:true}).then(function(){})});
  /* pick up changes made on another device when the tab comes back (at most once a minute) */
  document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'&&user&&tablesOk!==false&&Date.now()-lastMerge>60000)merge()});
