@@ -3584,5 +3584,47 @@ window.GG_GAMES=[
 "Clicker"
 ],
 "order": 91
+},
+{
+"id": "nazi-zombies-portable",
+"external": true,
+"devices": [
+"pc"
+],
+"status": "online",
+"title": "Nazi Zombies: Portable",
+"category": "Zombies",
+"url": "https://nzp-team.github.io/",
+"icon": "fa-skull",
+"badge": "New",
+"color": "from-red-800 to-stone-900",
+"description": "A free, open-source Nazi Zombies-style survival game you can play in the browser. Made by the nzp-team fan project: survive wave after wave of zombies, buy weapons off the walls, open doors and try the Mystery Box. Opens in a new tab; click to begin, then choose Solo. Best on a desktop browser with hardware acceleration.",
+"blurb": "Free open-source CoD-style Zombies survival in your browser.",
+"tags": [
+"Zombies",
+"Shooter",
+"Single player",
+"3D",
+"Open Source"
+],
+"controls": [
+[
+"W A S D",
+"Move"
+],
+[
+"Mouse",
+"Aim / shoot"
+],
+[
+"R",
+"Reload"
+],
+[
+"E",
+"Buy / interact"
+]
+],
+"order": 92
 }
 ];
