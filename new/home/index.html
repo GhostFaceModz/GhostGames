@@ -5,6 +5,7 @@
 <title>GhostGames — Play instantly in your browser</title>
 <meta name="description" content="GhostGames: a free library of browser games. Zombies, shooters, open worlds, no installs. Play CoD Zombies, Halo, Quake, GTA and more right in your browser.">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="canonical" href="https://ghostgames.app/ghostgames/home/">
 <link rel="manifest" href="../manifest.json"><link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,9 +13,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
 <meta property="og:type" content="website"><meta property="og:site_name" content="GhostGames">
 <meta property="og:title" content="GhostGames: Browser Games Library"><meta property="og:description" content="Play classic and WebAssembly games right in your browser: CoD Zombies, Halo, Quake, GTA Vice City and more. No downloads, no account.">
-<meta property="og:url" content="https://ghostfacemodz.github.io/GhostGames/new/home/"><meta property="og:image" content="https://ghostfacemodz.github.io/GhostGames/new/og-image.png">
+<meta property="og:url" content="https://ghostgames.app/ghostgames/home/"><meta property="og:image" content="https://ghostgames.app/ghostgames/og-image.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://ghostfacemodz.github.io/GhostGames/new/og-image.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://ghostgames.app/ghostgames/og-image.png">
 <meta name="theme-color" content="#7c3aed">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -419,7 +420,7 @@ function renderHero(i){
   document.getElementById('heroEye').innerHTML=g.id==='gta-v-web'?'<i class="fa-solid fa-fire" aria-hidden="true"></i> Top pick':'<i class="fa-solid fa-star" aria-hidden="true"></i> Featured';
   document.getElementById('heroTitle').textContent=g.title;
   document.getElementById('heroBlurb').textContent=g.blurb||g.description||'';
-  document.getElementById('heroMore').href='../game/?id='+encodeURIComponent(g.id);
+  document.getElementById('heroMore').href='../g/'+encodeURIComponent(g.id)+'/';
   document.getElementById('heroPlay').onclick=function(){if(GG&&GG.openGame)GG.openGame(g);else location.href=g.url};
   document.getElementById('heroMeta').innerHTML=deviceChips(g);
   var dots=document.getElementById('heroDots');
@@ -429,10 +430,10 @@ function renderHero(i){
 function showHero(i){clearInterval(heroTimer);renderHero(i);heroTimer=setInterval(function(){renderHero(si+1)},6500)}
 
 function cardHtml(g){
-  return '<button type="button" class="pcard" data-id="'+esc(g.id)+'" aria-label="Play '+esc(g.title)+'">'+
+  return '<a class="pcard" href="../g/'+esc(g.id)+'/" data-id="'+esc(g.id)+'" aria-label="Play '+esc(g.title)+'">'+
     '<div class="shot"><img src="'+esc(cover(g))+'" alt="" loading="lazy" width="384" height="512" decoding="async">'+
     (g.badge?'<span class="chip">'+esc(g.badge)+'</span>':'')+
-    '<div class="grad"></div><div class="info"><b>'+esc(g.title)+'</b>'+deviceChipLabels(g)+'</div></div></button>';
+    '<div class="grad"></div><div class="info"><b>'+esc(g.title)+'</b>'+deviceChipLabels(g)+'</div></div></a>';
 }
 function row(title,list,moreHref){
   if(!list||!list.length) return '';
@@ -448,7 +449,8 @@ function bindRails(root){
   });
 }
 function bindCards(root){
-  root.addEventListener('click',function(e){var c=e.target.closest('.pcard');if(!c)return;var g=GG&&GG.BY[c.getAttribute('data-id')];if(g&&GG.openGame)GG.openGame(g)});
+  /* cards link to the game's page (crawlable / new-tab friendly); a plain click plays straight away */
+  root.addEventListener('click',function(e){var c=e.target.closest('.pcard');if(!c)return;if(e.button>0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var g=GG&&GG.BY[c.getAttribute('data-id')];if(g&&GG.openGame){e.preventDefault();GG.openGame(g)}});
 }
 
 function mount(){
@@ -480,6 +482,7 @@ function mount(){
       }
     }
     function openAuth(){
+      if(GG&&GG.accountClick){GG.accountClick();setTimeout(syncSideLogin,400);return}
       var u=window.GGAuth&&GGAuth.user&&GGAuth.user();
       if(u){var me=document.querySelector('.ggme');if(me)me.click();else if(window.GGAuth&&GGAuth.open)GGAuth.open()}
       else if(window.GGAuth&&GGAuth.open)GGAuth.open();

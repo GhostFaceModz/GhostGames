@@ -36,6 +36,7 @@ function applyStatus(root){Array.prototype.forEach.call((root||document).querySe
 function devHtml(g){var d=g.devices||['pc'];return '<span class="dev" title="'+(d.indexOf('mobile')>=0?'PC and mobile':'PC only')+'"><i class="fa-solid fa-desktop" aria-hidden="true"></i>'+(d.indexOf('mobile')>=0?'<i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i>':'')+'<span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">'+(d.indexOf('mobile')>=0?'Plays on PC and mobile':'PC only')+'</span></span>'+padHtml(g)}
 function padHtml(g){return g.controller?'<span class="ggpad" title="Controller supported"><i class="fa-solid fa-gamepad" aria-hidden="true"></i><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Controller supported</span></span>':''}
 function sm(g){return BASE+'covers/sm/'+g.id+'.webp'}
+function gpage(g){return BASE+'g/'+(typeof g==='string'?g:g.id)+'/'}
 function imgAttrs(g,sizes,eager){return 'src="'+g.cover+'" srcset="'+sm(g)+' 192w, '+g.cover+' 384w" sizes="'+sizes+'" width="384" height="640" decoding="async"'+(eager?(eager==='high'?' fetchpriority="high"':''):' loading="lazy"')}
 function card(g){
  var T=esc(g.title.replace(/\s*\(.*?\)\s*/g,' ').trim());
@@ -46,11 +47,14 @@ function card(g){
   '<span class="cat">'+esc(g.category)+'</span>'+(g.off?'<span class="chip">Down</span>':(g.badge?'<span class="chip">'+esc(g.badge)+'</span>':''))+
   (g.off?'':'<span class="ctp" aria-hidden="true"><span class="eq"><b></b><b></b><b></b><b></b></span>Click to play</span>')+
   '<span class="meta"><span class="ico"><i class="fa-solid '+g.icon+'"></i>'+stHtml(g)+devHtml(g)+'</span><span class="ttl">'+T+'</span><span class="ggps" data-ps="'+g.id+'">'+psHtml(g.id)+'</span><span class="blurb">'+esc(g.blurb||'')+'</span><span class="play">'+state+'</span></span>'+
-  '<button type="button" class="hit" aria-label="'+esc(lbl)+'"'+(g.off?' aria-disabled="true" title="'+esc(g.note||'Offline')+'"':'')+'></button>'+
-  '<span class="side">'+heart(g.id)+'<a class="info" href="'+BASE+'game/?id='+g.id+'" aria-label="Details: '+esc(g.title)+'"><i class="fa-solid fa-circle-info" aria-hidden="true"></i></a></span>'+
+  '<a class="hit" href="'+gpage(g)+'" aria-label="'+esc(g.off?g.title+' (down, details)':lbl)+'"'+(g.off?' title="'+esc(g.note||'Offline')+'"':'')+'></a>'+
+  '<span class="side">'+heart(g.id)+'<a class="info" href="'+gpage(g)+'" aria-label="Details: '+esc(g.title)+'"><i class="fa-solid fa-circle-info" aria-hidden="true"></i></a></span>'+
   '<span class="edge"></span></div>';
 }
-function bindCards(root){root.addEventListener('click',function(e){if(e.target.closest('.side'))return;var c=e.target.closest('.card');if(!c)return;var g=BY[c.getAttribute('data-id')];if(g&&!g.off)openGame(g)})}
+/* cards are real links to the game's page (crawlable, middle-click / new tab works); a plain click plays */
+function bindCards(root){root.addEventListener('click',function(e){if(e.target.closest('.side'))return;var c=e.target.closest('.card');if(!c)return;var g=BY[c.getAttribute('data-id')];if(!g)return;
+ if(e.button>0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+ e.preventDefault();if(g.off)location.href=gpage(g);else openGame(g)})}
 
 /* ---- injected CSS for shared widgets ---- */
 var css='.modal{position:fixed;inset:0;z-index:2000;display:none;background:rgba(2,3,6,.78);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}.modal.open{display:flex;flex-direction:column}'+
@@ -365,7 +369,7 @@ function sRender(q){
 function sPick(id){
   var g=BY[id];if(!g)return;
   closeSearch();
-  if(g.off){location.href=BASE+'game/?id='+encodeURIComponent(g.id);return}
+  if(g.off){location.href=gpage(g);return}
   openGame(g);
 }
 function openSearch(prefill){
@@ -398,7 +402,18 @@ document.addEventListener('click',function(e){
   openSearch();
 },true);
 
-window.GG={syncHearts:syncHearts,get:get,set:set,BASE:BASE,GAMES:GAMES,BY:BY,esc:esc,RM:RM,recent:recent,record:record,plays:plays,favs:favs,isFav:isFav,toggleFav:toggleFav,heart:heart,
+/* ---- account button (premium nav avatar + side menu): logged in = My GhostGames panel, else log in ---- */
+function authUser(){try{return window.GGAuth&&GGAuth.user&&GGAuth.user()||null}catch(e){return null}}
+function userMeta(u){var m=u&&u.user_metadata||{};return{name:(m.custom_claims&&m.custom_claims.global_name)||m.full_name||m.name||m.user_name||(u&&u.email||'Player').split('@')[0],av:m.avatar_url||m.picture||''}}
+function accountClick(){if(window.GG&&GG.openProfile&&authUser()){GG.openProfile();return}if(window.GGAuth&&GGAuth.open)GGAuth.open();else{var b=document.querySelector('.ggli');if(b)b.click()}}
+function syncAccountUI(){var u=authUser(),ghost=BASE+'icons/icon-192.png',m=u?userMeta(u):null;
+ var nav=$('navAv'),nb=$('navLogin'),img=$('ggSideAv'),txt=$('ggSideLoginTxt'),sub=$('ggSideLoginSub');
+ if(nav&&nav.getAttribute('src')!==(m&&m.av||ghost)){nav.setAttribute('referrerpolicy','no-referrer');nav.src=m&&m.av||ghost}if(nb)nb.setAttribute('aria-label',m?'My GhostGames ('+m.name+')':'Log in');
+ if(img&&img.getAttribute('src')!==(m&&m.av||ghost)){img.setAttribute('referrerpolicy','no-referrer');img.src=m&&m.av||ghost}if(txt)txt.textContent=m?m.name:'Log in';if(sub)sub.textContent=m?'My GhostGames · favourites, streak, log out':'Sync favourites across devices'}
+document.addEventListener('gg:auth',syncAccountUI);
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',syncAccountUI);else syncAccountUI();
+
+window.GG={gpage:gpage,accountClick:accountClick,syncAccountUI:syncAccountUI,authUser:authUser,userMeta:userMeta,syncHearts:syncHearts,get:get,set:set,BASE:BASE,GAMES:GAMES,BY:BY,esc:esc,RM:RM,recent:recent,record:record,plays:plays,favs:favs,isFav:isFav,toggleFav:toggleFav,heart:heart,
  probe:probe,stHtml:stHtml,applyStatus:applyStatus,card:card,bindCards:bindCards,openGame:openGame,closeGame:closeGame,openSuggest:openSuggest,stars:stars,burger:burger,DISCORD:DISCORD,helpHtml:helpHtml,
  need:need,cnt:cnt,pcount:pcount,score:score,psHtml:psHtml,rateHtml:rateHtml,vote:vote,myVote:myVote,fmt:fmt,toast:toast,gotd:gotd,gotdPool:gotdPool,openReport:openReport,getDock:getDock,imgAttrs:imgAttrs,padHtml:padHtml,sm:sm,openSearch:openSearch,closeSearch:closeSearch};
 })();

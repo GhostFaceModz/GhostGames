@@ -2,6 +2,7 @@
 <html lang="en-US">
 <head>
 <meta charset="utf-8">
+<meta name="robots" content="noindex,follow">
 <title>Game — GhostGames</title>
 <meta name="description" id="mDesc" content="Play this browser game instantly on GhostGames. No installs.">
 <meta property="og:type" content="website">
@@ -102,6 +103,8 @@ $('links').innerHTML=CATS.map(function(c,i){return '<a href="../games/'+(c==='Al
 var closeMenu=GG.burger($('nav'),$('burger'));
 function onScroll(){document.body.classList.toggle('scrolled',scrollY>40)}window.addEventListener('scroll',onScroll,{passive:true});onScroll();
 var id=new URLSearchParams(location.search).get('id'),g=BY[id],SITE='https://ghostfacemodz.github.io/GhostGames/new/';
+/* legacy details URL: game/?id=<id> now lives at the pre-rendered g/<id>/ page */
+if(g){location.replace('../g/'+g.id+'/'+location.hash);return}
 function meta(t,d,img,u){document.title=t;$('mDesc').setAttribute('content',d);$('ogT').setAttribute('content',t);$('ogD').setAttribute('content',d);if(img)$('ogI').setAttribute('content',img);$('ogU').setAttribute('content',u)}
 if(!g){
  meta('Game not found — GhostGames','That game is not in the GhostGames library.',null,SITE+'game/');

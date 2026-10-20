@@ -253,7 +253,7 @@ function renderHero(i){
   document.getElementById('heroEye').innerHTML=isGotd?'<i class="fa-solid fa-sparkles" aria-hidden="true"></i> Game of the day':'<i class="fa-solid fa-fire" aria-hidden="true"></i> Top pick';
   document.getElementById('heroTitle').textContent=g.title;
   document.getElementById('heroBlurb').textContent=g.blurb||g.description||'';
-  document.getElementById('heroMore').href='game/?id='+encodeURIComponent(g.id);
+  document.getElementById('heroMore').href='g/'+encodeURIComponent(g.id)+'/';
   document.getElementById('heroPlay').onclick=function(){if(GG&&GG.openGame)GG.openGame(g);else location.href=g.url};
   document.getElementById('heroMeta').innerHTML=deviceChips(g);
   var dots=document.getElementById('heroDots');
