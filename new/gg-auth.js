@@ -1,8 +1,11 @@
 /* GhostGames accounts: Supabase Auth (Discord; Google behind GG_CONFIG.GG_AUTH_GOOGLE) + sync of
-   favourites / recently played / votes. Falls back to localStorage-only if the tables aren't there. */
+   favourites / recently played / votes / play days (streak). Falls back to localStorage-only if the tables
+   aren't there. Schema + RLS: tools/supabase-schema.sql (play_days is optional: without it the streak still
+   works per device, plus days derived from synced recently-played timestamps).
+   TODO(owner): run the play_days block of tools/supabase-schema.sql once in the Supabase SQL editor. */
 (function(){
 var C=window.GG_CONFIG||{},GG=window.GG;if(!C.SUPABASE_URL||!GG)return;
-var sb=null,user=null,tablesOk=null,els=[],modal,ready;
+var sb=null,user=null,tablesOk=null,daysOk=null,lastMerge=0,els=[],modal,ready;
 var DISCORD_SVG='<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3l-.6 1.3a18.4 18.4 0 0 0-5.5 0L8.6 3a19.7 19.7 0 0 0-4.9 1.5C.6 9.1-.3 13.6.1 18.1a19.9 19.9 0 0 0 6 3l1.3-2a12.9 12.9 0 0 1-2-1l.5-.4a14.2 14.2 0 0 0 12.2 0l.5.4c-.6.4-1.3.7-2 1l1.3 2a19.8 19.8 0 0 0 6-3c.5-5.2-.9-9.7-3.6-13.7ZM8.3 15.3c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Zm7.4 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Z"/></svg>';
 var GOOGLE_SVG='<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#EA4335" d="M12 10.2v3.9h5.5c-.2 1.3-1.6 3.8-5.5 3.8-3.3 0-6-2.7-6-6.1s2.7-6.1 6-6.1c1.9 0 3.1.8 3.8 1.5l2.6-2.5C16.8 3.2 14.6 2.2 12 2.2 6.6 2.2 2.2 6.6 2.2 12s4.4 9.8 9.8 9.8c5.7 0 9.4-4 9.4-9.6 0-.6-.1-1.1-.2-1.6H12Z"/></svg>';
 function css(){var s=document.createElement('style');s.textContent=
@@ -30,7 +33,7 @@ function ghostAv(){return (GG.BASE||'')+'icons/icon-192.png'}
 function render(){els.forEach(function(el){
  if(!user){el.classList.remove('open');el.innerHTML='<button type="button" class="lb ggli"><img class="av" alt="" src="'+esc(ghostAv())+'"><span>Log in</span></button>';return}
  var m=meta();el.innerHTML='<button type="button" class="lb ggme" aria-haspopup="menu" aria-expanded="false"><img class="av" alt="" src="'+esc(m.av||ghostAv())+'" referrerpolicy="no-referrer"><span class="un">'+esc(m.name)+'</span><i class="fa-solid fa-chevron-down" aria-hidden="true" style="font-size:11px;opacity:.7"></i></button>'+
- '<div class="dd" role="menu"><a role="menuitem" href="'+GG.BASE+'games/?fav=1"><i class="fa-solid fa-heart" aria-hidden="true"></i>My favourites</a><button type="button" role="menuitem" class="gglo"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>Log out</button></div>'})}
+ '<div class="dd" role="menu"><button type="button" role="menuitem" data-profile><i class="fa-solid fa-ghost" aria-hidden="true"></i>My GhostGames</button><a role="menuitem" href="'+GG.BASE+'games/?fav=1"><i class="fa-solid fa-heart" aria-hidden="true"></i>My favourites</a><button type="button" role="menuitem" class="gglo"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>Log out</button></div>'})}
 function mount(){css();
  var fw=document.createElement('div');fw.className='ggfw';fw.innerHTML='<a class="ggkf" href="https://ko-fi.com/ghostgamesapp" target="_blank" rel="noopener"><i class="fa-solid fa-mug-hot" aria-hidden="true"></i><span>Support</span></a>';document.body.appendChild(fw);var fx=document.createElement('div');fx.className='ggau fx';fw.appendChild(fx);els.push(fx);
  var nm=document.getElementById('navmenu');if(nm){var kw=document.createElement('div');kw.className='ggkm';kw.innerHTML='<a class="ggkf" href="https://ko-fi.com/ghostgamesapp" target="_blank" rel="noopener"><i class="fa-solid fa-mug-hot" aria-hidden="true"></i><span>Support</span></a>';nm.appendChild(kw);var mn=document.createElement('div');mn.className='ggau mn';nm.appendChild(mn);els.push(mn)}
@@ -63,12 +66,27 @@ function logout(){client().then(function(sb){return sb.auth.signOut()}).then(fun
 /* ---------- sync ---------- */
 function missing(e){return e&&(e.code==='42P01'||e.code==='PGRST205'||e.code==='PGRST204'||/does not exist|schema cache/i.test(e.message||''))}
 function T(n){return sb.from(n)}
-function merge(){if(!user)return;var uid=user.id;
+/* favourites the account had at the last successful sync, so removals propagate between devices
+   instead of being re-added by the union merge */
+var FSK='gg:favSync';
+function favBase(uid){var p=GG.get(FSK,null);return p&&p.uid===uid?p.ids:null}
+function favSaved(uid,ids){GG.set(FSK,{uid:uid,ids:ids.slice()})}
+function mergeDays(uid){T('play_days').select('day').then(function(r){
+  if(r.error){daysOk=false;if(!missing(r.error))console.warn('[gg-auth] play_days sync error',r.error);return}
+  daysOk=true;var rd=r.data.map(function(x){return String(x.day).slice(0,10)}),ld=GG.days(),ch=false;
+  rd.forEach(function(k){if(ld.indexOf(k)<0){GG.addDay(k);ch=true}});
+  var up=ld.filter(function(k){return rd.indexOf(k)<0});if(up.length)T('play_days').upsert(up.map(function(k){return{user_id:uid,day:k}}),{ignoreDuplicates:true}).then(function(){});
+  if(ch)document.dispatchEvent(new CustomEvent('gg:days',{detail:{sync:1}}))}).catch(function(){daysOk=false})}
+function merge(){if(!user)return;var uid=user.id;lastMerge=Date.now();mergeDays(uid);
  Promise.all([T('favourites').select('game_id,created_at'),T('recent').select('game_id,played_at'),T('votes').select('game_id,dir')]).then(function(r){
   var bad=r.filter(function(x){return x.error});if(bad.length){tablesOk=false;if(!bad.every(function(x){return missing(x.error)}))console.warn('[gg-auth] sync error',bad[0].error);return}
   tablesOk=true;var BY=GG.BY,lf=GG.get('gg:favs',[]),lr=GG.get('gg:recent',[]),lv=GG.get('gg:votes',{});
-  /* favourites: union */
-  var rf=r[0].data.map(function(x){return x.game_id}),fav=lf.slice();rf.forEach(function(id){if(fav.indexOf(id)<0)fav.push(id)});
+  /* favourites: 3-way merge against the last synced set (first sync on a device = union) */
+  var rf=r[0].data.map(function(x){return x.game_id}),P=favBase(uid),fav,del=[];
+  if(!P){fav=lf.slice();rf.forEach(function(id){if(fav.indexOf(id)<0)fav.push(id)})}
+  else{fav=lf.filter(function(id){return rf.indexOf(id)>=0||P.indexOf(id)<0});
+   rf.forEach(function(id){if(lf.indexOf(id)<0){if(P.indexOf(id)>=0)del.push(id);else fav.push(id)}})}
+  fav=fav.filter(function(id){return BY[id]});
   /* recent: newest per game, keep 20 */
   var m={};lr.forEach(function(x){m[x.id]=Math.max(m[x.id]||0,x.t)});r[1].data.forEach(function(x){var t=Date.parse(x.played_at);m[x.game_id]=Math.max(m[x.game_id]||0,t)});
   var rec=Object.keys(m).map(function(id){return{id:id,t:m[id]}}).sort(function(a,b){return b.t-a.t}).slice(0,20);
@@ -77,6 +95,8 @@ function merge(){if(!user)return;var uid=user.id;
   GG.set('gg:favs',fav);GG.set('gg:recent',rec);GG.set('gg:votes',vt);
   var up=[];
   var nf=fav.filter(function(id){return rf.indexOf(id)<0});if(nf.length)up.push(T('favourites').upsert(nf.map(function(id){return{user_id:uid,game_id:id}}),{ignoreDuplicates:true}));
+  if(del.length)up.push(T('favourites').delete().eq('user_id',uid).in('game_id',del));
+  favSaved(uid,fav);
   if(rec.length)up.push(T('recent').upsert(rec.map(function(x){return{user_id:uid,game_id:x.id,played_at:new Date(x.t).toISOString()}})));
   var rv={};r[2].data.forEach(function(x){rv[x.game_id]=1});var nv=Object.keys(lv).filter(function(id){return !rv[id]});if(nv.length)up.push(T('votes').upsert(nv.map(function(id){return{user_id:uid,game_id:id,dir:lv[id]}}),{ignoreDuplicates:true}));
   var mm=meta();up.push(T('profiles').upsert({id:uid,username:mm.name,avatar_url:mm.av||null,updated_at:new Date().toISOString()}));
@@ -86,8 +106,12 @@ function merge(){if(!user)return;var uid=user.id;
  }).catch(function(e){tablesOk=false;console.warn('[gg-auth] sync unavailable',e)})}
 function hooks(){
  document.addEventListener('gg:fav',function(e){var d=e.detail||{};if(!user||!tablesOk||d.sync||!d.id)return;
-  if(d.on)T('favourites').upsert({user_id:user.id,game_id:d.id},{ignoreDuplicates:true}).then(function(){});else T('favourites').delete().eq('user_id',user.id).eq('game_id',d.id).then(function(){})});
- document.addEventListener('gg:recent',function(e){if(!user||!tablesOk||(e.detail&&e.detail.sync))return;var r=GG.get('gg:recent',[])[0];if(r)T('recent').upsert({user_id:user.id,game_id:r.id,played_at:new Date(r.t).toISOString()}).then(function(){})});
+  var uid=user.id,done=function(r){if(r&&!r.error)favSaved(uid,GG.favs())};
+  if(d.on)T('favourites').upsert({user_id:uid,game_id:d.id},{ignoreDuplicates:true}).then(done);else T('favourites').delete().eq('user_id',uid).eq('game_id',d.id).then(done)});
+ document.addEventListener('gg:recent',function(e){if(!user||!tablesOk||(e.detail&&e.detail.sync))return;var r=GG.get('gg:recent',[])[0];if(r)T('recent').upsert({user_id:user.id,game_id:r.id,played_at:new Date(r.t).toISOString()}).then(function(){});
+  if(r&&daysOk)T('play_days').upsert({user_id:user.id,day:GG.dayKey(r.t)},{ignoreDuplicates:true}).then(function(){})});
+ /* pick up changes made on another device when the tab comes back (at most once a minute) */
+ document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'&&user&&tablesOk!==false&&Date.now()-lastMerge>60000)merge()});
  document.addEventListener('gg:vote',function(e){var d=e.detail;if(!user||!tablesOk||!d)return;T('votes').upsert({user_id:user.id,game_id:d.id,dir:d.dir},{ignoreDuplicates:true}).then(function(){})})}
 function start(){mount();hooks();
  var cb=/[?&](code|error_description)=/.test(location.search)||/access_token=/.test(location.hash);
@@ -100,6 +124,6 @@ function boot(){client().then(function(sb){
   if(ev==='SIGNED_IN'||ev==='INITIAL_SESSION')cleanUrl()});
  }).catch(function(e){console.warn('[gg-auth] supabase-js failed to load',e)})}
 var _open=openModal;openModal=function(){_open();if(!sb)boot()};
-window.GGAuth={user:function(){return user},tablesOk:function(){return tablesOk},open:function(){openModal()}};
+window.GGAuth={user:function(){return user},tablesOk:function(){return tablesOk},daysOk:function(){return daysOk},open:function(){openModal()},logout:function(){logout()}};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
 })();
