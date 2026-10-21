@@ -3666,5 +3666,282 @@ window.GG_GAMES=[
 ]
 ],
 "order": 93
+},
+{
+"id": "fortzone-battle-royale",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "FortZone Battle Royale",
+"category": "FPS",
+"url": "https://www.crazygames.com/embed/fortzone-battle-royale-xkd",
+"icon": "fa-parachute-box",
+"badge": "New",
+"color": "from-sky-500 to-indigo-950",
+"description": "Fortnite-style third-person battle royale by Mirra Games. Drop onto a big island of forests and rivers, scavenge weapons and items, jump in vehicles and fight rival players until you're the last one standing. Customise your character before the match. Runs on CrazyGames; press Tab for the pause menu.",
+"blurb": "Third-person battle royale: loot, drive and be the last one standing.",
+"tags": [
+"Battle Royale",
+"Multiplayer",
+"Shooter",
+"3D",
+"Third person"
+],
+"controls": [
+[
+"W A S D",
+"Move"
+],
+[
+"Space",
+"Jump"
+],
+[
+"C",
+"Crouch"
+],
+[
+"Left click",
+"Shoot"
+],
+[
+"Right click",
+"Aim"
+],
+[
+"R",
+"Reload"
+],
+[
+"1–6",
+"Select item"
+],
+[
+"F",
+"Use item"
+],
+[
+"M",
+"Map"
+],
+[
+"V",
+"Exit vehicle"
+],
+[
+"Tab",
+"Pause menu"
+]
+],
+"order": 94
+},
+{
+"id": "skillwarz",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "SkillWarz",
+"category": "FPS",
+"url": "https://www.crazygames.com/embed/skillwarz",
+"icon": "fa-person-rifle",
+"badge": "New",
+"color": "from-blue-600 to-red-900",
+"description": "Fast-paced multiplayer first-person shooter with advanced movement: slide, sprint and use bounce pads and teleports across day and night maps. Play Deathmatch, Gun Game, Skull Hunt and more, grab battle pickups and unlock new weapons. Runs on CrazyGames.",
+"blurb": "Fast multiplayer FPS with slides, bounce pads and Gun Game.",
+"tags": [
+"Multiplayer",
+"FPS",
+"PvP",
+"3D"
+],
+"controls": [
+[
+"W A S D",
+"Move"
+],
+[
+"Space",
+"Jump"
+],
+[
+"C",
+"Crouch / slide"
+],
+[
+"Shift",
+"Sprint"
+],
+[
+"Left click",
+"Fire"
+],
+[
+"Right click",
+"Aim down sights"
+],
+[
+"R",
+"Reload"
+],
+[
+"Mouse wheel / 1-3",
+"Switch weapon"
+],
+[
+"Q",
+"Melee"
+],
+[
+"G / F",
+"Grenades"
+],
+[
+"Tab",
+"Scoreboard"
+],
+[
+"~",
+"Menu"
+]
+],
+"order": 95
+},
+{
+"id": "sniper-mission",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Sniper Mission",
+"category": "FPS",
+"url": "https://www.crazygames.com/embed/sniper-mission-blj",
+"icon": "fa-bullseye",
+"badge": "New",
+"color": "from-amber-600 to-stone-900",
+"description": "Single-player sniper game by Kayiyou. Take position as an elite marksman, scan the battlefield through your scope and take out enemy forces mission by mission. Drag with the mouse to look around and click the on-screen button to fire. Runs on CrazyGames.",
+"blurb": "Mission-based sniper shooter: scope in and take the shot.",
+"tags": [
+"Sniper",
+"Shooter",
+"Single player",
+"3D"
+],
+"controls": [
+[
+"Drag (left mouse)",
+"Move the camera / aim"
+],
+[
+"On-screen button",
+"Shoot"
+]
+],
+"order": 96
+},
+{
+"id": "truck-simulator-european-roads",
+"external": true,
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Truck Simulator: European Roads",
+"category": "Simulation",
+"url": "https://www.crazygames.com/game/truck-simulator-european-roads",
+"icon": "fa-truck",
+"badge": "New",
+"color": "from-red-700 to-slate-900",
+"description": "Truck driving simulator by Ovilex. Get behind the wheel of a big rig, pick up jobs and haul cargo across European roads, then park and deliver safely to earn money for better-paying contracts. Opens on CrazyGames in a new tab (the game can't be embedded).",
+"blurb": "Haul cargo across Europe in a big rig truck.",
+"tags": [
+"Driving",
+"Truck",
+"Simulation",
+"Single player",
+"3D"
+],
+"controls": [
+[
+"W",
+"Gas"
+],
+[
+"S",
+"Brake"
+],
+[
+"A / D",
+"Steer"
+],
+[
+"F",
+"Engine on / off"
+],
+[
+"1 / 2",
+"Forward / reverse gear"
+],
+[
+"Q / E",
+"Indicators"
+],
+[
+"C",
+"Change camera"
+],
+[
+"L",
+"Lights"
+],
+[
+"H",
+"Horn"
+],
+[
+"V",
+"Cruise control"
+]
+],
+"order": 97
+},
+{
+"id": "rooftop-run",
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "Rooftop Run",
+"category": "Arcade",
+"url": "https://rooftoprun.net/",
+"icon": "fa-person-running",
+"badge": "New",
+"color": "from-orange-500 to-sky-800",
+"description": "3D parkour runner by Mad Hook. Sprint across skyscraper rooftops while your runner jumps obstacles automatically, so you just steer: dodge enemies, grab boosters and fill the progress bar to 100% to finish each track. Steer with the mouse or touch; tap to play.",
+"blurb": "Rooftop parkour runner: steer, dodge and grab boosters.",
+"tags": [
+"Runner",
+"Parkour",
+"Single player",
+"3D",
+"Casual"
+],
+"controls": [
+[
+"Mouse / touch",
+"Steer left and right"
+],
+[
+"Click / tap",
+"Start"
+]
+],
+"order": 98
 }
 ];
