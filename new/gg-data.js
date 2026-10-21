@@ -3669,6 +3669,7 @@ window.GG_GAMES=[
 },
 {
 "id": "fortzone-battle-royale",
+"orientation": "landscape",
 "devices": [
 "pc",
 "mobile"
@@ -3739,6 +3740,7 @@ window.GG_GAMES=[
 },
 {
 "id": "skillwarz",
+"orientation": "landscape",
 "devices": [
 "pc",
 "mobile"
@@ -3812,6 +3814,7 @@ window.GG_GAMES=[
 },
 {
 "id": "sniper-mission",
+"orientation": "landscape",
 "devices": [
 "pc",
 "mobile"
@@ -3845,6 +3848,7 @@ window.GG_GAMES=[
 },
 {
 "id": "truck-simulator-european-roads",
+"orientation": "landscape",
 "external": true,
 "devices": [
 "pc",

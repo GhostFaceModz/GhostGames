@@ -165,6 +165,7 @@ function fsToggle(){if(fsEl())fsExit();else fsReq()}
 var barT;function barShow(ms){if(!modal)return;modal.classList.add('barshow');clearTimeout(barT);barT=setTimeout(function(){if(modal.querySelector('.mbar:hover'))barShow(1200);else modal.classList.remove('barshow')},ms||3000)}
 function fsSync(){var b=$('mFs');if(!b||!modal)return;var on=!!fsEl(),open=modal.classList.contains('open'),was=modal.classList.contains('full');
  /* full = edge-to-edge player (iframe 100vw x 100dvh, bar overlays + auto-hides): real fullscreen, or a fixed full-viewport overlay where the API is missing (iPhone) */
+ try{var so=screen.orientation;if(so&&so.lock&&on&&cur&&cur.orientation==='landscape'){var lp=so.lock('landscape');if(lp&&lp.catch)lp.catch(function(){})}else if(so&&so.unlock&&!on)so.unlock()}catch(x){}
  var full=open&&(on||(!fsCan()&&!!cur&&!cur.newTabPrompt));modal.classList.toggle('isfs',on);modal.classList.toggle('full',full);if(full&&!was)barShow(2500);if(!full){clearTimeout(barT);modal.classList.remove('barshow')}
  b.innerHTML='<i class="fa-solid '+(on?'fa-compress':'fa-expand')+'"></i><em style="font-style:normal">'+(on?'Exit fullscreen':'Fullscreen')+'</em>';b.setAttribute('aria-label',on?'Exit fullscreen (Esc)':'Fullscreen');b.title=on?'Exit fullscreen (Esc)':'Fullscreen';if(cropS)requestAnimationFrame(function(){if(cropS)cropLayout()})}
 function openGame(g){
