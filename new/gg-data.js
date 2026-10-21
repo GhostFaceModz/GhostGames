@@ -3857,7 +3857,7 @@ window.GG_GAMES=[
 "icon": "fa-truck",
 "badge": "New",
 "color": "from-red-700 to-slate-900",
-"description": "Truck driving simulator by Ovilex. Get behind the wheel of a big rig, pick up jobs and haul cargo across European roads, then park and deliver safely to earn money for better-paying contracts. Opens on CrazyGames in a new tab (the game can't be embedded).",
+"description": "Truck driving simulator by Ovilex. Get behind the wheel of a big rig, pick up jobs and haul cargo across European roads, then park and deliver safely to earn money for better-paying contracts. Opens on CrazyGames in a new tab (the game can't be embedded here); use the fullscreen button at the bottom-right of CrazyGames' player for the full-screen view.",
 "blurb": "Haul cargo across Europe in a big rig truck.",
 "tags": [
 "Driving",

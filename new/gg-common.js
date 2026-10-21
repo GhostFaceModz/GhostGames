@@ -64,7 +64,8 @@ function bindCards(root){root.addEventListener('click',function(e){if(e.target.c
  e.preventDefault();if(g.off)location.href=gpage(g);else openGame(g)})}
 
 /* ---- injected CSS for shared widgets ---- */
-var css='.modal{position:fixed;inset:0;z-index:2000;display:none;background:rgba(2,3,6,.78);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}.modal.open{display:flex;flex-direction:column}'+
+var css='.modal.isfs{background:#000}.modal.isfs .mfs{border-color:rgba(95,227,255,.55);color:#5fe3ff}'+
+'.modal{position:fixed;inset:0;z-index:2000;display:none;background:rgba(2,3,6,.78);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}.modal.open{display:flex;flex-direction:column}'+
 '.mbar{position:relative;z-index:5;flex:0 0 auto;display:flex;align-items:center;gap:12px;height:60px;padding:0 14px 0 20px;background:linear-gradient(180deg,rgba(14,18,28,.96),rgba(9,12,19,.96));border-bottom:1px solid rgba(255,255,255,.09);box-shadow:0 10px 30px rgba(0,0,0,.4);font-family:Poppins,PoppinsFB,sans-serif;color:#fff}'+
 '.mbar .mi{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(150deg,var(--c1),var(--c2));box-shadow:inset 0 0 0 1px rgba(255,255,255,.15);flex:0 0 auto}.mbar .mt{min-width:0;flex:1}.mbar .mt b{display:block;font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mbar .mt span{display:block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#7fdcf2}'+
 '.mb{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:38px;padding:0 14px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#fff;font:500 13px Poppins,PoppinsFB,sans-serif;cursor:pointer;white-space:nowrap;text-decoration:none}.mb:hover{background:rgba(255,255,255,.1)}.mb:focus-visible,.ggfav:focus-visible{outline:2px solid #5fe3ff;outline-offset:2px}.mclose{width:38px;padding:0;font-size:16px}'+
@@ -105,13 +106,13 @@ function ensureModal(){
  '<button type="button" class="mb mnt" id="mNew" aria-label="Open in new tab"><i class="fa-solid fa-arrow-up-right-from-square"></i><em style="font-style:normal">Open in new tab</em></button>'+
  '<button type="button" class="mb mnt" id="mHelp" aria-label="Game not loading? Help" aria-haspopup="dialog"><i class="fa-solid fa-circle-question"></i><em style="font-style:normal">Help</em></button>'+
  '<button type="button" class="mb mnt" id="mRestart" aria-label="Restart" style="display:none"><i class="fa-solid fa-rotate-right"></i><em style="font-style:normal">Restart</em></button><button type="button" id="mFocusTrap" tabindex="-1" aria-hidden="true" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none"></button>'+
- '<button type="button" class="mb mclose" id="mClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button></div>'+
+ '<button type="button" class="mb mnt mfs" id="mFs" aria-label="Fullscreen" title="Fullscreen"><i class="fa-solid fa-expand"></i><em style="font-style:normal">Fullscreen</em></button><button type="button" class="mb mclose" id="mClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button></div>'+
  '<div class="mstage" id="mStage"><div class="mload"><span><i class="fa-solid fa-circle-notch fa-spin"></i>&nbsp; Loading game…</span></div>'+
  '<div class="mfb" id="mFb"><div><h3>This game blocks embedding</h3><p>The host won\'t let it run inside this page. It plays fine in its own tab.</p><div class="row"><button type="button" class="btn" id="mFbNew"><span>Open in new tab</span></button><button type="button" class="mb" id="mFbWait">Keep waiting</button></div></div></div>'+
  '<div class="mchip" id="mChip" role="status"><button type="button" class="mcgo" id="mChipGo"><i class="fa-solid fa-circle-question"></i>&nbsp; Game not loading?</button><button type="button" id="mChipX" aria-label="Dismiss"><i class="fa-solid fa-xmark"></i></button></div>'+
  '<div class="mhelp" id="mHelpP" role="dialog" aria-modal="true" aria-labelledby="mHelpT"><div class="mhbox"><button type="button" class="mb mclose mhx" id="mHelpX" aria-label="Close help"><i class="fa-solid fa-xmark"></i></button><h3 id="mHelpT">Game not loading?</h3><div id="mHelpB"></div></div></div><div class="mntp" id="mNtp" role="alertdialog" aria-modal="true" aria-labelledby="mNtpT" aria-describedby="mNtpM"><div class="ntpcard"><button type="button" class="mb mclose ntpx" id="mNtpX" aria-label="Dismiss"><i class="fa-solid fa-xmark"></i></button><div class="ntpghost" aria-hidden="true"><i class="fa-solid fa-ghost"></i></div><h3 id="mNtpT">This one plays best in its own tab</h3><p class="ntpmsg" id="mNtpM">The game can\'t load inside our player. Tap below to launch it — it\'ll open in a new tab.</p><a class="btn" id="mNtpGo" href="#" target="_blank" rel="noopener"><span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>&nbsp; Open in new tab</span></a><button type="button" class="ntpstay" id="mNtpStay">Stay here</button></div></div></div>';
  document.body.appendChild(d);modal=d;mStage=$('mStage');mFb=$('mFb');
- $('mClose').addEventListener('click',closeGame);$('mRestart').addEventListener('click',function(){if(cur)openGame(cur)});
+ $('mClose').addEventListener('click',closeGame);$('mFs').addEventListener('click',fsToggle);document.addEventListener('fullscreenchange',fsSync);document.addEventListener('webkitfullscreenchange',fsSync);$('mRestart').addEventListener('click',function(){if(cur)openGame(cur)});
  window.addEventListener('blur',function(){if(!cropS)return;setTimeout(function(){if(!cropS||document.activeElement!==frame)return;if(cropS.i<cropS.c.steps.length-1){cropS.i++;cropLayout();if(cropS.i<cropS.c.steps.length-1)$('mFocusTrap').focus();else{try{frame.focus()}catch(e){}}cropHint()}},350)});
  window.addEventListener('resize',function(){if(cropS)cropLayout()});$('mNew').addEventListener('click',newTab);$('mFbNew').addEventListener('click',newTab);
  $('mFbWait').addEventListener('click',function(){mFb.classList.remove('show')});
@@ -119,7 +120,7 @@ function ensureModal(){
  $('mChipX').addEventListener('click',function(){hideChip();try{sessionStorage.setItem('gg:nochip','1')}catch(e){}});
  $('mHelpP').addEventListener('click',function(e){if(e.target===$('mHelpP'))closeHelp();var a=e.target.closest('[data-h]');if(!a)return;var k=a.getAttribute('data-h');if(k==='reload'){closeHelp();if(cur)openGame(cur)}else if(k==='new'){newTab()}});
  window.addEventListener('blur',function(){setTimeout(function(){if(frame&&document.activeElement===frame){touched=true;hideChip()}},0)});
- document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('open')&&!(rp&&rp.classList.contains('open'))){e.stopImmediatePropagation();if($('mNtp')&&$('mNtp').classList.contains('open'))closeNtp();else if($('mHelpP').classList.contains('open'))closeHelp();else closeGame()}},true);
+ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('open')&&!(rp&&rp.classList.contains('open'))){e.stopImmediatePropagation();if(fsEl()){fsExit();return}if($('mNtp')&&$('mNtp').classList.contains('open'))closeNtp();else if($('mHelpP').classList.contains('open'))closeHelp();else closeGame()}},true);
  modal.addEventListener('keydown',function(e){if(e.key!=='Tab')return;var np=$('mNtp')&&$('mNtp').classList.contains('open'),hp=$('mHelpP').classList.contains('open');var f=[].slice.call(modal.querySelectorAll(np?'#mNtp button,#mNtp a':hp?'#mHelpP button,#mHelpP a':'.mbar button')).concat(frame&&!hp&&!np?[frame]:[]);var i=f.indexOf(document.activeElement);if(e.shiftKey&&i<=0){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&i===f.length-1){e.preventDefault();f[0].focus()}});
 }
 var cropS=null,hintT=0;
@@ -129,7 +130,7 @@ function cropHint(){var h=$('mHint');if(!h){h=document.createElement('div');h.id
 function cropLayout(){var c=cropS.c,r=c.steps[cropS.i],W=mStage.clientWidth,H=mStage.clientHeight,k=Math.min(W/r[2],H/r[3]),w=r[2]*k,h=r[3]*k,cl=cropS.clip;
  cl.style.cssText='position:absolute;overflow:hidden;background:#000;z-index:1;left:'+((W-w)/2)+'px;top:'+((H-h)/2)+'px;width:'+w+'px;height:'+h+'px';
  frame.style.cssText='position:absolute;left:0;top:0;right:auto;bottom:auto;border:0;width:'+c.vw+'px;height:'+c.vh+'px;transform-origin:0 0;transform:translate('+(-r[0]*k)+'px,'+(-r[1]*k)+'px) scale('+k+')'}
-function newTab(){if(cur)window.open(cur.url,'_blank','noopener')}
+function newTab(){if(cur){fsExit();window.open(cur.url,'_blank','noopener')}}
 
 /* ---- troubleshooting help ---- */
 var chipT=0,touched=false;
@@ -149,6 +150,15 @@ function hideChip(){clearTimeout(chipT);var c=$('mChip');if(c)c.classList.remove
 function openHelp(){if(!cur)return;hideChip();$('mHelpB').innerHTML=helpHtml(cur,true);$('mHelpP').classList.add('open');$('mHelpX').focus()}
 function closeHelp(){$('mHelpP').classList.remove('open');$('mHelp').focus()}
 function closeNtp(){var n=$('mNtp');if(n)n.classList.remove('open')}
+/* ---- fullscreen: requested on the Play click (user gesture) for in-page games; whole page goes fullscreen so the player bar
+   (Exit fullscreen / Close) and any dialogs opened from it stay visible. webkit fallbacks for Safari/iPad; iPhone has no element
+   fullscreen API, where the player already fills the screen. Esc (browser) or the bar button exits. ---- */
+function fsEl(){return document.fullscreenElement||document.webkitFullscreenElement||document.webkitCurrentFullScreenElement||null}
+function fsCan(){var e=document.documentElement;return !!(e.requestFullscreen||e.webkitRequestFullscreen||e.webkitRequestFullScreen)}
+function fsReq(){var e=document.documentElement;try{if(fsEl())return;var r=null;if(e.requestFullscreen)r=e.requestFullscreen({navigationUI:'hide'});else if(e.webkitRequestFullscreen)e.webkitRequestFullscreen();else if(e.webkitRequestFullScreen)e.webkitRequestFullScreen();if(r&&r.catch)r.catch(function(){})}catch(x){}}
+function fsExit(){try{if(!fsEl())return;var r=null;if(document.exitFullscreen)r=document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();else if(document.webkitCancelFullScreen)document.webkitCancelFullScreen();if(r&&r.catch)r.catch(function(){})}catch(x){}}
+function fsToggle(){if(fsEl())fsExit();else fsReq()}
+function fsSync(){var b=$('mFs');if(!b)return;var on=!!fsEl();if(modal)modal.classList.toggle('isfs',on);b.innerHTML='<i class="fa-solid '+(on?'fa-compress':'fa-expand')+'"></i><em style="font-style:normal">'+(on?'Exit fullscreen':'Fullscreen')+'</em>';b.setAttribute('aria-label',on?'Exit fullscreen (Esc)':'Fullscreen');b.title=on?'Exit fullscreen (Esc)':'Fullscreen'}
 function openGame(g){
  if(typeof g==='string')g=BY[g];if(!g||g.off)return;record(g.id);
  if(g.external){window.open(g.url,'_blank','noopener');return}
@@ -164,9 +174,9 @@ function openGame(g){
  clearTimeout(fbT);hideChip();$('mHelpP').classList.remove('open');closeNtp();touched=false;
  if(g.newTabPrompt){$('mNtpGo').href=g.url;$('mNtp').classList.add('open')}
  else{fbT=setTimeout(function(){if(!loaded)mFb.classList.add('show')},9000);var nc=false;try{nc=sessionStorage.getItem('gg:nochip')==='1'}catch(e){};if(!nc)chipT=setTimeout(function(){if(cur===g&&!touched&&!$('mHelpP').classList.contains('open')&&!mFb.classList.contains('show')&&!($('mNtp')&&$('mNtp').classList.contains('open')))$('mChip').classList.add('show')},15000)}
- modal.classList.add('open');document.documentElement.style.overflow='hidden';if(g.newTabPrompt)$('mNtpGo').focus();else $('mClose').focus();if(cropS){cropLayout();requestAnimationFrame(function(){if(cropS)cropLayout()})}
+ modal.classList.add('open');document.documentElement.style.overflow='hidden';$('mFs').style.display=fsCan()?'':'none';if(!g.newTabPrompt)fsReq();fsSync();if(g.newTabPrompt)$('mNtpGo').focus();else $('mClose').focus();if(cropS){cropLayout();requestAnimationFrame(function(){if(cropS)cropLayout()})}
 }
-function closeGame(){if(!modal||!modal.classList.contains('open'))return;clearTimeout(fbT);hideChip();$('mHelpP').classList.remove('open');closeNtp();if(frame){frame.remove();frame=null}if(cropS){cropS.clip.remove();cropS=null}if($('mHint'))$('mHint').style.opacity=0;modal.classList.remove('open');document.documentElement.style.overflow='';cur=null;if(lastFocus&&lastFocus.focus)lastFocus.focus()}
+function closeGame(){if(!modal||!modal.classList.contains('open'))return;fsExit();clearTimeout(fbT);hideChip();$('mHelpP').classList.remove('open');closeNtp();if(frame){frame.remove();frame=null}if(cropS){cropS.clip.remove();cropS=null}if($('mHint'))$('mHint').style.opacity=0;modal.classList.remove('open');document.documentElement.style.overflow='';cur=null;if(lastFocus&&lastFocus.focus)lastFocus.focus()}
 
 /* ---- Discord floating button (stacked above the GitHub one) ---- */
 var DISCORD='https://discord.gg/zenclipsdaily-arc-raiders-store-bloodstrike-1408818003591827539';
