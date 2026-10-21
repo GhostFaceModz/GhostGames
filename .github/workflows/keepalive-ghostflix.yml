@@ -1,0 +1,27 @@
+name: Keepalive - GhostFlix
+
+# Pings the GhostFlix Render free web service so it doesn't spin down after 15 min idle.
+# Public repo => Actions minutes are free. GitHub may delay scheduled runs under load.
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: keepalive-ghostflix
+  cancel-in-progress: true
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Ping /healthz
+        run: |
+          for i in 1 2 3; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 60 -A 'gg-keepalive' https://ghostflix.onrender.com/healthz || true)
+            echo "attempt $i: HTTP $code"
+            [ "$code" = "200" ] && exit 0
+            sleep 15
+          done
+          echo "::warning::GhostFlix /healthz did not return 200"
