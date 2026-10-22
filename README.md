@@ -42,7 +42,7 @@ Alternate (GitHub Pages): **[ghostfacemodz.github.io/GhostGames/new/](https://gh
 |---|---|---|---|
 | [Black Ops 2 Web](https://ghostgames.app/ghostgames/game/?id=black-ops-2) | Black Ops 2 style multiplayer rebuilt for the browser. | New tab | 🔴 Down |
 | [Modern Warfare 2 Web](https://ghostgames.app/ghostgames/game/?id=modern-warfare-2) | Classic MW2 multiplayer with matchmaking, bots and killstreaks. | New tab | 🔴 Down |
-| [Halo: Combat Evolved](https://ghostgames.app/ghostgames/game/?id=halo-ce) | Master Chief returns: the original Halo campaign in your browser. | In player | 🟢 Online |
+| [Halo: Combat Evolved](https://ghostgames.app/ghostgames/game/?id=halo-ce) | Master Chief returns: the original Halo campaign in your browser. | In player | 🟠 Issues |
 | [Halo CE Web Mobile](https://ghostgames.app/ghostgames/game/?id=halo-ce-mobile) 📱 | Halo: Combat Evolved tuned for touch controls on your phone. | In player | 🟢 Online |
 | [Half-Life (GoldSrc)](https://ghostgames.app/ghostgames/game/?id=half-life) | Relive the Black Mesa incident on a web-built GoldSrc engine. | In player | 🟢 Online |
 | [CS 1.6 / Xash3D](https://ghostgames.app/ghostgames/game/?id=web-xash-cs) | Counter-Strike 1.6 and Half-Life mods, running on WebXash. | In player | 🟢 Online |
@@ -72,10 +72,10 @@ Alternate (GitHub Pages): **[ghostfacemodz.github.io/GhostGames/new/](https://gh
 ### Classic Shooter
 | Game | About | How it runs | Status |
 |---|---|---|---|
-| [Quake 1 WASM](https://ghostgames.app/ghostgames/game/?id=quake-1) | id Software's 1996 shooter, fast and brutal in your browser. | In player | 🟢 Online |
-| [Quake II WASM](https://ghostgames.app/ghostgames/game/?id=quake-2) | Battle the Strogg online in real Quake II multiplayer. | In player | 🟢 Online |
-| [Quake III Arena](https://ghostgames.app/ghostgames/game/?id=quake-3) 🎮 | Rocket jumps and railguns: pure arena frag fest, no install. | In player | 🟢 Online |
-| [Return to Castle Wolfenstein](https://ghostgames.app/ghostgames/game/?id=rtcw) | Storm occult Nazi strongholds in classic WW2 team multiplayer. | In player | 🟢 Online |
+| [Quake 1 WASM](https://ghostgames.app/ghostgames/game/?id=quake-1) | id Software's 1996 shooter, fast and brutal in your browser. | In player | 🔴 Down |
+| [Quake II WASM](https://ghostgames.app/ghostgames/game/?id=quake-2) | Battle the Strogg online in real Quake II multiplayer. | In player | 🔴 Down |
+| [Quake III Arena](https://ghostgames.app/ghostgames/game/?id=quake-3) 🎮 | Rocket jumps and railguns: pure arena frag fest, no install. | In player | 🔴 Down |
+| [Return to Castle Wolfenstein](https://ghostgames.app/ghostgames/game/?id=rtcw) | Storm occult Nazi strongholds in classic WW2 team multiplayer. | In player | 🔴 Down |
 | [Unreal Tournament](https://ghostgames.app/ghostgames/game/?id=unreal-tournament) | Facing Worlds, the Redeemer and UT99 frags with online multiplayer. | New tab | 🟢 Online |
 | [Silent Space Marine (Doom WASM)](https://ghostgames.app/ghostgames/game/?id=silent-space-marine) | Cloudflare's WebAssembly Doom port with solo and online play. | In player | 🟢 Online |
 
