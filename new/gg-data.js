@@ -3957,5 +3957,36 @@ window.GG_GAMES=[
 ]
 ],
 "order": 98
+},
+{
+"id": "nfsmw-online",
+"external": true,
+"controller": true,
+"devices": [
+"pc",
+"mobile"
+],
+"status": "online",
+"title": "NFSMW Online",
+"category": "Co-op",
+"url": "https://nfsmwonline.com/",
+"icon": "fa-car",
+"badge": "New",
+"color": "from-amber-500 to-neutral-900",
+"description": "Need for Speed: Most Wanted in your browser with online co-op. Free account needed; best in Chrome or Edge.",
+"blurb": "Need for Speed: Most Wanted in your browser with online co-op.",
+"tags": [
+"Racing",
+"Driving",
+"Multiplayer",
+"Co-op",
+"3D"
+],
+"tips": [
+"Opens in a new tab: log in or create a free account on NFSMW Online's own site.",
+"Works on PC and Android; Chrome or Edge recommended.",
+"NFSMW Online has its own Discord: https://discord.gg/Y9cGhuvCFj"
+],
+"order": 99
 }
 ];
