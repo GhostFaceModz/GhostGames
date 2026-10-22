@@ -3959,33 +3959,31 @@ window.GG_GAMES=[
 "order": 98
 },
 {
-"id": "nfsmw-online",
+"id": "nfs-most-wanted-web",
 "external": true,
 "controller": true,
 "devices": [
-"pc",
-"mobile"
+"pc"
 ],
 "status": "online",
-"title": "NFSMW Online",
-"category": "Co-op",
-"url": "https://nfsmwonline.com/",
+"title": "Need for Speed: Most Wanted",
+"category": "Sports",
+"url": "https://dezm0n.itch.io/nfs-most-wanted-web-port",
 "icon": "fa-car",
 "badge": "New",
-"color": "from-amber-500 to-neutral-900",
-"description": "Need for Speed: Most Wanted in your browser with online co-op. Free account needed; best in Chrome or Edge.",
-"blurb": "Need for Speed: Most Wanted in your browser with online co-op.",
+"color": "from-amber-500 to-slate-900",
+"description": "Need for Speed: Most Wanted (2005) in your browser. No login. Desktop Chrome or Edge with WebGPU; progress saves in your browser.",
+"blurb": "NFS: Most Wanted (2005) web port by dezm0n, right in your browser.",
 "tags": [
 "Racing",
 "Driving",
-"Multiplayer",
-"Co-op",
+"Single player",
 "3D"
 ],
 "tips": [
-"Opens in a new tab: log in or create a free account on NFSMW Online's own site.",
-"Works on PC and Android; Chrome or Edge recommended.",
-"NFSMW Online has its own Discord: https://discord.gg/Y9cGhuvCFj"
+"Opens the web port by dezm0n on itch.io in a new tab, then hit Start game.",
+"Desktop only: needs Chrome or Edge with WebGPU. Keyboard or gamepad.",
+"Game files load automatically and progress saves in your browser."
 ],
 "order": 99
 }
