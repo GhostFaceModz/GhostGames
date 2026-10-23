@@ -16,7 +16,7 @@ Alternate (GitHub Pages): **[ghostfacemodz.github.io/GhostGames/new/](https://gh
 - **A page for every game** with controls, tips, tags and similar games
 - **Status dots**: 🟢 Online, 🟠 Issues (up but having problems), 🔴 Down
 - **Hover previews** on desktop
-- **Community**: a [Discord](https://discord.gg/zenclipsdaily-arc-raiders-store-bloodstrike-1408818003591827539) button and a Suggest-a-game form
+- **Community**: a [Discord](https://discord.gg/PZnVDsYGsC) button and a Suggest-a-game form
 - Works on desktop, tablet and phone
 
 ## 📸 Screenshots
@@ -126,7 +126,7 @@ Alternate (GitHub Pages): **[ghostfacemodz.github.io/GhostGames/new/](https://gh
 🎮 = controller supported · 📱 = plays on mobile
 
 ## 💬 Community
-Join the [Discord](https://discord.gg/zenclipsdaily-arc-raiders-store-bloodstrike-1408818003591827539), or use **Suggest a game** on the site to request new titles.
+Join the [Discord](https://discord.gg/PZnVDsYGsC), or use **Suggest a game** on the site to request new titles.
 
 ---
 All game trademarks belong to their respective owners. GhostGames links to and embeds fan-made browser ports hosted by third parties.
