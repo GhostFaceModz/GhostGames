@@ -26,7 +26,12 @@ function css(){var s=document.createElement('style');s.textContent=
 '.ggam .pb{display:flex;gap:10px;align-items:center;justify-content:center;width:100%;height:46px;border-radius:14px;border:0;font:600 15px Poppins,PoppinsFB,system-ui,sans-serif;cursor:pointer;margin-top:10px}'+
 '.ggam .pd{background:#5865F2;color:#fff}.ggam .pd:hover{background:#4752c4}.ggam .pg{background:#fff;color:#1f1f1f}'+
 '.ggam .x{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#fff;font-size:18px;cursor:pointer}'+
-'.ggam [hidden]{display:none!important}.ggam .er{color:#fca5a5;font-size:12.5px;margin-top:10px;min-height:1em}';document.head.appendChild(s)}
+'.ggam [hidden]{display:none!important}.ggam .er{color:#fca5a5;font-size:12.5px;margin-top:10px;min-height:1em}'+
+'.ggto{position:fixed;left:50%;bottom:22px;z-index:2700;transform:translateX(-50%);width:min(380px,calc(100% - 24px));padding:18px 18px 16px;border-radius:20px;border:1px solid rgba(95,227,255,.32);background:linear-gradient(180deg,rgba(13,18,27,.985),rgba(8,11,18,.99));box-shadow:0 18px 44px rgba(0,0,0,.6),0 0 28px rgba(95,227,255,.12);color:#e9eef6;font-family:Poppins,PoppinsFB,system-ui,sans-serif;text-align:center}'+
+'.ggto h3{margin:0 30px 6px;font-size:16px;font-weight:600}.ggto p{margin:0 0 12px;color:#9aa6b8;font-size:13px;line-height:1.45}'+
+'.ggto .pb{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:44px;border-radius:14px;border:0;font:600 14.5px Poppins,PoppinsFB,system-ui,sans-serif;cursor:pointer;text-decoration:none;margin-top:8px;box-sizing:border-box}'+
+'.ggto .p1{background:#5fe3ff;color:#051018}.ggto .p1:hover{background:#8aebff}.ggto .p2{background:rgba(255,255,255,.06);color:#dfe5ee;border:1px solid rgba(255,255,255,.14)}.ggto .p2:hover{color:#fff;border-color:rgba(120,225,255,.5)}'+
+'.ggto .x{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#fff;font-size:17px;cursor:pointer}';document.head.appendChild(s)}
 function esc(t){return GG.esc?GG.esc(t):String(t)}
 function meta(){var m=(user&&user.user_metadata)||{};return{name:(m.custom_claims&&m.custom_claims.global_name)||m.full_name||m.name||m.user_name||(user&&user.email||'Player').split('@')[0],av:m.avatar_url||m.picture||''}}
 function ghostAv(){return (GG.BASE||'')+'icons/icon-192.png'}
@@ -55,7 +60,7 @@ function closeModal(){if(modal)modal.classList.remove('open')}
 function client(){return ready||(ready=import('https://esm.sh/@supabase/supabase-js@2').then(function(m){
  sb=m.createClient(C.SUPABASE_URL,C.SUPABASE_KEY,{auth:{flowType:'pkce',persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storageKey:'gg-auth'}});return sb}))}
 function cleanUrl(){var u=new URL(location.href),ch=false;['code','error','error_code','error_description','state'].forEach(function(k){if(u.searchParams.has(k)){u.searchParams.delete(k);ch=true}});
- if(/access_token|error_description/.test(u.hash)){u.hash='';ch=true}if(ch)history.replaceState(history.state,'',u.pathname+u.search+u.hash)}
+ if(/access_token|(^|[#&])error(_code|_description)?=/.test(u.hash)){u.hash='';ch=true}if(ch)history.replaceState(history.state,'',u.pathname+u.search+u.hash)}
 function login(p,btn){if(p==='google'&&C.GG_AUTH_GOOGLE!==true)return;btn.disabled=true;var er=modal.querySelector('.er');er.textContent='';
  /* Always return to premium home (allow-listed under site). Avoid per-page URLs so the classic
     intro gate cannot strip ?code= when bouncing index → home/. */
@@ -117,8 +122,21 @@ function hooks(){
  /* pick up changes made on another device when the tab comes back (at most once a minute) */
  document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'&&user&&tablesOk!==false&&Date.now()-lastMerge>60000)merge()});
  document.addEventListener('gg:vote',function(e){var d=e.detail;if(!user||!tablesOk||!d)return;T('votes').upsert({user_id:user.id,game_id:d.id,dir:d.dir},{ignoreDuplicates:true}).then(function(){})})}
+/* OAuth error landing (?error=… or #error=…). GhostFlix shares this Supabase project, and Supabase falls back to the
+   site_url (GhostGames) when the OAuth state expired (bad_oauth_state, >5 min on Discord's consent screen), so offer
+   the way back to GhostFlix or a fresh GhostGames sign-in, then strip the error params. */
+function oauthErr(){var q=new URLSearchParams(location.search),h=new URLSearchParams(location.hash.replace(/^#/,'')),g=function(k){return q.get(k)||h.get(k)||''};
+ var e=g('error'),c=g('error_code'),d=g('error_description');if(!e&&!c&&!d)return null;return{code:c||e,desc:d}}
+function timeoutCard(err){var to=/bad_oauth_state|state/i.test(err.code+' '+err.desc),w=document.createElement('div');w.className='ggto';w.setAttribute('role','dialog');w.setAttribute('aria-labelledby','ggtoH');
+ w.innerHTML='<button class="x" type="button" aria-label="Close">\u00d7</button><h3 id="ggtoH">'+(to?'Sign-in timed out.':'Sign-in didn\u2019t finish.')+' Were you signing in to GhostFlix?</h3>'+
+  '<p>'+(to?'Discord took a little too long, so you ended up here on GhostGames.':'Something interrupted the Discord sign-in, so you ended up here on GhostGames.')+'</p>'+
+  '<a class="pb p1" href="https://ghostflix.uk/">Back to GhostFlix</a><button class="pb p2" type="button">'+DISCORD_SVG+'Try again on GhostGames</button>';
+ w.querySelector('.x').onclick=function(){w.remove()};
+ w.querySelector('.p2').onclick=function(){w.remove();openModal();var b=modal&&modal.querySelector('.pd');if(b)b.click()};
+ document.body.appendChild(w)}
 function start(){mount();hooks();
- var cb=/[?&](code|error_description)=/.test(location.search)||/access_token=/.test(location.hash);
+ var oe=oauthErr();if(oe){cleanUrl();timeoutCard(oe)}
+ var cb=!oe&&(/[?&]code=/.test(location.search)||/access_token=/.test(location.hash));
  var stored=false;try{stored=!!localStorage.getItem('gg-auth')}catch(e){}
  if(!cb&&!stored)return; /* don't load supabase-js for anonymous visitors until they click Log in */
  boot()}
