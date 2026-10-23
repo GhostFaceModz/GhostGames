@@ -72,10 +72,10 @@ Alternate (GitHub Pages): **[ghostfacemodz.github.io/GhostGames/new/](https://gh
 ### Classic Shooter
 | Game | About | How it runs | Status |
 |---|---|---|---|
-| [Quake 1 WASM](https://ghostgames.app/ghostgames/game/?id=quake-1) | id Software's 1996 shooter, fast and brutal in your browser. | In player | 🔴 Down |
-| [Quake II WASM](https://ghostgames.app/ghostgames/game/?id=quake-2) | Battle the Strogg online in real Quake II multiplayer. | In player | 🔴 Down |
-| [Quake III Arena](https://ghostgames.app/ghostgames/game/?id=quake-3) 🎮 | Rocket jumps and railguns: pure arena frag fest, no install. | In player | 🔴 Down |
-| [Return to Castle Wolfenstein](https://ghostgames.app/ghostgames/game/?id=rtcw) | Storm occult Nazi strongholds in classic WW2 team multiplayer. | In player | 🔴 Down |
+| [Quake 1 WASM](https://ghostgames.app/ghostgames/game/?id=quake-1) | id Software's 1996 shooter, fast and brutal in your browser. | In player | 🟢 Online |
+| [Quake II WASM](https://ghostgames.app/ghostgames/game/?id=quake-2) | Battle the Strogg online in real Quake II multiplayer. | In player | 🟢 Online |
+| [Quake III Arena](https://ghostgames.app/ghostgames/game/?id=quake-3) 🎮 | Rocket jumps and railguns: pure arena frag fest, no install. | In player | 🟢 Online |
+| [Return to Castle Wolfenstein](https://ghostgames.app/ghostgames/game/?id=rtcw) | Storm occult Nazi strongholds in classic WW2 team multiplayer. | In player | 🟢 Online |
 | [Unreal Tournament](https://ghostgames.app/ghostgames/game/?id=unreal-tournament) | Facing Worlds, the Redeemer and UT99 frags with online multiplayer. | New tab | 🟢 Online |
 | [Silent Space Marine (Doom WASM)](https://ghostgames.app/ghostgames/game/?id=silent-space-marine) | Cloudflare's WebAssembly Doom port with solo and online play. | In player | 🟢 Online |
 
