@@ -2114,6 +2114,12 @@ window.GG_GAMES=[
 "label": "Play sandbox mode",
 "url": "/GhostGames/new/play/gta-v/?mode=sandbox",
 "icon": "fa-road"
+},
+{
+"kick": "NOT LOADING?",
+"label": "Try backup server",
+"url": "/GhostGames/new/play/gta-v/?src=backup",
+"icon": "fa-rotate-right"
 }
 ],
 "controls": [

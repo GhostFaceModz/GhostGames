@@ -66,6 +66,12 @@ kbd{display:inline-block;background:#fff;color:#000;border-radius:3px;padding:0 
   <button type="button" class="mbtn" data-mode="low"><i class="fa-solid fa-gauge-simple"></i>WEAK PC? Low-graphics mode</button>
   <button type="button" class="mbtn" data-mode="sandbox"><i class="fa-solid fa-road"></i>FREE ROAM? Sandbox mode</button>
  </div>
+ <h2>Server</h2>
+ <div class="modes" id="srvs" role="group" aria-label="Game server">
+  <button type="button" class="mbtn" data-src="main"><i class="fa-solid fa-play"></i>Main (fiveplay.lol)</button>
+  <button type="button" class="mbtn" data-src="backup"><i class="fa-solid fa-rotate-right"></i>NOT LOADING? Try backup (v2.fiveplay.lol)</button>
+ </div>
+ <p id="bkNote" style="display:none;color:#8a96a8;margin:4px 0 0">Backup is a newer $GrandV launcher with its own graphics and mode menus, so the mode buttons above switch back to the main server.</p>
  <h2>From the game's own screen</h2>
   <table>
    <tr><td><kbd>Enter</kbd></td><td>Story Mode</td></tr>
@@ -88,17 +94,21 @@ kbd{display:inline-block;background:#fff;color:#000;border-radius:3px;padding:0 
   <h2>Good to know</h2>
   <p class="warn">First load downloads several hundred MB of game data (cached afterwards). Needs a recent desktop Chrome/Edge with a decent GPU; it isn't playable on phones. On a weaker PC use the low-graphics mode.</p>
   <p><a style="color:#5fe3ff" href="https://ko-fi.com/ghostgamesapp" target="_blank" rel="noopener"><i class="fa-solid fa-mug-hot" aria-hidden="true"></i>&nbsp;Support GhostGames</a></p>
-  <p>Hosted by <a style="color:#5fe3ff" href="https://fiveplay.lol/launcher.html" target="_blank" rel="noopener">fiveplay.lol</a>; GhostGames only embeds the page.</p>
+  <p>Hosted by <a style="color:#5fe3ff" href="https://fiveplay.lol/launcher.html" target="_blank" rel="noopener">fiveplay.lol</a> (backup: <a style="color:#5fe3ff" href="https://v2.fiveplay.lol/launcher.html" target="_blank" rel="noopener">v2.fiveplay.lol</a>); GhostGames only embeds the page.</p>
  </aside>
 <script>
-var SRC='https://fiveplay.lol/launcher.html',Q={normal:'',low:'?low=1',sandbox:'?mode=sandbox'};
-var p=new URLSearchParams(location.search),mode=Q.hasOwnProperty(p.get('mode'))?p.get('mode'):'normal';
+var MAIN='https://fiveplay.lol/launcher.html',BACKUP='https://v2.fiveplay.lol/launcher.html',Q0={normal:'',low:'?low=1',sandbox:'?mode=sandbox'};
+var p=new URLSearchParams(location.search),mode=Q0.hasOwnProperty(p.get('mode'))?p.get('mode'):'normal';
+/* ?src=backup = backup server (v2.fiveplay.lol, a different launcher build: it has its own graphics/mode menus, so no mode query) */
+var bk=p.get('src')==='backup',SRC=bk?BACKUP:MAIN,Q=bk?{normal:'',low:'',sandbox:''}:Q0;
 var fr=document.getElementById('game'),msg=document.getElementById('msg');
-function set(m,push){mode=m;[].forEach.call(document.querySelectorAll('.mbtn'),function(b){b.setAttribute('aria-pressed',b.dataset.mode===m?'true':'false')});
- if(push){var u=location.pathname+(m==='normal'?'':'?mode='+m);history.replaceState(null,'',u)}
+function set(m,push){mode=m;[].forEach.call(document.querySelectorAll('.mbtn'),function(b){b.setAttribute('aria-pressed',!bk&&b.dataset.mode===m?'true':'false')});
+ [].forEach.call(document.querySelectorAll('#srvs .mbtn'),function(b){b.setAttribute('aria-pressed',(b.dataset.src==='backup')===bk?'true':'false')});document.getElementById('bkNote').style.display=bk?'block':'none';
+ if(push){var u=location.pathname+(bk?'?src=backup':(m==='normal'?'':'?mode='+m));history.replaceState(null,'',u)}
  if(!window.crossOriginIsolated){msg.innerHTML='<div><b style="color:#fff">Getting the player ready…</b><br>This game needs an isolated page. If it doesn\'t start in a few seconds, <a style="color:#5fe3ff" href="'+SRC+Q[m]+'" target="_blank" rel="noopener">open it in a new tab</a>.</div>';msg.classList.add('show');setTimeout(function(){if(!window.crossOriginIsolated)fr.src=SRC+Q[m]},4000);return}
  msg.classList.remove('show');fr.src=SRC+Q[m];setTimeout(function(){try{if(!document.getElementById('drawer').classList.contains('open'))fr.focus()}catch(e){}},800)}
-document.querySelector('.modes').addEventListener('click',function(e){var b=e.target.closest('.mbtn');if(b)set(b.dataset.mode,true)});
+document.querySelector('.modes').addEventListener('click',function(e){var b=e.target.closest('.mbtn');if(!b)return;if(bk){bk=false;SRC=MAIN;Q=Q0}set(b.dataset.mode,true)});
+document.getElementById('srvs').addEventListener('click',function(e){var b=e.target.closest('.mbtn');if(!b)return;bk=b.dataset.src==='backup';SRC=bk?BACKUP:MAIN;Q=bk?{normal:'',low:'',sandbox:''}:Q0;if(bk)mode='normal';set(mode,true);closeD()});
 fr.addEventListener('load',function(){try{if(!document.getElementById('drawer').classList.contains('open'))fr.focus()}catch(e){}});
 var dr=document.getElementById('drawer'),ov=document.getElementById('ov'),hb=document.getElementById('helpBtn'),nt=document.getElementById('newTab');
 function upd(){nt.href=SRC+Q[mode]}
