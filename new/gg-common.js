@@ -194,15 +194,13 @@ function discord(){var gh=document.querySelector('.wa:not(.dc)');if(!gh||documen
  a.innerHTML='<svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.009c.12.099.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03ZM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418Zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418Z"/></svg>';
  gh.parentNode.insertBefore(a,gh)}
 
-/* ---- Suggest a game (FormSubmit AJAX, mailto fallback) ---- */
-var FS='https://formsubmit.co/ajax/zanebarker1331@gmail.com',sg=null,sgLast=null;
-/* Discord DM via the GhostGames bot (Supabase Edge Function) first, FormSubmit email copy in parallel; success if either lands */
+/* ---- Suggest a game (Discord DM via the GhostGames bot; Discord server link as fallback) ---- */
+var DISCORD='https://discord.gg/PZnVDsYGsC',sg=null,sgLast=null;
+/* Discord DM via the GhostGames bot (Supabase Edge Function). No email address is shipped in the client. */
 var GGN='https://rswtambjckwmlagydsvf.supabase.co/functions/v1/gg-notify';
-function ggSend(nd,fd){
- var a=fetch(GGN,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(nd)}).then(function(r){return r.json().then(function(j){if(!r.ok||!j||j.ok!==true)throw 0;return j})});
- var b=fetch(FS,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(fd)}).then(function(r){return r.json().then(function(j){if(!r.ok||String(j.success)!=='true')throw 0;return j})});
- return new Promise(function(res,rej){var n=0;function f(){if(++n===2)rej(0)}a.then(res,f);b.then(res,f)})}
-function mailto(d){return 'mailto:zanebarker1331@gmail.com?subject='+encodeURIComponent('GhostGames suggestion')+'&body='+encodeURIComponent('Game: '+(d.name||'')+'\nURL: '+(d.url||'')+'\nNote: '+(d.note||'')+'\nFrom: '+(d.email||''))}
+function ggSend(nd){
+ return fetch(GGN,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(nd)}).then(function(r){return r.json().then(function(j){if(!r.ok||!j||j.ok!==true)throw 0;return j})})}
+function failMsg(){return 'Couldn\'t send right now. <a href="'+DISCORD+'" target="_blank" rel="noopener">Tell us on Discord instead</a>.'}
 function openSuggest(){
  if(!sg){sg=document.createElement('div');sg.className='modal sg';sg.id='suggest';sg.setAttribute('role','dialog');sg.setAttribute('aria-modal','true');sg.setAttribute('aria-labelledby','sgT');
   sg.innerHTML='<form class="sgbox" id="sgForm" novalidate><button type="button" class="mb mclose sgx" id="sgClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button><h2 id="sgT">Suggest a game</h2><p class="sgsub">Know a browser port we should add? Send it over and we\'ll check it out.</p>'+
@@ -223,9 +221,9 @@ function openSuggest(){
    if(bad){bad.focus();$('sgMsg').className='msg';$('sgMsg').textContent='Please fix the highlighted fields.';return}
    var d={name:$('sgName').value.trim(),url:$('sgUrl').value.trim(),note:$('sgNote').value.trim(),email:$('sgEmail').value.trim(),_subject:'GhostGames suggestion',_honey:$('sgHoney').value,_template:'table',_captcha:'false'};
    var btn=$('sgSend');btn.disabled=true;$('sgMsg').className='msg';$('sgMsg').textContent='Sending…';
-   ggSend({type:'suggest',name:d.name,url:d.url,note:d.note,email:d.email,page:location.href,_honey:d._honey},d)
+   ggSend({type:'suggest',name:d.name,url:d.url,note:d.note,email:d.email,page:location.href,_honey:d._honey})
    .then(function(){$('sgMsg').className='msg ok';$('sgMsg').textContent='Thanks! Your suggestion was sent.';$('sgForm').reset()})
-   .catch(function(){$('sgMsg').className='msg';$('sgMsg').innerHTML='Couldn\'t send right now. <a href="'+esc(mailto(d))+'">Email it instead</a>.'})
+   .catch(function(){$('sgMsg').className='msg';$('sgMsg').innerHTML=failMsg()})
    .then(function(){btn.disabled=false});
   });
  }
@@ -289,7 +287,7 @@ function toast(msg){if(!toastEl){toastEl=document.createElement('div');toastEl.c
 function gotdPool(mob){if(mob==null)mob=isMob();return GAMES.filter(function(g){return !g.off&&g.status!=='issues'&&!g.external&&!g.page&&g.id!=='retro-player'&&(!mob||(g.devices||[]).indexOf('mobile')>=0)}).sort(function(a,b){return a.id<b.id?-1:1})}
 function gotd(d){d=d||new Date();var day=Math.floor(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate())/864e5),x=(day*2654435761)>>>0;x^=x>>>15;x=Math.imul(x,2246822519)>>>0;x=(x^(x>>>13))>>>0;var p=gotdPool();return p.length?p[x%p.length]:null}
 
-/* ---- report a broken game (FormSubmit AJAX, same inbox as Suggest a game) ---- */
+/* ---- report a broken game (same Discord DM route as Suggest a game) ---- */
 var rp=null,rpG=null,rpLast=null;
 function devInfo(){var ua=navigator.userAgent,os=/Windows/.test(ua)?'Windows':/Android/.test(ua)?'Android':/iPhone|iPad|iPod/.test(ua)?'iOS':/Mac OS X/.test(ua)?'macOS':/CrOS/.test(ua)?'ChromeOS':/Linux/.test(ua)?'Linux':'Other';
  var br=/Edg\//.test(ua)?'Edge':/OPR\//.test(ua)?'Opera':/Firefox\//.test(ua)?'Firefox':/Chrome\//.test(ua)?'Chrome':/Safari\//.test(ua)?'Safari':'Other';
@@ -310,9 +308,9 @@ function openReport(id){var g=BY[id];if(!g)return;rpG=g;
    var d={_subject:'GhostGames broken game report: '+g.title,game:g.title,game_id:g.id,game_url:absUrl(g.url),page:location.href,browser:di.browser+' on '+di.os,device:di.device,user_agent:di.ua,note:$('rpNote').value.trim()||'(none)',_honey:$('rpHoney').value,_template:'table',_captcha:'false'};
    var btn=$('rpSend');btn.disabled=true;$('rpMsg').className='msg';$('rpMsg').textContent='Sending…';
    var rn=$('rpNote').value.trim().slice(0,800);
-   ggSend({type:'report',name:g.title,game_id:g.id,url:d.game_url,note:(rn||'(no details)')+'\n\n'+d.browser+' · '+d.device,page:d.page,_honey:d._honey},d)
+   ggSend({type:'report',name:g.title,game_id:g.id,url:d.game_url,note:(rn||'(no details)')+'\n\n'+d.browser+' · '+d.device,page:d.page,_honey:d._honey})
    .then(function(){$('rpForm').reset();$('rpMsg').textContent='';close();toast('Thanks! Report sent for '+g.title+'.')})
-   .catch(function(){var mt='mailto:zanebarker1331@gmail.com?subject='+encodeURIComponent(d._subject)+'&body='+encodeURIComponent('Game: '+d.game+' ('+d.game_id+')\nGame URL: '+d.game_url+'\nPage: '+d.page+'\nBrowser: '+d.browser+'\nDevice: '+d.device+'\nNote: '+d.note);$('rpMsg').className='msg';$('rpMsg').innerHTML='Couldn\'t send right now. <a href="'+esc(mt)+'">Email it instead</a>.'})
+   .catch(function(){$('rpMsg').className='msg';$('rpMsg').innerHTML=failMsg()})
    .then(function(){btn.disabled=false})});
  }
  $('rpSub').innerHTML='Tell us what\'s wrong with <b style="color:#fff">'+esc(g.title)+'</b> and we\'ll check it.';$('rpMsg').textContent='';
