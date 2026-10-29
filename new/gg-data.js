@@ -3990,5 +3990,35 @@ window.GG_GAMES=[
 "NFSMW Online has its own Discord: https://discord.gg/Y9cGhuvCFj"
 ],
 "order": 99
+},
+{
+"id": "cyberpunk-2077",
+"external": true,
+"devices": [
+"pc"
+],
+"status": "online",
+"title": "Cyberpunk 2077 (browser port)",
+"category": "Open World",
+"url": "https://cyberpunk2077.lol/game?ioShared=1&ioShar=&ioSharedMB=128&ioInflight=4&ioPersist=1&ioPersistMB=6144&binkRecycle=1&psoWarm=0&skipIntro=1&ioLookahead=16&behindLoad=0&floodKeep=1",
+"icon": "fa-robot",
+"badge": "New",
+"color": "from-yellow-400 to-cyan-950",
+"description": "A WebAssembly port of Cyberpunk 2077 running in the browser: explore Night City in first person, straight from a tab. Needs a strong gaming PC with a powerful GPU (desktop Chrome or Edge) and plenty of free storage: the game caches about 6 GB in your browser so later loads are faster. Opens in a new tab because the engine needs a cross-origin-isolated page.",
+"blurb": "Night City in your browser. Strong PC/GPU and ~6 GB of storage needed.",
+"tags": [
+"Single player",
+"Open World",
+"RPG",
+"Shooter",
+"3D"
+],
+"tips": [
+"Opens cyberpunk2077.lol in a new tab: the engine needs shared memory (cross-origin isolation), which can't run inside another site's frame.",
+"Needs a strong desktop PC with a powerful GPU; desktop Chrome or Edge recommended. Not for phones or low-end laptops.",
+"Make sure you have plenty of free disk space: the game caches about 6 GB of data in your browser. The first load is the slowest; later loads reuse the cache.",
+"Close other tabs and heavy apps before starting to avoid out-of-memory crashes. Keyboard and mouse."
+],
+"order": 100
 }
 ];
