@@ -3968,7 +3968,8 @@ window.GG_GAMES=[
 "pc",
 "mobile"
 ],
-"status": "online",
+"status": "issues",
+"note": "Host very slow or timing out (login page not loading for outside checkers)",
 "title": "Need for Speed: Most Wanted Online",
 "category": "Sports",
 "url": "https://nfsmwonline.com/",
