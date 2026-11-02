@@ -796,6 +796,8 @@ window.GG_GAMES=[
 },
 {
 "id": "unreal-tournament",
+"status": "offline",
+"note": "dos.zone host not responding (connection timed out from several countries)",
 "screenshot": {"src": "screens/unreal-tournament.webp", "w": 960, "h": 539},
 "devices": ["pc"],
 "title": "Unreal Tournament",
