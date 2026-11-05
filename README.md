@@ -76,7 +76,7 @@ Alternate (GitHub Pages): **[ghostfacemodz.github.io/GhostGames/new/](https://gh
 | [Quake II WASM](https://ghostgames.app/ghostgames/game/?id=quake-2) | Battle the Strogg online in real Quake II multiplayer. | In player | 🟢 Online |
 | [Quake III Arena](https://ghostgames.app/ghostgames/game/?id=quake-3) 🎮 | Rocket jumps and railguns: pure arena frag fest, no install. | In player | 🟢 Online |
 | [Return to Castle Wolfenstein](https://ghostgames.app/ghostgames/game/?id=rtcw) | Storm occult Nazi strongholds in classic WW2 team multiplayer. | In player | 🟢 Online |
-| [Unreal Tournament](https://ghostgames.app/ghostgames/game/?id=unreal-tournament) | Facing Worlds, the Redeemer and UT99 frags with online multiplayer. | New tab | 🔴 Down (dos.zone not responding) |
+| [Unreal Tournament](https://ghostgames.app/ghostgames/game/?id=unreal-tournament) | Facing Worlds, the Redeemer and UT99 frags with online multiplayer. | New tab | 🟠 Issues (dos.zone under maintenance) |
 | [Silent Space Marine (Doom WASM)](https://ghostgames.app/ghostgames/game/?id=silent-space-marine) | Cloudflare's WebAssembly Doom port with solo and online play. | In player | 🟢 Online |
 
 ### RPG

@@ -796,8 +796,8 @@ window.GG_GAMES=[
 },
 {
 "id": "unreal-tournament",
-"status": "offline",
-"note": "dos.zone host not responding (connection timed out from several countries)",
+"status": "issues",
+"note": "Host under maintenance (dos.zone technical works page)",
 "screenshot": {"src": "screens/unreal-tournament.webp", "w": 960, "h": 539},
 "devices": ["pc"],
 "title": "Unreal Tournament",
@@ -994,7 +994,7 @@ window.GG_GAMES=[
 "id": "hedgewars",
 "devices": ["pc"],
 "status": "offline",
-"note": "Host broken (TLS certificate mismatch, 400 errors)",
+"note": "Host broken (TLS failure; outside checkers also fail)",
 "title": "Hedgewars (WASM)",
 "category": "Strategy",
 "url": "https://webwars.link/",
@@ -3576,7 +3576,8 @@ window.GG_GAMES=[
 "devices": [
 "pc"
 ],
-"status": "online",
+"status": "issues",
+"note": "Catalogue URL redirects to http://nzp.gay/ (HTTP 500); https://nzp.gay works",
 "title": "Nazi Zombies: Portable",
 "category": "Zombies",
 "url": "https://nzp-team.github.io/",
@@ -3970,8 +3971,7 @@ window.GG_GAMES=[
 "pc",
 "mobile"
 ],
-"status": "issues",
-"note": "Host very slow or timing out (login page not loading for outside checkers)",
+"status": "online",
 "title": "Need for Speed: Most Wanted Online",
 "category": "Sports",
 "url": "https://nfsmwonline.com/",
