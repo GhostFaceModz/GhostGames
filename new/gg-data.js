@@ -4000,7 +4000,8 @@ window.GG_GAMES=[
 "devices": [
 "pc"
 ],
-"status": "online",
+"status": "offline",
+"note": "Site taken down (root page says so; /game returns 404)",
 "title": "Cyberpunk 2077 (browser port)",
 "category": "Open World",
 "url": "https://cyberpunk2077.lol/game?ioShared=1&ioShar=&ioSharedMB=128&ioInflight=4&ioPersist=1&ioPersistMB=6144&binkRecycle=1&psoWarm=0&skipIntro=1&ioLookahead=16&behindLoad=0&floodKeep=1",
