@@ -796,8 +796,6 @@ window.GG_GAMES=[
 },
 {
 "id": "unreal-tournament",
-"status": "issues",
-"note": "Host under maintenance (dos.zone technical works page)",
 "screenshot": {"src": "screens/unreal-tournament.webp", "w": 960, "h": 539},
 "devices": ["pc"],
 "title": "Unreal Tournament",
@@ -4001,7 +3999,7 @@ window.GG_GAMES=[
 "pc"
 ],
 "status": "offline",
-"note": "Site taken down (root page says so; /game returns 404)",
+"note": "Site down (Vercel deployment disabled; root and /game return 402)",
 "title": "Cyberpunk 2077 (browser port)",
 "category": "Open World",
 "url": "https://cyberpunk2077.lol/game?ioShared=1&ioShar=&ioSharedMB=128&ioInflight=4&ioPersist=1&ioPersistMB=6144&binkRecycle=1&psoWarm=0&skipIntro=1&ioLookahead=16&behindLoad=0&floodKeep=1",
