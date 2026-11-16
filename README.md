@@ -119,9 +119,9 @@ Alternate (GitHub Pages): **[ghostfacemodz.github.io/GhostGames/new/](https://gh
 ### Co-op
 | Game | About | How it runs | Status |
 |---|---|---|---|
-| [PEAK (web port)](https://ghostgames.app/ghostgames/game/?id=peak) | Climb a deadly island mountain, solo or with friends. | In player | 🔴 Down |
-| [How to Fish](https://ghostgames.app/ghostgames/game/?id=how-to-fish) | Take the boat out and reel in fish, alone or with friends. | In player | 🔴 Down |
-| [Among Us Web](https://ghostgames.app/ghostgames/game/?id=among-us) 📱 | Complete tasks or sabotage as the impostor — Among Us in your browser. | In player | 🔴 Down |
+| [PEAK (web port)](https://ghostgames.app/ghostgames/game/?id=peak) | Climb a deadly island mountain, solo or with friends. | In player | 🟢 Online |
+| [How to Fish](https://ghostgames.app/ghostgames/game/?id=how-to-fish) | Take the boat out and reel in fish, alone or with friends. | In player | 🟠 Issues (game files missing) |
+| [Among Us Web](https://ghostgames.app/ghostgames/game/?id=among-us) 📱 | Complete tasks or sabotage as the impostor — Among Us in your browser. | In player | 🟢 Online |
 
 🎮 = controller supported · 📱 = plays on mobile
 
