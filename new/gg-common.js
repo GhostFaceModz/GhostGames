@@ -187,6 +187,21 @@ function openGame(g){
 }
 function closeGame(){if(!modal||!modal.classList.contains('open'))return;fsExit();clearTimeout(barT);modal.classList.remove('full','barshow','isfs');clearTimeout(fbT);hideChip();$('mHelpP').classList.remove('open');closeNtp();if(frame){frame.remove();frame=null}if(cropS){cropS.clip.remove();cropS=null}if($('mHint'))$('mHint').style.opacity=0;modal.classList.remove('open');document.documentElement.style.overflow='';cur=null;if(lastFocus&&lastFocus.focus)lastFocus.focus()}
 
+/* ---- GhostChat widget (bottom right). Discord/GitHub stay in the footer/menu, not as floating circles. ---- */
+(function(){var s=document.createElement('style');s.textContent='a.wa,.wa{display:none!important}';(document.head||document.documentElement).appendChild(s)})();
+var GHOSTCHAT_SITE_KEY='gc_mzRx93ycY5BLvcAQ5vkEjLfG';
+function hideFloatButtons(){document.querySelectorAll('a.wa,.wa').forEach(function(e){e.remove()})}
+function injectGhostChat(){
+  if(document.querySelector('script[data-ghostchat-widget]'))return;
+  var s=document.createElement('script');
+  s.src='https://ghostchat.pro/widget.js';
+  s.async=true;
+  s.dataset.id=GHOSTCHAT_SITE_KEY;
+  s.dataset.delay='0';
+  s.setAttribute('data-ghostchat-widget','1');
+  (document.body||document.documentElement).appendChild(s);
+}
+function bootGhostChat(){hideFloatButtons();injectGhostChat()}
 /* ---- Discord floating button (stacked above the GitHub one) ---- */
 var DISCORD='https://discord.gg/PZnVDsYGsC';
 function syncPulse(){var b=document.querySelectorAll('.wa');b.forEach(function(e){e.classList.add('nosync')});void document.body.offsetWidth;b.forEach(function(e){e.classList.remove('nosync')})}
@@ -329,8 +344,7 @@ window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();def
  w.querySelector('.ggix').addEventListener('click',function(){set('gg:noinstall',1);w.remove()})});
 window.addEventListener('appinstalled',function(){var w=document.getElementById('ggInst');if(w)w.remove();toast('GhostGames installed.')});
 
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){discord();syncPulse()});else discord();
-(window.requestAnimationFrame||setTimeout)(syncPulse);
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bootGhostChat);else bootGhostChat();
 
 /* ---- in-place game search overlay (shared) ---- */
 var sRoot=null,sInput=null,sList=null,sHint=null,sRows=[],sIdx=-1,sPrevFocus=null,sOpen=false;

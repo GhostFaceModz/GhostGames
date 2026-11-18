@@ -232,3 +232,6 @@ html{scroll-behavior:auto}
 /* gg-perf: no horizontal overflow at 360-414px (tools bar bled 12px past the 16px gutter); reserve grid space so the footer doesn't jump in */
 @media (max-width:700px){.tools{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}}
 #grid:empty,#main:empty{min-height:110vh}
+
+/* Discord/GitHub footer links stay; the floating circles give this corner to GhostChat. */
+a.wa,.wa{display:none!important}
