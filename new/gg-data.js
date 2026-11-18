@@ -992,7 +992,7 @@ window.GG_GAMES=[
 "id": "hedgewars",
 "devices": ["pc"],
 "status": "offline",
-"note": "Host broken (TLS failure; outside checkers also fail)",
+"note": "Host broken (wrong TLS certificate; domain now points to an unrelated site)",
 "title": "Hedgewars (WASM)",
 "category": "Strategy",
 "url": "https://webwars.link/",
@@ -2524,7 +2524,8 @@ window.GG_GAMES=[
   ,{
 "id": "cs-16",
 "devices": ["pc", "mobile"],
-"status": "online",
+"status": "issues",
+"note": "Creator announced a shutdown (landing page is a farewell with no play link)",
 "title": "Counter-Strike 1.6 (CSJS)",
 "category": "FPS",
 "url": "https://csjs.live/",
