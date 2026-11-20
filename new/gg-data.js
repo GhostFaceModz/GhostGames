@@ -2171,6 +2171,8 @@ window.GG_GAMES=[
 "id": "super-mario-zombies",
 "newTabPrompt": true,
 "devices": ["pc"],
+"status": "offline",
+"note": "smz.fun redirects to OpenGame, which says the game is no longer published",
 "title": "Super Mario Zombies",
 "category": "Zombies",
 "url": "https://smz.fun/",
