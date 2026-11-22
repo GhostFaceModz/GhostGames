@@ -35,7 +35,7 @@ Alternate (GitHub Pages): **[ghostfacemodz.github.io/GhostGames/new/](https://gh
 | [Call of Duty: Moon](https://ghostgames.app/ghostgames/game/?id=moon-zombies) | Hold the lunar base against endless hordes in low gravity. | In player | 🔴 Down |
 | [Kino der Toten](https://ghostgames.app/ghostgames/game/?id=kino-der-toten) | Survive the iconic theater of the dead, solo or with friends. | In player | 🔴 Down |
 | [BO3 Cheese Cube Unlimited](https://ghostgames.app/ghostgames/game/?id=bo3-cheese-cube) | The cult-favorite custom Zombies map, running right in your tab. | In player | 🔴 Down |
-| [Super Mario Zombies](https://ghostgames.app/ghostgames/game/?id=super-mario-zombies) | Mario takes on ten classic Black Ops Zombies maps, right in your tab. | In player | 🔴 Down |
+| [Super Mario Zombies](https://ghostgames.app/ghostgames/game/?id=super-mario-zombies) | Mario takes on ten classic Black Ops Zombies maps, right in your tab. | In player | 🟢 Online |
 
 ### FPS
 | Game | About | How it runs | Status |
