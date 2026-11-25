@@ -2227,6 +2227,8 @@ window.GG_GAMES=[
 "id": "peak",
 "screenshot": {"src": "screens/peak.webp", "w": 674, "h": 447},
 "devices": ["pc"],
+"status": "issues",
+"note": "Game page loads, but game files are missing (Peak-Port repo is gone; CDN assets 404)",
 "title": "PEAK (web port)",
 "category": "Co-op",
 "url": "https://wasm.rip/files/peak/PEAK.html",
@@ -2327,6 +2329,8 @@ window.GG_GAMES=[
   ,{
 "id": "among-us",
 "devices": ["pc"],
+"status": "issues",
+"note": "Game page loads, but game files are missing (AmongUsPort repo is gone; CDN assets 404)",
 "title": "Among Us Web",
 "category": "Co-op",
 "url": "https://wasm.rip/files/amongus/latest/",
